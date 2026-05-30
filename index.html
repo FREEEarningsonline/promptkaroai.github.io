@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -1292,8 +1293,7 @@
         window.openCommunityDialog = openCommunityDialog;
     </script>
 
-    <!-- GO TO NEXT STEP: PLEASE REPLY WITH "Part 2" TO INJECT FIREBASE MODULE SCRIPT -->
-<!-- ========================================== -->
+    <!-- ========================================== -->
     <!-- PART 2: MODULAR ASYNC BACKEND FIREBASE CODE -->
     <!-- ========================================== -->
     <script type="module">
@@ -1316,6 +1316,164 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
+
+        // --- NEWLY ADDED CODE TO FIX ALL FORM REDIRECT ISSUES ---
+
+        // 1. Auth Form Listener (Fixes the Login/Register Redirect Bug)
+        const authFormEl = document.getElementById('authForm');
+        if (authFormEl) {
+            authFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevents page redirect/reload
+                const email = document.getElementById('authEmail').value.trim();
+                const password = document.getElementById('authPassword').value;
+                const btn = document.getElementById('authSubmitBtn');
+                const originalText = btn.innerText;
+
+                btn.disabled = true;
+                btn.innerText = "Please wait...";
+
+                try {
+                    if (window.appState.isLoginMode) {
+                        await signInWithEmailAndPassword(auth, email, password);
+                        alert("Logged in successfully!");
+                    } else {
+                        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                        await set(ref(db, `users/${userCred.user.uid}`), {
+                            email: email,
+                            coins: 0,
+                            createdAt: Date.now()
+                        });
+                        alert("Account created successfully!");
+                    }
+                    window.closeAuthModal();
+                    authFormEl.reset();
+                } catch (error) {
+                    alert("Authentication Failed: " + error.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            });
+        }
+
+        // 2. Buy Coins Form Listener (Prevents page reload when buying coins)
+        const purchaseFormEl = document.getElementById('purchaseCoinsForm');
+        if (purchaseFormEl) {
+            purchaseFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevents page reload
+                if (!window.appState.currentUser) {
+                    alert("Please log in first!");
+                    window.openAuthModal('login');
+                    return;
+                }
+                const pkrAmount = parseFloat(document.getElementById('pkrAmount').value) || 0;
+                const tid = document.getElementById('pTransactionID').value.trim();
+                const senderInfo = document.getElementById('pSenderInfo').value.trim();
+
+                if (pkrAmount <= 0 || !tid || !senderInfo) {
+                    alert("Please fill all fields properly.");
+                    return;
+                }
+
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = "Submitting...";
+
+                try {
+                    const txRef = push(ref(db, 'transactions'));
+                    await set(txRef, {
+                        userId: window.appState.currentUser.uid,
+                        userEmail: window.appState.currentUser.email,
+                        amountPKR: pkrAmount,
+                        amountCoins: pkrAmount * 10000,
+                        tid: tid,
+                        senderInfo: senderInfo,
+                        paymentStatus: 'pending',
+                        timestamp: Date.now()
+                    });
+                    alert("Deposit request submitted successfully! Waiting for approval.");
+                    e.target.reset();
+                    document.getElementById('coinsResult').innerText = "0";
+                } catch (err) {
+                    alert("Submission failed: " + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            });
+        }
+
+        // 3. Request Prompt Form Listener (Prevents page reload when requesting a prompt)
+        const requestFormEl = document.getElementById('requestForm');
+        if (requestFormEl) {
+            requestFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevents page reload
+                const email = document.getElementById('reqEmail').value.trim();
+                const desc = document.getElementById('reqDesc').value.trim();
+                
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = "Sending...";
+
+                try {
+                    await push(ref(db, 'promptRequests'), { email, description: desc, timestamp: Date.now() });
+                    alert("Request sent successfully!");
+                    e.target.reset();
+                    window.closeRequestModal();
+                } catch (err) {
+                    alert("Failed: " + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            });
+        }
+
+        // 4. Admin Save Prompt Form Listener (Prevents page reload in Admin Panel)
+        const promptFormEl = document.getElementById('promptForm');
+        if (promptFormEl) {
+            promptFormEl.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevents page reload
+                const editId = document.getElementById('editPromptId').value;
+                const payload = {
+                    title: document.getElementById('pTitle').value.trim(),
+                    tags: document.getElementById('pCategory').value,
+                    imageURL: document.getElementById('pImageURL').value.trim(),
+                    views: parseInt(document.getElementById('pInitialViews').value) || 0,
+                    description: document.getElementById('pDescription').value.trim(),
+                    type: document.getElementById('pType').value,
+                    priceCoins: document.getElementById('pType').value === 'paid' ? (parseInt(document.getElementById('pPrice').value) || 0) : 0,
+                    isTrending: document.getElementById('pTrending').checked,
+                    isPinned: document.getElementById('pPinned').checked,
+                    timestamp: Date.now()
+                };
+
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = "Saving...";
+
+                try {
+                    if (editId) {
+                        await update(ref(db, `prompts/${editId}`), payload);
+                        alert("Prompt updated successfully.");
+                    } else {
+                        await push(ref(db, 'prompts'), payload);
+                        alert("New Prompt added successfully!");
+                    }
+                    window.resetForm();
+                    window.switchTab('home');
+                } catch (err) {
+                    alert("Failed to save prompt: " + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            });
+        }
+        // --- END OF FORM LISTENERS FIX ---
 
         // Coins Formatting Utility
         function formatCoins(num) {
