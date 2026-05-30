@@ -14,7 +14,7 @@
 
     <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://freeearningsonline.github.io/Ai-Prompt-/">
+    <meta property="og:url" content="https://freeearningsonline.github.io/">
     <meta property="og:title" content="PromptKaro - Free AI Prompt Sharing Platform">
     <meta property="og:description" content="Vast library of optimized copy-paste prompts for high converting AI art and assistant chat designs.">
     <meta property="og:image" content="https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/logo.png">
@@ -91,7 +91,7 @@
     <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <!-- Logo -->
-            <a href="#" onclick="window.switchTab('home')" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
                 <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
                 <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
             </a>
@@ -116,16 +116,18 @@
                     <i class="fa-solid fa-wallet text-amber-500"></i> 
                     <span>Wallet</span>
                 </button>
-                <button onclick="window.openInfoModal('contact')" class="hover:text-brand-500 transition">Contact</button>
+                
+                <!-- Updated Contact Link pointing to the new page -->
+                <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact</a>
 
                 <!-- Day/Night Toggle Button -->
                 <button type="button" onclick="window.toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
                     <i id="themeIcon" class="fa-solid fa-moon"></i>
                 </button>
 
-                <!-- Admin Panel Button -->
+                <!-- Admin Panel Button (points to admin.html) -->
                 <span id="adminBtnContainer" class="hidden">
-                    <button onclick="window.switchTab('admin')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
+                    <button onclick="window.location.href='/admin.html'" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
                 </span>
 
                 <!-- Auth Options -->
@@ -181,12 +183,14 @@
                 <span class="admin-chat-badge hidden absolute -top-1 -right-4 bg-red-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center">1</span>
             </button>
             <button onclick="window.switchTab('wallet'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
-            <button onclick="window.openInfoModal('about'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</button>
-            <button onclick="window.openInfoModal('contact'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</button>
-            <button onclick="window.openInfoModal('dmca'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</button>
+            
+            <!-- Updated Links for Legal/Info Pages -->
+            <a href="/about-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</a>
+            <a href="/contact-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</a>
+            <a href="/dmca.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</a>
             
             <span id="mobileAdminBtn" class="hidden border-t border-slate-200 dark:border-slate-800 pt-3">
-                <button onclick="window.switchTab('admin'); window.toggleMobileMenu();" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
+                <button onclick="window.location.href='/admin.html'" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
             </span>
         </div>
     </div>
@@ -373,278 +377,17 @@
             </div>
         </section>
 
-        <!-- Section: Dynamic Admin View -->
+        <!-- Section: Dynamic Admin View (Maintained HTML structure here just in case, actual panel is admin.html) -->
         <section id="adminView" class="hidden space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
                     <h1 class="text-2xl font-bold text-red-500">Admin Console</h1>
-                    <p class="text-xs text-slate-400">Manage database prompts, custom categories, and verify user payments</p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="window.toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
-                    <button onclick="window.toggleAdminTab('blogs')" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Blogs</button>
-                    <button onclick="window.toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
-                    <button onclick="window.toggleAdminTab('community')" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Community Chat</button>
-                    <button onclick="window.toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
-                    <button onclick="window.toggleAdminTab('adsConfig')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Ads</button>
-                    <button onclick="window.toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
-                </div>
-            </div>
-
-            <!-- Create / Update Prompt Form -->
-            <div id="adminAddPromptTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
-                <h3 class="text-lg font-bold mb-4">Create or Update Prompt</h3>
-                <form id="promptForm" class="space-y-4">
-                    <input type="hidden" id="editPromptId">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Title</label>
-                            <input type="text" id="pTitle" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Category / Tag</label>
-                            <select id="pCategory" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                                <!-- Dynamic Options -->
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/ folder)</label>
-                            <div class="space-y-1">
-                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                                <datalist id="githubImagesList"></datalist>
-                                <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Starting / Initial Views count (Works on Free + Paid)</label>
-                            <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Prompt Text / Description</label>
-                        <textarea id="pDescription" rows="4" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium"></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Type</label>
-                            <select id="pType" onchange="window.togglePriceField()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                                <option value="free">Free</option>
-                                <option value="paid">Paid</option>
-                            </select>
-                        </div>
-                        <div id="priceFieldContainer" class="hidden">
-                            <label class="block text-xs text-slate-400 mb-1">Coins Price</label>
-                            <input type="number" id="pPrice" value="0" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
-                        </div>
-                        <div class="flex items-center gap-4 mt-6">
-                            <label class="flex items-center gap-2 cursor-pointer text-sm">
-                                <input type="checkbox" id="pTrending" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
-                                <span class="text-slate-600 dark:text-slate-300">Trending</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer text-sm">
-                                <input type="checkbox" id="pPinned" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
-                                <span class="text-slate-600 dark:text-slate-300">Pinned</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2 font-medium">
-                        <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm">Save Prompt</button>
-                        <button type="button" onclick="window.resetForm()" class="bg-slate-200 dark:bg-slate-850 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition shadow-sm">Reset Form</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Create / Update Blog Form Tab -->
-            <div id="adminBlogsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden space-y-6">
-                <h3 class="text-lg font-bold">Publish & Manage Blogs</h3>
-                <form id="blogForm" class="space-y-4">
-                    <input type="hidden" id="editBlogId">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Blog Title</label>
-                            <input type="text" id="bTitle" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Category</label>
-                            <select id="bCategory" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                                <!-- Dynamic Blog Categories -->
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">SEO Keywords (comma separated)</label>
-                            <input type="text" id="bKeywords" placeholder="AI, Midjourney, Tips" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Top Image Filename (from GitHub /images/ folder)</label>
-                            <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., top_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Center Image Filename (Optional)</label>
-                            <input type="text" id="bCenterImageURL" list="githubImagesList" placeholder="e.g., middle_img.jpg" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Short Excerpt / Intro (1-2 sentences for Meta Description)</label>
-                        <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content (Use # for Heading, ## Sub Heading, or raw HTML)</label>
-                        <textarea id="bContent" rows="10" placeholder="Type here... Use # for H2, ## for H3, ### for H4 to make it SEO friendly." required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
-                    </div>
-                    <div class="flex gap-2">
-                        <button type="submit" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
-                        <button type="button" onclick="window.resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
-                    </div>
-                </form>
-
-                <!-- Active Blogs Table list -->
-                <div class="border-t border-slate-200 dark:border-slate-800 pt-6">
-                    <h4 class="text-sm font-bold mb-4 text-slate-900 dark:text-white">Active Published Articles</h4>
-                    <div class="overflow-x-auto text-xs">
-                        <table class="w-full text-left text-slate-600 dark:text-slate-350">
-                            <thead class="bg-slate-100 dark:bg-slate-955 text-slate-400 uppercase text-[10px]">
-                                <tr>
-                                    <th class="px-4 py-3">Title</th>
-                                    <th class="px-4 py-3">Category</th>
-                                    <th class="px-4 py-3">Published Date</th>
-                                    <th class="px-4 py-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminBlogsListTable">
-                                <tr>
-                                    <td colspan="4" class="text-center py-4 text-slate-500">No blog posts found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manage Dynamic Categories Console -->
-            <div id="adminCategoriesTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
-                
-                <!-- Prompt Categories -->
-                <h3 class="text-lg font-bold mb-2">Manage Prompt Categories</h3>
-                <p class="text-xs text-slate-400 mb-4">Add or delete filters that appear in prompt navigation.</p>
-                
-                <div class="flex gap-2 max-w-md mb-6 font-medium">
-                    <input type="text" id="newCategoryInput" placeholder="e.g. Couples, Islamic, Festival" class="flex-1 bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                    <button onclick="window.addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Add Category</button>
-                </div>
-
-                <div class="border-t border-slate-200 dark:border-slate-800 pt-4 mb-8">
-                    <h4 class="text-xs font-bold uppercase text-slate-400 mb-3">Active Prompt Categories</h4>
-                    <div id="adminCategoryList" class="flex flex-wrap gap-2 text-xs">
-                        <!-- Categories dynamically listed here -->
-                    </div>
-                </div>
-
-                <!-- Blog Categories -->
-                <h3 class="text-lg font-bold mb-2 pt-6 border-t border-slate-200 dark:border-slate-800">Manage Blog Categories</h3>
-                <p class="text-xs text-slate-400 mb-4">Add or delete filters that appear in blog navigation.</p>
-                
-                <div class="flex gap-2 max-w-md mb-6 font-medium">
-                    <input type="text" id="newBlogCategoryInput" placeholder="e.g. AI Tips, News, Updates" class="flex-1 bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                    <button onclick="window.addBlogCategory()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Add Category</button>
-                </div>
-
-                <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-                    <h4 class="text-xs font-bold uppercase text-slate-400 mb-3">Active Blog Categories</h4>
-                    <div id="adminBlogCategoryList" class="flex flex-wrap gap-2 text-xs">
-                        <!-- Blog Categories dynamically listed here -->
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Manage Admin Community Chat -->
-            <div id="adminCommunityTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
-                <h3 class="text-lg font-bold mb-2">Global Community Announcements</h3>
-                <p class="text-xs text-slate-400 mb-4">Send a push message to the global chat. It will be highlighted to all users.</p>
-                
-                <div class="space-y-4 max-w-lg font-medium">
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Announcement Message</label>
-                        <textarea id="adminAnnouncementInput" rows="3" placeholder="Type an official notification for all users..." class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
-                    </div>
-                    <button onclick="window.sendAdminAnnouncement()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm flex items-center gap-2">
-                        <i class="fa-solid fa-bullhorn"></i> Send Global Announcement
-                    </button>
-                </div>
-            </div>
-
-            <!-- Manage Admin Settings & API Config -->
-            <div id="adminAiConfigTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
-                <h3 class="text-lg font-bold mb-2">Secure AI Configuration</h3>
-                <p class="text-xs text-slate-400 mb-4">Set your own custom backend API Key. Users will not see this key; it is handled securely inside database variables.</p>
-                
-                <div class="space-y-4 max-w-md font-medium">
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">PromptKaro API Engine Key</label>
-                        <input type="password" id="adminApiKeyInput" placeholder="Enter secure engine API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                    </div>
-                    <button onclick="window.saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Save Key Configurations</button>
-                </div>
-            </div>
-
-            <!-- Manage AdSense Ad Placements -->
-            <div id="adminAdsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
-                <h3 class="text-lg font-bold mb-2">AdSense Configuration</h3>
-                <p class="text-xs text-slate-400 mb-4">Paste your Google AdSense block codes here to display them automatically in Blog Posts.</p>
-                
-                <div class="space-y-4 font-medium">
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Top Display Ad (Top of Blog Post)</label>
-                        <textarea id="adDisplayTop" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Center Article Ad (Middle of Blog Post)</label>
-                        <textarea id="adArticleCenter" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Multiplex / Multiple Ad (End of Article Content)</label>
-                        <textarea id="adMultiplexBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Display Ad (Absolute Bottom)</label>
-                        <textarea id="adDisplayBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
-                    </div>
-                    <button onclick="window.saveAdsConfig()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm">Save Ads Configuration</button>
-                </div>
-            </div>
-
-            <!-- Verify Payments Screen -->
-            <div id="adminPaymentsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden">
-                <h3 class="text-lg font-bold mb-4">Pending Wallet Submissions</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-700 dark:text-slate-300">
-                        <thead class="bg-slate-100 dark:bg-slate-955 text-xs text-slate-500 uppercase">
-                            <tr>
-                                <th class="px-4 py-3">User Email</th>
-                                <th class="px-4 py-3">TID</th>
-                                <th class="px-4 py-3">Sender Details</th>
-                                <th class="px-4 py-3">Amount (Coins)</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminPaymentsList">
-                            <tr>
-                                <td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p class="text-xs text-slate-400">Please visit <a href="/admin.html" class="underline">admin.html</a> to access the full admin panel.</p>
                 </div>
             </div>
         </section>
 
-        <!-- HOME PAGE RECENT BLOG SLIDER (Moved here as requested, just above the SEO Guide) -->
+        <!-- HOME PAGE RECENT BLOG SLIDER -->
         <section id="homeBlogSliderSection" class="mt-12 space-y-4 transition-colors duration-300">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white">Latest AI Guides & News</h2>
@@ -656,7 +399,7 @@
             </div>
         </section>
 
-        <!-- SEO ARTICLE & FAQ SECTION (Moved to the absolute bottom just above footer) -->
+        <!-- SEO ARTICLE & FAQ SECTION -->
         <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 transition-colors duration-300">
             <h2 class="text-lg font-bold text-slate-955 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-3">Complete Guide: How to Use AI Prompts Successfully</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 dark:text-slate-455 leading-relaxed font-semibold">
@@ -687,12 +430,13 @@
                 <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
                 <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
             </div>
+            <!-- UPDATED LINKS FOR SEPARATE PAGES -->
             <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
-                <a href="#" onclick="event.preventDefault(); window.openInfoModal('about');" class="hover:text-brand-500 transition">About Us</a>
-                <a href="#" onclick="event.preventDefault(); window.openInfoModal('contact');" class="hover:text-brand-500 transition">Contact Us</a>
-                <a href="#" onclick="event.preventDefault(); window.openInfoModal('dmca');" class="hover:text-brand-500 transition">DMCA Policy</a>
-                <a href="freeearningsonline.github.io/privacy-policy.html" onclick="event.preventDefault(); window.openInfoModal('https://freeearningsonline.github.io/privacy-policy.html');" class="hover:text-brand-500 transition">Privacy Policy</a>
-                <a href="#" onclick="event.preventDefault(); window.openInfoModal('terms');" class="hover:text-brand-500 transition">Terms of Service</a>
+                <a href="/about-us.html" class="hover:text-brand-500 transition">About Us</a>
+                <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact Us</a>
+                <a href="/dmca.html" class="hover:text-brand-500 transition">DMCA Policy</a>
+                <a href="/privacy-policy.html" class="hover:text-brand-500 transition">Privacy Policy</a>
+                <a href="/terms-conditions.html" class="hover:text-brand-500 transition">Terms of Service</a>
             </div>
         </div>
     </footer>
@@ -749,6 +493,7 @@
             <!-- Messages Container -->
             <div id="chatMessagesArea" class="flex-1 overflow-y-auto p-4 space-y-3 z-10 relative scroll-smooth flex flex-col">
                 <div class="text-center my-4"><span class="bg-amber-100 text-amber-800 text-[10px] px-3 py-1 rounded-lg shadow-sm font-bold">Welcome to PromptKaro Global Chat! Note: Be respectful.</span></div>
+                <!-- Dynamic Chat Bubbles Here -->
             </div>
 
             <!-- Input Area -->
@@ -953,7 +698,7 @@
         </div>
     </div>
 
-    <!-- MODAL: General Info -->
+    <!-- MODAL: General Info (Kept intact just in case, but links now go to actual pages) -->
     <div id="infoModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
             <button onclick="window.closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
@@ -966,6 +711,7 @@
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC LINK -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
