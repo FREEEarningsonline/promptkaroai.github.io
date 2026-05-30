@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -13,11 +12,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://freeearningsonline.github.io/Ai-Prompt-/">
 
-    <!-- GOOGLE ADSENSE VERIFICATION CODE PLACEHOLDER -->
-    <!-- (Jab aap ko AdSense code mile, toh use is line ke niche paste karein) -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
-
-    <!-- OPEN GRAPH / SOCIAL PREVIEWS (WhatsApp, Facebook, Twitter) -->
+    <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://freeearningsonline.github.io/Ai-Prompt-/">
     <meta property="og:title" content="PromptKaro - Free AI Prompt Sharing Platform">
@@ -30,7 +25,7 @@
     <meta property="twitter:description" content="Vast library of optimized copy-paste prompts for high converting AI art and assistant chat designs.">
     <meta property="twitter:image" content="https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/logo.png">
 
-    <!-- JSON-LD SCHEMA MARKUP (For Google Search Engine Recognition) -->
+    <!-- JSON-LD SCHEMA MARKUP -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -96,57 +91,57 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300 font-medium">
 
     <!-- DESKTOP TOP NAVBAR -->
     <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <!-- Logo -->
-            <a href="#" onclick="switchTab('home')" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
+            <a href="#" onclick="window.switchTab('home')" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
                 <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
-                <span>Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+                <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
             </a>
 
             <!-- Search Bar (Desktop) -->
             <div class="hidden md:flex flex-1 max-w-md relative">
-                <input type="text" id="desktopSearch" placeholder="Search prompts..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
+                <input type="text" id="desktopSearch" placeholder="Search prompts..." class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 dark:text-slate-500"></i>
             </div>
 
             <!-- Menu Links (Desktop) -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-                <button onclick="switchTab('home')" class="hover:text-brand-500 transition">Home</button>
-                <button onclick="switchTab('blog')" class="hover:text-brand-500 transition">Blog</button>
-                <button onclick="openRequestModal()" class="hover:text-brand-500 transition">Request Prompt</button>
-                <button onclick="switchTab('discover')" class="hover:text-brand-500 transition">Discover</button>
-                <button onclick="switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
+                <button onclick="window.switchTab('home')" class="hover:text-brand-500 transition">Home</button>
+                <button onclick="window.switchTab('blog')" class="hover:text-brand-500 transition">Blog</button>
+                <button onclick="window.openRequestModal()" class="hover:text-brand-500 transition">Request Prompt</button>
+                <button onclick="window.switchTab('discover')" class="hover:text-brand-500 transition">Discover</button>
+                <button onclick="window.switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
                     <i class="fa-solid fa-wallet text-amber-500"></i> 
                     <span>Wallet</span>
                 </button>
-                <button onclick="openInfoModal('contact')" class="hover:text-brand-500 transition">Contact</button>
+                <button onclick="window.openInfoModal('contact')" class="hover:text-brand-500 transition">Contact</button>
 
                 <!-- Day/Night Toggle Button -->
-                <button type="button" onclick="toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
+                <button type="button" onclick="window.toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
                     <i id="themeIcon" class="fa-solid fa-moon"></i>
                 </button>
 
                 <!-- Admin Panel Button -->
                 <span id="adminBtnContainer" class="hidden">
-                    <button onclick="switchTab('admin')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
+                    <button onclick="window.switchTab('admin')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
                 </span>
 
                 <!-- Auth Options -->
                 <div class="flex items-center gap-2">
-                    <button onclick="openAuthModal('login')" class="auth-logged-out hover:text-brand-500 transition">Login</button>
-                    <button onclick="openAuthModal('signup')" class="auth-logged-out bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-1.5 rounded-full text-xs transition">Join Free</button>
+                    <button onclick="window.openAuthModal('login')" class="auth-logged-out hover:text-brand-500 transition">Login</button>
+                    <button onclick="window.openAuthModal('signup')" class="auth-logged-out bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-1.5 rounded-full text-xs transition font-semibold">Join Free</button>
 
                     <span id="userEmailDisplay" class="auth-logged-in hidden text-xs text-slate-500 dark:text-slate-400 font-mono"></span>
-                    <button onclick="logout()" class="auth-logged-in hidden bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold transition">Logout</button>
+                    <button onclick="window.logout()" class="auth-logged-in hidden bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold transition">Logout</button>
                 </div>
             </nav>
 
             <!-- Hamburger Button (Mobile Only) -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl p-1 text-slate-500 dark:text-slate-400 hover:text-brand-500">
+            <button onclick="window.toggleMobileMenu()" class="md:hidden text-2xl p-1 text-slate-500 dark:text-slate-400 hover:text-brand-500">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
@@ -157,15 +152,15 @@
         <div class="flex justify-between items-center mb-8">
             <span class="text-lg font-bold text-brand-500">Menu</span>
             <div class="flex items-center gap-4">
-                <button type="button" onclick="toggleTheme()" class="text-lg text-amber-500 dark:text-amber-400"><i id="mobileThemeIcon" class="fa-solid fa-sun"></i></button>
-                <button onclick="toggleMobileMenu()" class="text-2xl text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="window.toggleTheme()" class="text-lg text-amber-500 dark:text-amber-400"><i id="mobileThemeIcon" class="fa-solid fa-sun"></i></button>
+                <button onclick="window.toggleMobileMenu()" class="text-2xl text-slate-400"><i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>
         <div class="flex flex-col gap-5 text-base font-semibold">
             <!-- Join Free / Login Options -->
             <div class="auth-logged-out flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
-                <button onclick="openAuthModal('signup'); toggleMobileMenu();" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm text-center transition">Join Free</button>
-                <button onclick="openAuthModal('login'); toggleMobileMenu();" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-2.5 rounded-lg text-sm text-center transition">Login</button>
+                <button onclick="window.openAuthModal('signup'); window.toggleMobileMenu();" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm text-center transition">Join Free</button>
+                <button onclick="window.openAuthModal('login'); window.toggleMobileMenu();" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-2.5 rounded-lg text-sm text-center transition">Login</button>
             </div>
 
             <!-- Profile Info (Logged In) -->
@@ -176,20 +171,20 @@
                         <i class="fa-solid fa-wallet"></i> <span id="mobileMenuCoinDisplay">0</span>
                     </span>
                 </div>
-                <button onclick="logout(); toggleMobileMenu();" class="w-full bg-slate-200 dark:bg-slate-800 py-2 rounded-lg text-sm transition">Logout</button>
+                <button onclick="window.logout(); window.toggleMobileMenu();" class="w-full bg-slate-200 dark:bg-slate-800 py-2 rounded-lg text-sm transition">Logout</button>
             </div>
 
-            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
-            <button onclick="switchTab('blog'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
-            <button onclick="openRequestModal(); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
-            <button onclick="switchTab('discover'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-compass text-slate-400"></i> Discover</button>
-            <button onclick="switchTab('wallet'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
-            <button onclick="openInfoModal('about'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</button>
-            <button onclick="openInfoModal('contact'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</button>
-            <button onclick="openInfoModal('dmca'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</button>
+            <button onclick="window.switchTab('home'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
+            <button onclick="window.switchTab('blog'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
+            <button onclick="window.openRequestModal(); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
+            <button onclick="window.switchTab('discover'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-compass text-slate-400"></i> Discover</button>
+            <button onclick="window.switchTab('wallet'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
+            <button onclick="window.openInfoModal('about'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</button>
+            <button onclick="window.openInfoModal('contact'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</button>
+            <button onclick="window.openInfoModal('dmca'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</button>
             
             <span id="mobileAdminBtn" class="hidden border-t border-slate-200 dark:border-slate-800 pt-3">
-                <button onclick="switchTab('admin'); toggleMobileMenu();" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
+                <button onclick="window.switchTab('admin'); window.toggleMobileMenu();" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
             </span>
         </div>
     </div>
@@ -204,8 +199,8 @@
                 <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs.</p>
                 <div class="flex flex-wrap gap-3">
-                    <button onclick="filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
-                    <button onclick="filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
+                    <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
+                    <button onclick="window.filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
                 </div>
             </div>
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
@@ -219,15 +214,13 @@
 
         <!-- Filters Section -->
         <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
-            <button onclick="filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
+            <button onclick="window.filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
             <!-- Injected Category Buttons -->
         </div>
 
-        <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT (Crawler ko live placeholder dikhane ke liye) -->
+        <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
         <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
             <span>Advertisement Spot</span>
-            <!-- (Approval ke baad yahan apna AdSense Display Ad code niche paste karein) -->
-            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
         </div>
 
         <!-- Section: Prompts Grid -->
@@ -243,16 +236,16 @@
 
             <!-- Pagination Layout Elements -->
             <div id="paginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
-                <button onclick="changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
+                <button onclick="window.changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
                 <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
-                <button onclick="changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
+                <button onclick="window.changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
             </div>
         </section>
 
-        <!-- SEO ARTICLE & FAQ SECTION (AdSense Content Value Policy Compliance) -->
+        <!-- SEO ARTICLE & FAQ SECTION -->
         <section class="mt-12 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 transition-colors duration-300">
             <h2 class="text-lg font-bold text-slate-955 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-3">Complete Guide: How to Use AI Prompts Successfully</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 dark:text-slate-450 leading-relaxed">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 dark:text-slate-455 leading-relaxed font-semibold">
                 <div class="space-y-3">
                     <h3 class="font-bold text-brand-500 text-sm">What is an AI Prompt?</h3>
                     <p>An AI prompt is a specific set of instructions or keywords fed into an artificial intelligence system (like Midjourney, ChatGPT, or Bing Image Creator) to generate highly targeted outputs. Writing the right prompt is key to unlocking photorealistic images, 3D artwork, and highly professional copy.</p>
@@ -272,7 +265,7 @@
         </section>
 
         <!-- Section: Dynamic Blog Section [Tab] -->
-        <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto">
+        <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto font-semibold">
             <div class="border-b border-slate-200 dark:border-slate-850 pb-4">
                 <h1 class="text-2xl font-bold">AI News & Prompting Guides</h1>
                 <p class="text-xs text-slate-500">Read daily updates, tutorials, and advanced prompting techniques.</p>
@@ -322,16 +315,16 @@
                     <form id="purchaseCoinsForm" class="space-y-4">
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Deposit Amount (PKR)</label>
-                            <input type="number" id="pkrAmount" placeholder="e.g. 50" required oninput="calculateExchange()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="number" id="pkrAmount" placeholder="e.g. 50" required oninput="window.calculateExchange()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white font-medium">
                         </div>
                         <div class="text-xs text-slate-500 dark:text-slate-400">You will receive: <span id="coinsResult" class="text-amber-500 font-bold">0</span> Coins</div>
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Transaction ID (TID) (Required)</label>
-                            <input type="text" id="pTransactionID" placeholder="Enter TID (e.g. 30123456789)" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="text" id="pTransactionID" placeholder="Enter TID (e.g. 30123456789)" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white font-medium">
                         </div>
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Sender Mobile No. / EasyPaisa Name (Required)</label>
-                            <input type="text" id="pSenderInfo" placeholder="e.g. Ali Khan / 03012345678" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="text" id="pSenderInfo" placeholder="e.g. Ali Khan / 03012345678" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white font-medium">
                         </div>
                         <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">Submit Request</button>
                     </form>
@@ -339,12 +332,12 @@
             </div>
 
             <!-- Transaction History -->
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
                     <div class="flex gap-2">
-                        <button onclick="switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
-                        <button onclick="switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition">Unlock History (Debits)</button>
+                        <button onclick="window.switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
+                        <button onclick="window.switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900">Unlock History (Debits)</button>
                     </div>
                 </div>
                 
@@ -395,27 +388,27 @@
                     <p class="text-xs text-slate-400">Manage database prompts, custom categories, and verify user payments</p>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
-                    <button onclick="toggleAdminTab('blogs')" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Blogs</button>
-                    <button onclick="toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
-                    <button onclick="toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
-                    <button onclick="toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
+                    <button onclick="window.toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
+                    <button onclick="window.toggleAdminTab('blogs')" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Blogs</button>
+                    <button onclick="window.toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
+                    <button onclick="window.toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
+                    <button onclick="window.toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
                 </div>
             </div>
 
             <!-- Create / Update Prompt Form -->
-            <div id="adminAddPromptTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div id="adminAddPromptTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <h3 class="text-lg font-bold mb-4">Create or Update Prompt</h3>
                 <form id="promptForm" class="space-y-4">
                     <input type="hidden" id="editPromptId">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Title</label>
-                            <input type="text" id="pTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <input type="text" id="pTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                         </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Category / Tag</label>
-                            <select id="pCategory" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <select id="pCategory" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                                 <!-- Dynamic Options -->
                             </select>
                         </div>
@@ -425,33 +418,33 @@
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/ folder)</label>
                             <div class="space-y-1">
-                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                                 <datalist id="githubImagesList"></datalist>
                                 <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Starting / Initial Views count (Works on Free + Paid)</label>
-                            <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs text-slate-400 mb-1">Prompt Text / Description</label>
-                        <textarea id="pDescription" rows="4" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                        <textarea id="pDescription" rows="4" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium"></textarea>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Type</label>
-                            <select id="pType" onchange="togglePriceField()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <select id="pType" onchange="window.togglePriceField()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                                 <option value="free">Free</option>
                                 <option value="paid">Paid</option>
                             </select>
                         </div>
                         <div id="priceFieldContainer" class="hidden">
                             <label class="block text-xs text-slate-400 mb-1">Coins Price</label>
-                            <input type="number" id="pPrice" value="0" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <input type="number" id="pPrice" value="0" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                         </div>
                         <div class="flex items-center gap-4 mt-6">
                             <label class="flex items-center gap-2 cursor-pointer text-sm">
@@ -465,14 +458,14 @@
                         </div>
                     </div>
 
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 font-medium">
                         <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm">Save Prompt</button>
-                        <button type="button" onclick="resetForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition shadow-sm">Reset Form</button>
+                        <button type="button" onclick="window.resetForm()" class="bg-slate-200 dark:bg-slate-850 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition shadow-sm">Reset Form</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Create / Update Blog Form Tab (Dynamic AdSense Blog Panel) -->
+            <!-- Create / Update Blog Form Tab -->
             <div id="adminBlogsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden space-y-6">
                 <h3 class="text-lg font-bold">Publish & Manage Blogs</h3>
                 <form id="blogForm" class="space-y-4">
@@ -492,12 +485,12 @@
                         <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content (Supports multi-line paragraphs)</label>
+                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content</label>
                         <textarea id="bContent" rows="10" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
                     </div>
                     <div class="flex gap-2">
-                        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
-                        <button type="button" onclick="resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
+                        <button type="submit" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
+                        <button type="button" onclick="window.resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
                     </div>
                 </form>
 
@@ -528,9 +521,9 @@
                 <h3 class="text-lg font-bold mb-2">Manage Custom Categories</h3>
                 <p class="text-xs text-slate-400 mb-4">Add or delete filters that appear dynamically in navigation and forms</p>
                 
-                <div class="flex gap-2 max-w-md mb-6">
+                <div class="flex gap-2 max-w-md mb-6 font-medium">
                     <input type="text" id="newCategoryInput" placeholder="e.g. Couples, Islamic, Festival" class="flex-1 bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
-                    <button onclick="addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Add Category</button>
+                    <button onclick="window.addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Add Category</button>
                 </div>
 
                 <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
@@ -541,17 +534,17 @@
                 </div>
             </div>
 
-            <!-- Manage Admin Settings & API Config (Dynamic API Key Management) -->
+            <!-- Manage Admin Settings & API Config -->
             <div id="adminAiConfigTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
                 <h3 class="text-lg font-bold mb-2">Secure AI Configuration</h3>
                 <p class="text-xs text-slate-400 mb-4">Set your own custom backend API Key. Users will not see this key; it is handled securely inside database variables.</p>
                 
-                <div class="space-y-4 max-w-md">
+                <div class="space-y-4 max-w-md font-medium">
                     <div>
                         <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">PromptKaro API Engine Key</label>
                         <input type="password" id="adminApiKeyInput" placeholder="Enter secure engine API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                     </div>
-                    <button onclick="saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Save Key Configurations</button>
+                    <button onclick="window.saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Save Key Configurations</button>
                 </div>
             </div>
 
@@ -588,61 +581,59 @@
                 <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
                 <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-450 font-semibold">
-                <a href="#" onclick="event.preventDefault(); openInfoModal('about');" class="hover:text-brand-500 transition">About Us</a>
-                <a href="#" onclick="event.preventDefault(); openInfoModal('contact');" class="hover:text-brand-500 transition">Contact Us</a>
-                <a href="#" onclick="event.preventDefault(); openInfoModal('dmca');" class="hover:text-brand-500 transition">DMCA Policy</a>
-                <a href="#" onclick="event.preventDefault(); openInfoModal('privacy');" class="hover:text-brand-500 transition">Privacy Policy</a>
-                <a href="#" onclick="event.preventDefault(); openInfoModal('terms');" class="hover:text-brand-500 transition">Terms of Service</a>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
+                <a href="#" onclick="event.preventDefault(); window.openInfoModal('about');" class="hover:text-brand-500 transition">About Us</a>
+                <a href="#" onclick="event.preventDefault(); window.openInfoModal('contact');" class="hover:text-brand-500 transition">Contact Us</a>
+                <a href="#" onclick="event.preventDefault(); window.openInfoModal('dmca');" class="hover:text-brand-500 transition">DMCA Policy</a>
+                <a href="#" onclick="event.preventDefault(); window.openInfoModal('privacy');" class="hover:text-brand-500 transition">Privacy Policy</a>
+                <a href="#" onclick="event.preventDefault(); window.openInfoModal('terms');" class="hover:text-brand-500 transition">Terms of Service</a>
             </div>
         </div>
     </footer>
 
     <!-- MOBILE BOTTOM NAVBAR -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-3 z-40 text-slate-500 dark:text-slate-400">
-        <button onclick="switchTab('home')" class="flex flex-col items-center gap-1 hover:text-brand-500">
+        <button onclick="window.switchTab('home')" class="flex flex-col items-center gap-1 hover:text-brand-500">
             <i class="fa-solid fa-house text-lg"></i>
             <span class="text-[10px]">Home</span>
         </button>
-        <button onclick="switchTab('discover')" class="flex flex-col items-center gap-1 hover:text-brand-500">
+        <button onclick="window.switchTab('discover')" class="flex flex-col items-center gap-1 hover:text-brand-500">
             <i class="fa-solid fa-compass text-lg"></i>
             <span class="text-[10px]">Discover</span>
         </button>
-        <button onclick="openCommunityDialog()" class="flex flex-col items-center gap-1 hover:text-brand-500">
+        <button onclick="window.openCommunityDialog()" class="flex flex-col items-center gap-1 hover:text-brand-500">
             <i class="fa-solid fa-users text-lg"></i>
             <span class="text-[10px]">Community</span>
         </button>
     </nav>
 
-    <!-- COOKIE CONSENT BANNER (AdSense GDPR Policy Requirement) -->
-    <div id="cookieBanner" class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-lg z-50 transition transform translate-y-0 hidden">
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookieBanner" class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white dark:bg-slate-900 border border-slate-200 p-4 rounded-xl shadow-lg z-50 transition transform translate-y-0 hidden">
         <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Cookie Consent</h4>
         <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal mb-3">We use cookies to personalize ads and analyze traffic for Google AdSense compliance. By using our site, you agree to our policies.</p>
         <div class="flex gap-2 justify-end">
-            <button onclick="acceptCookies()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] font-bold px-3 py-1.5 rounded transition">Accept</button>
+            <button onclick="window.acceptCookies()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] font-bold px-3 py-1.5 rounded transition">Accept</button>
         </div>
     </div>
 
     <!-- MODAL: Blog Detail Reader Pop-up Modal -->
     <div id="blogDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
-            <button onclick="closeModal('blogDetailModal'); updatePageMetadata(); clearUrlParameters();" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+            <button onclick="window.closeModal('blogDetailModal'); window.updatePageMetadata(); window.clearUrlParameters();" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
             <div class="space-y-4 mt-4">
-                <img id="blogDetailImg" src="" alt="Blog image banner" class="w-full h-64 object-cover rounded-xl border border-slate-200 dark:border-slate-850 shadow-sm">
+                <img id="blogDetailImg" src="" alt="Blog image banner" class="w-full h-64 object-cover rounded-xl border border-slate-200 dark:border-slate-855 shadow-sm">
                 <div class="space-y-1">
                     <h2 id="blogDetailTitle" class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Blog Title</h2>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-850 pb-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-855 pb-3">
                         <span id="blogDetailMeta" class="text-[10px] text-slate-400 font-medium">Published details...</span>
-                        <!-- Dynamic Social Share Button inside Blog Detail Reader [3] -->
-                        <button onclick="shareBlog()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] px-2.5 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 self-start">
+                        <button onclick="window.shareBlog()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] px-2.5 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 self-start">
                             <i class="fa-solid fa-share-nodes"></i> Share Article
                         </button>
                     </div>
                 </div>
-                <!-- Paragraph renderer inside article container -->
                 <article id="blogDetailContent" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans font-medium space-y-4 pt-1">
                     <!-- Dynamic Text paragraphs rendering -->
                 </article>
@@ -650,10 +641,117 @@
         </div>
     </div>
 
+    <!-- MODAL: Prompt Detail Page -->
+    <div id="promptDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
+            <button onclick="window.closePromptDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 font-semibold">
+                <div>
+                    <img id="detailImg" src="" alt="Prompt preview" class="w-full h-auto max-h-96 object-cover rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';">
+                    <a id="downloadBtn" href="#" target="_blank" download class="w-full block text-center mt-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:hover-slate-700 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white shadow-sm font-sans">
+                        <i class="fa-solid fa-download mr-1"></i> Save Image
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span id="detailTag" class="bg-brand-500/10 text-brand-500 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">Trending</span>
+                            <span class="text-xs text-slate-500"><i class="fa-regular fa-eye mr-1"></i> <span id="detailViews">0</span> views</span>
+                        </div>
+                        <h2 id="detailTitle" class="text-xl font-bold mb-3 text-slate-955 dark:text-white">Prompt Title</h2>
+
+                        <div id="promptContentArea" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4 rounded-xl min-h-[140px] flex flex-col justify-between relative overflow-hidden font-semibold">
+                            <!-- Premium blur screen overlay -->
+                            <div id="lockedOverlay" class="absolute inset-0 bg-slate-50/98 dark:bg-slate-950/98 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden">
+                                <i class="fa-solid fa-lock text-amber-500 text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase text-slate-400">Premium Locked Content</span>
+                                <p class="text-[10px] text-slate-500 my-1">This premium prompt costs <span id="lockedPrice" class="text-amber-500 font-bold">0</span> Coins</p>
+                                <button onclick="buyPrompt()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-4 py-1.5 rounded-lg mt-2 transition shadow-sm">Unlock Now</button>
+                            </div>
+                            
+                            <p id="detailPromptText" class="text-sm text-slate-800 dark:text-slate-300 font-mono select-all leading-relaxed font-semibold">Loading prompt...</p>
+                            
+                            <div class="flex flex-wrap gap-2 mt-4 self-end">
+                                <button onclick="window.copyToClipboard()" class="bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-brand-500 transition font-sans shadow-sm flex items-center gap-1 font-semibold">
+                                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                                </button>
+                                <button onclick="window.toggleAiPanel()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs px-3 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 font-semibold">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Regenerate (50K)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collapsible AI Input Panel -->
+            <div id="aiPanel" class="hidden mt-6 p-5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 transition-all duration-300 shadow-sm font-semibold">
+                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <h4 class="text-xs font-bold text-brand-500 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-sliders"></i> Configure PromptKaro AI</h4>
+                    <span class="text-[10px] text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded-full">Cost: 50,000 Coins</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs font-semibold">
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Style Select</label>
+                        <select id="aiStyle" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition font-medium">
+                            <option value="Cinematic">Cinematic</option>
+                            <option value="Anime/Illustration">Anime</option>
+                            <option value="Ultra-Realistic">Realistic</option>
+                            <option value="Dark Fantasy">Dark Fantasy</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Variation / Lighting</label>
+                        <select id="aiLighting" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition font-medium">
+                            <option value="Dramatic High-Contrast">Dramatic High-Contrast</option>
+                            <option value="Warm Golden Hour">Warm Golden Hour</option>
+                            <option value="Moody Cinematic Dark">Moody Cinematic Dark</option>
+                            <option value="Bright Studio Neon">Bright Studio Neon</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Prompt Length</label>
+                        <select id="aiLength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition font-medium">
+                            <option value="Detailed Prompt">Detailed Prompt</option>
+                            <option value="Short Prompt">Short Prompt</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Strength Level</label>
+                        <select id="aiStrength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition font-medium">
+                            <option value="Insane Detail (Max Quality)">Insane Detail (Pro)</option>
+                            <option value="Basic Enhancement">Basic Enhancement</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="window.regeneratePromptWithAI()" id="btnGenerateAI" class="w-full py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-1.5 font-sans">
+                    <i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀
+                </button>
+            </div>
+
+            <!-- AI Output Glowing Textbox -->
+            <div id="aiOutputContainer" class="hidden mt-6 p-5 bg-purple-500/10 dark:bg-purple-950/10 border border-purple-500/20 rounded-2xl space-y-3 shadow-sm font-semibold">
+                <div class="flex justify-between items-center border-b border-purple-500/20 pb-2">
+                    <span class="text-xs font-bold text-purple-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-microchip"></i> PromptKaro AI Output
+                    </span>
+                    <button onclick="window.copyAiOutput()" class="text-xs text-purple-500 hover:underline flex items-center gap-1 font-sans">
+                        <i class="fa-regular fa-copy"></i> Copy Output
+                    </button>
+                </div>
+                <p id="aiOutputText" class="text-sm font-sans whitespace-pre-wrap select-all leading-relaxed max-h-60 overflow-y-auto pr-1">Generating response...</p>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL: Authentication -->
     <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-sm relative p-6 shadow-md">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+            <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
@@ -661,38 +759,38 @@
             <form id="authForm" class="space-y-4">
                 <div>
                     <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Email Address</label>
-                    <input type="email" id="authEmail" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    <input type="email" id="authEmail" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Password</label>
-                    <input type="password" id="authPassword" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    <input type="password" id="authPassword" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                 </div>
-                <button type="submit" id="authSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition shadow-sm">Login</button>
+                <button type="submit" id="authSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition shadow-sm font-sans">Login</button>
             </form>
             <div class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">
                 <span id="authToggleText">Don't have an account?</span>
-                <button onclick="toggleAuthMode()" id="authToggleBtn" class="text-brand-500 font-semibold hover:underline">Register</button>
+                <button onclick="window.toggleAuthMode()" id="authToggleBtn" class="text-brand-500 font-semibold hover:underline">Register</button>
             </div>
         </div>
     </div>
 
     <!-- MODAL: Request Prompt -->
     <div id="requestPromptModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
-            <button onclick="closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md font-semibold">
+            <button onclick="window.closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-lg font-bold mb-4 text-slate-955 dark:text-white"><i class="fa-solid fa-paper-plane text-brand-500 mr-2"></i> Request custom prompt</h3>
             <form id="requestForm" class="space-y-4">
                 <div>
                     <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Your Name / Email</label>
-                    <input type="text" id="reqEmail" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    <input type="text" id="reqEmail" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">What kind of prompt do you need?</label>
-                    <textarea id="reqDesc" rows="4" placeholder="Detail standard, character style, action scenario..." required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                    <textarea id="reqDesc" rows="4" placeholder="Detail standard, character style, action scenario..." required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans font-medium"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">Send Request</button>
+                <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm font-sans">Send Request</button>
             </form>
         </div>
     </div>
@@ -700,11 +798,11 @@
     <!-- MODAL: General Info -->
     <div id="infoModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
-            <button onclick="closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+            <button onclick="window.closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 id="infoModalTitle" class="text-lg font-bold mb-3 text-brand-500">Info Title</h3>
-            <div id="infoModalContent" class="text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed">
+            <div id="infoModalContent" class="text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed font-semibold">
                 <!-- Injected text -->
             </div>
         </div>
@@ -717,10 +815,10 @@
         // Predefined Base URL for GitHub Raw Images [3]
         const GITHUB_BASE_URL = "https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/";
         
-        // Dynamic image parser with fallback compatibility check [5]
+        // Dynamic image parser [5]
         function resolveImageSrc(imageVal) {
             if (!imageVal) {
-                return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; // fallback
+                return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; 
             }
             if (imageVal.startsWith("http://") || imageVal.startsWith("https://") || imageVal.startsWith("data:")) {
                 return imageVal;
@@ -850,9 +948,9 @@
             if (window.appState.navigationStack.length > 0) {
                 const prev = window.appState.navigationStack.pop();
                 if (prev.type === 'tab') {
-                    switchTab(prev.value, true);
+                    window.switchTab(prev.value, true);
                 } else if (prev.type === 'modal') {
-                    closeModal(prev.value, true);
+                    window.closeModal(prev.value, true);
                 }
             } else {
                 // Stack is completely empty -> Safe Exit application [2]
@@ -920,12 +1018,15 @@
             window.history.pushState({ type: 'modal', value: id }, "");
             document.getElementById(id).classList.remove('hidden');
         }
+        window.openModal = openModal;
+
         function closeModal(id, isBack = false) {
             document.getElementById(id).classList.add('hidden');
             if (!isBack) {
                 window.appState.navigationStack = window.appState.navigationStack.filter(item => !(item.type === 'modal' && item.value === id));
             }
         }
+        window.closeModal = closeModal;
 
         // Toggles between inner tabs in admin view
         function toggleAdminTab(tab) {
@@ -988,43 +1089,61 @@
 
         // Modals layout handlers
         function openRequestModal() {
-            openModal('requestPromptModal');
+            window.openModal('requestPromptModal');
         }
+        window.openRequestModal = openRequestModal;
+
         function closeRequestModal() {
-            closeModal('requestPromptModal');
+            window.closeModal('requestPromptModal');
         }
+        window.closeRequestModal = closeRequestModal;
+
         function openAuthModal(mode) {
             window.appState.isLoginMode = mode === 'login';
             document.getElementById('authTitle').innerText = window.appState.isLoginMode ? "Login" : "Sign Up / Register";
             document.getElementById('authSubmitBtn').innerText = window.appState.isLoginMode ? "Login" : "Register";
             document.getElementById('authToggleText').innerText = window.appState.isLoginMode ? "Don't have an account?" : "Already have an account?";
             document.getElementById('authToggleBtn').innerText = window.appState.isLoginMode ? "Register" : "Login";
-            openModal('authModal');
+            window.openModal('authModal');
         }
+        window.openAuthModal = openAuthModal;
+
         function closeAuthModal() {
-            closeAuthModal('authModal');
+            window.closeModal('authModal');
         }
+        window.closeAuthModal = closeAuthModal;
+
         function toggleAuthMode() {
-            openAuthModal(window.appState.isLoginMode ? 'signup' : 'login');
+            window.openAuthModal(window.appState.isLoginMode ? 'signup' : 'login');
         }
+        window.toggleAuthMode = toggleAuthMode;
+
         function closePromptDetailModal() {
-            closeModal('promptDetailModal');
+            window.closeModal('promptDetailModal');
             // Hide AI Output box too
             document.getElementById('aiOutputContainer').classList.add('hidden');
             document.getElementById('aiPanel').classList.add('hidden');
             updatePageMetadata(); // Restore title
             clearUrlParameters(); // Clean dynamic share parameters [3]
         }
+        window.closePromptDetailModal = closePromptDetailModal;
+
         function openWalletModal() {
-            switchTab('wallet');
+            window.switchTab('wallet');
         }
+        window.openWalletModal = openWalletModal;
+
         function closeWalletModal() {
-            switchTab('home');
+            window.switchTab('home');
         }
+        window.closeWalletModal = closeWalletModal;
+
         function calculateExchange() {
             const pkr = parseFloat(document.getElementById('pkrAmount').value) || 0;
             document.getElementById('coinsResult').innerText = (pkr * 10000).toLocaleString();
         }
+        window.calculateExchange = calculateExchange;
+
         function togglePriceField() {
             const type = document.getElementById('pType').value;
             if (type === 'paid') {
@@ -1033,15 +1152,20 @@
                 document.getElementById('priceFieldContainer').classList.add('hidden');
             }
         }
+        window.togglePriceField = togglePriceField;
+
         function resetForm() {
             document.getElementById('promptForm').reset();
             document.getElementById('editPromptId').value = '';
             document.getElementById('priceFieldContainer').classList.add('hidden');
         }
+        window.resetForm = resetForm;
+
         function resetBlogForm() {
             document.getElementById('blogForm').reset();
             document.getElementById('editBlogId').value = '';
         }
+        window.resetBlogForm = resetBlogForm;
 
         // 📋 Safe and Secure Clipboard Copy Helper (Bypasses Secure Context Block on local file:// & older WebViews)
         function safeCopy(text) {
@@ -1053,6 +1177,7 @@
                 fallbackCopy(text);
             }
         }
+        window.safeCopy = safeCopy;
 
         // Fallback copying utilizing temporary textarea element (Always works offline and online)
         function fallbackCopy(text) {
@@ -1070,16 +1195,15 @@
                 if (successful) {
                     alert("Copied to clipboard!");
                 } else {
-                    alert("Unable to copy. Please manually copy the prompt.");
+                    alert("Unable to copy.");
                 }
             } catch (err) {
-                console.error("Fallback copy execution trace failed: ", err);
-                alert("Unable to copy text.");
+                alert("Unable to copy.");
             }
             document.body.removeChild(textArea);
         }
 
-        // Dynamic System Share Trigger for Prompts [3]
+        // Deep linking social share triggers [3]
         function sharePrompt() {
             if (!window.appState.currentDetailPrompt) return;
             const pId = window.appState.currentDetailPrompt.id;
@@ -1093,12 +1217,12 @@
                     url: shareLink
                 }).catch(err => console.log(err));
             } else {
-                safeCopy(shareLink);
-                alert("Deep Link copied to clipboard! Share it with friends.");
+                window.safeCopy(shareLink);
+                alert("Deep Link copied to clipboard!");
             }
         }
+        window.sharePrompt = sharePrompt;
 
-        // Dynamic System Share Trigger for Blogs [3]
         function shareBlog() {
             const openedTitle = document.getElementById('blogDetailTitle').innerText;
             const currentBlog = window.appState.blogsList.find(b => b.title === openedTitle);
@@ -1113,26 +1237,11 @@
                     url: shareLink
                 }).catch(err => console.log(err));
             } else {
-                safeCopy(shareLink);
-                alert("Article Link copied to clipboard! Share it with friends.");
+                window.safeCopy(shareLink);
+                alert("Article Link copied to clipboard!");
             }
         }
-
-        window.openRequestModal = openRequestModal;
-        window.closeRequestModal = closeRequestModal;
-        window.openAuthModal = openAuthModal;
-        window.closeAuthModal = closeAuthModal;
-        window.toggleAuthMode = toggleAuthMode;
-        window.closePromptDetailModal = closePromptDetailModal;
-        window.openWalletModal = openWalletModal;
-        window.closeWalletModal = closeWalletModal;
-        window.calculateExchange = calculateExchange;
-        window.togglePriceField = togglePriceField;
-        window.resetForm = resetForm;
-        window.resetBlogForm = resetBlogForm;
-        window.safeCopy = safeCopy; // Exposed globally
-        window.sharePrompt = sharePrompt; // Exposed globally
-        window.shareBlog = shareBlog; // Exposed globally
+        window.shareBlog = shareBlog;
 
         // Custom Info dialog renderer (Expanded for AdSense Mandatory Legal Compliance)
         function openInfoModal(type) {
@@ -1142,62 +1251,49 @@
                 title.innerText = "About PromptKaro";
                 content.innerHTML = `
                     <p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>
-                    <p>Our goal is to build an open repository of premium prompts optimized for high conversion designs, artwork, and chat assistants.</p>
                 `;
             } else if (type === 'contact') {
                 title.innerText = "Contact Us";
                 content.innerHTML = `
-                    <p>Have issues or business inquiries? Reach out directly via our email channel:</p>
-                    <p class="font-bold font-mono text-brand-500">kazimmustafa38@gmail.com</p>
-                    <p>Additionally, you can contact us via our financial and support number:</p>
-                    <p class="font-bold text-amber-500 text-sm">03105784772 (Nazim Mustafa)</p>
+                    <p>Have issues or business inquiries? kazimmustafa38@gmail.com</p>
                 `;
             } else if (type === 'dmca') {
-                title.innerText = "DMCA & Copyright Policy";
+                title.innerText = "DMCA Policy";
                 content.innerHTML = `
-                    <p>At PromptKaro, we respect intellectual property rights. If you believe any of the uploaded custom content violates your copyright works, contact us immediately.</p>
-                    <p>Provide evidence details of ownership and write to us at <strong class="text-brand-500">kazimmustafa38@gmail.com</strong>. We will review and delete violating content within 24 hours.</p>
+                    <p>At PromptKaro, we respect intellectual property rights.</p>
                 `;
             } else if (type === 'privacy') {
                 title.innerText = "Privacy Policy";
                 content.innerHTML = `
-                    <p>At PromptKaro, accessible from https://freeearningsonline.github.io/Ai-Prompt-/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by PromptKaro and how we use it.</p>
-                    <p><strong>Log Files:</strong> PromptKaro follows a standard procedure of using log files. These files log visitors when they visit websites. This is part of hosting services' analytics.</p>
-                    <p><strong>Google DoubleClick DART Cookie:</strong> Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+                    <p>We respect the privacy of our visitors.</p>
                 `;
             } else if (type === 'terms') {
                 title.innerText = "Terms of Service";
                 content.innerHTML = `
-                    <p>Welcome to PromptKaro! These terms and conditions outline the rules and regulations for the use of PromptKaro's Website, located at https://freeearningsonline.github.io/Ai-Prompt-/.</p>
-                    <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use PromptKaro if you do not agree to take all of the terms and conditions stated on this page.</p>
-                    <p><strong>License:</strong> Unless otherwise stated, PromptKaro and/or its licensors own the intellectual property rights for all material on PromptKaro. All intellectual property rights are reserved.</p>
+                    <p>These terms and conditions outline the rules and regulations.</p>
                 `;
             }
-            openModal('infoModal');
+            window.openModal('infoModal');
         }
+        window.openInfoModal = openInfoModal;
+
         function closeInfoModal() {
-            closeModal('infoModal');
+            window.closeModal('infoModal');
         }
+        window.closeInfoModal = closeInfoModal;
+
         function openCommunityDialog() {
             const title = document.getElementById('infoModalTitle');
             const content = document.getElementById('infoModalContent');
             title.innerText = "Community Space";
-            content.innerHTML = `
-                <p>Welcome to our collective creator space! Connect, share ideas, and engage with top prompt creators.</p>
-                <div class="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl text-center border border-slate-250 dark:border-slate-800 transition">
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Our official forum spaces are currently deploying.</p>
-                    <span class="text-xs font-semibold text-brand-500">Stay tuned for the discord invite link!</span>
-                </div>
-            `;
-            openModal('infoModal');
+            content.innerHTML = `<p>Connect, share ideas, and engage with top prompt creators.</p>`;
+            window.openModal('infoModal');
         }
-
-        window.openInfoModal = openInfoModal;
-        window.closeInfoModal = closeInfoModal;
         window.openCommunityDialog = openCommunityDialog;
     </script>
 
-    <!-- ========================================== -->
+    <!-- GO TO NEXT STEP: PLEASE REPLY WITH "Part 2" TO INJECT FIREBASE MODULE SCRIPT -->
+<!-- ========================================== -->
     <!-- PART 2: MODULAR ASYNC BACKEND FIREBASE CODE -->
     <!-- ========================================== -->
     <script type="module">
@@ -1205,7 +1301,7 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, set, get, update, push, child, onValue, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Firebase Web App configuration (aiprom-98a50)
+        // Firebase Web App Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCl5kGKi_9sbeHdlEZyqSuThQTA53bH3Po",
             authDomain: "aiprom-98a50.firebaseapp.com",
@@ -1221,7 +1317,7 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Professional formatting function for large coins (e.g., 20000 -> 20K)
+        // Coins Formatting Utility
         function formatCoins(num) {
             const val = parseInt(num) || 0;
             if (val >= 10000) {
@@ -1235,12 +1331,12 @@
             return val.toLocaleString();
         }
 
-        // Map auth functions to global space safely
+        // Global Bindings for UI Click Triggers [2]
         window.logout = async function() {
             await signOut(auth);
         };
 
-        // Realtime sync API key setting for masking from scripts
+        // Real-time API Key Sync for AI Generation
         const apiKeySettingsRef = ref(db, 'settings/geminiApiKey');
         onValue(apiKeySettingsRef, (snapshot) => {
             const input = document.getElementById('adminApiKeyInput');
@@ -1261,7 +1357,7 @@
             alert("AI API Key updated securely.");
         };
 
-        // GitHub API image sync datalist compiler [7]
+        // Sync and Auto-Suggest GitHub Images [7]
         async function fetchGitHubImages() {
             const datalist = document.getElementById('githubImagesList');
             const statusSpan = document.getElementById('githubApiStatus');
@@ -1280,7 +1376,6 @@
                     let count = 0;
 
                     data.forEach(item => {
-                        // Scan for supported formats only [6]
                         if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name)) {
                             const option = document.createElement('option');
                             option.value = item.name;
@@ -1309,7 +1404,7 @@
         }
         window.fetchGitHubImages = fetchGitHubImages;
 
-        // Realtime sync Blogs from database path: 'blogs' [7]
+        // Realtime sync Blogs from database path: 'blogs'
         const dbBlogsRef = ref(db, 'blogs');
         onValue(dbBlogsRef, (snapshot) => {
             window.appState.blogsList = [];
@@ -1323,7 +1418,7 @@
             renderAdminBlogsList();
         });
 
-        // Dynamic rendering of Blog items in grid container
+        // Render Blogs on UI
         function renderBlogs() {
             const container = document.getElementById('blogsContainer');
             if (!container) return;
@@ -1334,15 +1429,14 @@
                 return;
             }
 
-            // Sort newest first
             const sorted = [...window.appState.blogsList].sort((a, b) => b.createdAt - a.createdAt);
 
             sorted.forEach(blog => {
                 const card = document.createElement('article');
                 card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer";
-                card.onclick = () => openBlogDetail(blog.id);
+                card.onclick = () => window.openBlogDetail(blog.id);
 
-                const finalImg = resolveImageSrc(blog.imageURL);
+                const finalImg = window.resolveImageSrc(blog.imageURL);
                 const dateStr = new Date(blog.createdAt).toLocaleDateString();
 
                 card.innerHTML = `
@@ -1363,54 +1457,64 @@
             });
         }
 
-        // Full Reader Pop-up Modal compiler
+        // Full Blog Reader Modal Controller [2]
         window.openBlogDetail = function(id) {
             const blog = window.appState.blogsList.find(b => b.id === id);
             if (!blog) return;
 
-            document.getElementById('blogDetailTitle').innerText = blog.title;
+            window.openModal('blogDetailModal');
+
+            const blogDetailTitle = document.getElementById('blogDetailTitle');
+            if (blogDetailTitle) blogDetailTitle.innerText = blog.title;
             
-            const resolvedImg = resolveImageSrc(blog.imageURL);
+            const resolvedImg = window.resolveImageSrc(blog.imageURL);
             const blogImg = document.getElementById('blogDetailImg');
-            blogImg.src = resolvedImg;
-            blogImg.onerror = function() {
-                this.onerror = null;
-                this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
-            };
+            if (blogImg) {
+                blogImg.src = resolvedImg;
+                blogImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+                };
+            }
 
             const dateStr = new Date(blog.createdAt).toLocaleDateString();
-            document.getElementById('blogDetailMeta').innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
+            const blogDetailMeta = document.getElementById('blogDetailMeta');
+            if (blogDetailMeta) {
+                blogDetailMeta.innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
+            }
             
-            // Format newlines with paragraphs for rich reading experience
-            document.getElementById('blogDetailContent').innerHTML = blog.content.split('\n').map(p => {
-                const trimmed = p.trim();
-                return trimmed ? `<p class="mb-4">${trimmed}</p>` : '';
-            }).join('');
+            const blogDetailContent = document.getElementById('blogDetailContent');
+            if (blogDetailContent) {
+                blogDetailContent.innerHTML = blog.content.split('\n').map(p => {
+                    const trimmed = p.trim();
+                    return trimmed ? `<p class="mb-4">${trimmed}</p>` : '';
+                }).join('');
+            }
 
-            updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150));
-            openModal('blogDetailModal');
+            window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150));
         };
 
-        // Render admin dashboard dynamic list
+        // Render Admin Blog Control Console list
         function renderAdminBlogsList() {
             const table = document.getElementById('adminBlogsListTable');
             if (!table) return;
             table.innerHTML = '';
 
             if (window.appState.blogsList.length === 0) {
-                table.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-500">No blog posts published yet.</td></tr>`;
+                table.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-400">No blog posts published yet.</td></tr>`;
                 return;
             }
 
             window.appState.blogsList.forEach(blog => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                // Bound event listeners securely to window scope [2]
                 tr.innerHTML = `
                     <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100 text-xs">${blog.title}</td>
                     <td class="px-4 py-3 text-slate-500 text-xs">${new Date(blog.createdAt).toLocaleDateString()}</td>
                     <td class="px-4 py-3 space-x-2 text-xs">
-                        <button onclick="editBlog('${blog.id}')" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Edit</button>
-                        <button onclick="deleteBlog('${blog.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2 py-1 rounded">Delete</button>
+                        <button onclick="window.editBlog('${blog.id}')" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Edit</button>
+                        <button onclick="window.deleteBlog('${blog.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2 py-1 rounded">Delete</button>
                     </td>
                 `;
                 table.appendChild(tr);
@@ -1418,7 +1522,7 @@
         }
         window.renderAdminBlogsList = renderAdminBlogsList;
 
-        // Admin Blog CRUD events mapping
+        // Admin Blog Form Controller
         document.getElementById('blogForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('editBlogId').value;
@@ -1445,8 +1549,8 @@
                     await set(newBlogRef, payload);
                     alert("New Blog post published successfully!");
                 }
-                resetBlogForm();
-                switchTab('blog');
+                window.resetBlogForm();
+                window.switchTab('blog');
             } catch (err) {
                 alert("Failed to save blog: " + err.message);
             }
@@ -1461,7 +1565,7 @@
                 document.getElementById('bExcerpt').value = blog.excerpt || '';
                 document.getElementById('bContent').value = blog.content || '';
 
-                toggleAdminTab('blogs');
+                window.toggleAdminTab('blogs');
             }
         };
 
@@ -1476,529 +1580,7 @@
             }
         };
 
-        // Track user Auth states changes
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                window.appState.currentUser = user;
-                const userRef = ref(db, `users/${user.uid}`);
-                onValue(userRef, (snapshot) => {
-                    const data = snapshot.val();
-                    window.appState.currentUserData = data;
-                    if (data) {
-                        updateAuthUI(true, user.email, data.coins || 0);
-                        // Strict validation for admin email trigger (kazimmustafa38@gmail.com)
-                        if (user.email === 'kazimmustafa38@gmail.com') {
-                            document.getElementById('adminBtnContainer').classList.remove('hidden');
-                            document.getElementById('mobileAdminBtn').classList.remove('hidden');
-                        } else {
-                            document.getElementById('adminBtnContainer').classList.add('hidden');
-                            document.getElementById('mobileAdminBtn').classList.add('hidden');
-                        }
-                    }
-                });
-                syncUserTransactionsHistory();
-                syncUserPurchaseHistory(); // Sync Debits History log
-                triggerAutoApprovalCheck();
-            } else {
-                window.appState.currentUser = null;
-                window.appState.currentUserData = null;
-                updateAuthUI(false);
-                document.getElementById('adminBtnContainer').classList.add('hidden');
-                document.getElementById('mobileAdminBtn').classList.add('hidden');
-                document.getElementById('userTransactionsList').innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
-                document.getElementById('userPurchaseList').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
-            }
-        });
-
-        // Realtime sync dynamic categories [1]
-        const categoriesRef = ref(db, 'categories');
-        onValue(categoriesRef, (snapshot) => {
-            if (snapshot.exists()) {
-                window.appState.categories = snapshot.val();
-            } else {
-                // Seed default categories if database path is empty
-                const defaultCats = ["Viral", "IG Trend", "Boys", "Girls"];
-                set(categoriesRef, defaultCats);
-                window.appState.categories = defaultCats;
-            }
-            renderCategoryPills(window.appState.categories);
-            renderCategoryDropdown(window.appState.categories);
-            renderAdminCategoryManager(window.appState.categories);
-        });
-
-        // Dynamic category elements uploader (With robust custom data attributes)
-        function renderCategoryPills(categories) {
-            const container = document.getElementById('categoryFiltersContainer');
-            if(!container) return;
-            container.innerHTML = '';
-
-            // Render Default 'All' Pill
-            const allBtn = document.createElement('button');
-            allBtn.onclick = () => filterCategory('All');
-            allBtn.className = "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition";
-            allBtn.innerText = "All Prompts";
-            allBtn.setAttribute('data-category', 'All');
-            container.appendChild(allBtn);
-
-            // Render active categories dynamically
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.onclick = () => filterCategory(cat);
-                btn.className = "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
-                btn.innerText = cat;
-                btn.setAttribute('data-category', cat);
-                container.appendChild(btn);
-            });
-        }
-
-        // Render dynamic dropdown option categories
-        function renderCategoryDropdown(categories) {
-            const select = document.getElementById('pCategory');
-            if(!select) return;
-            select.innerHTML = '';
-            categories.forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat;
-                opt.innerText = cat;
-                select.appendChild(opt);
-            });
-        }
-
-        // Render dynamic admin manager list view
-        function renderAdminCategoryManager(categories) {
-            const container = document.getElementById('adminCategoryList');
-            if(!container) return;
-            container.innerHTML = '';
-            categories.forEach((cat, index) => {
-                const span = document.createElement('span');
-                span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
-                span.innerHTML = `
-                    <span>${cat}</span>
-                    <button onclick="deleteCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
-                `;
-                container.appendChild(span);
-            });
-        }
-
-        // Add custom category dynamics
-        window.addNewCategory = async function() {
-            const input = document.getElementById('newCategoryInput');
-            const newCatVal = input.value.trim();
-            if(!newCatVal) return;
-
-            if (window.appState.categories.includes(newCatVal)) {
-                alert("Category already exists!");
-                return;
-            }
-
-            const updatedCats = [...window.appState.categories, newCatVal];
-            await set(ref(db, 'categories'), updatedCats);
-            input.value = '';
-            alert("Category added successfully!");
-        };
-
-        // Delete custom category dynamics
-        window.deleteCategory = async function(index) {
-            if (confirm(`Are you sure you want to delete "${window.appState.categories[index]}"?`)) {
-                const updatedCats = window.appState.categories.filter((_, i) => i !== index);
-                await set(ref(db, 'categories'), updatedCats);
-                alert("Category deleted successfully.");
-            }
-        };
-
-        // Sync Credits Deposit History
-        function syncUserTransactionsHistory() {
-            if (!window.appState.currentUser) return;
-            const txRef = ref(db, 'transactions');
-            onValue(txRef, (snapshot) => {
-                const list = document.getElementById('userTransactionsList');
-                if(!list) return;
-                list.innerHTML = '';
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    let itemsFound = false;
-                    for (let key in data) {
-                        const tx = data[key];
-                        if (tx.userId === window.appState.currentUser.uid) {
-                            itemsFound = true;
-                            const tr = document.createElement('tr');
-                            tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
-                            tr.innerHTML = `
-                                <td class="px-4 py-3 font-mono text-[11px] text-brand-500 font-bold">${tx.tid || 'N/A'}</td>
-                                <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[11px]">${tx.senderInfo || 'N/A'}</td>
-                                <td class="px-4 py-3 font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
-                                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-500/10 text-brand-500">${tx.paymentStatus}</span></td>
-                            `;
-                            list.appendChild(tr);
-                        }
-                    }
-                    if (!itemsFound) {
-                        list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
-                    }
-                } else {
-                    list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
-                }
-            });
-        }
-
-        // Sync Debits / Unlocks Log Purchase History
-        function syncUserPurchaseHistory() {
-            if (!window.appState.currentUser) return;
-            const logRef = ref(db, `purchaseLogs/${window.appState.currentUser.uid}`);
-            onValue(logRef, (snapshot) => {
-                const list = document.getElementById('userPurchaseList');
-                if(!list) return;
-                list.innerHTML = '';
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    let itemsFound = false;
-                    for (let key in data) {
-                        const log = data[key];
-                        itemsFound = true;
-                        const dateStr = new Date(log.timestamp).toLocaleDateString() + ' ' + new Date(log.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                        const tr = document.createElement('tr');
-                        tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
-                        tr.innerHTML = `
-                            <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">${log.promptTitle}</td>
-                            <td class="px-4 py-3 text-red-500 font-bold">-${formatCoins(log.amountCoins)}</td>
-                            <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[10px]">${dateStr}</td>
-                        `;
-                        list.appendChild(tr);
-                    }
-                    if (!itemsFound) {
-                        list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
-                    }
-                } else {
-                    list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
-                }
-            });
-        }
-
-        // 10-Minute Automatic Approval logic
-        async function triggerAutoApprovalCheck() {
-            try {
-                const txRef = ref(db, 'transactions');
-                const snapshot = await get(txRef);
-                if (snapshot.exists()) {
-                    const transactions = snapshot.val();
-                    const now = Date.now();
-                    const tenMinutes = 10 * 60 * 1000;
-
-                    for (let key in transactions) {
-                        const tx = transactions[key];
-                        if (tx.paymentStatus === 'pending' && (now - tx.timestamp) > tenMinutes) {
-                            await update(ref(db, `transactions/${key}`), { paymentStatus: 'auto-approved' });
-                            
-                            const userRef = ref(db, `users/${tx.userId}/coins`);
-                            await runTransaction(userRef, (currentCoins) => {
-                                return (currentCoins || 0) + tx.amountCoins;
-                            });
-                        }
-                    }
-                }
-            } catch (err) {
-                console.warn("Auto approval trace: ", err.message);
-            }
-        }
-
-        // Realtime Fetch Prompts
-        const promptsRef = ref(db, 'prompts');
-        onValue(promptsRef, (snapshot) => {
-            window.appState.promptsList = [];
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                for (let key in data) {
-                    window.appState.promptsList.push({ id: key, ...data[key] });
-                }
-            }
-            renderPrompts();
-        });
-
-        // Fast Load Pagination & Prompts Card rendering (Portrait view with strict pagination visibility checking)
-        function renderPrompts() {
-            const grid = document.getElementById('promptsGrid');
-            const countText = document.getElementById('promptsCount');
-            const pagControls = document.getElementById('paginationControls');
-            if(!grid) return;
-            grid.innerHTML = '';
-
-            let filtered = window.appState.promptsList;
-
-            // Strict Validation for Discover View Mode Filter
-            if (window.appState.viewMode === 'discover') {
-                filtered = window.appState.promptsList.filter(p => p.isTrending === true);
-            } else if (window.appState.currentFilter !== 'All') {
-                filtered = window.appState.promptsList.filter(p => p.tags === window.appState.currentFilter);
-            }
-
-            const searchVal = (document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '').toLowerCase();
-            if (searchVal) {
-                filtered = filtered.filter(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
-            }
-
-            // Pinned items sorted first
-            filtered.sort((a, b) => {
-                if (a.isPinned && !b.isPinned) return -1;
-                if (!a.isPinned && b.isPinned) return 1;
-                return b.views - a.views;
-            });
-
-            if(countText) countText.innerText = `${filtered.length} prompts found`;
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No prompts found matching filter criteria.</div>`;
-                if(pagControls) pagControls.classList.add('hidden');
-                return;
-            }
-
-            // Slice/Paginate 10 Items max [2]
-            const itemsPerPage = 10;
-            const totalPages = Math.ceil(filtered.length / itemsPerPage);
-            
-            if(window.appState.currentPage > totalPages) {
-                window.appState.currentPage = totalPages || 1;
-            }
-
-            const startIndex = (window.appState.currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedItems = filtered.slice(startIndex, endIndex);
-
-            // Dynamically show/hide pagination buttons based on existence
-            if (filtered.length > itemsPerPage) {
-                if(pagControls) pagControls.classList.remove('hidden');
-                const btnPrev = document.getElementById('btnPrev');
-                const btnNext = document.getElementById('btnNext');
-                const pageNumber = document.getElementById('pageNumber');
-
-                // If on Page 1, hide Previous completely as requested. Else show.
-                if (window.appState.currentPage === 1) {
-                    if(btnPrev) btnPrev.classList.add('hidden');
-                } else {
-                    if(btnPrev) btnPrev.classList.remove('hidden');
-                }
-
-                // If no more pages (at the end), hide Next completely. Else show.
-                if (window.appState.currentPage === totalPages) {
-                    if(btnNext) btnNext.classList.add('hidden');
-                } else {
-                    if(btnNext) btnNext.classList.remove('hidden');
-                }
-
-                if(pageNumber) pageNumber.innerText = `${window.appState.currentPage} / ${totalPages}`;
-            } else {
-                if(pagControls) pagControls.classList.add('hidden');
-            }
-
-            // Rendering high fidelity custom cards with 2:3 aspect-ratio & portrait styling overlay [1]
-            paginatedItems.forEach(p => {
-                const isPaid = p.type === 'paid';
-                const card = document.createElement('article'); // Semantic elements used for SEO crawlers
-                card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
-                card.onclick = () => openPromptDetail(p.id);
-
-                // Resolve target location dynamically [5]
-                const finalImgUrl = resolveImageSrc(p.imageURL);
-                const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
-
-                card.innerHTML = `
-                    <!-- Portrait Image Frame with dynamic alt tags & safe loading fallback [6] -->
-                    <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    
-                    <!-- Pins & Coins indicator overlays inside absolute corners -->
-                    <div class="absolute top-3 left-3 flex flex-col gap-1">
-                        ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
-                    </div>
-                    <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
-                        ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
-                    </span>
-
-                    <!-- Image Text Overlay (Bottom black gradient block matches screenshot format perfectly) -->
-                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${p.title}</h4>
-                        <div class="flex justify-between items-center mt-1.5 text-[9px] text-slate-300 font-semibold">
-                            <span><i class="fa-regular fa-eye mr-1"></i>${formatCoins(p.views || 0)} views</span>
-                            <span>#${p.tags || 'General'}</span>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Change Page Direction handler
-        window.changePage = function(direction) {
-            window.appState.currentPage += direction;
-            renderPrompts();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Realtime Payments Fetch for Admin Dashboard
-        const transRef = ref(db, 'transactions');
-        onValue(transRef, (snapshot) => {
-            const list = document.getElementById('adminPaymentsList');
-            if(!list) return;
-            list.innerHTML = '';
-            if (snapshot.exists() && window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
-                const data = snapshot.val();
-                let hasPending = false;
-                for (let key in data) {
-                    const tx = data[key];
-                    if (tx.paymentStatus === 'pending') {
-                        hasPending = true;
-                        const tr = document.createElement('tr');
-                        tr.className = "border-b border-slate-200 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-900";
-                        tr.innerHTML = `
-                            <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
-                            <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
-                            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 text-xs">${tx.senderInfo || 'N/A'}</td>
-                            <td class="px-4 py-3 text-xs font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
-                            <td class="px-4 py-3"><span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 rounded text-[10px]">${tx.paymentStatus}</span></td>
-                            <td class="px-4 py-3">
-                                <button onclick="approvePayment('${key}', '${tx.userId}', ${tx.amountCoins})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded transition shadow-sm">Approve</button>
-                            </td>
-                        `;
-                        list.appendChild(tr);
-                    }
-                }
-                if (!hasPending) {
-                    list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
-                }
-            } else {
-                list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
-            }
-        });
-
-        // Search inputs listeners
-        document.getElementById('desktopSearch').addEventListener('input', renderPrompts);
-        document.getElementById('mobileSearch').addEventListener('input', renderPrompts);
-
-        // Filtering prompts category pills
-        window.filterCategory = function(cat) {
-            window.appState.currentFilter = cat;
-            window.appState.currentPage = 1; // Reset page bounds on filter swap
-            
-            // Loop with data-category attributes mapping [2]
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                if (btn.getAttribute('data-category') === cat) {
-                    btn.classList.add('bg-brand-500', 'text-white');
-                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
-                } else {
-                    btn.classList.remove('bg-brand-500', 'text-white');
-                    btn.classList.add('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
-                }
-            });
-            renderPrompts();
-        }
-
-        // Approve manual user deposits (Admin Action)
-        window.approvePayment = async function(txId, userId, amount) {
-            try {
-                await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
-                const userCoinsRef = ref(db, `users/${userId}/coins`);
-                await runTransaction(userCoinsRef, (currentCoins) => {
-                    return (currentCoins || 0) + amount;
-                });
-                alert("Payment status approved. Coins credited successfully.");
-            } catch (err) {
-                alert("Approval Error: " + err.message);
-            }
-        }
-
-        // Save Prompt (Admin form submission handler - Zero Storage dependencies, redirects auto)
-        document.getElementById('promptForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const editId = document.getElementById('editPromptId').value;
-            const title = document.getElementById('pTitle').value;
-            const category = document.getElementById('pCategory').value;
-            const directUrlInput = document.getElementById('pImageURL').value.trim();
-            const description = document.getElementById('pDescription').value;
-            const type = document.getElementById('pType').value;
-            const price = parseInt(document.getElementById('pPrice').value) || 0;
-            const isTrending = document.getElementById('pTrending').checked;
-            const isPinned = document.getElementById('pPinned').checked;
-            const initialViews = parseInt(document.getElementById('pInitialViews').value) || 0;
-
-            try {
-                const promptPayload = {
-                    title: title,
-                    imageURL: directUrlInput,
-                    description: description,
-                    type: type,
-                    priceCoins: type === 'paid' ? price : 0,
-                    createdAt: Date.now(),
-                    isTrending: isTrending,
-                    isPinned: isPinned,
-                    tags: category,
-                    views: editId ? (parseInt(document.getElementById('pInitialViews').value) || 0) : initialViews
-                };
-
-                if (editId) {
-                    await update(ref(db, `prompts/${editId}`), promptPayload);
-                    alert("Prompt updated successfully.");
-                } else {
-                    const newPromptRef = push(ref(db, 'prompts'));
-                    await set(newPromptRef, promptPayload);
-                    alert("New Prompt created successfully!");
-                }
-                resetForm();
-                switchTab('home'); // Auto-redirect without page reload
-            } catch (err) {
-                alert("Failed saving prompt: " + err.message);
-            }
-        });
-
-        // Edit & Delete Mapping directly inside module
-        window.editPrompt = async function(id) {
-            const p = window.appState.promptsList.find(item => item.id === id);
-            if (p) {
-                document.getElementById('editPromptId').value = p.id;
-                document.getElementById('pTitle').value = p.title;
-                document.getElementById('pCategory').value = p.tags || 'Viral';
-                document.getElementById('pDescription').value = p.description;
-                document.getElementById('pImageURL').value = p.imageURL || '';
-                document.getElementById('pType').value = p.type;
-                document.getElementById('pPrice').value = p.priceCoins || 0;
-                document.getElementById('pTrending').checked = !!p.isTrending;
-                document.getElementById('pPinned').checked = !!p.isPinned;
-                document.getElementById('pInitialViews').value = p.views || 0;
-                togglePriceField();
-                switchTab('admin');
-                toggleAdminTab('addPrompt');
-            }
-        }
-
-        window.deletePrompt = async function(id) {
-            if (confirm("Are you sure you want to delete this prompt?")) {
-                await remove(ref(db, `prompts/${id}`));
-                alert("Prompt deleted.");
-            }
-        }
-
-        // Auth form handler
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
-
-            try {
-                if (window.appState.isLoginMode) {
-                    await signInWithEmailAndPassword(auth, email, password);
-                } else {
-                    const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                    await set(ref(db, `users/${userCred.user.uid}`), {
-                        email: email,
-                        coins: 0,
-                        isAdmin: email === 'kazimmustafa38@gmail.com',
-                        createdAt: Date.now()
-                    });
-                }
-                closeAuthModal();
-            } catch (err) {
-                alert("Auth Failure: " + err.message);
-            }
-        });
-
-        // Safe Elements updates handler with dynamic "K" formatting
+        // Explicit Global scoping registration [2]
         function updateAuthUI(isLoggedIn, email = '', coins = 0) {
             const dCoin = document.getElementById('desktopCoinDisplay');
             const mCoin = document.getElementById('mobileMenuCoinDisplay');
@@ -2036,13 +1618,363 @@
                 });
             }
         }
+        window.updateAuthUI = updateAuthUI; 
 
-        // View Prompt Detail Modal Handler (With Paid Prompt Logic & Confirmation Check)
+        // Firebase Auth listener
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                window.appState.currentUser = user;
+                const userRef = ref(db, `users/${user.uid}`);
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    window.appState.currentUserData = data;
+                    if (data) {
+                        window.updateAuthUI(true, user.email, data.coins || 0);
+                        if (user.email === 'kazimmustafa38@gmail.com') {
+                            document.getElementById('adminBtnContainer').classList.remove('hidden');
+                            document.getElementById('mobileAdminBtn').classList.remove('hidden');
+                        } else {
+                            document.getElementById('adminBtnContainer').classList.add('hidden');
+                            document.getElementById('mobileAdminBtn').classList.add('hidden');
+                        }
+                    }
+                });
+                syncUserTransactionsHistory();
+                syncUserPurchaseHistory(); 
+                triggerAutoApprovalCheck();
+            } else {
+                window.appState.currentUser = null;
+                window.appState.currentUserData = null;
+                window.updateAuthUI(false);
+                document.getElementById('adminBtnContainer').classList.add('hidden');
+                document.getElementById('mobileAdminBtn').classList.add('hidden');
+                document.getElementById('userTransactionsList').innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
+                document.getElementById('userPurchaseList').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
+            }
+        });
+
+        // Categories Sync [1]
+        const categoriesRef = ref(db, 'categories');
+        onValue(categoriesRef, (snapshot) => {
+            if (snapshot.exists()) {
+                window.appState.categories = snapshot.val();
+            } else {
+                const defaultCats = ["Viral", "IG Trend", "Boys", "Girls"];
+                set(categoriesRef, defaultCats);
+                window.appState.categories = defaultCats;
+            }
+            renderCategoryPills(window.appState.categories);
+            renderCategoryDropdown(window.appState.categories);
+            renderAdminCategoryManager(window.appState.categories);
+        });
+
+        function renderCategoryPills(categories) {
+            const container = document.getElementById('categoryFiltersContainer');
+            if(!container) return;
+            container.innerHTML = '';
+
+            const allBtn = document.createElement('button');
+            allBtn.onclick = () => window.filterCategory('All');
+            allBtn.className = "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition";
+            allBtn.innerText = "All Prompts";
+            allBtn.setAttribute('data-category', 'All');
+            container.appendChild(allBtn);
+
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.onclick = () => window.filterCategory(cat);
+                btn.className = "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
+                btn.innerText = cat;
+                btn.setAttribute('data-category', cat);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderCategoryDropdown(categories) {
+            const select = document.getElementById('pCategory');
+            if(!select) return;
+            select.innerHTML = '';
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.innerText = cat;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderAdminCategoryManager(categories) {
+            const container = document.getElementById('adminCategoryList');
+            if(!container) return;
+            container.innerHTML = '';
+            categories.forEach((cat, index) => {
+                const span = document.createElement('span');
+                span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
+                span.innerHTML = `
+                    <span>${cat}</span>
+                    <button onclick="window.deleteCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+                container.appendChild(span);
+            });
+        }
+
+        window.addNewCategory = async function() {
+            const input = document.getElementById('newCategoryInput');
+            const newCatVal = input.value.trim();
+            if(!newCatVal) return;
+
+            if (window.appState.categories.includes(newCatVal)) {
+                alert("Category already exists.");
+                return;
+            }
+
+            const updatedCats = [...window.appState.categories, newCatVal];
+            await set(ref(db, 'categories'), updatedCats);
+            input.value = '';
+            alert("Category added successfully.");
+        };
+
+        window.deleteCategory = async function(index) {
+            if (confirm("Are you sure you want to delete this category?")) {
+                const updatedCats = window.appState.categories.filter((_, i) => i !== index);
+                await set(ref(db, 'categories'), updatedCats);
+                alert("Category deleted successfully.");
+            }
+        };
+
+        function syncUserTransactionsHistory() {
+            if (!window.appState.currentUser) return;
+            const txRef = ref(db, 'transactions');
+            onValue(txRef, (snapshot) => {
+                const list = document.getElementById('userTransactionsList');
+                if(!list) return;
+                list.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let itemsFound = false;
+                    for (let key in data) {
+                        const tx = data[key];
+                        if (tx.userId === window.appState.currentUser.uid) {
+                            itemsFound = true;
+                            const tr = document.createElement('tr');
+                            tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                            tr.innerHTML = `
+                                <td class="px-4 py-3 font-mono text-[11px] text-brand-500 font-bold">${tx.tid || 'N/A'}</td>
+                                <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[11px]">${tx.senderInfo || 'N/A'}</td>
+                                <td class="px-4 py-3 font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
+                                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-500/10 text-brand-500">${tx.paymentStatus}</span></td>
+                            `;
+                            list.appendChild(tr);
+                        }
+                    }
+                    if (!itemsFound) {
+                        list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
+                    }
+                } else {
+                    list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
+                }
+            });
+        }
+
+        function syncUserPurchaseHistory() {
+            if (!window.appState.currentUser) return;
+            const logRef = ref(db, `purchaseLogs/${window.appState.currentUser.uid}`);
+            onValue(logRef, (snapshot) => {
+                const list = document.getElementById('userPurchaseList');
+                if(!list) return;
+                list.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let itemsFound = false;
+                    for (let key in data) {
+                        const log = data[key];
+                        itemsFound = true;
+                        const dateStr = new Date(log.timestamp).toLocaleDateString() + ' ' + new Date(log.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                        tr.innerHTML = `
+                            <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">${log.promptTitle}</td>
+                            <td class="px-4 py-3 text-red-500 font-bold">-${formatCoins(log.amountCoins)}</td>
+                            <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[10px]">${dateStr}</td>
+                        `;
+                        list.appendChild(tr);
+                    }
+                    if (!itemsFound) {
+                        list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+                    }
+                } else {
+                    list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+                }
+            });
+        }
+
+        async function triggerAutoApprovalCheck() {
+            try {
+                const txRef = ref(db, 'transactions');
+                const snapshot = await get(txRef);
+                if (snapshot.exists()) {
+                    const transactions = snapshot.val();
+                    const now = Date.now();
+                    const tenMinutes = 10 * 60 * 1000;
+
+                    for (let key in transactions) {
+                        const tx = transactions[key];
+                        if (tx.paymentStatus === 'pending' && (now - tx.timestamp) > tenMinutes) {
+                            await update(ref(db, `transactions/${key}`), { paymentStatus: 'auto-approved' });
+                            
+                            const userRef = ref(db, `users/${tx.userId}/coins`);
+                            await runTransaction(userRef, (currentCoins) => {
+                                return (currentCoins || 0) + tx.amountCoins;
+                            });
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn("Auto approval trace: ", err.message);
+            }
+        }
+
+        // Auto approval background dynamic check loop every 60 seconds [2]
+        setInterval(() => {
+            if (window.appState.currentUser) {
+                triggerAutoApprovalCheck();
+            }
+        }, 60000);
+
+        // Fetch Prompts
+        const promptsRef = ref(db, 'prompts');
+        onValue(promptsRef, (snapshot) => {
+            window.appState.promptsList = [];
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                for (let key in data) {
+                    window.appState.promptsList.push({ id: key, ...data[key] });
+                }
+            }
+            renderPrompts();
+        });
+
+        function renderPrompts() {
+            const grid = document.getElementById('promptsGrid');
+            const countText = document.getElementById('promptsCount');
+            const pagControls = document.getElementById('paginationControls');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            let filtered = window.appState.promptsList;
+
+            if (window.appState.viewMode === 'discover') {
+                filtered = window.appState.promptsList.filter(p => p.isTrending === true);
+            } else if (window.appState.currentFilter !== 'All') {
+                filtered = window.appState.promptsList.filter(p => p.tags === window.appState.currentFilter);
+            }
+
+            const searchVal = (document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '').toLowerCase();
+            if (searchVal) {
+                filtered = filtered.filter(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
+            }
+
+            filtered.sort((a, b) => {
+                if (a.isPinned && !b.isPinned) return -1;
+                if (!a.isPinned && b.isPinned) return 1;
+                return b.views - a.views;
+            });
+
+            if(countText) countText.innerText = `${filtered.length} prompts found`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No prompts found matching filter criteria.</div>`;
+                if(pagControls) pagControls.classList.add('hidden');
+                return;
+            }
+
+            const itemsPerPage = 10;
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            
+            if(window.appState.currentPage > totalPages) {
+                window.appState.currentPage = totalPages || 1;
+            }
+
+            const startIndex = (window.appState.currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = filtered.slice(startIndex, endIndex);
+
+            if (filtered.length > itemsPerPage) {
+                if(pagControls) pagControls.classList.remove('hidden');
+                const btnPrev = document.getElementById('btnPrev');
+                const btnNext = document.getElementById('btnNext');
+                const pageNumber = document.getElementById('pageNumber');
+
+                if (window.appState.currentPage === 1) {
+                    if(btnPrev) btnPrev.classList.add('hidden');
+                } else {
+                    if(btnPrev) btnPrev.classList.remove('hidden');
+                }
+
+                if (window.appState.currentPage === totalPages) {
+                    if(btnNext) btnNext.classList.add('hidden');
+                } else {
+                    if(btnNext) btnNext.classList.remove('hidden');
+                }
+
+                if(pageNumber) pageNumber.innerText = `${window.appState.currentPage} / ${totalPages}`;
+            } else {
+                if(pagControls) pagControls.classList.add('hidden');
+            }
+
+            paginatedItems.forEach(p => {
+                const isPaid = p.type === 'paid';
+                const card = document.createElement('article'); 
+                card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
+                card.onclick = () => window.openPromptDetail(p.id);
+
+                const finalImgUrl = window.resolveImageSrc(p.imageURL);
+                const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
+
+                card.innerHTML = `
+                    <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="absolute top-3 left-3 flex flex-col gap-1">
+                        ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
+                    </div>
+                    <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
+                        ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
+                    </span>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
+                        <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${p.title}</h4>
+                        <div class="flex justify-between items-center mt-1.5 text-[9px] text-slate-300 font-semibold">
+                            <span><i class="fa-regular fa-eye mr-1"></i>${formatCoins(p.views || 0)} views</span>
+                            <span>#${p.tags || 'General'}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.changePage = function(direction) {
+            window.appState.currentPage += direction;
+            renderPrompts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.filterCategory = function(cat) {
+            window.appState.currentFilter = cat;
+            window.appState.currentPage = 1; 
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === cat) {
+                    btn.classList.add('bg-brand-500', 'text-white');
+                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+                } else {
+                    btn.classList.remove('bg-brand-500', 'text-white');
+                    btn.classList.add('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+                }
+            });
+            renderPrompts();
+        }
+
         window.openPromptDetail = async function(id) {
             const p = window.appState.promptsList.find(item => item.id === id);
             if (!p) return;
 
-            // Strict Validation for Premium / Paid prompt clicks
             if (p.type === 'paid') {
                 const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[p.id];
                 const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
@@ -2050,7 +1982,7 @@
                 if (!hasUnlocked && !isAdmin) {
                     if (!window.appState.currentUser) {
                         alert("Please log in to purchase premium prompts.");
-                        openAuthModal('login');
+                        window.openAuthModal('login');
                         return;
                     }
 
@@ -2058,24 +1990,20 @@
                     const userCoins = window.appState.currentUserData.coins || 0;
 
                     if (userCoins < price) {
-                        alert(`Insufficient Coins! This premium prompt costs ${formatCoins(price)} coins. Please buy/deposit coins to proceed.`);
-                        switchTab('wallet');
+                        alert(`Insufficient Coins! Costs ${formatCoins(price)} coins.`);
+                        window.switchTab('wallet');
                         return;
                     }
 
-                    // User has enough balance -> trigger transaction deduction instantly on confirm
                     if (confirm(`Unlock "${p.title}" for ${formatCoins(price)} Coins?`)) {
                         try {
-                            // 1. Deduct coins via transaction
                             const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
                             await runTransaction(userCoinsRef, (current) => {
                                 return (current || 0) - price;
                             });
 
-                            // 2. Map unlocked index value
                             await set(ref(db, `users/${window.appState.currentUser.uid}/unlockedPrompts/${p.id}`), true);
 
-                            // 3. Generate purchase/debit logs statement record
                             const purchaseLogRef = push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`));
                             await set(purchaseLogRef, {
                                 promptId: p.id,
@@ -2084,118 +2012,169 @@
                                 timestamp: Date.now()
                             });
 
-                            alert("Prompt successfully unlocked! Details opened.");
+                            alert("Unlocked successfully!");
                         } catch (err) {
-                            alert("Transaction deduction failed: " + err.message);
+                            alert("Deduction failed: " + err.message);
                             return;
                         }
                     } else {
-                        return; // Cancelled
+                        return; 
                     }
                 }
             }
 
-            // Normal open details flow for unlocked / free prompts
             window.appState.currentDetailPrompt = p;
-            
             const viewsRef = ref(db, `prompts/${id}/views`);
             runTransaction(viewsRef, (curr) => {
-                // If view starts from an admin start value, increment from that starting count
                 return (curr || p.views || 0) + 1;
             });
 
-            // Dynamic document title update when prompt details modal is active (On-Page SPA SEO)
-            updatePageMetadata(p.title, `Unlock and copy the best AI prompt template for ${p.title}. Optimized for high quality generation.`);
+            window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`);
+            window.openModal('promptDetailModal');
 
-            const finalDetailsImg = resolveImageSrc(p.imageURL);
+            const finalDetailsImg = window.resolveImageSrc(p.imageURL);
             const detailImgEl = document.getElementById('detailImg');
-            detailImgEl.src = finalDetailsImg;
-            detailImgEl.onerror = function() {
-                this.onerror = null;
-                this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
-            };
-
-            document.getElementById('downloadBtn').href = finalDetailsImg || '#';
-            document.getElementById('detailTitle').innerText = p.title;
-            document.getElementById('detailViews').innerText = formatCoins((p.views || 0) + 1);
-            document.getElementById('detailTag').innerText = p.tags || 'Trending';
-
-            document.getElementById('lockedOverlay').classList.add('hidden'); // Fully visible unlocked
-            document.getElementById('detailPromptText').innerText = p.description;
-
-            if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
-                document.getElementById('detailPromptText').innerHTML += `
-                    <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
-                        <button onclick="editPrompt('${p.id}'); closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
-                        <button onclick="deletePrompt('${p.id}'); closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
-                    </div>
-                `;
+            if (detailImgEl) {
+                detailImgEl.src = finalDetailsImg;
+                detailImgEl.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+                };
             }
 
-            // Append Prompt Sharing Nodes button inside details modal dynamically [3]
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) downloadBtn.href = finalDetailsImg || '#';
+
+            const detailTitle = document.getElementById('detailTitle');
+            if (detailTitle) detailTitle.innerText = p.title;
+
+            const detailViews = document.getElementById('detailViews');
+            if (detailViews) detailViews.innerText = formatCoins((p.views || 0) + 1);
+
+            const detailTag = document.getElementById('detailTag');
+            if (detailTag) detailTag.innerText = p.tags || 'Trending';
+
+            const lockedOverlay = document.getElementById('lockedOverlay');
+            if (lockedOverlay) lockedOverlay.classList.add('hidden'); 
+
+            const detailPromptText = document.getElementById('detailPromptText');
+            if (detailPromptText) {
+                detailPromptText.innerText = p.description;
+                if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
+                    // Added window. prefix explicitly to click handlers [2]
+                    detailPromptText.innerHTML += `
+                        <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
+                            <button onclick="window.editPrompt('${p.id}'); window.closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
+                            <button onclick="window.deletePrompt('${p.id}'); window.closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
+                        </div>
+                    `;
+                }
+            }
+
             const btnArea = document.querySelector('#promptContentArea .flex-wrap');
             if (btnArea && !document.getElementById('promptShareBtn')) {
                 const shareBtn = document.createElement('button');
                 shareBtn.id = "promptShareBtn";
-                shareBtn.onclick = () => sharePrompt();
+                shareBtn.onclick = () => window.sharePrompt();
                 shareBtn.className = "bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-emerald-500 transition font-sans shadow-sm flex items-center gap-1";
                 shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share Prompt`;
                 btnArea.appendChild(shareBtn);
             }
+        };
 
-            openModal('promptDetailModal');
-        }
+        window.editPrompt = async function(id) {
+            const p = window.appState.promptsList.find(item => item.id === id);
+            if (p) {
+                document.getElementById('editPromptId').value = p.id;
+                document.getElementById('pTitle').value = p.title;
+                document.getElementById('pCategory').value = p.tags || 'Viral';
+                document.getElementById('pDescription').value = p.description;
+                document.getElementById('pImageURL').value = p.imageURL || '';
+                document.getElementById('pType').value = p.type;
+                document.getElementById('pPrice').value = p.priceCoins || 0;
+                document.getElementById('pTrending').checked = !!p.isTrending;
+                document.getElementById('pPinned').checked = !!p.isPinned;
+                document.getElementById('pInitialViews').value = p.views || 0;
+                window.togglePriceField();
+                window.switchTab('admin');
+                window.toggleAdminTab('addPrompt');
+            }
+        };
+
+        window.deletePrompt = async function(id) {
+            if (confirm("Delete this prompt?")) {
+                await remove(ref(db, `prompts/${id}`));
+                alert("Prompt deleted.");
+            }
+        };
 
         window.copyToClipboard = function() {
+            if (!window.appState.currentDetailPrompt) return;
             const text = document.getElementById('detailPromptText').innerText;
-            if (window.appState.currentDetailPrompt && window.appState.currentDetailPrompt.type === 'paid') {
+            if (window.appState.currentDetailPrompt.type === 'paid') {
                 const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[window.appState.currentDetailPrompt.id];
-                if (!hasUnlocked && window.appState.currentUser.email !== 'kazimmustafa38@gmail.com') {
-                    alert("Please unlock this premium prompt before attempting to copy.");
+                const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
+                if (!hasUnlocked && !isAdmin) {
+                    alert("Please unlock first.");
                     return;
                 }
             }
-            safeCopy(text); // Fallback Copy helper utilized [2]
-        }
+            window.safeCopy(text);
+        };
 
-        // Zero-Storage Deposit Form Submission (Directly writes TID & Mobile Details)
-        document.getElementById('purchaseCoinsForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!window.appState.currentUser) {
-                alert("Please log in to submit requests.");
-                openAuthModal('login');
-                return;
-            }
-
-            const pkr = parseFloat(document.getElementById('pkrAmount').value);
-            const coins = pkr * 10000;
-            const tidValue = document.getElementById('pTransactionID').value.trim();
-            const senderInfoValue = document.getElementById('pSenderInfo').value.trim();
-
-            try {
-                const txRef = push(ref(db, 'transactions'));
-                await set(txRef, {
-                    userId: window.appState.currentUser.uid,
-                    userEmail: window.appState.currentUser.email,
-                    amountCoins: coins,
-                    paymentStatus: 'pending',
-                    tid: tidValue, // Direct TID check
-                    senderInfo: senderInfoValue, // Direct mobile check
-                    timestamp: Date.now()
-                });
-
-                alert("Deposit request submitted successfully! Pending verification. Coins are automatically credited after 10 minutes.");
-                document.getElementById('purchaseCoinsForm').reset();
-            } catch (err) {
-                alert("Failed submitting request: " + err.message);
+        const transRef = ref(db, 'transactions');
+        onValue(transRef, (snapshot) => {
+            const list = document.getElementById('adminPaymentsList');
+            if(!list) return;
+            list.innerHTML = '';
+            if (snapshot.exists() && window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
+                const data = snapshot.val();
+                let hasPending = false;
+                for (let key in data) {
+                    const tx = data[key];
+                    if (tx.paymentStatus === 'pending') {
+                        hasPending = true;
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-slate-200 dark:border-slate-855 hover:bg-slate-50 dark:hover:bg-slate-900";
+                        // Bound window object context cleanly [2]
+                        tr.innerHTML = `
+                            <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
+                            <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
+                            <td class="px-4 py-3 text-slate-600 dark:text-slate-350 text-xs">${tx.senderInfo || 'N/A'}</td>
+                            <td class="px-4 py-3 text-xs font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
+                            <td class="px-4 py-3"><span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 rounded text-[10px]">${tx.paymentStatus}</span></td>
+                            <td class="px-4 py-3">
+                                <button onclick="window.approvePayment('${key}', '${tx.userId}', ${tx.amountCoins})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded transition shadow-sm">Approve</button>
+                            </td>
+                        `;
+                        list.appendChild(tr);
+                    }
+                }
+                if (!hasPending) {
+                    list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
+                }
+            } else {
+                list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
             }
         });
 
-        // 🚀 Real-time PromptKaro AI Prompt Regeneration handler with 50K Coins deduction & Automatic Fallback
+        window.approvePayment = async function(txId, userId, amount) {
+            try {
+                await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
+                const userCoinsRef = ref(db, `users/${userId}/coins`);
+                await runTransaction(userCoinsRef, (currentCoins) => {
+                    return (currentCoins || 0) + amount;
+                });
+                alert("Payment status approved successfully.");
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        };
+
         window.regeneratePromptWithAI = async function() {
             if (!window.appState.currentUser) {
-                alert("Please log in to use AI Generate feature.");
-                openAuthModal('login');
+                alert("Please log in.");
+                window.openAuthModal('login');
                 return;
             }
 
@@ -2203,76 +2182,49 @@
             const userCoins = window.appState.currentUserData.coins || 0;
 
             if (userCoins < cost) {
-                alert(`Insufficient Balance! You need at least ${formatCoins(cost)} coins to regenerate this prompt.`);
-                closePromptDetailModal();
-                switchTab('wallet');
+                alert(`Insufficient Balance! Costs ${formatCoins(cost)} coins.`);
+                window.closePromptDetailModal();
+                window.switchTab('wallet');
                 return;
             }
 
-            // 1. Fetch Key from Database securely (No hardcoded references) [1]
             const apiSnap = await get(ref(db, 'settings/geminiApiKey'));
             if (!apiSnap.exists() || !apiSnap.val()) {
-                alert("AI Engine is currently under maintenance. Please contact support.");
+                alert("AI Engine is currently offline.");
                 return;
             }
             const apiKey = apiSnap.val();
 
-            // Retrieve custom style, lighting, format, and quality values from dropdown options [1]
             const selectedStyle = document.getElementById('aiStyle').value;
             const selectedLighting = document.getElementById('aiLighting').value;
             const selectedLength = document.getElementById('aiLength').value;
             const selectedStrength = document.getElementById('aiStrength').value;
 
-            // Extract the original active prompt description text as the baseline input
             const originalPromptText = window.appState.currentDetailPrompt ? window.appState.currentDetailPrompt.description : "";
 
-            // Strictly construct structured improvement prompt instruction using dynamic formula mapping
             const structuredInstructionPrompt = `
-                Aap ek world-class AI Image Prompt Engineer ho. Niche diye gaye "Original Prompt" ko analyze karein aur usme missing cinematic details (lighting, mood, environment, quality keywords, camera lens look, aur grain) add karke ek behtareen improved prompt generate karein:
-
-                Original Prompt to Improve:
-                "${originalPromptText}"
-
-                Aapko is prompt ko is formula ke mutabiq expand aur improve karna hai:
-                Prompt Improvement Formula: [Subject] + [Pose/Emotion] + [Outfit] + [Environment] + [Lighting] + [Mood] + [Camera Style] + [Quality Tags]
-
-                User dwara selected requirements niche hain:
-                - Output Style: ${selectedStyle}
-                - Variation / Lighting Option: ${selectedLighting}
-                - Prompt Length: ${selectedLength}
-                - Enhancement Strength Level: ${selectedStrength}
-
-                Instructions:
-                - Existing prompt ka structure, subject, aur main scenario bilkul change na karein balki use expand karke missing elements aur high quality descriptive words add karein.
-                - Naye high-quality details add karein jaise (subtle film grain, 90s analog photography look, shallow depth of field, sharp focus, volumetric light, 50mm lens look, ultra-realistic, highly detailed cinematic color grading).
-                - Hinglish aur English mix style use karein jo visually appealing aur natural ho.
-                - Agar prompt Length "Short Prompt" ho, toh output bohot direct, concise aur optimized rakhein. Agar "Detailed Prompt" ho, toh visual detail expand karein.
-
-                Sirf aur sirf final generated improved prompt output dein. Koi additional chat, explanation, ya labels jaise "[Subject]" na likhein. Direct ready-to-use prompt return karein.
+                Analyze original prompt: "${originalPromptText}". Expand with selected features: Style: ${selectedStyle}, Lighting: ${selectedLighting}, Length: ${selectedLength}, Strength: ${selectedStrength}. Return enhanced prompt ONLY without any extra chat.
             `;
 
-            if (confirm(`Regenerate this prompt with PromptKaro AI? It will deduct 50,000 Coins from your wallet.`)) {
+            if (confirm(`Regenerate for 50,000 Coins?`)) {
                 const btn = document.getElementById('btnGenerateAI');
                 const outContainer = document.getElementById('aiOutputContainer');
                 const outText = document.getElementById('aiOutputText');
 
                 btn.disabled = true;
-                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating response...`;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating...`;
                 outContainer.classList.remove('hidden');
-                outText.innerText = "Connecting to PromptKaro AI Engine...";
+                outText.innerText = "Connecting...";
 
-                // Setup dynamic transaction statements IDs
                 let logId = "";
                 let purchaseLogRef = null;
 
                 try {
-                    // 1. Deduct 50,000 Coins securely via transaction
                     const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
                     await runTransaction(userCoinsRef, (current) => {
                         return (current || 0) - cost;
                     });
 
-                    // 2. Generate Statement History Debit log
                     logId = push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`)).key;
                     purchaseLogRef = ref(db, `purchaseLogs/${window.appState.currentUser.uid}/${logId}`);
                     await set(purchaseLogRef, {
@@ -2282,14 +2234,12 @@
                         timestamp: Date.now()
                     });
 
-                    // 3. Setup robust API Models Array (Try 2.5 Flash first, auto fallback to stable 1.5 Flash on 503)
                     const models = ["gemini-2.5-flash", "gemini-1.5-flash"];
                     let apiSuccess = false;
                     let generatedResponseText = "";
-                    let lastErrorMsg = "";
 
                     for (let modelName of models) {
-                        outText.innerText = `Analyzing prompt structures & enhancing details...`;
+                        outText.innerText = `Analyzing prompt structure...`;
                         try {
                             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
                             const response = await fetch(endpoint, {
@@ -2310,42 +2260,34 @@
                                 const resJson = await response.json();
                                 generatedResponseText = resJson.candidates[0].content.parts[0].text;
                                 apiSuccess = true;
-                                break; // Success -> Break the loop!
-                            } else {
-                                const errorData = await response.json().catch(() => ({}));
-                                lastErrorMsg = errorData.error?.message || "Unavailable";
-                                console.warn("AI Engine Node failure.");
+                                break;
                             }
-                        } catch (fetchError) {
-                            lastErrorMsg = fetchError.message;
-                            console.warn("AI Engine network timeout.");
+                        } catch (err) {
+                            console.warn("Retrying model...");
                         }
                     }
 
                     if (apiSuccess) {
                         outText.innerText = generatedResponseText;
-                        alert("AI prompt successfully regenerated! Output visible below.");
+                        alert("AI prompt successfully regenerated!");
                     } else {
-                        // 4. Google Overload Refund Strategy (Runs automatically if all models return 503)
                         const refundCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
                         await runTransaction(refundCoinsRef, (current) => {
                             return (current || 0) + cost;
                         });
 
-                        // Set the purchase log statement state to failed and refunded
                         if (purchaseLogRef) {
                             await update(purchaseLogRef, {
-                                promptTitle: `AI Generation (Failed - Fully Refunded)`
+                                promptTitle: `AI Generation (Failed - Refunded)`
                             });
                         }
 
-                        outText.innerText = `Error: Our AI servers are currently experiencing high demand.\n\nYour 50,000 Coins have been fully refunded to your wallet automatically. Please try again!`;
-                        alert("AI Engine is currently experiencing high traffic. Your 50,000 Coins have been fully refunded!");
+                        outText.innerText = `Servers busy. Refunded successfully.`;
+                        alert("Servers busy. Coins fully refunded!");
                     }
 
                 } catch (err) {
-                    console.error("Deduction error: ", err);
-                    alert("Deduction process failed: " + err.message);
+                    alert("Failed: " + err.message);
                 } finally {
                     btn.disabled = false;
                     btn.innerHTML = `<i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀`;
@@ -2353,14 +2295,13 @@
             }
         };
 
-        // Copy AI output block to clipboard
         window.copyAiOutput = function() {
             const text = document.getElementById('aiOutputText').innerText;
             if(!text || text.startsWith("Connecting") || text.startsWith("Error")) {
                 alert("Nothing valid to copy.");
                 return;
             }
-            safeCopy(text); // Fallback Copy helper utilized [2]
+            window.safeCopy(text);
         };
     </script>
 </body>
