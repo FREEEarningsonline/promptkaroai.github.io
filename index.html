@@ -1,0 +1,2029 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptKaro - AI Prompt Sharing Platform</title>
+    
+    <!-- TECHNICAL SEO METADATA -->
+    <meta name="description" content="Explore, copy, and share free trending AI prompts for Midjourney, Stable Diffusion, ChatGPT, and Bing 3D Name Art. High conversion templates.">
+    <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
+    <meta name="author" content="Nazim Mustafa">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freeearningsonline.github.io/Ai-Prompt-/">
+
+    <!-- OPEN GRAPH / SOCIAL PREVIEWS (WhatsApp, Facebook, Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://freeearningsonline.github.io/Ai-Prompt-/">
+    <meta property="og:title" content="PromptKaro - Free AI Prompt Sharing Platform">
+    <meta property="og:description" content="Vast library of optimized copy-paste prompts for high converting AI art and assistant chat designs.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/logo.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://freeearningsonline.github.io/Ai-Prompt-/">
+    <meta property="twitter:title" content="PromptKaro - Free AI Prompt Sharing Platform">
+    <meta property="twitter:description" content="Vast library of optimized copy-paste prompts for high converting AI art and assistant chat designs.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/logo.png">
+
+    <!-- JSON-LD SCHEMA MARKUP (For Google Search Engine Recognition) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PromptKaro",
+      "url": "https://freeearningsonline.github.io/Ai-Prompt-/",
+      "description": "Vast database of copy-paste AI prompts optimized for Midjourney, ChatGPT, Stable Diffusion, and Bing 3D Creator.",
+      "applicationCategory": "DesignApplication, UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "author": {
+        "@type": "Person",
+        "name": "Nazim Mustafa"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar design */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300">
+
+    <!-- DESKTOP TOP NAVBAR -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <!-- Logo -->
+            <a href="#" onclick="switchTab('home')" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
+                <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                <span>Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md relative">
+                <input type="text" id="desktopSearch" placeholder="Search prompts..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 dark:text-slate-500"></i>
+            </div>
+
+            <!-- Menu Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <button onclick="switchTab('home')" class="hover:text-brand-500 transition">Home</button>
+                <button onclick="openRequestModal()" class="hover:text-brand-500 transition">Request Prompt</button>
+                <button onclick="switchTab('discover')" class="hover:text-brand-500 transition">Discover</button>
+                <button onclick="switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-wallet text-amber-500"></i> 
+                    <span>Wallet</span>
+                </button>
+                <button onclick="openInfoModal('contact')" class="hover:text-brand-500 transition">Contact</button>
+
+                <!-- Day/Night Toggle Button -->
+                <button type="button" onclick="toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Admin Panel Button -->
+                <span id="adminBtnContainer" class="hidden">
+                    <button onclick="switchTab('admin')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
+                </span>
+
+                <!-- Auth Options -->
+                <div class="flex items-center gap-2">
+                    <button onclick="openAuthModal('login')" class="auth-logged-out hover:text-brand-500 transition">Login</button>
+                    <button onclick="openAuthModal('signup')" class="auth-logged-out bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-1.5 rounded-full text-xs transition">Join Free</button>
+
+                    <span id="userEmailDisplay" class="auth-logged-in hidden text-xs text-slate-500 dark:text-slate-400 font-mono"></span>
+                    <button onclick="logout()" class="auth-logged-in hidden bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold transition">Logout</button>
+                </div>
+            </nav>
+
+            <!-- Hamburger Button (Mobile Only) -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl p-1 text-slate-500 dark:text-slate-400 hover:text-brand-500">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobileMenu" class="fixed inset-0 bg-white dark:bg-slate-950 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 overflow-y-auto border-l border-slate-200 dark:border-slate-800">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-lg font-bold text-brand-500">Menu</span>
+            <div class="flex items-center gap-4">
+                <button type="button" onclick="toggleTheme()" class="text-lg text-amber-500 dark:text-amber-400"><i id="mobileThemeIcon" class="fa-solid fa-sun"></i></button>
+                <button onclick="toggleMobileMenu()" class="text-2xl text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="flex flex-col gap-5 text-base font-semibold">
+            <!-- Join Free / Login Options -->
+            <div class="auth-logged-out flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <button onclick="openAuthModal('signup'); toggleMobileMenu();" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm text-center transition">Join Free</button>
+                <button onclick="openAuthModal('login'); toggleMobileMenu();" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-2.5 rounded-lg text-sm text-center transition">Login</button>
+            </div>
+
+            <!-- Profile Info (Logged In) -->
+            <div class="auth-logged-in hidden flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center justify-between">
+                    <span id="mobileEmailDisplay" class="text-xs text-slate-500 dark:text-slate-400 font-mono truncate"></span>
+                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full text-amber-500 font-bold flex items-center gap-1">
+                        <i class="fa-solid fa-wallet"></i> <span id="mobileMenuCoinDisplay">0</span>
+                    </span>
+                </div>
+                <button onclick="logout(); toggleMobileMenu();" class="w-full bg-slate-200 dark:bg-slate-800 py-2 rounded-lg text-sm transition">Logout</button>
+            </div>
+
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
+            <button onclick="openRequestModal(); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
+            <button onclick="switchTab('discover'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-compass text-slate-400"></i> Discover</button>
+            <button onclick="switchTab('wallet'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
+            <button onclick="openInfoModal('about'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</button>
+            <button onclick="openInfoModal('contact'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</button>
+            <button onclick="openInfoModal('dmca'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</button>
+            
+            <span id="mobileAdminBtn" class="hidden border-t border-slate-200 dark:border-slate-800 pt-3">
+                <button onclick="switchTab('admin'); toggleMobileMenu();" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
+            </span>
+        </div>
+    </div>
+
+    <!-- MAIN PORT VIEWPORT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- Banner / Hero Section -->
+        <section id="heroSection" class="relative overflow-hidden rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:to-brand-900/30 p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+            <div class="max-w-xl">
+                <span class="bg-brand-500/10 text-brand-500 border border-brand-500/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">Vast AI Library</span>
+                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-950 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs.</p>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-950 dark:text-white">🔥 Viral</button>
+                    <button onclick="filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-950 dark:text-white">📸 IG Trend</button>
+                </div>
+            </div>
+            <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
+        </section>
+
+        <!-- Search Bar (Mobile View) -->
+        <div class="md:hidden relative mb-6">
+            <input type="text" id="mobileSearch" placeholder="Search prompts..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:border-brand-500 text-sm shadow-sm transition shadow-sm">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 dark:text-slate-500"></i>
+        </div>
+
+        <!-- Filters Section -->
+        <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
+            <button onclick="filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
+            <!-- Injected Category Buttons -->
+        </div>
+
+        <!-- Section: Prompts Grid -->
+        <section id="promptsSection">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="sectionTitle" class="text-xl font-bold">Featured Prompts</h2>
+                <span class="text-xs text-slate-500" id="promptsCount">0 prompts found</span>
+            </div>
+            
+            <div id="promptsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="col-span-full py-12 text-center text-slate-500">Loading prompts...</div>
+            </div>
+
+            <!-- Pagination Layout Elements -->
+            <div id="paginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
+                <button onclick="changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
+                <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
+                <button onclick="changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
+            </div>
+        </section>
+
+        <!-- Section: Dedicated Wallet Section -->
+        <section id="walletSection" class="hidden max-w-4xl mx-auto space-y-6">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Balance card -->
+                <div class="flex-1 space-y-4">
+                    <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
+                        <span class="text-xs font-semibold opacity-80 uppercase tracking-wider">Current Balance</span>
+                        <h2 class="text-4xl font-black mt-2"><span class="walletCoinTotal">0</span> <span class="text-lg font-medium opacity-90">Coins</span></h2>
+                        <div class="mt-4 flex justify-between items-center text-xs opacity-90">
+                            <span>Conversion Rate</span>
+                            <span class="font-bold">10,000 Coins = 1 PKR</span>
+                        </div>
+                        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                    </div>
+
+                    <!-- Deposit Guide -->
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
+                        <h3 class="font-bold text-md text-brand-500">EasyPaisa / JazzCash</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Please pay to Nazim Mustafa directly using the number details given below and save the screenshot receipt.</p>
+                        <div class="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-500">Account Title:</span>
+                                <span class="font-bold">Nazim Mustafa</span>
+                            </div>
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-500">Mobile Number:</span>
+                                <span class="font-bold text-brand-500 font-mono text-sm">03105784772</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proof of purchase submission -->
+                <div class="flex-1 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="font-bold text-lg mb-2">Buy Coins</h3>
+                    <p class="text-xs text-slate-500 mb-4">Submit deposit details below for manual and auto coin additions.</p>
+                    <form id="purchaseCoinsForm" class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Deposit Amount (PKR)</label>
+                            <input type="number" id="pkrAmount" placeholder="e.g. 50" required oninput="calculateExchange()" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">You will receive: <span id="coinsResult" class="text-amber-500 font-bold">0</span> Coins</div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Transaction ID (TID) (Required)</label>
+                            <input type="text" id="pTransactionID" placeholder="Enter TID (e.g. 30123456789)" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Sender Mobile No. / EasyPaisa Name (Required)</label>
+                            <input type="text" id="pSenderInfo" placeholder="e.g. Ali Khan / 03012345678" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
+                    <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
+                    <div class="flex gap-2">
+                        <button onclick="switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
+                        <button onclick="switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition">Unlock History (Debits)</button>
+                    </div>
+                </div>
+                
+                <!-- Deposit Credits List Table -->
+                <div id="tableCredits" class="overflow-x-auto text-xs">
+                    <table class="w-full text-left text-slate-600 dark:text-slate-300">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                                <th class="px-4 py-2.5">Transaction ID / TID</th>
+                                <th class="px-4 py-2.5">Sender Details</th>
+                                <th class="px-4 py-2.5">Coins Amount</th>
+                                <th class="px-4 py-2.5">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTransactionsList">
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Debits Unlocks Log History Table -->
+                <div id="tableDebits" class="overflow-x-auto text-xs hidden">
+                    <table class="w-full text-left text-slate-600 dark:text-slate-300">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                                <th class="px-4 py-2.5">Unlocked Prompt</th>
+                                <th class="px-4 py-2.5">Deducted Balance</th>
+                                <th class="px-4 py-2.5">Date / Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userPurchaseList">
+                            <tr>
+                                <td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Dynamic Admin View -->
+        <section id="adminView" class="hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-red-500">Admin Console</h1>
+                    <p class="text-xs text-slate-400">Manage database prompts, custom categories, and verify user payments</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
+                    <button onclick="toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
+                    <button onclick="toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
+                    <button onclick="toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
+                </div>
+            </div>
+
+            <!-- Create / Update Form -->
+            <div id="adminAddPromptTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h3 class="text-lg font-bold mb-4">Create or Update Prompt</h3>
+                <form id="promptForm" class="space-y-4">
+                    <input type="hidden" id="editPromptId">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Title</label>
+                            <input type="text" id="pTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Category / Tag</label>
+                            <select id="pCategory" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <!-- Dynamic Options -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/ folder)</label>
+                            <div class="space-y-1">
+                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png or custom name" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <datalist id="githubImagesList"></datalist>
+                                <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Starting / Initial Views count (Works on Free + Paid)</label>
+                            <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Prompt Text / Description</label>
+                        <textarea id="pDescription" rows="4" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Type</label>
+                            <select id="pType" onchange="togglePriceField()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <option value="free">Free</option>
+                                <option value="paid">Paid</option>
+                            </select>
+                        </div>
+                        <div id="priceFieldContainer" class="hidden">
+                            <label class="block text-xs text-slate-400 mb-1">Coins Price</label>
+                            <input type="number" id="pPrice" value="0" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div class="flex items-center gap-4 mt-6">
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="checkbox" id="pTrending" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
+                                <span class="text-slate-600 dark:text-slate-300">Trending</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="checkbox" id="pPinned" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
+                                <span class="text-slate-600 dark:text-slate-300">Pinned</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm">Save Prompt</button>
+                        <button type="button" onclick="resetForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition shadow-sm">Reset Form</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Manage Dynamic Categories Console -->
+            <div id="adminCategoriesTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
+                <h3 class="text-lg font-bold mb-2">Manage Custom Categories</h3>
+                <p class="text-xs text-slate-400 mb-4">Add or delete filters that appear dynamically in navigation and forms</p>
+                
+                <div class="flex gap-2 max-w-md mb-6">
+                    <input type="text" id="newCategoryInput" placeholder="e.g. Couples, Islamic, Festival" class="flex-1 bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    <button onclick="addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Add Category</button>
+                </div>
+
+                <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
+                    <h4 class="text-xs font-bold uppercase text-slate-400 mb-3">Active Categories list</h4>
+                    <div id="adminCategoryList" class="flex flex-wrap gap-2 text-xs">
+                        <!-- Categories dynamically listed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Admin Settings & API Config (Dynamic API Key Management) -->
+            <div id="adminAiConfigTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
+                <h3 class="text-lg font-bold mb-2">Secure AI Configuration</h3>
+                <p class="text-xs text-slate-400 mb-4">Set your own custom backend API Key. Users will not see this key; it is handled securely inside database variables.</p>
+                
+                <div class="space-y-4 max-w-md">
+                    <div>
+                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">PromptKaro API Engine Key</label>
+                        <input type="password" id="adminApiKeyInput" placeholder="Enter secure engine API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    </div>
+                    <button onclick="saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Save Key Configurations</button>
+                </div>
+            </div>
+
+            <!-- Verify Payments Screen -->
+            <div id="adminPaymentsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden">
+                <h3 class="text-lg font-bold mb-4">Pending Wallet Submissions</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-700 dark:text-slate-300">
+                        <thead class="bg-slate-100 dark:bg-slate-950 text-xs text-slate-500 uppercase">
+                            <tr>
+                                <th class="px-4 py-3">User Email</th>
+                                <th class="px-4 py-3">TID</th>
+                                <th class="px-4 py-3">Sender Details</th>
+                                <th class="px-4 py-3">Amount (Coins)</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPaymentsList">
+                            <tr>
+                                <td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MOBILE BOTTOM NAVBAR -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-3 z-40 text-slate-500 dark:text-slate-400">
+        <button onclick="switchTab('home')" class="flex flex-col items-center gap-1 hover:text-brand-500">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px]">Home</span>
+        </button>
+        <button onclick="switchTab('discover')" class="flex flex-col items-center gap-1 hover:text-brand-500">
+            <i class="fa-solid fa-compass text-lg"></i>
+            <span class="text-[10px]">Discover</span>
+        </button>
+        <button onclick="openCommunityDialog()" class="flex flex-col items-center gap-1 hover:text-brand-500">
+            <i class="fa-solid fa-users text-lg"></i>
+            <span class="text-[10px]">Community</span>
+        </button>
+    </nav>
+
+    <!-- MODAL: Prompt Detail Page -->
+    <div id="promptDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
+            <button onclick="closePromptDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <div>
+                    <img id="detailImg" src="" alt="Prompt preview" class="w-full h-auto max-h-96 object-cover rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';">
+                    <a id="downloadBtn" href="#" target="_blank" download class="w-full block text-center mt-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white shadow-sm">
+                        <i class="fa-solid fa-download mr-1"></i> Save Image
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span id="detailTag" class="bg-brand-500/10 text-brand-500 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">Trending</span>
+                            <span class="text-xs text-slate-500"><i class="fa-regular fa-eye mr-1"></i> <span id="detailViews">0</span> views</span>
+                        </div>
+                        <h2 id="detailTitle" class="text-xl font-bold mb-3 text-slate-955 dark:text-white">Prompt Title</h2>
+
+                        <div id="promptContentArea" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4 rounded-xl min-h-[140px] flex flex-col justify-between relative overflow-hidden">
+                            <!-- Premium blur screen overlay (Kept inside for backup render logic) -->
+                            <div id="lockedOverlay" class="absolute inset-0 bg-slate-50/98 dark:bg-slate-950/98 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden">
+                                <i class="fa-solid fa-lock text-amber-500 text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase text-slate-400">Premium Locked Content</span>
+                                <p class="text-[10px] text-slate-500 my-1">This premium prompt costs <span id="lockedPrice" class="text-amber-500 font-bold">0</span> Coins</p>
+                                <button onclick="buyPrompt()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-4 py-1.5 rounded-lg mt-2 transition shadow-sm">Unlock Now</button>
+                            </div>
+                            
+                            <p id="detailPromptText" class="text-sm text-slate-800 dark:text-slate-300 font-mono select-all leading-relaxed">Loading prompt...</p>
+                            
+                            <div class="flex flex-wrap gap-2 mt-4 self-end">
+                                <button onclick="copyToClipboard()" class="bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-brand-500 transition font-sans shadow-sm flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                                </button>
+                                <button onclick="toggleAiPanel()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs px-3 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Regenerate (50K)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collapsible AI Input Panel -->
+            <div id="aiPanel" class="hidden mt-6 p-5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 transition-all duration-300 shadow-sm">
+                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <h4 class="text-xs font-bold text-brand-500 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-sliders"></i> Configure PromptKaro AI</h4>
+                    <span class="text-[10px] text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded-full">Cost: 50,000 Coins</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <!-- Dynamic form selectors matching exact prompt customization formula -->
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Style Select</label>
+                        <select id="aiStyle" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
+                            <option value="Cinematic">Cinematic</option>
+                            <option value="Anime/Illustration">Anime</option>
+                            <option value="Ultra-Realistic">Realistic</option>
+                            <option value="Dark Fantasy">Dark Fantasy</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Variation / Lighting</label>
+                        <select id="aiLighting" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
+                            <option value="Dramatic High-Contrast">Dramatic High-Contrast</option>
+                            <option value="Warm Golden Hour">Warm Golden Hour</option>
+                            <option value="Moody Cinematic Dark">Moody Cinematic Dark</option>
+                            <option value="Bright Studio Neon">Bright Studio Neon</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Prompt Length</label>
+                        <select id="aiLength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
+                            <option value="Detailed Prompt">Detailed Prompt</option>
+                            <option value="Short Prompt">Short Prompt</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Strength Level</label>
+                        <select id="aiStrength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
+                            <option value="Insane Detail (Max Quality)">Insane Detail (Pro)</option>
+                            <option value="Basic Enhancement">Basic Enhancement</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="regeneratePromptWithAI()" id="btnGenerateAI" class="w-full py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀
+                </button>
+            </div>
+
+            <!-- AI Output Glowing Textbox -->
+            <div id="aiOutputContainer" class="hidden mt-6 p-5 bg-purple-500/10 dark:bg-purple-950/10 border border-purple-500/20 rounded-2xl space-y-3 shadow-sm">
+                <div class="flex justify-between items-center border-b border-purple-500/20 pb-2">
+                    <span class="text-xs font-bold text-purple-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-microchip"></i> PromptKaro AI Output
+                    </span>
+                    <button onclick="copyAiOutput()" class="text-xs text-purple-500 hover:underline flex items-center gap-1">
+                        <i class="fa-regular fa-copy"></i> Copy Output
+                    </button>
+                </div>
+                <p id="aiOutputText" class="text-sm font-sans whitespace-pre-wrap select-all leading-relaxed max-h-60 overflow-y-auto pr-1">Generating response...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Authentication -->
+    <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-sm relative p-6 shadow-md">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="authTitle" class="text-lg font-bold mb-4 text-slate-955 dark:text-white">Login</h3>
+            <form id="authForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Email Address</label>
+                    <input type="email" id="authEmail" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Password</label>
+                    <input type="password" id="authPassword" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                </div>
+                <button type="submit" id="authSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 rounded-lg text-sm transition shadow-sm">Login</button>
+            </form>
+            <div class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">
+                <span id="authToggleText">Don't have an account?</span>
+                <button onclick="toggleAuthMode()" id="authToggleBtn" class="text-brand-500 font-semibold hover:underline">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Request Prompt -->
+    <div id="requestPromptModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
+            <button onclick="closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-lg font-bold mb-4 text-slate-955 dark:text-white"><i class="fa-solid fa-paper-plane text-brand-500 mr-2"></i> Request custom prompt</h3>
+            <form id="requestForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Your Name / Email</label>
+                    <input type="text" id="reqEmail" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">What kind of prompt do you need?</label>
+                    <textarea id="reqDesc" rows="4" placeholder="Detail standard, character style, action scenario..." required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: General Info -->
+    <div id="infoModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
+            <button onclick="closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="infoModalTitle" class="text-lg font-bold mb-3 text-brand-500">Info Title</h3>
+            <div id="infoModalContent" class="text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed">
+                <!-- Injected text -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PART 1: STANDARD SYNCHRONOUS GLOBAL JAVASCRIPT -->
+    <!-- ========================================== -->
+    <script>
+        // Predefined Base URL for GitHub Raw Images [3]
+        const GITHUB_BASE_URL = "https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/";
+        
+        // Dynamic image parser with fallback compatibility check [5]
+        function resolveImageSrc(imageVal) {
+            if (!imageVal) {
+                return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; // fallback
+            }
+            if (imageVal.startsWith("http://") || imageVal.startsWith("https://") || imageVal.startsWith("data:")) {
+                return imageVal;
+            }
+            return GITHUB_BASE_URL + imageVal;
+        }
+        window.resolveImageSrc = resolveImageSrc;
+
+        // Dynamic Title and Metadata updating for SPA SEO optimization
+        function updatePageMetadata(titleSuffix, descriptionSuffix) {
+            document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute('content', descriptionSuffix || "Explore, copy, and share free trending AI prompts for Midjourney, Stable Diffusion, ChatGPT.");
+            }
+        }
+        window.updatePageMetadata = updatePageMetadata;
+
+        // Shared global application state
+        window.appState = {
+            currentUser: null,
+            currentUserData: null,
+            promptsList: [],
+            categories: [], // Dynamic Categories List
+            currentFilter: 'All',
+            isLoginMode: true,
+            currentDetailPrompt: null,
+            currentPage: 1,
+            viewMode: 'home', // 'home', 'discover', 'wallet', 'admin'
+            navigationStack: [] // Custom Mobile Navigation History Stack
+        };
+
+        // Theme Switcher Mode (Instant Loading)
+        const systemTheme = localStorage.getItem('theme') || 'dark';
+        if (systemTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const deskIcon = document.getElementById('themeIcon');
+            const mobIcon = document.getElementById('mobileThemeIcon');
+            if (deskIcon && mobIcon) {
+                if (isDark) {
+                    deskIcon.className = "fa-solid fa-sun text-amber-400";
+                    mobIcon.className = "fa-solid fa-sun text-amber-400";
+                } else {
+                    deskIcon.className = "fa-solid fa-moon text-slate-500";
+                    mobIcon.className = "fa-solid fa-moon text-slate-500";
+                }
+            }
+        }
+        window.toggleTheme = toggleTheme;
+        window.addEventListener('DOMContentLoaded', updateThemeIcons);
+
+        // Hardware Back Press / Browser Intercept Engine [2]
+        window.addEventListener('load', () => {
+            window.history.pushState({ type: 'tab', value: 'home' }, "");
+        });
+
+        window.addEventListener('popstate', (event) => {
+            handleBackAction();
+        });
+
+        document.addEventListener("backbutton", (e) => {
+            e.preventDefault();
+            handleBackAction();
+        }, false);
+
+        function handleBackAction() {
+            if (window.appState.navigationStack.length > 0) {
+                const prev = window.appState.navigationStack.pop();
+                if (prev.type === 'tab') {
+                    switchTab(prev.value, true);
+                } else if (prev.type === 'modal') {
+                    closeModal(prev.value, true);
+                }
+            } else {
+                // Stack is completely empty -> Safe Exit application [2]
+                if (navigator.app && typeof navigator.app.exitApp === 'function') {
+                    navigator.app.exitApp();
+                } else {
+                    window.history.go(-1);
+                }
+            }
+        }
+        window.handleBackAction = handleBackAction;
+
+        // Responsive Drawer Navigation menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('translate-x-full');
+        }
+        window.toggleMobileMenu = toggleMobileMenu;
+
+        // View tabs layout router logic (Equipped with stack navigation & Meta Sync)
+        function switchTab(tabId, isBack = false) {
+            if (!isBack && window.appState.viewMode !== tabId) {
+                window.appState.navigationStack.push({ type: 'tab', value: window.appState.viewMode });
+                window.history.pushState({ type: 'tab', value: tabId }, "");
+            }
+
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('promptsSection').classList.add('hidden');
+            document.getElementById('adminView').classList.add('hidden');
+            document.getElementById('walletSection').classList.add('hidden');
+
+            window.appState.viewMode = tabId; // Sync state viewmode
+
+            if (tabId === 'home' || tabId === 'discover') {
+                document.getElementById('heroSection').classList.remove('hidden');
+                document.getElementById('promptsSection').classList.remove('hidden');
+                
+                // If discover tab clicked, reset category active states to load only trending
+                window.appState.currentPage = 1;
+                if (typeof window.filterCategory === 'function') {
+                    window.filterCategory('All');
+                }
+                updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
+            } else if (tabId === 'admin') {
+                document.getElementById('adminView').classList.remove('hidden');
+                updatePageMetadata("Admin Panel");
+                // Synchronously call GitHub API Sync when entering Admin
+                if (typeof window.fetchGitHubImages === 'function') {
+                    window.fetchGitHubImages();
+                }
+            } else if (tabId === 'wallet') {
+                document.getElementById('walletSection').classList.remove('hidden');
+                updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
+            }
+        }
+        window.switchTab = switchTab;
+
+        // Custom modal open/close functions with stack mapping
+        function openModal(id) {
+            window.appState.navigationStack.push({ type: 'modal', value: id });
+            window.history.pushState({ type: 'modal', value: id }, "");
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id, isBack = false) {
+            document.getElementById(id).classList.add('hidden');
+            if (!isBack) {
+                window.appState.navigationStack = window.appState.navigationStack.filter(item => !(item.type === 'modal' && item.value === id));
+            }
+        }
+
+        // Toggles between inner tabs in admin view
+        function toggleAdminTab(tab) {
+            const addTab = document.getElementById('adminAddPromptTab');
+            const catTab = document.getElementById('adminCategoriesTab');
+            const payTab = document.getElementById('adminPaymentsTab');
+            const aiTab = document.getElementById('adminAiConfigTab');
+
+            addTab.classList.add('hidden');
+            catTab.classList.add('hidden');
+            payTab.classList.add('hidden');
+            aiTab.classList.add('hidden');
+
+            if (tab === 'addPrompt') {
+                addTab.classList.remove('hidden');
+            } else if (tab === 'categories') {
+                catTab.classList.remove('hidden');
+            } else if (tab === 'aiConfig') {
+                aiTab.classList.remove('hidden');
+            } else {
+                payTab.classList.remove('hidden');
+            }
+        }
+        window.toggleAdminTab = toggleAdminTab;
+
+        // Toggles between credits/debits statement history tabs inside wallet
+        function switchHistoryTab(type) {
+            const btnCred = document.getElementById('tabCredits');
+            const btnDeb = document.getElementById('tabDebits');
+            const tblCred = document.getElementById('tableCredits');
+            const tblDeb = document.getElementById('tableDebits');
+
+            if (type === 'credits') {
+                btnCred.className = "px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition";
+                btnDeb.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
+                tblCred.classList.remove('hidden');
+                tblDeb.classList.add('hidden');
+            } else {
+                btnCred.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
+                btnDeb.className = "px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition";
+                tblCred.classList.add('hidden');
+                tblDeb.classList.remove('hidden');
+            }
+        }
+        window.switchHistoryTab = switchHistoryTab;
+
+        // Collapsible AI Input Panel toggle
+        function toggleAiPanel() {
+            const panel = document.getElementById('aiPanel');
+            panel.classList.toggle('hidden');
+        }
+        window.toggleAiPanel = toggleAiPanel;
+
+        // Modals layout handlers
+        function openRequestModal() {
+            openModal('requestPromptModal');
+        }
+        function closeRequestModal() {
+            closeModal('requestPromptModal');
+        }
+        function openAuthModal(mode) {
+            window.appState.isLoginMode = mode === 'login';
+            document.getElementById('authTitle').innerText = window.appState.isLoginMode ? "Login" : "Sign Up / Register";
+            document.getElementById('authSubmitBtn').innerText = window.appState.isLoginMode ? "Login" : "Register";
+            document.getElementById('authToggleText').innerText = window.appState.isLoginMode ? "Don't have an account?" : "Already have an account?";
+            document.getElementById('authToggleBtn').innerText = window.appState.isLoginMode ? "Register" : "Login";
+            openModal('authModal');
+        }
+        function closeAuthModal() {
+            closeModal('authModal');
+        }
+        function toggleAuthMode() {
+            openAuthModal(window.appState.isLoginMode ? 'signup' : 'login');
+        }
+        function closePromptDetailModal() {
+            closeModal('promptDetailModal');
+            // Hide AI Output box too
+            document.getElementById('aiOutputContainer').classList.add('hidden');
+            document.getElementById('aiPanel').classList.add('hidden');
+            updatePageMetadata(); // Restore title
+        }
+        function openWalletModal() {
+            switchTab('wallet');
+        }
+        function closeWalletModal() {
+            switchTab('home');
+        }
+        function calculateExchange() {
+            const pkr = parseFloat(document.getElementById('pkrAmount').value) || 0;
+            document.getElementById('coinsResult').innerText = (pkr * 10000).toLocaleString();
+        }
+        function togglePriceField() {
+            const type = document.getElementById('pType').value;
+            if (type === 'paid') {
+                document.getElementById('priceFieldContainer').classList.remove('hidden');
+            } else {
+                document.getElementById('priceFieldContainer').classList.add('hidden');
+            }
+        }
+        function resetForm() {
+            document.getElementById('promptForm').reset();
+            document.getElementById('editPromptId').value = '';
+            document.getElementById('priceFieldContainer').classList.add('hidden');
+            const fileInput = document.getElementById('pImageFile');
+            if (fileInput) fileInput.value = '';
+            const statusSpan = document.getElementById('githubApiStatus');
+            if (statusSpan) statusSpan.innerText = '';
+        }
+
+        // 📋 Safe and Secure Clipboard Copy Helper (Bypasses Secure Context Block on local file:// & older WebViews)
+        function safeCopy(text) {
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(text)
+                    .then(() => alert("Copied to clipboard!"))
+                    .catch(err => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        // Fallback copying utilizing temporary textarea element (Always works offline and online)
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert("Copied to clipboard!");
+                } else {
+                    alert("Unable to copy. Please manually copy the prompt.");
+                }
+            } catch (err) {
+                console.error("Fallback copy execution trace failed: ", err);
+                alert("Unable to copy text.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        window.openRequestModal = openRequestModal;
+        window.closeRequestModal = closeRequestModal;
+        window.openAuthModal = openAuthModal;
+        window.closeAuthModal = closeAuthModal;
+        window.toggleAuthMode = toggleAuthMode;
+        window.closePromptDetailModal = closePromptDetailModal;
+        window.openWalletModal = openWalletModal;
+        window.closeWalletModal = closeWalletModal;
+        window.calculateExchange = calculateExchange;
+        window.togglePriceField = togglePriceField;
+        window.resetForm = resetForm;
+        window.safeCopy = safeCopy; // Exposed globally
+
+        // Custom Info dialog renderer
+        function openInfoModal(type) {
+            const title = document.getElementById('infoModalTitle');
+            const content = document.getElementById('infoModalContent');
+            if (type === 'about') {
+                title.innerText = "About PromptKaro";
+                content.innerHTML = `
+                    <p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>
+                    <p>Our goal is to build an open repository of premium prompts optimized for high conversion designs, artwork, and chat assistants.</p>
+                `;
+            } else if (type === 'contact') {
+                title.innerText = "Contact Us";
+                content.innerHTML = `
+                    <p>Have issues or business inquiries? Reach out directly via our email channel:</p>
+                    <p class="font-bold font-mono text-brand-500">kazimmustafa38@gmail.com</p>
+                    <p>Additionally, you can contact us via our financial and support number:</p>
+                    <p class="font-bold text-amber-500 text-sm">03105784772 (Nazim Mustafa)</p>
+                `;
+            } else if (type === 'dmca') {
+                title.innerText = "DMCA & Copyright Policy";
+                content.innerHTML = `
+                    <p>At PromptKaro, we respect intellectual property rights. If you believe any of the uploaded custom content violates your copyright works, contact us immediately.</p>
+                    <p>Provide evidence details of ownership and write to us at <strong class="text-brand-500">kazimmustafa38@gmail.com</strong>. We will review and delete violating content within 24 hours.</p>
+                `;
+            }
+            openModal('infoModal');
+        }
+        function closeInfoModal() {
+            closeModal('infoModal');
+        }
+        function openCommunityDialog() {
+            const title = document.getElementById('infoModalTitle');
+            const content = document.getElementById('infoModalContent');
+            title.innerText = "Community Space";
+            content.innerHTML = `
+                <p>Welcome to our collective creator space! Connect, share ideas, and engage with top prompt creators.</p>
+                <div class="bg-slate-100 dark:bg-slate-950 p-4 rounded-xl text-center border border-slate-250 dark:border-slate-800 transition">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Our official forum spaces are currently deploying.</p>
+                    <span class="text-xs font-semibold text-brand-500">Stay tuned for the discord invite link!</span>
+                </div>
+            `;
+            openModal('infoModal');
+        }
+
+        window.openInfoModal = openInfoModal;
+        window.closeInfoModal = closeInfoModal;
+        window.openCommunityDialog = openCommunityDialog;
+    </script>
+
+    <!-- ========================================== -->
+    <!-- PART 2: MODULAR ASYNC BACKEND FIREBASE CODE -->
+    <!-- ========================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, set, get, update, push, child, onValue, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Firebase Web App configuration (aiprom-98a50)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl5kGKi_9sbeHdlEZyqSuThQTA53bH3Po",
+            authDomain: "aiprom-98a50.firebaseapp.com",
+            projectId: "aiprom-98a50",
+            storageBucket: "aiprom-98a50.firebasestorage.app",
+            messagingSenderId: "479575775288",
+            appId: "1:479575775288:web:aaeeed041501d1500aeecd",
+            measurementId: "G-TYE4LJ2NRY",
+            databaseURL: "https://aiprom-98a50-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Professional formatting function for large coins (e.g., 20000 -> 20K)
+        function formatCoins(num) {
+            const val = parseInt(num) || 0;
+            if (val >= 10000) {
+                const divided = val / 1000;
+                if (val % 1000 === 0) {
+                    return Math.floor(divided) + 'K';
+                } else {
+                    return divided.toFixed(1) + 'K';
+                }
+            }
+            return val.toLocaleString();
+        }
+
+        // Map auth functions to global space safely
+        window.logout = async function() {
+            await signOut(auth);
+        };
+
+        // Realtime sync API key setting for masking from scripts
+        const apiKeySettingsRef = ref(db, 'settings/geminiApiKey');
+        onValue(apiKeySettingsRef, (snapshot) => {
+            const input = document.getElementById('adminApiKeyInput');
+            if (snapshot.exists() && input) {
+                input.value = snapshot.val();
+            }
+        });
+
+        window.saveApiKey = async function() {
+            const input = document.getElementById('adminApiKeyInput');
+            if(!input) return;
+            const keyVal = input.value.trim();
+            if(!keyVal) {
+                alert("Please enter a valid API Key.");
+                return;
+            }
+            await set(ref(db, 'settings/geminiApiKey'), keyVal);
+            alert("AI API Key updated securely.");
+        };
+
+        // GitHub API image sync datalist compiler [7]
+        async function fetchGitHubImages() {
+            const datalist = document.getElementById('githubImagesList');
+            const statusSpan = document.getElementById('githubApiStatus');
+            if (!datalist) return;
+
+            if (statusSpan) {
+                statusSpan.innerText = "🔄 Syncing /images/ list from GitHub repo...";
+                statusSpan.className = "block text-[10px] text-amber-500 font-semibold mt-1";
+            }
+
+            try {
+                const response = await fetch("https://api.github.io/repos/freeearningsonline/Ai-Prompt-/contents/images");
+                if (response.ok) {
+                    const data = await response.json();
+                    datalist.innerHTML = '';
+                    let count = 0;
+
+                    data.forEach(item => {
+                        // Scan for supported formats only [6]
+                        if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name)) {
+                            const option = document.createElement('option');
+                            option.value = item.name;
+                            datalist.appendChild(option);
+                            count++;
+                        }
+                    });
+
+                    if (statusSpan) {
+                        statusSpan.innerText = `✅ Found ${count} images in GitHub /images/ folder.`;
+                        statusSpan.className = "block text-[10px] text-emerald-500 font-semibold mt-1";
+                    }
+                } else {
+                    if (statusSpan) {
+                        statusSpan.innerText = "⚠️ Repo folder empty or offline. Enter filename manually.";
+                        statusSpan.className = "block text-[10px] text-rose-500 font-semibold mt-1";
+                    }
+                }
+            } catch (err) {
+                console.warn("GitHub contents API error: ", err);
+                if (statusSpan) {
+                    statusSpan.innerText = "⚠️ GitHub API rate limit reached. Type file name manually.";
+                    statusSpan.className = "block text-[10px] text-rose-500/80 font-semibold mt-1";
+                }
+            }
+        }
+        window.fetchGitHubImages = fetchGitHubImages;
+
+        // Track user Auth states changes
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                window.appState.currentUser = user;
+                const userRef = ref(db, `users/${user.uid}`);
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    window.appState.currentUserData = data;
+                    if (data) {
+                        updateAuthUI(true, user.email, data.coins || 0);
+                        // Strict validation for admin email trigger (kazimmustafa38@gmail.com)
+                        if (user.email === 'kazimmustafa38@gmail.com') {
+                            document.getElementById('adminBtnContainer').classList.remove('hidden');
+                            document.getElementById('mobileAdminBtn').classList.remove('hidden');
+                        } else {
+                            document.getElementById('adminBtnContainer').classList.add('hidden');
+                            document.getElementById('mobileAdminBtn').classList.add('hidden');
+                        }
+                    }
+                });
+                syncUserTransactionsHistory();
+                syncUserPurchaseHistory(); // Sync Debits History log
+                triggerAutoApprovalCheck();
+            } else {
+                window.appState.currentUser = null;
+                window.appState.currentUserData = null;
+                updateAuthUI(false);
+                document.getElementById('adminBtnContainer').classList.add('hidden');
+                document.getElementById('mobileAdminBtn').classList.add('hidden');
+                document.getElementById('userTransactionsList').innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
+                document.getElementById('userPurchaseList').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>';
+            }
+        });
+
+        // Realtime sync dynamic categories [1]
+        const categoriesRef = ref(db, 'categories');
+        onValue(categoriesRef, (snapshot) => {
+            if (snapshot.exists()) {
+                window.appState.categories = snapshot.val();
+            } else {
+                // Seed default categories if database path is empty
+                const defaultCats = ["Viral", "IG Trend", "Boys", "Girls"];
+                set(categoriesRef, defaultCats);
+                window.appState.categories = defaultCats;
+            }
+            renderCategoryPills(window.appState.categories);
+            renderCategoryDropdown(window.appState.categories);
+            renderAdminCategoryManager(window.appState.categories);
+        });
+
+        // Dynamic category elements uploader (With robust custom data attributes)
+        function renderCategoryPills(categories) {
+            const container = document.getElementById('categoryFiltersContainer');
+            if(!container) return;
+            container.innerHTML = '';
+
+            // Render Default 'All' Pill
+            const allBtn = document.createElement('button');
+            allBtn.onclick = () => filterCategory('All');
+            allBtn.className = "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition";
+            allBtn.innerText = "All Prompts";
+            allBtn.setAttribute('data-category', 'All');
+            container.appendChild(allBtn);
+
+            // Render active categories dynamically
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.onclick = () => filterCategory(cat);
+                btn.className = "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
+                btn.innerText = cat;
+                btn.setAttribute('data-category', cat);
+                container.appendChild(btn);
+            });
+        }
+
+        // Render dynamic dropdown option categories
+        function renderCategoryDropdown(categories) {
+            const select = document.getElementById('pCategory');
+            if(!select) return;
+            select.innerHTML = '';
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.innerText = cat;
+                select.appendChild(opt);
+            });
+        }
+
+        // Render dynamic admin manager list view
+        function renderAdminCategoryManager(categories) {
+            const container = document.getElementById('adminCategoryList');
+            if(!container) return;
+            container.innerHTML = '';
+            categories.forEach((cat, index) => {
+                const span = document.createElement('span');
+                span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
+                span.innerHTML = `
+                    <span>${cat}</span>
+                    <button onclick="deleteCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+                container.appendChild(span);
+            });
+        }
+
+        // Add custom category dynamics
+        window.addNewCategory = async function() {
+            const input = document.getElementById('newCategoryInput');
+            const newCatVal = input.value.trim();
+            if(!newCatVal) return;
+
+            if (window.appState.categories.includes(newCatVal)) {
+                alert("Category already exists!");
+                return;
+            }
+
+            const updatedCats = [...window.appState.categories, newCatVal];
+            await set(ref(db, 'categories'), updatedCats);
+            input.value = '';
+            alert("Category added successfully!");
+        };
+
+        // Delete custom category dynamics
+        window.deleteCategory = async function(index) {
+            if (confirm(`Are you sure you want to delete "${window.appState.categories[index]}"?`)) {
+                const updatedCats = window.appState.categories.filter((_, i) => i !== index);
+                await set(ref(db, 'categories'), updatedCats);
+                alert("Category deleted successfully.");
+            }
+        };
+
+        // Sync Credits Deposit History
+        function syncUserTransactionsHistory() {
+            if (!window.appState.currentUser) return;
+            const txRef = ref(db, 'transactions');
+            onValue(txRef, (snapshot) => {
+                const list = document.getElementById('userTransactionsList');
+                if(!list) return;
+                list.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let itemsFound = false;
+                    for (let key in data) {
+                        const tx = data[key];
+                        if (tx.userId === window.appState.currentUser.uid) {
+                            itemsFound = true;
+                            const tr = document.createElement('tr');
+                            tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                            tr.innerHTML = `
+                                <td class="px-4 py-3 font-mono text-[11px] text-brand-500 font-bold">${tx.tid || 'N/A'}</td>
+                                <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[11px]">${tx.senderInfo || 'N/A'}</td>
+                                <td class="px-4 py-3 font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
+                                <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-500/10 text-brand-500">${tx.paymentStatus}</span></td>
+                            `;
+                            list.appendChild(tr);
+                        }
+                    }
+                    if (!itemsFound) {
+                        list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
+                    }
+                } else {
+                    list.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-slate-400">No transactions recorded yet.</td></tr>';
+                }
+            });
+        }
+
+        // Sync Debits / Unlocks Log Purchase History
+        function syncUserPurchaseHistory() {
+            if (!window.appState.currentUser) return;
+            const logRef = ref(db, `purchaseLogs/${window.appState.currentUser.uid}`);
+            onValue(logRef, (snapshot) => {
+                const list = document.getElementById('userPurchaseList');
+                if(!list) return;
+                list.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let itemsFound = false;
+                    for (let key in data) {
+                        const log = data[key];
+                        itemsFound = true;
+                        const dateStr = new Date(log.timestamp).toLocaleDateString() + ' ' + new Date(log.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                        tr.innerHTML = `
+                            <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">${log.promptTitle}</td>
+                            <td class="px-4 py-3 text-red-500 font-bold">-${formatCoins(log.amountCoins)}</td>
+                            <td class="px-4 py-3 text-slate-500 dark:text-slate-400 text-[10px]">${dateStr}</td>
+                        `;
+                        list.appendChild(tr);
+                    }
+                    if (!itemsFound) {
+                        list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+                    }
+                } else {
+                    list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+                }
+            });
+        }
+
+        // 10-Minute Automatic Approval logic
+        async function triggerAutoApprovalCheck() {
+            try {
+                const txRef = ref(db, 'transactions');
+                const snapshot = await get(txRef);
+                if (snapshot.exists()) {
+                    const transactions = snapshot.val();
+                    const now = Date.now();
+                    const tenMinutes = 10 * 60 * 1000;
+
+                    for (let key in transactions) {
+                        const tx = transactions[key];
+                        if (tx.paymentStatus === 'pending' && (now - tx.timestamp) > tenMinutes) {
+                            await update(ref(db, `transactions/${key}`), { paymentStatus: 'auto-approved' });
+                            
+                            const userRef = ref(db, `users/${tx.userId}/coins`);
+                            await runTransaction(userRef, (currentCoins) => {
+                                return (currentCoins || 0) + tx.amountCoins;
+                            });
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn("Auto approval trace: ", err.message);
+            }
+        }
+
+        // Realtime Fetch Prompts
+        const promptsRef = ref(db, 'prompts');
+        onValue(promptsRef, (snapshot) => {
+            window.appState.promptsList = [];
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                for (let key in data) {
+                    window.appState.promptsList.push({ id: key, ...data[key] });
+                }
+            }
+            renderPrompts();
+        });
+
+        // Fast Load Pagination & Prompts Card rendering (Portrait view with strict pagination visibility checking)
+        function renderPrompts() {
+            const grid = document.getElementById('promptsGrid');
+            const countText = document.getElementById('promptsCount');
+            const pagControls = document.getElementById('paginationControls');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            let filtered = window.appState.promptsList;
+
+            // Strict Validation for Discover View Mode Filter
+            if (window.appState.viewMode === 'discover') {
+                filtered = window.appState.promptsList.filter(p => p.isTrending === true);
+            } else if (window.appState.currentFilter !== 'All') {
+                filtered = window.appState.promptsList.filter(p => p.tags === window.appState.currentFilter);
+            }
+
+            const searchVal = (document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '').toLowerCase();
+            if (searchVal) {
+                filtered = filtered.filter(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
+            }
+
+            // Pinned items sorted first
+            filtered.sort((a, b) => {
+                if (a.isPinned && !b.isPinned) return -1;
+                if (!a.isPinned && b.isPinned) return 1;
+                return b.views - a.views;
+            });
+
+            if(countText) countText.innerText = `${filtered.length} prompts found`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No prompts found matching filter criteria.</div>`;
+                if(pagControls) pagControls.classList.add('hidden');
+                return;
+            }
+
+            // Slice/Paginate 10 Items max [2]
+            const itemsPerPage = 10;
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            
+            if(window.appState.currentPage > totalPages) {
+                window.appState.currentPage = totalPages || 1;
+            }
+
+            const startIndex = (window.appState.currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = filtered.slice(startIndex, endIndex);
+
+            // Dynamically show/hide pagination buttons based on existence
+            if (filtered.length > itemsPerPage) {
+                if(pagControls) pagControls.classList.remove('hidden');
+                const btnPrev = document.getElementById('btnPrev');
+                const btnNext = document.getElementById('btnNext');
+                const pageNumber = document.getElementById('pageNumber');
+
+                // If on Page 1, hide Previous completely as requested. Else show.
+                if (window.appState.currentPage === 1) {
+                    if(btnPrev) btnPrev.classList.add('hidden');
+                } else {
+                    if(btnPrev) btnPrev.classList.remove('hidden');
+                }
+
+                // If no more pages (at the end), hide Next completely. Else show.
+                if (window.appState.currentPage === totalPages) {
+                    if(btnNext) btnNext.classList.add('hidden');
+                } else {
+                    if(btnNext) btnNext.classList.remove('hidden');
+                }
+
+                if(pageNumber) pageNumber.innerText = `${window.appState.currentPage} / ${totalPages}`;
+            } else {
+                if(pagControls) pagControls.classList.add('hidden');
+            }
+
+            // Rendering high fidelity custom cards with 2:3 aspect-ratio & portrait styling overlay [1]
+            paginatedItems.forEach(p => {
+                const isPaid = p.type === 'paid';
+                const card = document.createElement('article'); // Semantic elements used for SEO crawlers
+                card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
+                card.onclick = () => openPromptDetail(p.id);
+
+                // Resolve target location dynamically [5]
+                const finalImgUrl = resolveImageSrc(p.imageURL);
+                const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
+
+                card.innerHTML = `
+                    <!-- Portrait Image Frame with dynamic alt tags & safe loading fallback [6] -->
+                    <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    
+                    <!-- Pins & Coins indicator overlays inside absolute corners -->
+                    <div class="absolute top-3 left-3 flex flex-col gap-1">
+                        ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
+                    </div>
+                    <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
+                        ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
+                    </span>
+
+                    <!-- Image Text Overlay (Bottom black gradient block matches screenshot format perfectly) -->
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
+                        <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${p.title}</h4>
+                        <div class="flex justify-between items-center mt-1.5 text-[9px] text-slate-300 font-semibold">
+                            <span><i class="fa-regular fa-eye mr-1"></i>${formatCoins(p.views || 0)} views</span>
+                            <span>#${p.tags || 'General'}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Change Page Direction handler
+        window.changePage = function(direction) {
+            window.appState.currentPage += direction;
+            renderPrompts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Realtime Payments Fetch for Admin Dashboard
+        const transRef = ref(db, 'transactions');
+        onValue(transRef, (snapshot) => {
+            const list = document.getElementById('adminPaymentsList');
+            if(!list) return;
+            list.innerHTML = '';
+            if (snapshot.exists() && window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
+                const data = snapshot.val();
+                let hasPending = false;
+                for (let key in data) {
+                    const tx = data[key];
+                    if (tx.paymentStatus === 'pending') {
+                        hasPending = true;
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-slate-200 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-900";
+                        tr.innerHTML = `
+                            <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
+                            <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
+                            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 text-xs">${tx.senderInfo || 'N/A'}</td>
+                            <td class="px-4 py-3 text-xs font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
+                            <td class="px-4 py-3"><span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 rounded text-[10px]">${tx.paymentStatus}</span></td>
+                            <td class="px-4 py-3">
+                                <button onclick="approvePayment('${key}', '${tx.userId}', ${tx.amountCoins})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded transition shadow-sm">Approve</button>
+                            </td>
+                        `;
+                        list.appendChild(tr);
+                    }
+                }
+                if (!hasPending) {
+                    list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
+                }
+            } else {
+                list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
+            }
+        });
+
+        // Search inputs listeners
+        document.getElementById('desktopSearch').addEventListener('input', renderPrompts);
+        document.getElementById('mobileSearch').addEventListener('input', renderPrompts);
+
+        // Filtering prompts category pills
+        window.filterCategory = function(cat) {
+            window.appState.currentFilter = cat;
+            window.appState.currentPage = 1; // Reset page bounds on filter swap
+            
+            // Loop with data-category attributes mapping [2]
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === cat) {
+                    btn.classList.add('bg-brand-500', 'text-white');
+                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+                } else {
+                    btn.classList.remove('bg-brand-500', 'text-white');
+                    btn.classList.add('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+                }
+            });
+            renderPrompts();
+        }
+
+        // Approve manual user deposits (Admin Action)
+        window.approvePayment = async function(txId, userId, amount) {
+            try {
+                await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
+                const userCoinsRef = ref(db, `users/${userId}/coins`);
+                await runTransaction(userCoinsRef, (currentCoins) => {
+                    return (currentCoins || 0) + amount;
+                });
+                alert("Payment status approved. Coins credited successfully.");
+            } catch (err) {
+                alert("Approval Error: " + err.message);
+            }
+        }
+
+        // Save Prompt (Admin form submission handler - Zero Storage dependencies, redirects auto)
+        document.getElementById('promptForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('editPromptId').value;
+            const title = document.getElementById('pTitle').value;
+            const category = document.getElementById('pCategory').value;
+            const directUrlInput = document.getElementById('pImageURL').value.trim();
+            const description = document.getElementById('pDescription').value;
+            const type = document.getElementById('pType').value;
+            const price = parseInt(document.getElementById('pPrice').value) || 0;
+            const isTrending = document.getElementById('pTrending').checked;
+            const isPinned = document.getElementById('pPinned').checked;
+            const initialViews = parseInt(document.getElementById('pInitialViews').value) || 0;
+
+            try {
+                const promptPayload = {
+                    title: title,
+                    imageURL: directUrlInput,
+                    description: description,
+                    type: type,
+                    priceCoins: type === 'paid' ? price : 0,
+                    createdAt: Date.now(),
+                    isTrending: isTrending,
+                    isPinned: isPinned,
+                    tags: category,
+                    views: editId ? (parseInt(document.getElementById('pInitialViews').value) || 0) : initialViews
+                };
+
+                if (editId) {
+                    await update(ref(db, `prompts/${editId}`), promptPayload);
+                    alert("Prompt updated successfully.");
+                } else {
+                    const newPromptRef = push(ref(db, 'prompts'));
+                    await set(newPromptRef, promptPayload);
+                    alert("New Prompt created successfully!");
+                }
+                resetForm();
+                switchTab('home'); // Auto-redirect without page reload
+            } catch (err) {
+                alert("Failed saving prompt: " + err.message);
+            }
+        });
+
+        // Edit & Delete Mapping directly inside module
+        window.editPrompt = async function(id) {
+            const p = window.appState.promptsList.find(item => item.id === id);
+            if (p) {
+                document.getElementById('editPromptId').value = p.id;
+                document.getElementById('pTitle').value = p.title;
+                document.getElementById('pCategory').value = p.tags || 'Viral';
+                document.getElementById('pDescription').value = p.description;
+                document.getElementById('pImageURL').value = p.imageURL || '';
+                document.getElementById('pType').value = p.type;
+                document.getElementById('pPrice').value = p.priceCoins || 0;
+                document.getElementById('pTrending').checked = !!p.isTrending;
+                document.getElementById('pPinned').checked = !!p.isPinned;
+                document.getElementById('pInitialViews').value = p.views || 0;
+                togglePriceField();
+                switchTab('admin');
+                toggleAdminTab('addPrompt');
+            }
+        }
+
+        window.deletePrompt = async function(id) {
+            if (confirm("Are you sure you want to delete this prompt?")) {
+                await remove(ref(db, `prompts/${id}`));
+                alert("Prompt deleted.");
+            }
+        }
+
+        // Auth form handler
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            try {
+                if (window.appState.isLoginMode) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                    await set(ref(db, `users/${userCred.user.uid}`), {
+                        email: email,
+                        coins: 0,
+                        isAdmin: email === 'kazimmustafa38@gmail.com',
+                        createdAt: Date.now()
+                    });
+                }
+                closeAuthModal();
+            } catch (err) {
+                alert("Auth Failure: " + err.message);
+            }
+        });
+
+        // Safe Elements updates handler with dynamic "K" formatting
+        function updateAuthUI(isLoggedIn, email = '', coins = 0) {
+            const dCoin = document.getElementById('desktopCoinDisplay');
+            const mCoin = document.getElementById('mobileMenuCoinDisplay');
+            const dEmail = document.getElementById('userEmailDisplay');
+            const mEmail = document.getElementById('mobileEmailDisplay');
+
+            const formattedValue = formatCoins(coins);
+
+            if(dCoin) dCoin.innerText = formattedValue;
+            if(mCoin) mCoin.innerText = formattedValue;
+            
+            document.querySelectorAll('.walletCoinTotal').forEach(el => {
+                if(el) el.innerText = formattedValue;
+            });
+
+            if (isLoggedIn) {
+                if(dEmail) dEmail.innerText = email;
+                if(mEmail) mEmail.innerText = email;
+                
+                document.querySelectorAll('.auth-logged-in').forEach(el => {
+                    if(el) el.classList.remove('hidden');
+                });
+                document.querySelectorAll('.auth-logged-out').forEach(el => {
+                    if(el) el.classList.add('hidden');
+                });
+            } else {
+                if(dEmail) dEmail.innerText = '';
+                if(mEmail) mEmail.innerText = '';
+                
+                document.querySelectorAll('.auth-logged-in').forEach(el => {
+                    if(el) el.classList.add('hidden');
+                });
+                document.querySelectorAll('.auth-logged-out').forEach(el => {
+                    if(el) el.classList.remove('hidden');
+                });
+            }
+        }
+
+        // View Prompt Detail Modal Handler (With Paid Prompt Logic & Confirmation Check)
+        window.openPromptDetail = async function(id) {
+            const p = window.appState.promptsList.find(item => item.id === id);
+            if (!p) return;
+
+            // Strict Validation for Premium / Paid prompt clicks
+            if (p.type === 'paid') {
+                const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[p.id];
+                const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
+
+                if (!hasUnlocked && !isAdmin) {
+                    if (!window.appState.currentUser) {
+                        alert("Please log in to purchase premium prompts.");
+                        openAuthModal('login');
+                        return;
+                    }
+
+                    const price = p.priceCoins;
+                    const userCoins = window.appState.currentUserData.coins || 0;
+
+                    if (userCoins < price) {
+                        alert(`Insufficient Coins! This premium prompt costs ${formatCoins(price)} coins. Please buy/deposit coins to proceed.`);
+                        switchTab('wallet');
+                        return;
+                    }
+
+                    // User has enough balance -> trigger transaction deduction instantly on confirm
+                    if (confirm(`Unlock "${p.title}" for ${formatCoins(price)} Coins?`)) {
+                        try {
+                            // 1. Deduct coins via transaction
+                            const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
+                            await runTransaction(userCoinsRef, (current) => {
+                                return (current || 0) - price;
+                            });
+
+                            // 2. Map unlocked index value
+                            await set(ref(db, `users/${window.appState.currentUser.uid}/unlockedPrompts/${p.id}`), true);
+
+                            // 3. Generate purchase/debit logs statement record
+                            const purchaseLogRef = push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`));
+                            await set(purchaseLogRef, {
+                                promptId: p.id,
+                                promptTitle: p.title,
+                                amountCoins: price,
+                                timestamp: Date.now()
+                            });
+
+                            alert("Prompt successfully unlocked! Details opened.");
+                        } catch (err) {
+                            alert("Transaction deduction failed: " + err.message);
+                            return;
+                        }
+                    } else {
+                        return; // Cancelled
+                    }
+                }
+            }
+
+            // Normal open details flow for unlocked / free prompts
+            window.appState.currentDetailPrompt = p;
+            
+            const viewsRef = ref(db, `prompts/${id}/views`);
+            runTransaction(viewsRef, (curr) => {
+                // If view starts from an admin start value, increment from that starting count
+                return (curr || p.views || 0) + 1;
+            });
+
+            // Dynamic document title update when prompt details modal is active (On-Page SPA SEO)
+            updatePageMetadata(p.title, `Unlock and copy the best AI prompt template for ${p.title}. Optimized for high quality generation.`);
+
+            const finalDetailsImg = resolveImageSrc(p.imageURL);
+            const detailImgEl = document.getElementById('detailImg');
+            detailImgEl.src = finalDetailsImg;
+            detailImgEl.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            };
+
+            document.getElementById('downloadBtn').href = finalDetailsImg || '#';
+            document.getElementById('detailTitle').innerText = p.title;
+            document.getElementById('detailViews').innerText = formatCoins((p.views || 0) + 1);
+            document.getElementById('detailTag').innerText = p.tags || 'Trending';
+
+            document.getElementById('lockedOverlay').classList.add('hidden'); // Fully visible unlocked
+            document.getElementById('detailPromptText').innerText = p.description;
+
+            if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
+                document.getElementById('detailPromptText').innerHTML += `
+                    <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
+                        <button onclick="editPrompt('${p.id}'); closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
+                        <button onclick="deletePrompt('${p.id}'); closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
+                    </div>
+                `;
+            }
+
+            openModal('promptDetailModal');
+        }
+
+        window.copyToClipboard = function() {
+            const text = document.getElementById('detailPromptText').innerText;
+            if (window.appState.currentDetailPrompt && window.appState.currentDetailPrompt.type === 'paid') {
+                const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[window.appState.currentDetailPrompt.id];
+                if (!hasUnlocked && window.appState.currentUser.email !== 'kazimmustafa38@gmail.com') {
+                    alert("Please unlock this premium prompt before attempting to copy.");
+                    return;
+                }
+            }
+            safeCopy(text); // Fallback Copy helper utilized [2]
+        }
+
+        // Zero-Storage Deposit Form Submission (Directly writes TID & Mobile Details)
+        document.getElementById('purchaseCoinsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!window.appState.currentUser) {
+                alert("Please log in to submit requests.");
+                openAuthModal('login');
+                return;
+            }
+
+            const pkr = parseFloat(document.getElementById('pkrAmount').value);
+            const coins = pkr * 10000;
+            const tidValue = document.getElementById('pTransactionID').value.trim();
+            const senderInfoValue = document.getElementById('pSenderInfo').value.trim();
+
+            try {
+                const txRef = push(ref(db, 'transactions'));
+                await set(txRef, {
+                    userId: window.appState.currentUser.uid,
+                    userEmail: window.appState.currentUser.email,
+                    amountCoins: coins,
+                    paymentStatus: 'pending',
+                    tid: tidValue, // Direct TID check
+                    senderInfo: senderInfoValue, // Direct mobile check
+                    timestamp: Date.now()
+                });
+
+                alert("Deposit request submitted successfully! Pending verification. Coins are automatically credited after 10 minutes.");
+                document.getElementById('purchaseCoinsForm').reset();
+            } catch (err) {
+                alert("Failed submitting request: " + err.message);
+            }
+        });
+
+        // 🚀 Real-time PromptKaro AI Prompt Regeneration handler with 50K Coins deduction & Automatic Fallback
+        window.regeneratePromptWithAI = async function() {
+            if (!window.appState.currentUser) {
+                alert("Please log in to use AI Regenerate feature.");
+                openAuthModal('login');
+                return;
+            }
+
+            const cost = 50000;
+            const userCoins = window.appState.currentUserData.coins || 0;
+
+            if (userCoins < cost) {
+                alert(`Insufficient Balance! You need at least ${formatCoins(cost)} coins to regenerate this prompt.`);
+                closePromptDetailModal();
+                switchTab('wallet');
+                return;
+            }
+
+            // 1. Fetch Key from Database securely (No hardcoded references) [1]
+            const apiSnap = await get(ref(db, 'settings/geminiApiKey'));
+            if (!apiSnap.exists() || !apiSnap.val()) {
+                alert("AI Engine is currently under maintenance. Please contact support.");
+                return;
+            }
+            const apiKey = apiSnap.val();
+
+            // Retrieve custom style, lighting, format, and quality values from dropdown options [1]
+            const selectedStyle = document.getElementById('aiStyle').value;
+            const selectedLighting = document.getElementById('aiLighting').value;
+            const selectedLength = document.getElementById('aiLength').value;
+            const selectedStrength = document.getElementById('aiStrength').value;
+
+            // Extract the original active prompt description text as the baseline input
+            const originalPromptText = window.appState.currentDetailPrompt ? window.appState.currentDetailPrompt.description : "";
+
+            // Strictly construct structured improvement prompt instruction using dynamic formula mapping
+            const structuredInstructionPrompt = `
+                Aap ek world-class AI Image Prompt Engineer ho. Niche diye gaye "Original Prompt" ko analyze karein aur usme missing cinematic details (lighting, mood, environment, quality keywords, camera lens look, aur grain) add karke ek behtareen improved prompt generate karein:
+
+                Original Prompt to Improve:
+                "${originalPromptText}"
+
+                Aapko is prompt ko is formula ke mutabiq expand aur improve karna hai:
+                Prompt Improvement Formula: [Subject] + [Pose/Emotion] + [Outfit] + [Environment] + [Lighting] + [Mood] + [Camera Style] + [Quality Tags]
+
+                User dwara selected requirements niche hain:
+                - Output Style: ${selectedStyle}
+                - Variation / Lighting Option: ${selectedLighting}
+                - Prompt Length: ${selectedLength}
+                - Enhancement Strength Level: ${selectedStrength}
+
+                Instructions:
+                - Existing prompt ka structure, subject, aur main scenario bilkul change na karein balki use expand karke missing elements aur high quality descriptive words add karein.
+                - Naye high-quality details add karein jaise (subtle film grain, 90s analog photography look, shallow depth of field, sharp focus, volumetric light, 50mm lens look, ultra-realistic, highly detailed cinematic color grading).
+                - Hinglish aur English mix style use karein jo visually appealing aur natural ho.
+                - Agar prompt Length "Short Prompt" ho, toh output bohot direct, concise aur optimized rakhein. Agar "Detailed Prompt" ho, toh visual detail expand karein.
+
+                Sirf aur sirf final generated improved prompt output dein. Koi additional chat, explanation, ya labels jaise "[Subject]" na likhein. Direct ready-to-use prompt return karein.
+            `;
+
+            if (confirm(`Regenerate this prompt with PromptKaro AI? It will deduct 50,000 Coins from your wallet.`)) {
+                const btn = document.getElementById('btnGenerateAI');
+                const outContainer = document.getElementById('aiOutputContainer');
+                const outText = document.getElementById('aiOutputText');
+
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generating response...`;
+                outContainer.classList.remove('hidden');
+                outText.innerText = "Connecting to PromptKaro AI Engine...";
+
+                // Setup dynamic transaction statements IDs
+                let logId = "";
+                let purchaseLogRef = null;
+
+                try {
+                    // 1. Deduct 50,000 Coins securely via transaction
+                    const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
+                    await runTransaction(userCoinsRef, (current) => {
+                        return (current || 0) - cost;
+                    });
+
+                    // 2. Generate Statement History Debit log
+                    logId = push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`)).key;
+                    purchaseLogRef = ref(db, `purchaseLogs/${window.appState.currentUser.uid}/${logId}`);
+                    await set(purchaseLogRef, {
+                        promptId: window.appState.currentDetailPrompt.id || "ai-regenerate",
+                        promptTitle: `AI Generation: ${window.appState.currentDetailPrompt.title || "Custom Prompt"}`,
+                        amountCoins: cost,
+                        timestamp: Date.now()
+                    });
+
+                    // 3. Setup robust API Models Array (Try 2.5 Flash first, auto fallback to stable 1.5 Flash on 503)
+                    const models = ["gemini-2.5-flash", "gemini-1.5-flash"];
+                    let apiSuccess = false;
+                    let generatedResponseText = "";
+                    let lastErrorMsg = "";
+
+                    for (let modelName of models) {
+                        outText.innerText = `Analyzing prompt structures & enhancing details...`;
+                        try {
+                            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+                            const response = await fetch(endpoint, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    contents: [{
+                                        parts: [{
+                                            text: structuredInstructionPrompt
+                                        }]
+                                    }]
+                                })
+                            });
+
+                            if (response.ok) {
+                                const resJson = await response.json();
+                                generatedResponseText = resJson.candidates[0].content.parts[0].text;
+                                apiSuccess = true;
+                                break; // Success -> Break the loop!
+                            } else {
+                                const errorData = await response.json().catch(() => ({}));
+                                lastErrorMsg = errorData.error?.message || "Unavailable";
+                                console.warn("AI Engine Node failure.");
+                            }
+                        } catch (fetchError) {
+                            lastErrorMsg = fetchError.message;
+                            console.warn("AI Engine network timeout.");
+                        }
+                    }
+
+                    if (apiSuccess) {
+                        outText.innerText = generatedResponseText;
+                        alert("AI prompt successfully regenerated! Output visible below.");
+                    } else {
+                        // 4. Google Overload Refund Strategy (Runs automatically if all models return 503)
+                        const refundCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
+                        await runTransaction(refundCoinsRef, (current) => {
+                            return (current || 0) + cost;
+                        });
+
+                        // Set the purchase log statement state to failed and refunded
+                        if (purchaseLogRef) {
+                            await update(purchaseLogRef, {
+                                promptTitle: `AI Generation (Failed - Fully Refunded)`
+                            });
+                        }
+
+                        outText.innerText = `Error: Our AI servers are currently experiencing high demand.\n\nYour 50,000 Coins have been fully refunded to your wallet automatically. Please try again!`;
+                        alert("AI Engine is currently experiencing high traffic. Your 50,000 Coins have been fully refunded!");
+                    }
+
+                } catch (err) {
+                    console.error("Deduction error: ", err);
+                    alert("Deduction process failed: " + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀`;
+                }
+            }
+        };
+
+        // Copy AI output block to clipboard
+        window.copyAiOutput = function() {
+            const text = document.getElementById('aiOutputText').innerText;
+            if(!text || text.startsWith("Connecting") || text.startsWith("Error")) {
+                alert("Nothing valid to copy.");
+                return;
+            }
+            safeCopy(text); // Fallback Copy helper utilized [2]
+        };
+    </script>
+</body>
+</html>
