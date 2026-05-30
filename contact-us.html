@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Support - PromptKaro</title>
+    
+    <!-- SEO METADATA -->
+    <meta name="description" content="Contact PromptKaro support for any complaints or inquiries. Submit your message and get help from our expert team.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+
+        // Theme initialization
+        if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500 hover:opacity-80 transition">
+                <i class="fa-solid fa-arrow-left text-base mr-2"></i>
+                <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
+            </a>
+            <div id="authStatusHeader" class="text-xs font-mono text-slate-500">Checking status...</div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+        
+        <!-- USER VIEW: CONTACT FORM -->
+        <section id="userContactView" class="hidden space-y-8">
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Contact Us</h1>
+                <p class="text-slate-500 dark:text-slate-400">Have a complaint or suggestion? Fill the form below.</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
+                <form id="complaintForm" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Full Name</label>
+                            <input type="text" id="compName" required placeholder="John Doe" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">WhatsApp Number</label>
+                            <input type="tel" id="compWhatsapp" required placeholder="+923000000000" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Email Address</label>
+                        <input type="email" id="compEmail" required placeholder="name@example.com" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Message / Complaint Details</label>
+                        <textarea id="compMessage" rows="5" required placeholder="Explain your issue in detail..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Complaint
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ADMIN VIEW: COMPLAINT MANAGEMENT -->
+        <section id="adminComplaintView" class="hidden space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h1 class="text-2xl font-black text-red-500">Complaint Dashboard (Admin)</h1>
+                <span class="bg-red-500/10 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Confidential</span>
+            </div>
+
+            <div id="complaintsContainer" class="space-y-4">
+                <!-- Complaints will be loaded here -->
+                <p class="text-center py-10 text-slate-500">Loading complaints...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-auto">
+        <div class="max-w-7xl mx-auto text-center">
+            <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+            <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro Support. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, push, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Firebase Config (Replace with your actual config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl5kGKi_9sbeHdlEZyqSuThQTA53bH3Po",
+            authDomain: "aiprom-98a50.firebaseapp.com",
+            projectId: "aiprom-98a50",
+            storageBucket: "aiprom-98a50.firebasestorage.app",
+            messagingSenderId: "479575775288",
+            appId: "1:479575775288:web:aaeeed041501d1500aeecd",
+            measurementId: "G-TYE4LJ2NRY",
+            databaseURL: "https://aiprom-98a50-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        let currentUser = null;
+
+        // AUTH LISTENER
+        onAuthStateChanged(auth, (user) => {
+            const authStatus = document.getElementById('authStatusHeader');
+            const userView = document.getElementById('userContactView');
+            const adminView = document.getElementById('adminComplaintView');
+
+            if (user) {
+                currentUser = user;
+                authStatus.innerText = `Logged in as: ${user.email}`;
+                
+                if (user.email === 'kazimmustafa38@gmail.com') {
+                    adminView.classList.remove('hidden');
+                    userView.classList.add('hidden');
+                    loadComplaintsForAdmin();
+                } else {
+                    userView.classList.remove('hidden');
+                    adminView.classList.add('hidden');
+                }
+            } else {
+                currentUser = null;
+                authStatus.innerText = "Guest Mode (Login required to submit)";
+                userView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+            }
+        });
+
+        // SUBMIT COMPLAINT
+        document.getElementById('complaintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!currentUser) {
+                alert("Please login first to submit a complaint.");
+                window.location.href = 'index.html'; // Redirect to login
+                return;
+            }
+
+            const name = document.getElementById('compName').value;
+            const whatsapp = document.getElementById('compWhatsapp').value;
+            const email = document.getElementById('compEmail').value;
+            const message = document.getElementById('compMessage').value;
+
+            try {
+                const complaintRef = ref(db, 'complaints');
+                const newComplaint = push(complaintRef);
+                await set(newComplaint, {
+                    userId: currentUser.uid,
+                    name,
+                    whatsapp,
+                    email,
+                    message,
+                    timestamp: Date.now(),
+                    status: 'pending',
+                    adminReply: ''
+                });
+
+                alert("Complaint submitted successfully! Our team will contact you on WhatsApp/Email.");
+                document.getElementById('complaintForm').reset();
+            } catch (err) {
+                alert("Error submitting complaint: " + err.message);
+            }
+        });
+
+        // ADMIN: LOAD COMPLAINTS
+        function loadComplaintsForAdmin() {
+            const container = document.getElementById('complaintsContainer');
+            const compRef = ref(db, 'complaints');
+
+            onValue(compRef, (snapshot) => {
+                container.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const keys = Object.keys(data).reverse(); // Latest first
+
+                    keys.forEach(key => {
+                        const comp = data[key];
+                        const date = new Date(comp.timestamp).toLocaleString();
+                        
+                        const div = document.createElement('div');
+                        div.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm space-y-3";
+                        div.innerHTML = `
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-900 dark:text-white">${comp.name}</h3>
+                                    <p class="text-[10px] text-slate-400 font-mono">${date}</p>
+                                </div>
+                                <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${comp.status === 'pending' ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}">
+                                    ${comp.status}
+                                </span>
+                            </div>
+                            <div class="text-xs space-y-1">
+                                <p><strong>Email:</strong> ${comp.email}</p>
+                                <p><strong>WhatsApp:</strong> <a href="https://wa.me/${comp.whatsapp.replace(/\+/g,'')}" target="_blank" class="text-brand-500 hover:underline">${comp.whatsapp}</a></p>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl text-sm italic border-l-4 border-brand-500">
+                                "${comp.message}"
+                            </div>
+                            ${comp.adminReply ? `
+                                <div class="bg-brand-500/5 p-4 rounded-xl text-sm border-l-4 border-emerald-500 mt-2">
+                                    <strong class="text-emerald-500 block mb-1">Your Reply:</strong>
+                                    ${comp.adminReply}
+                                </div>
+                            ` : `
+                                <div class="pt-2">
+                                    <textarea id="replyText_${key}" placeholder="Write your reply here..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-2 text-xs focus:outline-none"></textarea>
+                                    <button onclick="window.sendReply('${key}')" class="mt-2 bg-brand-500 text-white text-[10px] font-bold px-4 py-2 rounded-lg hover:bg-brand-600 transition">Send Reply</button>
+                                </div>
+                            `}
+                        `;
+                        container.appendChild(div);
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center py-10 text-slate-500">No complaints found.</p>';
+                }
+            });
+        }
+
+        // ADMIN: SEND REPLY
+        window.sendReply = async function(key) {
+            const reply = document.getElementById(`replyText_${key}`).value;
+            if (!reply.trim()) return alert("Reply cannot be empty!");
+
+            try {
+                await update(ref(db, `complaints/${key}`), {
+                    adminReply: reply,
+                    status: 'replied'
+                });
+                alert("Reply sent successfully!");
+            } catch (err) {
+                alert("Error sending reply: " + err.message);
+            }
+        };
+
+    </script>
+</body>
+</html>
