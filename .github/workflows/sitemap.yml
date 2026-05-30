@@ -1,0 +1,34 @@
+name: Generate XML Sitemap
+
+on:
+  push:
+    branches:
+      - main  # Agar aapki branch ka naam 'master' hai to yahan master likhein
+
+jobs:
+  sitemap_job:
+    runs-on: ubuntu-latest
+    name: Generate Sitemap
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 
+
+    - name: Generate Sitemap
+      uses: cicirello/generate-sitemap@v1
+      with:
+        base-url_path: https://freeearningsonline.github.io/
+        path-to-root: .
+        additional-extensions: html
+        drop-html-extension: false # Agar aap .html link me dikhana chahte hain
+
+    - name: Commit and push if changed
+      run: |
+        if [ -n "$(git status --porcelain sitemap.xml)" ]; then
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add sitemap.xml
+          git commit -m "Auto-update sitemap.xml"
+          git push
+        fi
