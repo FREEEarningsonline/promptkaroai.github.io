@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - PromptKaro</title>
+    
+    <!-- SEO METADATA -->
+    <meta name="description" content="Terms and Conditions for using PromptKaro. Read our rules regarding AI Prompts, digital wallet coins, AdSense compliance, and community chat regulations.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+
+        // Theme initialization
+        if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                icon.className = isDark ? "fa-solid fa-sun text-amber-400" : "fa-solid fa-moon text-slate-500";
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateThemeIcon);
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500 hover:opacity-80 transition">
+                <i class="fa-solid fa-arrow-left text-base mr-2"></i>
+                <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-sm font-semibold hover:text-brand-500 transition hidden sm:block">Back to Home</a>
+                <button type="button" onclick="toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-slate-500"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+        
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm space-y-8 leading-relaxed">
+            
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 text-center">
+                <span class="text-brand-500 font-bold tracking-widest uppercase text-xs mb-2 block">Legal Documentation</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Terms and Conditions</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Last updated and effective as of: <span class="font-semibold text-slate-700 dark:text-slate-300">May 30, 2026</span></p>
+            </div>
+
+            <div class="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300 space-y-6">
+                
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">1. Introduction and Agreement</h2>
+                <p>Welcome to PromptKaro! These terms and conditions outline the rules and regulations for the use of PromptKaro's Website, located at https://freeearningsonline.github.io/Ai-Prompt-/.</p>
+                <p>By accessing this website, we assume you accept these terms and conditions in full. Do not continue to use PromptKaro if you do not agree to take all of the terms and conditions stated on this page. Your continued use of our platform constitutes a binding legal agreement between you and PromptKaro (administered by Nazim Mustafa).</p>
+                
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">2. Definitions</h2>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li><strong>"Platform"</strong> refers to PromptKaro, our web application, databases, AI generation scripts, and community chat services.</li>
+                    <li><strong>"User", "You", and "Your"</strong> refers to you, the person logging onto this website and compliant to the Company’s terms and conditions.</li>
+                    <li><strong>"Coins"</strong> refers to the digital virtual currency used exclusively within PromptKaro to unlock premium templates or utilize the AI regenerate feature.</li>
+                    <li><strong>"Prompts"</strong> refers to the text-based instructions, formulas, and templates designed for AI engines (Midjourney, ChatGPT, Stable Diffusion, etc.) hosted on our database.</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">3. AdSense Compliance and Advertisement Policy</h2>
+                <p>PromptKaro is a free-to-use platform that relies on advertising revenue to maintain server costs, database management, and free prompt updates. We proudly partner with Google AdSense. To ensure compliance with Google’s strict advertising policies, all users must adhere to the following rules:</p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li><strong>No Invalid Clicks:</strong> Users are strictly prohibited from repeatedly, manually, or automatically clicking on advertisements displayed on the website.</li>
+                    <li><strong>No Bot Traffic:</strong> The use of automated bots, scripts, traffic exchanges, click-rings, or iframe manipulations to artificially inflate page views or ad impressions is strictly forbidden.</li>
+                    <li><strong>Ad Interferences:</strong> Users must not attempt to tamper with, hide, or artificially load the ad units using malicious browser extensions or injected codes.</li>
+                </ul>
+                <p><strong>Warning:</strong> Our systems and third-party ad networks (Google) monitor traffic patterns actively. If we detect fraudulent click activities originating from your IP address or account, we reserve the right to permanently ban your account, forfeit your wallet coins, and report the activity to necessary authorities.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">4. User Accounts and Security</h2>
+                <p>To access certain features of the platform, including the Digital Wallet, Premium Prompts, and the Global Community Chat, you must register for an account using a valid email address.</p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li>You must provide accurate and complete information during registration.</li>
+                    <li>You are solely responsible for maintaining the confidentiality of your account credentials and password.</li>
+                    <li>PromptKaro uses secure, encrypted Firebase Authentication. However, if you notice any unauthorized access to your account, you must notify us immediately at <a href="mailto:kazimmustafa38@gmail.com" class="text-brand-500 hover:underline">kazimmustafa38@gmail.com</a>.</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">5. Virtual Wallet, Coins, and Payment Policies</h2>
+                <p>PromptKaro offers a digital wallet system where users can deposit actual currency (PKR via EasyPaisa or JazzCash) to purchase "Coins".</p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li><strong>Value:</strong> Coins have no real-world monetary value outside of the PromptKaro platform. They cannot be exchanged, withdrawn, or cashed out back into fiat currency.</li>
+                    <li><strong>Usage:</strong> Coins are used strictly to unlock Premium locked prompts or to execute backend API requests via the "AI Regenerate" panel.</li>
+                    <li><strong>Verification:</strong> Deposit requests require a valid Transaction ID (TID) and Sender Information. False or fake TIDs will result in request rejection and a potential ban for fraudulent activity.</li>
+                    <li><strong>Refund Policy:</strong> All Coin purchases and Prompt unlocks are <strong>final and non-refundable</strong>. Refunds are only issued automatically by the system if an internal AI Generation request fails due to server timeout.</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">6. User-Generated Content & Community Chat Rules</h2>
+                <p>PromptKaro features a Global Community Chat where users can interact in real-time. Since we display advertisements on these pages, we must maintain a strictly clean, brand-safe, and family-friendly environment.</p>
+                <p>By using the Community Chat or submitting Prompt Requests, you agree that you will <strong>NOT</strong> post any content that is:</p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li><strong>Adult or Explicit:</strong> No pornography, sexually explicit text, or unsafe-for-work (NSFW) imagery/links.</li>
+                    <li><strong>Hateful or Abusive:</strong> No hate speech, harassment, bullying, racism, discrimination, or threats directed at any user or group.</li>
+                    <li><strong>Illegal or Pirated:</strong> No sharing of copyrighted materials, hacked software, malware, or illegal activities.</li>
+                    <li><strong>Spam:</strong> No self-promotion, spamming of links, repetitive meaningless text, or malicious phishing attempts.</li>
+                </ul>
+                <p>The Administrator (Nazim Mustafa) reserves the right to monitor, review, delete, and purge any user messages that violate these rules. Repeated offenses will result in an immediate hardware and IP-level ban without prior warning.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">7. Intellectual Property Rights</h2>
+                <p>Unless otherwise stated, PromptKaro and/or its licensors own the intellectual property rights for all standard material on PromptKaro. All intellectual property rights are reserved. You may access this from PromptKaro for your own personal use subjected to restrictions set in these terms and conditions.</p>
+                <p><strong>You must not:</strong></p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li>Republish our premium paid prompts onto other public websites or sell them as your own.</li>
+                    <li>Sell, rent or sub-license material from PromptKaro.</li>
+                    <li>Reproduce, duplicate or copy the structural design, algorithms, or API configurations of this platform.</li>
+                </ul>
+                <p>Outputs generated by AI platforms (such as the actual images generated via Midjourney or Bing) fall under the respective licensing of those third-party engines. PromptKaro only claims ownership over the written text-template (the Prompt) hosted on our database.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">8. Disclaimer of Warranties and Liability</h2>
+                <p>This website and all prompts, blogs, and AI tools are provided on an "as is" and "as available" basis. PromptKaro makes no representations or warranties of any kind, express or implied, regarding the operation of this website or the absolute accuracy of the AI outputs generated by our prompts.</p>
+                <p>We do not guarantee that our "AI Regenerate" API will be online 100% of the time, as it depends on third-party engine uptime (Google Gemini API). In no event shall PromptKaro, nor any of its administrators, be held liable for anything arising out of or in any way connected with your use of this Website.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">9. Modification of Terms</h2>
+                <p>PromptKaro is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis. Major changes to payment rules or community guidelines will be announced via the Global Community Chat or Site Banners.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">10. Governing Law & Jurisdiction</h2>
+                <p>These Terms will be governed by and interpreted in accordance with the laws of Pakistan. Any disputes related to payments, copyright, or platform usage will be subject to the non-exclusive jurisdiction of the state and federal courts located in Pakistan.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">11. Contact Information</h2>
+                <p>If you have any questions, concerns, or reports regarding these Terms and Conditions, please reach out to us using the information below:</p>
+                <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl inline-block mt-2">
+                    <p class="mb-1"><i class="fa-solid fa-user text-brand-500 mr-2"></i> <strong>Admin:</strong> Nazim Mustafa</p>
+                    <p><i class="fa-solid fa-envelope text-brand-500 mr-2"></i> <strong>Email:</strong> <a href="mailto:kazimmustafa38@gmail.com" class="text-brand-500 hover:underline">kazimmustafa38@gmail.com</a></p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+                <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
+                <a href="index.html" class="hover:text-brand-500 transition">Home</a>
+                <a href="privacy-policy.html" class="hover:text-brand-500 transition">Privacy Policy</a>
+                <a href="terms-conditions.html" class="hover:text-brand-500 transition text-brand-500">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
