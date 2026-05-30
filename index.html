@@ -13,6 +13,10 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://freeearningsonline.github.io/Ai-Prompt-/">
 
+    <!-- GOOGLE ADSENSE VERIFICATION CODE PLACEHOLDER -->
+    <!-- (Jab aap ko AdSense code mile, toh use is line ke niche paste karein) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
     <!-- OPEN GRAPH / SOCIAL PREVIEWS (WhatsApp, Facebook, Twitter) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://freeearningsonline.github.io/Ai-Prompt-/">
@@ -112,6 +116,7 @@
             <!-- Menu Links (Desktop) -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <button onclick="switchTab('home')" class="hover:text-brand-500 transition">Home</button>
+                <button onclick="switchTab('blog')" class="hover:text-brand-500 transition">Blog</button>
                 <button onclick="openRequestModal()" class="hover:text-brand-500 transition">Request Prompt</button>
                 <button onclick="switchTab('discover')" class="hover:text-brand-500 transition">Discover</button>
                 <button onclick="switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
@@ -175,6 +180,7 @@
             </div>
 
             <button onclick="switchTab('home'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
+            <button onclick="switchTab('blog'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
             <button onclick="openRequestModal(); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
             <button onclick="switchTab('discover'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-compass text-slate-400"></i> Discover</button>
             <button onclick="switchTab('wallet'); toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
@@ -195,11 +201,11 @@
         <section id="heroSection" class="relative overflow-hidden rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:to-brand-900/30 p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
             <div class="max-w-xl">
                 <span class="bg-brand-500/10 text-brand-500 border border-brand-500/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">Vast AI Library</span>
-                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-950 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
+                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs.</p>
                 <div class="flex flex-wrap gap-3">
-                    <button onclick="filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-950 dark:text-white">🔥 Viral</button>
-                    <button onclick="filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-950 dark:text-white">📸 IG Trend</button>
+                    <button onclick="filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
+                    <button onclick="filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
                 </div>
             </div>
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
@@ -215,6 +221,13 @@
         <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
             <button onclick="filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
             <!-- Injected Category Buttons -->
+        </div>
+
+        <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT (Crawler ko live placeholder dikhane ke liye) -->
+        <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
+            <span>Advertisement Spot</span>
+            <!-- (Approval ke baad yahan apna AdSense Display Ad code niche paste karein) -->
+            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
         </div>
 
         <!-- Section: Prompts Grid -->
@@ -233,6 +246,40 @@
                 <button onclick="changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
                 <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
                 <button onclick="changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
+            </div>
+        </section>
+
+        <!-- SEO ARTICLE & FAQ SECTION (AdSense Content Value Policy Compliance) -->
+        <section class="mt-12 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 transition-colors duration-300">
+            <h2 class="text-lg font-bold text-slate-955 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-3">Complete Guide: How to Use AI Prompts Successfully</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 dark:text-slate-450 leading-relaxed">
+                <div class="space-y-3">
+                    <h3 class="font-bold text-brand-500 text-sm">What is an AI Prompt?</h3>
+                    <p>An AI prompt is a specific set of instructions or keywords fed into an artificial intelligence system (like Midjourney, ChatGPT, or Bing Image Creator) to generate highly targeted outputs. Writing the right prompt is key to unlocking photorealistic images, 3D artwork, and highly professional copy.</p>
+                    <h3 class="font-bold text-brand-500 text-sm">How PromptKaro Helps You</h3>
+                    <p>Our platform compiles trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access, you skip the trial-and-error phase, saving time and credit tokens on AI engines.</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="font-bold text-brand-500 text-sm">Frequently Asked Questions (FAQs)</h3>
+                    <div class="space-y-2">
+                        <p class="font-bold text-slate-955 dark:text-slate-200">Q: Are the prompts free to copy?</p>
+                        <p>A: Yes, PromptKaro offers a wide array of free prompts. Only premium, custom-designed formulas require coins to unlock.</p>
+                        <p class="font-bold text-slate-955 dark:text-slate-200">Q: How do I get more coins?</p>
+                        <p>A: You can recharge your account easily using mobile payment platforms (EasyPaisa/JazzCash) directly via the Wallet dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Dynamic Blog Section [Tab] -->
+        <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto">
+            <div class="border-b border-slate-200 dark:border-slate-850 pb-4">
+                <h1 class="text-2xl font-bold">AI News & Prompting Guides</h1>
+                <p class="text-xs text-slate-500">Read daily updates, tutorials, and advanced prompting techniques.</p>
+            </div>
+            
+            <div id="blogsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Blogs dynamically loaded here -->
             </div>
         </section>
 
@@ -275,16 +322,16 @@
                     <form id="purchaseCoinsForm" class="space-y-4">
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Deposit Amount (PKR)</label>
-                            <input type="number" id="pkrAmount" placeholder="e.g. 50" required oninput="calculateExchange()" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="number" id="pkrAmount" placeholder="e.g. 50" required oninput="calculateExchange()" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
                         </div>
                         <div class="text-xs text-slate-500 dark:text-slate-400">You will receive: <span id="coinsResult" class="text-amber-500 font-bold">0</span> Coins</div>
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Transaction ID (TID) (Required)</label>
-                            <input type="text" id="pTransactionID" placeholder="Enter TID (e.g. 30123456789)" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="text" id="pTransactionID" placeholder="Enter TID (e.g. 30123456789)" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
                         </div>
                         <div>
                             <label class="block text-xs text-slate-500 mb-1">Sender Mobile No. / EasyPaisa Name (Required)</label>
-                            <input type="text" id="pSenderInfo" placeholder="e.g. Ali Khan / 03012345678" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
+                            <input type="text" id="pSenderInfo" placeholder="e.g. Ali Khan / 03012345678" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 transition text-slate-955 dark:text-white">
                         </div>
                         <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm">Submit Request</button>
                     </form>
@@ -297,7 +344,7 @@
                     <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
                     <div class="flex gap-2">
                         <button onclick="switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
-                        <button onclick="switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition">Unlock History (Debits)</button>
+                        <button onclick="switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition">Unlock History (Debits)</button>
                     </div>
                 </div>
                 
@@ -305,7 +352,7 @@
                 <div id="tableCredits" class="overflow-x-auto text-xs">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
-                            <tr class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                            <tr class="bg-slate-100 dark:bg-slate-955 text-slate-500 uppercase text-[10px]">
                                 <th class="px-4 py-2.5">Transaction ID / TID</th>
                                 <th class="px-4 py-2.5">Sender Details</th>
                                 <th class="px-4 py-2.5">Coins Amount</th>
@@ -324,7 +371,7 @@
                 <div id="tableDebits" class="overflow-x-auto text-xs hidden">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
-                            <tr class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                            <tr class="bg-slate-100 dark:bg-slate-955 text-slate-500 uppercase text-[10px]">
                                 <th class="px-4 py-2.5">Unlocked Prompt</th>
                                 <th class="px-4 py-2.5">Deducted Balance</th>
                                 <th class="px-4 py-2.5">Date / Time</th>
@@ -349,13 +396,14 @@
                 </div>
                 <div class="flex gap-2">
                     <button onclick="toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
+                    <button onclick="toggleAdminTab('blogs')" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Blogs</button>
                     <button onclick="toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
                     <button onclick="toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
                     <button onclick="toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
                 </div>
             </div>
 
-            <!-- Create / Update Form -->
+            <!-- Create / Update Prompt Form -->
             <div id="adminAddPromptTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h3 class="text-lg font-bold mb-4">Create or Update Prompt</h3>
                 <form id="promptForm" class="space-y-4">
@@ -377,7 +425,7 @@
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/ folder)</label>
                             <div class="space-y-1">
-                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png or custom name" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                                 <datalist id="githubImagesList"></datalist>
                                 <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
                             </div>
@@ -424,6 +472,57 @@
                 </form>
             </div>
 
+            <!-- Create / Update Blog Form Tab (Dynamic AdSense Blog Panel) -->
+            <div id="adminBlogsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden space-y-6">
+                <h3 class="text-lg font-bold">Publish & Manage Blogs</h3>
+                <form id="blogForm" class="space-y-4">
+                    <input type="hidden" id="editBlogId">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Blog Title</label>
+                            <input type="text" id="bTitle" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Blog Image Filename (from GitHub /images/ folder)</label>
+                            <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., blog_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Short Excerpt / Intro (1-2 sentences)</label>
+                        <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content (Supports multi-line paragraphs)</label>
+                        <textarea id="bContent" rows="10" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
+                        <button type="button" onclick="resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
+                    </div>
+                </form>
+
+                <!-- Active Blogs Table list -->
+                <div class="border-t border-slate-200 dark:border-slate-800 pt-6">
+                    <h4 class="text-sm font-bold mb-4 text-slate-900 dark:text-white">Active Published Articles</h4>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="w-full text-left text-slate-600 dark:text-slate-350">
+                            <thead class="bg-slate-100 dark:bg-slate-955 text-slate-400 uppercase text-[10px]">
+                                <tr>
+                                    <th class="px-4 py-3">Title</th>
+                                    <th class="px-4 py-3">Published Date</th>
+                                    <th class="px-4 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminBlogsListTable">
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-slate-500">No blog posts found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <!-- Manage Dynamic Categories Console -->
             <div id="adminCategoriesTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
                 <h3 class="text-lg font-bold mb-2">Manage Custom Categories</h3>
@@ -461,7 +560,7 @@
                 <h3 class="text-lg font-bold mb-4">Pending Wallet Submissions</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm text-slate-700 dark:text-slate-300">
-                        <thead class="bg-slate-100 dark:bg-slate-950 text-xs text-slate-500 uppercase">
+                        <thead class="bg-slate-100 dark:bg-slate-955 text-xs text-slate-500 uppercase">
                             <tr>
                                 <th class="px-4 py-3">User Email</th>
                                 <th class="px-4 py-3">TID</th>
@@ -482,6 +581,23 @@
         </section>
     </main>
 
+    <!-- FOOTER FOR ADSENSE & BOT NAVIGATION COMPLIANCE -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+                <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-450 font-semibold">
+                <a href="#" onclick="event.preventDefault(); openInfoModal('about');" class="hover:text-brand-500 transition">About Us</a>
+                <a href="#" onclick="event.preventDefault(); openInfoModal('contact');" class="hover:text-brand-500 transition">Contact Us</a>
+                <a href="#" onclick="event.preventDefault(); openInfoModal('dmca');" class="hover:text-brand-500 transition">DMCA Policy</a>
+                <a href="#" onclick="event.preventDefault(); openInfoModal('privacy');" class="hover:text-brand-500 transition">Privacy Policy</a>
+                <a href="#" onclick="event.preventDefault(); openInfoModal('terms');" class="hover:text-brand-500 transition">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
     <!-- MOBILE BOTTOM NAVBAR -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-3 z-40 text-slate-500 dark:text-slate-400">
         <button onclick="switchTab('home')" class="flex flex-col items-center gap-1 hover:text-brand-500">
@@ -498,110 +614,38 @@
         </button>
     </nav>
 
-    <!-- MODAL: Prompt Detail Page -->
-    <div id="promptDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
-            <button onclick="closePromptDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+    <!-- COOKIE CONSENT BANNER (AdSense GDPR Policy Requirement) -->
+    <div id="cookieBanner" class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-lg z-50 transition transform translate-y-0 hidden">
+        <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Cookie Consent</h4>
+        <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-normal mb-3">We use cookies to personalize ads and analyze traffic for Google AdSense compliance. By using our site, you agree to our policies.</p>
+        <div class="flex gap-2 justify-end">
+            <button onclick="acceptCookies()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] font-bold px-3 py-1.5 rounded transition">Accept</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Blog Detail Reader Pop-up Modal -->
+    <div id="blogDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
+            <button onclick="closeModal('blogDetailModal'); updatePageMetadata(); clearUrlParameters();" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div>
-                    <img id="detailImg" src="" alt="Prompt preview" class="w-full h-auto max-h-96 object-cover rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';">
-                    <a id="downloadBtn" href="#" target="_blank" download class="w-full block text-center mt-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white shadow-sm">
-                        <i class="fa-solid fa-download mr-1"></i> Save Image
-                    </a>
-                </div>
-
-                <div class="flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span id="detailTag" class="bg-brand-500/10 text-brand-500 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">Trending</span>
-                            <span class="text-xs text-slate-500"><i class="fa-regular fa-eye mr-1"></i> <span id="detailViews">0</span> views</span>
-                        </div>
-                        <h2 id="detailTitle" class="text-xl font-bold mb-3 text-slate-955 dark:text-white">Prompt Title</h2>
-
-                        <div id="promptContentArea" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4 rounded-xl min-h-[140px] flex flex-col justify-between relative overflow-hidden">
-                            <!-- Premium blur screen overlay (Kept inside for backup render logic) -->
-                            <div id="lockedOverlay" class="absolute inset-0 bg-slate-50/98 dark:bg-slate-950/98 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden">
-                                <i class="fa-solid fa-lock text-amber-500 text-3xl mb-2"></i>
-                                <span class="text-xs font-bold uppercase text-slate-400">Premium Locked Content</span>
-                                <p class="text-[10px] text-slate-500 my-1">This premium prompt costs <span id="lockedPrice" class="text-amber-500 font-bold">0</span> Coins</p>
-                                <button onclick="buyPrompt()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-4 py-1.5 rounded-lg mt-2 transition shadow-sm">Unlock Now</button>
-                            </div>
-                            
-                            <p id="detailPromptText" class="text-sm text-slate-800 dark:text-slate-300 font-mono select-all leading-relaxed">Loading prompt...</p>
-                            
-                            <div class="flex flex-wrap gap-2 mt-4 self-end">
-                                <button onclick="copyToClipboard()" class="bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-brand-500 transition font-sans shadow-sm flex items-center gap-1">
-                                    <i class="fa-regular fa-copy"></i> Copy Prompt
-                                </button>
-                                <button onclick="toggleAiPanel()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs px-3 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Regenerate (50K)
-                                </button>
-                            </div>
-                        </div>
+            
+            <div class="space-y-4 mt-4">
+                <img id="blogDetailImg" src="" alt="Blog image banner" class="w-full h-64 object-cover rounded-xl border border-slate-200 dark:border-slate-850 shadow-sm">
+                <div class="space-y-1">
+                    <h2 id="blogDetailTitle" class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Blog Title</h2>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-850 pb-3">
+                        <span id="blogDetailMeta" class="text-[10px] text-slate-400 font-medium">Published details...</span>
+                        <!-- Dynamic Social Share Button inside Blog Detail Reader [3] -->
+                        <button onclick="shareBlog()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] px-2.5 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 self-start">
+                            <i class="fa-solid fa-share-nodes"></i> Share Article
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Collapsible AI Input Panel -->
-            <div id="aiPanel" class="hidden mt-6 p-5 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 transition-all duration-300 shadow-sm">
-                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
-                    <h4 class="text-xs font-bold text-brand-500 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-sliders"></i> Configure PromptKaro AI</h4>
-                    <span class="text-[10px] text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded-full">Cost: 50,000 Coins</span>
-                </div>
-                <div class="grid grid-cols-2 gap-3 text-xs">
-                    <!-- Dynamic form selectors matching exact prompt customization formula -->
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Style Select</label>
-                        <select id="aiStyle" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
-                            <option value="Cinematic">Cinematic</option>
-                            <option value="Anime/Illustration">Anime</option>
-                            <option value="Ultra-Realistic">Realistic</option>
-                            <option value="Dark Fantasy">Dark Fantasy</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Variation / Lighting</label>
-                        <select id="aiLighting" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
-                            <option value="Dramatic High-Contrast">Dramatic High-Contrast</option>
-                            <option value="Warm Golden Hour">Warm Golden Hour</option>
-                            <option value="Moody Cinematic Dark">Moody Cinematic Dark</option>
-                            <option value="Bright Studio Neon">Bright Studio Neon</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Prompt Length</label>
-                        <select id="aiLength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
-                            <option value="Detailed Prompt">Detailed Prompt</option>
-                            <option value="Short Prompt">Short Prompt</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Strength Level</label>
-                        <select id="aiStrength" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-2 py-1.5 text-slate-955 dark:text-white focus:outline-none focus:border-brand-500 transition">
-                            <option value="Insane Detail (Max Quality)">Insane Detail (Pro)</option>
-                            <option value="Basic Enhancement">Basic Enhancement</option>
-                        </select>
-                    </div>
-                </div>
-                <button onclick="regeneratePromptWithAI()" id="btnGenerateAI" class="w-full py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀
-                </button>
-            </div>
-
-            <!-- AI Output Glowing Textbox -->
-            <div id="aiOutputContainer" class="hidden mt-6 p-5 bg-purple-500/10 dark:bg-purple-950/10 border border-purple-500/20 rounded-2xl space-y-3 shadow-sm">
-                <div class="flex justify-between items-center border-b border-purple-500/20 pb-2">
-                    <span class="text-xs font-bold text-purple-500 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-microchip"></i> PromptKaro AI Output
-                    </span>
-                    <button onclick="copyAiOutput()" class="text-xs text-purple-500 hover:underline flex items-center gap-1">
-                        <i class="fa-regular fa-copy"></i> Copy Output
-                    </button>
-                </div>
-                <p id="aiOutputText" class="text-sm font-sans whitespace-pre-wrap select-all leading-relaxed max-h-60 overflow-y-auto pr-1">Generating response...</p>
+                <!-- Paragraph renderer inside article container -->
+                <article id="blogDetailContent" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans font-medium space-y-4 pt-1">
+                    <!-- Dynamic Text paragraphs rendering -->
+                </article>
             </div>
         </div>
     </div>
@@ -695,11 +739,18 @@
         }
         window.updatePageMetadata = updatePageMetadata;
 
+        // Clean query parameters from URL bar after modal closes to preserve fresh page refreshes
+        function clearUrlParameters() {
+            window.history.pushState({}, document.title, window.location.pathname);
+        }
+        window.clearUrlParameters = clearUrlParameters;
+
         // Shared global application state
         window.appState = {
             currentUser: null,
             currentUserData: null,
             promptsList: [],
+            blogsList: [], // Dynamic state registry for blogs
             categories: [], // Dynamic Categories List
             currentFilter: 'All',
             isLoginMode: true,
@@ -743,7 +794,48 @@
         // Hardware Back Press / Browser Intercept Engine [2]
         window.addEventListener('load', () => {
             window.history.pushState({ type: 'tab', value: 'home' }, "");
+            
+            // Auto-check for GDPR Cookie Consent Policy Banner
+            if (!localStorage.getItem('cookieAccepted')) {
+                const banner = document.getElementById('cookieBanner');
+                if (banner) banner.classList.remove('hidden');
+            }
+
+            // Real-time SPA Deep Linking Listener [3]
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedPromptId = urlParams.get('prompt');
+            const sharedBlogId = urlParams.get('blog');
+
+            if (sharedPromptId) {
+                const checkInterval = setInterval(() => {
+                    if (window.appState.promptsList && window.appState.promptsList.length > 0) {
+                        clearInterval(checkInterval);
+                        if (typeof window.openPromptDetail === 'function') {
+                            window.openPromptDetail(sharedPromptId);
+                        }
+                    }
+                }, 500);
+            }
+
+            if (sharedBlogId) {
+                const checkInterval = setInterval(() => {
+                    if (window.appState.blogsList && window.appState.blogsList.length > 0) {
+                        clearInterval(checkInterval);
+                        if (typeof window.openBlogDetail === 'function') {
+                            window.openBlogDetail(sharedBlogId);
+                        }
+                    }
+                }, 500);
+            }
         });
+
+        // Safe Accept Cookie Handler
+        function acceptCookies() {
+            localStorage.setItem('cookieAccepted', 'true');
+            const banner = document.getElementById('cookieBanner');
+            if (banner) banner.classList.add('hidden');
+        }
+        window.acceptCookies = acceptCookies;
 
         window.addEventListener('popstate', (event) => {
             handleBackAction();
@@ -791,6 +883,7 @@
             document.getElementById('promptsSection').classList.add('hidden');
             document.getElementById('adminView').classList.add('hidden');
             document.getElementById('walletSection').classList.add('hidden');
+            document.getElementById('blogSection').classList.add('hidden'); // Sync hiding blog section tab
 
             window.appState.viewMode = tabId; // Sync state viewmode
 
@@ -804,6 +897,9 @@
                     window.filterCategory('All');
                 }
                 updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
+            } else if (tabId === 'blog') {
+                document.getElementById('blogSection').classList.remove('hidden');
+                updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.");
             } else if (tabId === 'admin') {
                 document.getElementById('adminView').classList.remove('hidden');
                 updatePageMetadata("Admin Panel");
@@ -834,17 +930,24 @@
         // Toggles between inner tabs in admin view
         function toggleAdminTab(tab) {
             const addTab = document.getElementById('adminAddPromptTab');
+            const blogTab = document.getElementById('adminBlogsTab'); // Blog Admin Console tab hook
             const catTab = document.getElementById('adminCategoriesTab');
             const payTab = document.getElementById('adminPaymentsTab');
             const aiTab = document.getElementById('adminAiConfigTab');
 
             addTab.classList.add('hidden');
+            blogTab.classList.add('hidden');
             catTab.classList.add('hidden');
             payTab.classList.add('hidden');
             aiTab.classList.add('hidden');
 
             if (tab === 'addPrompt') {
                 addTab.classList.remove('hidden');
+            } else if (tab === 'blogs') {
+                blogTab.classList.remove('hidden');
+                if (typeof window.renderAdminBlogsList === 'function') {
+                    window.renderAdminBlogsList();
+                }
             } else if (tab === 'categories') {
                 catTab.classList.remove('hidden');
             } else if (tab === 'aiConfig') {
@@ -864,11 +967,11 @@
 
             if (type === 'credits') {
                 btnCred.className = "px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition";
-                btnDeb.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
+                btnDeb.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
                 tblCred.classList.remove('hidden');
                 tblDeb.classList.add('hidden');
             } else {
-                btnCred.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
+                btnCred.className = "px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900";
                 btnDeb.className = "px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition";
                 tblCred.classList.add('hidden');
                 tblDeb.classList.remove('hidden');
@@ -899,7 +1002,7 @@
             openModal('authModal');
         }
         function closeAuthModal() {
-            closeModal('authModal');
+            closeAuthModal('authModal');
         }
         function toggleAuthMode() {
             openAuthModal(window.appState.isLoginMode ? 'signup' : 'login');
@@ -910,6 +1013,7 @@
             document.getElementById('aiOutputContainer').classList.add('hidden');
             document.getElementById('aiPanel').classList.add('hidden');
             updatePageMetadata(); // Restore title
+            clearUrlParameters(); // Clean dynamic share parameters [3]
         }
         function openWalletModal() {
             switchTab('wallet');
@@ -933,10 +1037,10 @@
             document.getElementById('promptForm').reset();
             document.getElementById('editPromptId').value = '';
             document.getElementById('priceFieldContainer').classList.add('hidden');
-            const fileInput = document.getElementById('pImageFile');
-            if (fileInput) fileInput.value = '';
-            const statusSpan = document.getElementById('githubApiStatus');
-            if (statusSpan) statusSpan.innerText = '';
+        }
+        function resetBlogForm() {
+            document.getElementById('blogForm').reset();
+            document.getElementById('editBlogId').value = '';
         }
 
         // 📋 Safe and Secure Clipboard Copy Helper (Bypasses Secure Context Block on local file:// & older WebViews)
@@ -975,6 +1079,45 @@
             document.body.removeChild(textArea);
         }
 
+        // Dynamic System Share Trigger for Prompts [3]
+        function sharePrompt() {
+            if (!window.appState.currentDetailPrompt) return;
+            const pId = window.appState.currentDetailPrompt.id;
+            const pTitle = window.appState.currentDetailPrompt.title;
+            const shareLink = `${window.location.origin}${window.location.pathname}?prompt=${pId}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `PromptKaro - ${pTitle}`,
+                    text: `Check out this amazing AI prompt: "${pTitle}" on PromptKaro!`,
+                    url: shareLink
+                }).catch(err => console.log(err));
+            } else {
+                safeCopy(shareLink);
+                alert("Deep Link copied to clipboard! Share it with friends.");
+            }
+        }
+
+        // Dynamic System Share Trigger for Blogs [3]
+        function shareBlog() {
+            const openedTitle = document.getElementById('blogDetailTitle').innerText;
+            const currentBlog = window.appState.blogsList.find(b => b.title === openedTitle);
+            if (!currentBlog) return;
+            
+            const shareLink = `${window.location.origin}${window.location.pathname}?blog=${currentBlog.id}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `PromptKaro Blog - ${currentBlog.title}`,
+                    text: `Read this helpful AI guide: "${currentBlog.title}" on PromptKaro!`,
+                    url: shareLink
+                }).catch(err => console.log(err));
+            } else {
+                safeCopy(shareLink);
+                alert("Article Link copied to clipboard! Share it with friends.");
+            }
+        }
+
         window.openRequestModal = openRequestModal;
         window.closeRequestModal = closeRequestModal;
         window.openAuthModal = openAuthModal;
@@ -986,9 +1129,12 @@
         window.calculateExchange = calculateExchange;
         window.togglePriceField = togglePriceField;
         window.resetForm = resetForm;
+        window.resetBlogForm = resetBlogForm;
         window.safeCopy = safeCopy; // Exposed globally
+        window.sharePrompt = sharePrompt; // Exposed globally
+        window.shareBlog = shareBlog; // Exposed globally
 
-        // Custom Info dialog renderer
+        // Custom Info dialog renderer (Expanded for AdSense Mandatory Legal Compliance)
         function openInfoModal(type) {
             const title = document.getElementById('infoModalTitle');
             const content = document.getElementById('infoModalContent');
@@ -1011,6 +1157,20 @@
                 content.innerHTML = `
                     <p>At PromptKaro, we respect intellectual property rights. If you believe any of the uploaded custom content violates your copyright works, contact us immediately.</p>
                     <p>Provide evidence details of ownership and write to us at <strong class="text-brand-500">kazimmustafa38@gmail.com</strong>. We will review and delete violating content within 24 hours.</p>
+                `;
+            } else if (type === 'privacy') {
+                title.innerText = "Privacy Policy";
+                content.innerHTML = `
+                    <p>At PromptKaro, accessible from https://freeearningsonline.github.io/Ai-Prompt-/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by PromptKaro and how we use it.</p>
+                    <p><strong>Log Files:</strong> PromptKaro follows a standard procedure of using log files. These files log visitors when they visit websites. This is part of hosting services' analytics.</p>
+                    <p><strong>Google DoubleClick DART Cookie:</strong> Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+                `;
+            } else if (type === 'terms') {
+                title.innerText = "Terms of Service";
+                content.innerHTML = `
+                    <p>Welcome to PromptKaro! These terms and conditions outline the rules and regulations for the use of PromptKaro's Website, located at https://freeearningsonline.github.io/Ai-Prompt-/.</p>
+                    <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use PromptKaro if you do not agree to take all of the terms and conditions stated on this page.</p>
+                    <p><strong>License:</strong> Unless otherwise stated, PromptKaro and/or its licensors own the intellectual property rights for all material on PromptKaro. All intellectual property rights are reserved.</p>
                 `;
             }
             openModal('infoModal');
@@ -1148,6 +1308,173 @@
             }
         }
         window.fetchGitHubImages = fetchGitHubImages;
+
+        // Realtime sync Blogs from database path: 'blogs' [7]
+        const dbBlogsRef = ref(db, 'blogs');
+        onValue(dbBlogsRef, (snapshot) => {
+            window.appState.blogsList = [];
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                for (let key in data) {
+                    window.appState.blogsList.push({ id: key, ...data[key] });
+                }
+            }
+            renderBlogs();
+            renderAdminBlogsList();
+        });
+
+        // Dynamic rendering of Blog items in grid container
+        function renderBlogs() {
+            const container = document.getElementById('blogsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (window.appState.blogsList.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No blog posts found. Stay tuned for exciting updates!</div>`;
+                return;
+            }
+
+            // Sort newest first
+            const sorted = [...window.appState.blogsList].sort((a, b) => b.createdAt - a.createdAt);
+
+            sorted.forEach(blog => {
+                const card = document.createElement('article');
+                card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer";
+                card.onclick = () => openBlogDetail(blog.id);
+
+                const finalImg = resolveImageSrc(blog.imageURL);
+                const dateStr = new Date(blog.createdAt).toLocaleDateString();
+
+                card.innerHTML = `
+                    <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-48 object-cover">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-3">
+                        <div class="space-y-2">
+                            <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">AI Guide</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">${blog.title}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">${blog.excerpt || blog.content.substring(0, 100)}...</p>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>${dateStr}</span>
+                            <span class="font-bold text-brand-500">Read More ➔</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Full Reader Pop-up Modal compiler
+        window.openBlogDetail = function(id) {
+            const blog = window.appState.blogsList.find(b => b.id === id);
+            if (!blog) return;
+
+            document.getElementById('blogDetailTitle').innerText = blog.title;
+            
+            const resolvedImg = resolveImageSrc(blog.imageURL);
+            const blogImg = document.getElementById('blogDetailImg');
+            blogImg.src = resolvedImg;
+            blogImg.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            };
+
+            const dateStr = new Date(blog.createdAt).toLocaleDateString();
+            document.getElementById('blogDetailMeta').innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
+            
+            // Format newlines with paragraphs for rich reading experience
+            document.getElementById('blogDetailContent').innerHTML = blog.content.split('\n').map(p => {
+                const trimmed = p.trim();
+                return trimmed ? `<p class="mb-4">${trimmed}</p>` : '';
+            }).join('');
+
+            updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150));
+            openModal('blogDetailModal');
+        };
+
+        // Render admin dashboard dynamic list
+        function renderAdminBlogsList() {
+            const table = document.getElementById('adminBlogsListTable');
+            if (!table) return;
+            table.innerHTML = '';
+
+            if (window.appState.blogsList.length === 0) {
+                table.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-500">No blog posts published yet.</td></tr>`;
+                return;
+            }
+
+            window.appState.blogsList.forEach(blog => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100 text-xs">${blog.title}</td>
+                    <td class="px-4 py-3 text-slate-500 text-xs">${new Date(blog.createdAt).toLocaleDateString()}</td>
+                    <td class="px-4 py-3 space-x-2 text-xs">
+                        <button onclick="editBlog('${blog.id}')" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded">Edit</button>
+                        <button onclick="deleteBlog('${blog.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2 py-1 rounded">Delete</button>
+                    </td>
+                `;
+                table.appendChild(tr);
+            });
+        }
+        window.renderAdminBlogsList = renderAdminBlogsList;
+
+        // Admin Blog CRUD events mapping
+        document.getElementById('blogForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('editBlogId').value;
+            const title = document.getElementById('bTitle').value;
+            const imageURL = document.getElementById('bImageURL').value.trim();
+            const excerpt = document.getElementById('bExcerpt').value;
+            const content = document.getElementById('bContent').value;
+
+            const payload = {
+                title: title,
+                imageURL: imageURL,
+                excerpt: excerpt,
+                content: content,
+                author: "Nazim Mustafa",
+                createdAt: editId ? (window.appState.blogsList.find(b => b.id === editId)?.createdAt || Date.now()) : Date.now()
+            };
+
+            try {
+                if (editId) {
+                    await update(ref(db, `blogs/${editId}`), payload);
+                    alert("Blog post updated successfully.");
+                } else {
+                    const newBlogRef = push(ref(db, 'blogs'));
+                    await set(newBlogRef, payload);
+                    alert("New Blog post published successfully!");
+                }
+                resetBlogForm();
+                switchTab('blog');
+            } catch (err) {
+                alert("Failed to save blog: " + err.message);
+            }
+        });
+
+        window.editBlog = function(id) {
+            const blog = window.appState.blogsList.find(b => b.id === id);
+            if (blog) {
+                document.getElementById('editBlogId').value = blog.id;
+                document.getElementById('bTitle').value = blog.title;
+                document.getElementById('bImageURL').value = blog.imageURL || '';
+                document.getElementById('bExcerpt').value = blog.excerpt || '';
+                document.getElementById('bContent').value = blog.content || '';
+
+                toggleAdminTab('blogs');
+            }
+        };
+
+        window.deleteBlog = async function(id) {
+            if (confirm("Are you sure you want to delete this blog post?")) {
+                try {
+                    await remove(ref(db, `blogs/${id}`));
+                    alert("Blog post deleted.");
+                } catch(err) {
+                    alert("Delete failed: " + err.message);
+                }
+            }
+        };
 
         // Track user Auth states changes
         onAuthStateChanged(auth, async (user) => {
@@ -1805,6 +2132,17 @@
                 `;
             }
 
+            // Append Prompt Sharing Nodes button inside details modal dynamically [3]
+            const btnArea = document.querySelector('#promptContentArea .flex-wrap');
+            if (btnArea && !document.getElementById('promptShareBtn')) {
+                const shareBtn = document.createElement('button');
+                shareBtn.id = "promptShareBtn";
+                shareBtn.onclick = () => sharePrompt();
+                shareBtn.className = "bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-emerald-500 transition font-sans shadow-sm flex items-center gap-1";
+                shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share Prompt`;
+                btnArea.appendChild(shareBtn);
+            }
+
             openModal('promptDetailModal');
         }
 
@@ -1856,7 +2194,7 @@
         // 🚀 Real-time PromptKaro AI Prompt Regeneration handler with 50K Coins deduction & Automatic Fallback
         window.regeneratePromptWithAI = async function() {
             if (!window.appState.currentUser) {
-                alert("Please log in to use AI Regenerate feature.");
+                alert("Please log in to use AI Generate feature.");
                 openAuthModal('login');
                 return;
             }
