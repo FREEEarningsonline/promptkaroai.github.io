@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMCA Policy - PromptKaro</title>
+    
+    <!-- SEO METADATA -->
+    <meta name="description" content="Read PromptKaro's DMCA (Digital Millennium Copyright Act) Policy. Learn how to report copyright infringement, file a takedown notice, and our counter-notice procedures.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+
+        // Theme initialization
+        if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                icon.className = isDark ? "fa-solid fa-sun text-amber-400" : "fa-solid fa-moon text-slate-500";
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateThemeIcon);
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500 hover:opacity-80 transition">
+                <i class="fa-solid fa-arrow-left text-base mr-2"></i>
+                <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-sm font-semibold hover:text-brand-500 transition hidden sm:block">Back to Home</a>
+                <button type="button" onclick="toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-slate-500"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+        
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm space-y-8 leading-relaxed">
+            
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 text-center">
+                <span class="text-brand-500 font-bold tracking-widest uppercase text-xs mb-2 block">Legal Documentation</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">DMCA Copyright Policy</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Last updated and effective as of: <span class="font-semibold text-slate-700 dark:text-slate-300">May 30, 2026</span></p>
+            </div>
+
+            <div class="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300 space-y-6">
+                
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">1. Introduction to Our Copyright Policy</h2>
+                <p>PromptKaro (accessible via https://freeearningsonline.github.io/Ai-Prompt-/) respects the intellectual property rights of others and expects its users to do the same. In accordance with the Digital Millennium Copyright Act of 1998 ("DMCA"), the text of which may be found on the U.S. Copyright Office website at <a href="https://www.copyright.gov/legislation/dmca.pdf" target="_blank" rel="nofollow" class="text-brand-500 hover:underline">http://www.copyright.gov/legislation/dmca.pdf</a>, PromptKaro will respond expeditiously to claims of copyright infringement committed using the PromptKaro website or its community platforms.</p>
+                <p>If you are a copyright owner, authorized to act on behalf of one, or authorized to act under any exclusive right under copyright, please report alleged copyright infringements taking place on or through the Site by completing the following DMCA Notice of Alleged Infringement and delivering it to PromptKaro's Designated Copyright Agent.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">2. Intellectual Property and AI Prompts</h2>
+                <p>Our platform primarily hosts text-based formulas, instructions, and templates (commonly known as "Prompts") designed for use in Artificial Intelligence image and text generation engines (such as Midjourney, ChatGPT, and Bing Image Creator). It is important to note the legal nature of such content:</p>
+                <ul class="list-disc pl-6 space-y-2 mt-2">
+                    <li>Prompts themselves are generally functional lines of text. However, if a prompt contains verbatim excerpts from a copyrighted book, poem, or proprietary codebase, it may constitute infringement.</li>
+                    <li>If an image displayed on our website (as a preview of a prompt's output) inadvertently resembles a copyrighted artwork or photograph, the original creator holds the right to request its immediate removal.</li>
+                    <li>We strictly forbid our users from sharing content in the Community Chat or Prompt Database that directly violates the copyrights, trademarks, or proprietary rights of third-party creators or organizations.</li>
+                </ul>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">3. Submitting a DMCA Takedown Notice</h2>
+                <p>Upon receipt of a valid and complete DMCA Notice as described below, PromptKaro will take whatever action, in its sole discretion, it deems appropriate, including removal of the challenged material from the Site.</p>
+                <p>To file a DMCA Notice of Alleged Infringement with us, you must provide a written communication (by email) that sets forth the items specified below. Please note that you may be liable for damages (including costs and attorneys' fees) if you materially misrepresent that a product or activity is infringing your copyrights.</p>
+                
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-xl space-y-4 my-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-brand-500">Required Elements for a Valid Takedown Notice:</h3>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li><strong>Identify the copyrighted work:</strong> Provide a detailed description of the copyrighted work that you claim has been infringed, or if multiple copyrighted works are covered by a single notification, a representative list of such works.</li>
+                        <li><strong>Identify the infringing material:</strong> Provide the specific URL(s) or exact location on PromptKaro where the allegedly infringing material is located, so that we can easily locate and verify it.</li>
+                        <li><strong>Provide your contact information:</strong> Include your full legal name, mailing address, telephone number, and an active email address where we can reach you.</li>
+                        <li><strong>Include a statement of Good Faith:</strong> Include the following statement: <em>"I have a good faith belief that the use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law."</em></li>
+                        <li><strong>Include a statement of Perjury:</strong> Include the following statement: <em>"I swear, under penalty of perjury, that the information in the notification is accurate, and that I am the copyright owner or am authorized to act on behalf of the owner of an exclusive right that is allegedly infringed."</em></li>
+                        <li><strong>Provide your signature:</strong> Provide your physical or electronic signature (typing your full legal name is acceptable for electronic submissions).</li>
+                    </ol>
+                </div>
+                <p>Please send this comprehensive notice directly to our Designated Copyright Agent via the email address provided at the bottom of this policy.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">4. Filing a DMCA Counter-Notification</h2>
+                <p>If you believe that your content (Prompt, Blog, or Community Message) was removed or access to it was disabled by mistake or misidentification, you may file a counter-notification with our Designated Agent. To be effective, a Counter-Notice must be a written communication provided via email that includes substantially the following:</p>
+                
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-xl space-y-4 my-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-emerald-500">Required Elements for a Valid Counter-Notice:</h3>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li><strong>Identify the removed material:</strong> Identification of the material that has been removed or to which access has been disabled and the specific URL where the material appeared before it was removed.</li>
+                        <li><strong>Provide your contact information:</strong> Your full name, address, telephone number, and email address.</li>
+                        <li><strong>Include a statement of Good Faith (Counter):</strong> Include the statement: <em>"I swear, under penalty of perjury, that I have a good faith belief that the material was removed or disabled as a result of a mistake or misidentification of the material to be removed or disabled."</em></li>
+                        <li><strong>Jurisdiction Consent:</strong> A statement that you consent to the jurisdiction of the Federal District Court for the judicial district in which your address is located, and that you will accept service of process from the person who provided the original DMCA notification or an agent of such person.</li>
+                        <li><strong>Signature:</strong> Your physical or electronic signature.</li>
+                    </ol>
+                </div>
+                
+                <p>Once a valid Counter-Notice is received, PromptKaro will promptly forward a copy of it to the original complaining party. We will inform them that we may restore the removed material or cease disabling access to it within 10 to 14 business days. Unless the original complaining party files an action seeking a court order against the user, the removed material may be replaced or restored at our discretion.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">5. Repeat Infringer Policy</h2>
+                <p>In accordance with the DMCA and other applicable laws, PromptKaro has adopted a strict policy of terminating, in appropriate circumstances and at PromptKaro's sole discretion, users, subscribers, or account holders who are deemed to be repeat infringers. PromptKaro may also, at its sole discretion, limit access to the Site and/or terminate the accounts of any users who infringe any intellectual property rights of others, whether or not there is any repeat infringement.</p>
+                <p>If your account receives multiple valid DMCA strikes, your digital wallet will be frozen, any accumulated coins will be forfeited, and your access to our Global Community Chat will be permanently revoked. Adherence to intellectual property law is mandatory for all members utilizing our premium systems.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">6. False Claims and Legal Consequences</h2>
+                <p>We take copyright abuse seriously, but we also take the abuse of the DMCA process equally seriously. Please be aware that under Section 512(f) of the DMCA, any person who knowingly materially misrepresents that material or activity is infringing, or that material or activity was removed or disabled by mistake or misidentification, may be subject to severe liability.</p>
+                <p>If you are unsure whether material available online infringes your copyright, we strongly suggest that you consult legal counsel before filing a DMCA Takedown Notice or Counter-Notice.</p>
+
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-8 mb-4">7. Designated Copyright Agent Contact Information</h2>
+                <p>All DMCA Takedown Notices, Counter-Notices, and related intellectual property inquiries must be sent directly to our administrative team. For the fastest response, please use the email address listed below with the subject line <strong>"DMCA Legal Notice - [Your Name]"</strong>.</p>
+                
+                <div class="bg-brand-500/10 border border-brand-500/20 p-6 rounded-xl inline-block mt-4 w-full md:w-auto">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-3 text-lg">Designated Agent:</h3>
+                    <p class="mb-2"><i class="fa-solid fa-user text-brand-500 mr-2"></i> <strong>Name:</strong> Nazim Mustafa</p>
+                    <p class="mb-2"><i class="fa-solid fa-building text-brand-500 mr-2"></i> <strong>Organization:</strong> PromptKaro Platforms</p>
+                    <p><i class="fa-solid fa-envelope text-brand-500 mr-2"></i> <strong>Email:</strong> <a href="mailto:kazimmustafa38@gmail.com" class="text-brand-500 hover:underline font-bold">kazimmustafa38@gmail.com</a></p>
+                </div>
+
+                <p class="mt-6 text-sm text-slate-500 italic">Note: Please allow 2 to 4 business days for a response to your complaint. We strive to process all valid DMCA takedowns within 48 hours of receipt.</p>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
+                <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
+                <a href="index.html" class="hover:text-brand-500 transition">Home</a>
+                <a href="privacy-policy.html" class="hover:text-brand-500 transition">Privacy Policy</a>
+                <a href="terms-conditions.html" class="hover:text-brand-500 transition">Terms of Service</a>
+                <a href="dmca.html" class="hover:text-brand-500 transition text-brand-500">DMCA Policy</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
