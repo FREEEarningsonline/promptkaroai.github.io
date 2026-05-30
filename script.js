@@ -19,6 +19,7 @@ function resolveImageSrc(imageVal) {
 }
 window.resolveImageSrc = resolveImageSrc;
 
+// UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
 function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
@@ -31,6 +32,15 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
     if (metaKey) {
         metaKey.setAttribute('content', keywordsSuffix || "AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro");
     }
+
+    // Dynamic Canonical URL Update for Google Indexing
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', window.location.href);
 }
 window.updatePageMetadata = updatePageMetadata;
 
@@ -425,7 +435,8 @@ function sharePrompt() {
     if (!window.appState.currentDetailPrompt) return;
     const pId = window.appState.currentDetailPrompt.id;
     const pTitle = window.appState.currentDetailPrompt.title;
-    const shareLink = `${window.location.origin}${window.location.pathname}?prompt=${pId}`;
+    
+    const shareLink = `${window.location.origin}/?prompt=${pId}`;
 
     if (navigator.share) {
         navigator.share({
@@ -445,7 +456,7 @@ function shareBlog() {
     const currentBlog = window.appState.blogsList.find(b => b.title === openedTitle);
     if (!currentBlog) return;
     
-    const shareLink = `${window.location.origin}${window.location.pathname}?blog=${currentBlog.id}`;
+    const shareLink = `${window.location.origin}/?blog=${currentBlog.id}`;
 
     if (navigator.share) {
         navigator.share({
@@ -506,7 +517,6 @@ function closeCommunityChat() {
     window.closeModal('communityChatModal');
 }
 window.closeCommunityChat = closeCommunityChat;
-
 
 // ==========================================
 // PART 2: MODULAR ASYNC BACKEND FIREBASE CODE
