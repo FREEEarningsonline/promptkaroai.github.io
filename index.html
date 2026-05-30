@@ -11,7 +11,7 @@
     <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
     <meta name="author" content="Nazim Mustafa">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://freeearningsonline.github.io/Ai-Prompt-/">
+    <link rel="canonical" href="https://freeearningsonline.github.io/">
 
     <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
@@ -219,11 +219,6 @@
             <!-- Injected Category Buttons -->
         </div>
 
-        <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
-        <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
-            <span>Advertisement Spot</span>
-        </div>
-
         <!-- Section: Prompts Grid -->
         <section id="promptsSection">
             <div class="flex justify-between items-center mb-4">
@@ -388,11 +383,12 @@
                     <h1 class="text-2xl font-bold text-red-500">Admin Console</h1>
                     <p class="text-xs text-slate-400">Manage database prompts, custom categories, and verify user payments</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
                     <button onclick="window.toggleAdminTab('addPrompt')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Add/Edit Prompt</button>
                     <button onclick="window.toggleAdminTab('blogs')" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Blogs</button>
                     <button onclick="window.toggleAdminTab('categories')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Categories</button>
                     <button onclick="window.toggleAdminTab('aiConfig')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">AI Config</button>
+                    <button onclick="window.toggleAdminTab('adsConfig')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Manage Ads</button>
                     <button onclick="window.toggleAdminTab('payments')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition">Verify Payments</button>
                 </div>
             </div>
@@ -477,17 +473,25 @@
                             <input type="text" id="bTitle" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-400 mb-1">Blog Image Filename (from GitHub /images/ folder)</label>
-                            <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., blog_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            <label class="block text-xs text-slate-400 mb-1">SEO Keywords (comma separated)</label>
+                            <input type="text" id="bKeywords" placeholder="AI, Midjourney, Tips" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Top Image Filename (from GitHub /images/ folder)</label>
+                            <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., top_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Center Image Filename (Optional)</label>
+                            <input type="text" id="bCenterImageURL" list="githubImagesList" placeholder="e.g., middle_img.jpg" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Short Excerpt / Intro (1-2 sentences)</label>
+                        <label class="block text-xs text-slate-400 mb-1">Short Excerpt / Intro (1-2 sentences for Meta Description)</label>
                         <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content</label>
-                        <textarea id="bContent" rows="10" required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                        <label class="block text-xs text-slate-400 mb-1">Blog Body Content (Use # for Heading, ## Sub Heading, or raw HTML)</label>
+                        <textarea id="bContent" rows="10" placeholder="Type here... Use # for H2, ## for H3, ### for H4 to make it SEO friendly." required class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" class="bg-teal-600 hover:bg-teal-750 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
@@ -546,6 +550,32 @@
                         <input type="password" id="adminApiKeyInput" placeholder="Enter secure engine API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                     </div>
                     <button onclick="window.saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">Save Key Configurations</button>
+                </div>
+            </div>
+
+            <!-- Manage AdSense Ad Placements -->
+            <div id="adminAdsTab" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hidden shadow-sm">
+                <h3 class="text-lg font-bold mb-2">AdSense Configuration</h3>
+                <p class="text-xs text-slate-400 mb-4">Paste your Google AdSense block codes here to display them automatically in Blog Posts.</p>
+                
+                <div class="space-y-4 font-medium">
+                    <div>
+                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Top Display Ad (Top of Blog Post)</label>
+                        <textarea id="adDisplayTop" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Center Article Ad (Middle of Blog Post)</label>
+                        <textarea id="adArticleCenter" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Multiplex / Multiple Ad (End of Article Content)</label>
+                        <textarea id="adMultiplexBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Display Ad (Absolute Bottom)</label>
+                        <textarea id="adDisplayBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>" class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                    </div>
+                    <button onclick="window.saveAdsConfig()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-sm">Save Ads Configuration</button>
                 </div>
             </div>
 
@@ -617,27 +647,49 @@
         </div>
     </div>
 
-    <!-- MODAL: Blog Detail Reader Pop-up Modal -->
-    <div id="blogDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
-            <button onclick="window.closeModal('blogDetailModal'); window.updatePageMetadata(); window.clearUrlParameters();" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+    <!-- MODAL: Blog Detail Reader Pop-up Modal (Updated for Full Screen Mobile & Ads) -->
+    <div id="blogDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-0 md:p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border-0 md:border border-slate-200 dark:border-slate-800 rounded-none md:rounded-2xl w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl overflow-y-auto relative p-5 md:p-8 shadow-md flex flex-col">
+            <button onclick="window.closeModal('blogDetailModal'); window.updatePageMetadata(); window.clearUrlParameters();" class="absolute top-4 right-4 text-slate-600 dark:text-slate-400 hover:text-brand-500 dark:hover:text-white text-2xl z-10 bg-white/50 dark:bg-slate-900/50 rounded-full w-10 h-10 flex items-center justify-center backdrop-blur">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <div class="space-y-4 mt-4">
-                <img id="blogDetailImg" src="" alt="Blog image banner" class="w-full h-64 object-cover rounded-xl border border-slate-200 dark:border-slate-855 shadow-sm">
+            <!-- Ad Top Container -->
+            <div id="adTopContainer" class="w-full empty:hidden mt-10 md:mt-0 mb-4 text-center overflow-hidden"></div>
+
+            <div class="space-y-4">
+                <img id="blogDetailImg" src="" alt="Blog image banner" class="w-full h-64 md:h-80 object-cover rounded-xl border border-slate-200 dark:border-slate-855 shadow-sm">
                 <div class="space-y-1">
-                    <h2 id="blogDetailTitle" class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Blog Title</h2>
+                    <h1 id="blogDetailTitle" class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">Blog Title</h1>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-855 pb-3">
-                        <span id="blogDetailMeta" class="text-[10px] text-slate-400 font-medium">Published details...</span>
-                        <button onclick="window.shareBlog()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] px-2.5 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 self-start">
+                        <span id="blogDetailMeta" class="text-[10px] md:text-xs text-slate-400 font-medium">Published details...</span>
+                        <button onclick="window.shareBlog()" class="bg-brand-500 hover:bg-brand-600 text-white text-[10px] md:text-xs px-3 py-1.5 rounded-md font-bold transition shadow-sm flex items-center gap-1 self-start">
                             <i class="fa-solid fa-share-nodes"></i> Share Article
                         </button>
                     </div>
                 </div>
-                <article id="blogDetailContent" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans font-medium space-y-4 pt-1">
+                
+                <!-- Blog Content Part 1 -->
+                <article id="blogDetailContentTop" class="text-sm md:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-sans font-medium space-y-4 pt-1">
                     <!-- Dynamic Text paragraphs rendering -->
                 </article>
+
+                <!-- Center Image (Optional) -->
+                <img id="blogDetailCenterImg" src="" alt="Blog center image" class="w-full h-auto object-cover rounded-xl border border-slate-200 dark:border-slate-855 shadow-sm hidden">
+
+                <!-- Ad Center Container (Article Ads) -->
+                <div id="adCenterContainer" class="w-full empty:hidden my-6 text-center overflow-hidden"></div>
+
+                <!-- Blog Content Part 2 -->
+                <article id="blogDetailContentBottom" class="text-sm md:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-sans font-medium space-y-4">
+                    <!-- Dynamic Text paragraphs rendering -->
+                </article>
+                
+                <!-- Ad Multiplex Container (End of content ads) -->
+                <div id="adMultiplexContainer" class="w-full empty:hidden my-6 text-center overflow-hidden"></div>
+                
+                <!-- Ad Bottom Container (Absolute Bottom) -->
+                <div id="adBottomContainer" class="w-full empty:hidden mt-4 pb-8 text-center overflow-hidden"></div>
             </div>
         </div>
     </div>
@@ -813,10 +865,10 @@
     <!-- PART 1: STANDARD SYNCHRONOUS GLOBAL JAVASCRIPT -->
     <!-- ========================================== -->
     <script>
-        // Predefined Base URL for GitHub Raw Images [3]
+        // Predefined Base URL for GitHub Raw Images
         const GITHUB_BASE_URL = "https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/";
         
-        // Dynamic image parser [5]
+        // Dynamic image parser
         function resolveImageSrc(imageVal) {
             if (!imageVal) {
                 return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; 
@@ -828,12 +880,18 @@
         }
         window.resolveImageSrc = resolveImageSrc;
 
-        // Dynamic Title and Metadata updating for SPA SEO optimization
-        function updatePageMetadata(titleSuffix, descriptionSuffix) {
+        // Dynamic Title and Metadata updating for SPA SEO optimization (Includes Keywords now)
+        function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
             document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
+            
             const metaDesc = document.querySelector('meta[name="description"]');
             if (metaDesc) {
                 metaDesc.setAttribute('content', descriptionSuffix || "Explore, copy, and share free trending AI prompts for Midjourney, Stable Diffusion, ChatGPT.");
+            }
+            
+            const metaKey = document.querySelector('meta[name="keywords"]');
+            if (metaKey) {
+                metaKey.setAttribute('content', keywordsSuffix || "AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro");
             }
         }
         window.updatePageMetadata = updatePageMetadata;
@@ -849,14 +907,15 @@
             currentUser: null,
             currentUserData: null,
             promptsList: [],
-            blogsList: [], // Dynamic state registry for blogs
-            categories: [], // Dynamic Categories List
+            blogsList: [], 
+            categories: [], 
+            ads: { top: '', center: '', multiplex: '', bottom: '' }, // For AdSense Codes
             currentFilter: 'All',
             isLoginMode: true,
             currentDetailPrompt: null,
             currentPage: 1,
-            viewMode: 'home', // 'home', 'discover', 'wallet', 'admin'
-            navigationStack: [] // Custom Mobile Navigation History Stack
+            viewMode: 'home', 
+            navigationStack: [] 
         };
 
         // Theme Switcher Mode (Instant Loading)
@@ -890,17 +949,15 @@
         window.toggleTheme = toggleTheme;
         window.addEventListener('DOMContentLoaded', updateThemeIcons);
 
-        // Hardware Back Press / Browser Intercept Engine [2]
+        // Hardware Back Press / Browser Intercept Engine
         window.addEventListener('load', () => {
             window.history.pushState({ type: 'tab', value: 'home' }, "");
             
-            // Auto-check for GDPR Cookie Consent Policy Banner
             if (!localStorage.getItem('cookieAccepted')) {
                 const banner = document.getElementById('cookieBanner');
                 if (banner) banner.classList.remove('hidden');
             }
 
-            // Real-time SPA Deep Linking Listener [3]
             const urlParams = new URLSearchParams(window.location.search);
             const sharedPromptId = urlParams.get('prompt');
             const sharedBlogId = urlParams.get('blog');
@@ -928,7 +985,6 @@
             }
         });
 
-        // Safe Accept Cookie Handler
         function acceptCookies() {
             localStorage.setItem('cookieAccepted', 'true');
             const banner = document.getElementById('cookieBanner');
@@ -954,7 +1010,6 @@
                     window.closeModal(prev.value, true);
                 }
             } else {
-                // Stack is completely empty -> Safe Exit application [2]
                 if (navigator.app && typeof navigator.app.exitApp === 'function') {
                     navigator.app.exitApp();
                 } else {
@@ -964,14 +1019,12 @@
         }
         window.handleBackAction = handleBackAction;
 
-        // Responsive Drawer Navigation menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('translate-x-full');
         }
         window.toggleMobileMenu = toggleMobileMenu;
 
-        // View tabs layout router logic (Equipped with stack navigation & Meta Sync)
         function switchTab(tabId, isBack = false) {
             if (!isBack && window.appState.viewMode !== tabId) {
                 window.appState.navigationStack.push({ type: 'tab', value: window.appState.viewMode });
@@ -982,15 +1035,14 @@
             document.getElementById('promptsSection').classList.add('hidden');
             document.getElementById('adminView').classList.add('hidden');
             document.getElementById('walletSection').classList.add('hidden');
-            document.getElementById('blogSection').classList.add('hidden'); // Sync hiding blog section tab
+            document.getElementById('blogSection').classList.add('hidden'); 
 
-            window.appState.viewMode = tabId; // Sync state viewmode
+            window.appState.viewMode = tabId; 
 
             if (tabId === 'home' || tabId === 'discover') {
                 document.getElementById('heroSection').classList.remove('hidden');
                 document.getElementById('promptsSection').classList.remove('hidden');
                 
-                // If discover tab clicked, reset category active states to load only trending
                 window.appState.currentPage = 1;
                 if (typeof window.filterCategory === 'function') {
                     window.filterCategory('All');
@@ -1002,7 +1054,6 @@
             } else if (tabId === 'admin') {
                 document.getElementById('adminView').classList.remove('hidden');
                 updatePageMetadata("Admin Panel");
-                // Synchronously call GitHub API Sync when entering Admin
                 if (typeof window.fetchGitHubImages === 'function') {
                     window.fetchGitHubImages();
                 }
@@ -1013,7 +1064,6 @@
         }
         window.switchTab = switchTab;
 
-        // Custom modal open/close functions with stack mapping
         function openModal(id) {
             window.appState.navigationStack.push({ type: 'modal', value: id });
             window.history.pushState({ type: 'modal', value: id }, "");
@@ -1029,19 +1079,37 @@
         }
         window.closeModal = closeModal;
 
-        // Toggles between inner tabs in admin view
+        // Script injector function for AdSense (Ensures scripts load inside innerHTML)
+        function injectHtmlWithScripts(containerId, htmlContent) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = htmlContent || '';
+            const scripts = container.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                if (oldScript.innerHTML) {
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                }
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+        }
+        window.injectHtmlWithScripts = injectHtmlWithScripts;
+
         function toggleAdminTab(tab) {
             const addTab = document.getElementById('adminAddPromptTab');
-            const blogTab = document.getElementById('adminBlogsTab'); // Blog Admin Console tab hook
+            const blogTab = document.getElementById('adminBlogsTab');
             const catTab = document.getElementById('adminCategoriesTab');
             const payTab = document.getElementById('adminPaymentsTab');
             const aiTab = document.getElementById('adminAiConfigTab');
+            const adsTab = document.getElementById('adminAdsTab'); // New Adsense Tab
 
             addTab.classList.add('hidden');
             blogTab.classList.add('hidden');
             catTab.classList.add('hidden');
             payTab.classList.add('hidden');
             aiTab.classList.add('hidden');
+            if(adsTab) adsTab.classList.add('hidden');
 
             if (tab === 'addPrompt') {
                 addTab.classList.remove('hidden');
@@ -1054,13 +1122,14 @@
                 catTab.classList.remove('hidden');
             } else if (tab === 'aiConfig') {
                 aiTab.classList.remove('hidden');
+            } else if (tab === 'adsConfig') {
+                if(adsTab) adsTab.classList.remove('hidden');
             } else {
                 payTab.classList.remove('hidden');
             }
         }
         window.toggleAdminTab = toggleAdminTab;
 
-        // Toggles between credits/debits statement history tabs inside wallet
         function switchHistoryTab(type) {
             const btnCred = document.getElementById('tabCredits');
             const btnDeb = document.getElementById('tabDebits');
@@ -1081,14 +1150,12 @@
         }
         window.switchHistoryTab = switchHistoryTab;
 
-        // Collapsible AI Input Panel toggle
         function toggleAiPanel() {
             const panel = document.getElementById('aiPanel');
             panel.classList.toggle('hidden');
         }
         window.toggleAiPanel = toggleAiPanel;
 
-        // Modals layout handlers
         function openRequestModal() {
             window.openModal('requestPromptModal');
         }
@@ -1121,23 +1188,12 @@
 
         function closePromptDetailModal() {
             window.closeModal('promptDetailModal');
-            // Hide AI Output box too
             document.getElementById('aiOutputContainer').classList.add('hidden');
             document.getElementById('aiPanel').classList.add('hidden');
-            updatePageMetadata(); // Restore title
-            clearUrlParameters(); // Clean dynamic share parameters [3]
+            updatePageMetadata(); 
+            clearUrlParameters(); 
         }
         window.closePromptDetailModal = closePromptDetailModal;
-
-        function openWalletModal() {
-            window.switchTab('wallet');
-        }
-        window.openWalletModal = openWalletModal;
-
-        function closeWalletModal() {
-            window.switchTab('home');
-        }
-        window.closeWalletModal = closeWalletModal;
 
         function calculateExchange() {
             const pkr = parseFloat(document.getElementById('pkrAmount').value) || 0;
@@ -1168,7 +1224,6 @@
         }
         window.resetBlogForm = resetBlogForm;
 
-        // 📋 Safe and Secure Clipboard Copy Helper (Bypasses Secure Context Block on local file:// & older WebViews)
         function safeCopy(text) {
             if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
                 navigator.clipboard.writeText(text)
@@ -1180,7 +1235,6 @@
         }
         window.safeCopy = safeCopy;
 
-        // Fallback copying utilizing temporary textarea element (Always works offline and online)
         function fallbackCopy(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -1204,7 +1258,6 @@
             document.body.removeChild(textArea);
         }
 
-        // Deep linking social share triggers [3]
         function sharePrompt() {
             if (!window.appState.currentDetailPrompt) return;
             const pId = window.appState.currentDetailPrompt.id;
@@ -1244,35 +1297,24 @@
         }
         window.shareBlog = shareBlog;
 
-        // Custom Info dialog renderer (Expanded for AdSense Mandatory Legal Compliance)
         function openInfoModal(type) {
             const title = document.getElementById('infoModalTitle');
             const content = document.getElementById('infoModalContent');
             if (type === 'about') {
                 title.innerText = "About PromptKaro";
-                content.innerHTML = `
-                    <p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>
-                `;
+                content.innerHTML = `<p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>`;
             } else if (type === 'contact') {
                 title.innerText = "Contact Us";
-                content.innerHTML = `
-                    <p>Have issues or business inquiries? kazimmustafa38@gmail.com</p>
-                `;
+                content.innerHTML = `<p>Have issues or business inquiries? kazimmustafa38@gmail.com</p>`;
             } else if (type === 'dmca') {
                 title.innerText = "DMCA Policy";
-                content.innerHTML = `
-                    <p>At PromptKaro, we respect intellectual property rights.</p>
-                `;
+                content.innerHTML = `<p>At PromptKaro, we respect intellectual property rights.</p>`;
             } else if (type === 'privacy') {
                 title.innerText = "Privacy Policy";
-                content.innerHTML = `
-                    <p>We respect the privacy of our visitors.</p>
-                `;
+                content.innerHTML = `<p>We respect the privacy of our visitors.</p>`;
             } else if (type === 'terms') {
                 title.innerText = "Terms of Service";
-                content.innerHTML = `
-                    <p>These terms and conditions outline the rules and regulations.</p>
-                `;
+                content.innerHTML = `<p>These terms and conditions outline the rules and regulations.</p>`;
             }
             window.openModal('infoModal');
         }
@@ -1317,13 +1359,11 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // --- NEWLY ADDED CODE TO FIX ALL FORM REDIRECT ISSUES ---
-
-        // 1. Auth Form Listener (Fixes the Login/Register Redirect Bug)
+        // 1. Auth Form Listener 
         const authFormEl = document.getElementById('authForm');
         if (authFormEl) {
             authFormEl.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevents page redirect/reload
+                e.preventDefault(); 
                 const email = document.getElementById('authEmail').value.trim();
                 const password = document.getElementById('authPassword').value;
                 const btn = document.getElementById('authSubmitBtn');
@@ -1356,11 +1396,11 @@
             });
         }
 
-        // 2. Buy Coins Form Listener (Prevents page reload when buying coins)
+        // 2. Buy Coins Form Listener 
         const purchaseFormEl = document.getElementById('purchaseCoinsForm');
         if (purchaseFormEl) {
             purchaseFormEl.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevents page reload
+                e.preventDefault(); 
                 if (!window.appState.currentUser) {
                     alert("Please log in first!");
                     window.openAuthModal('login');
@@ -1404,11 +1444,11 @@
             });
         }
 
-        // 3. Request Prompt Form Listener (Prevents page reload when requesting a prompt)
+        // 3. Request Prompt Form Listener
         const requestFormEl = document.getElementById('requestForm');
         if (requestFormEl) {
             requestFormEl.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevents page reload
+                e.preventDefault(); 
                 const email = document.getElementById('reqEmail').value.trim();
                 const desc = document.getElementById('reqDesc').value.trim();
                 
@@ -1431,11 +1471,11 @@
             });
         }
 
-        // 4. Admin Save Prompt Form Listener (Prevents page reload in Admin Panel)
+        // 4. Admin Save Prompt Form Listener 
         const promptFormEl = document.getElementById('promptForm');
         if (promptFormEl) {
             promptFormEl.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevents page reload
+                e.preventDefault(); 
                 const editId = document.getElementById('editPromptId').value;
                 const payload = {
                     title: document.getElementById('pTitle').value.trim(),
@@ -1473,9 +1513,7 @@
                 }
             });
         }
-        // --- END OF FORM LISTENERS FIX ---
 
-        // Coins Formatting Utility
         function formatCoins(num) {
             const val = parseInt(num) || 0;
             if (val >= 10000) {
@@ -1489,12 +1527,10 @@
             return val.toLocaleString();
         }
 
-        // Global Bindings for UI Click Triggers [2]
         window.logout = async function() {
             await signOut(auth);
         };
 
-        // Real-time API Key Sync for AI Generation
         const apiKeySettingsRef = ref(db, 'settings/geminiApiKey');
         onValue(apiKeySettingsRef, (snapshot) => {
             const input = document.getElementById('adminApiKeyInput');
@@ -1515,7 +1551,42 @@
             alert("AI API Key updated securely.");
         };
 
-        // Sync and Auto-Suggest GitHub Images [7]
+        // --- ADSENSE SYNC ---
+        const adsRef = ref(db, 'settings/ads');
+        onValue(adsRef, (snapshot) => {
+            if (snapshot.exists()) {
+                window.appState.ads = snapshot.val();
+                
+                // Update Admin Forms if elements exist
+                const topAdInput = document.getElementById('adDisplayTop');
+                if (topAdInput) topAdInput.value = window.appState.ads.top || '';
+                
+                const centerAdInput = document.getElementById('adArticleCenter');
+                if (centerAdInput) centerAdInput.value = window.appState.ads.center || '';
+                
+                const multAdInput = document.getElementById('adMultiplexBottom');
+                if (multAdInput) multAdInput.value = window.appState.ads.multiplex || '';
+                
+                const botAdInput = document.getElementById('adDisplayBottom');
+                if (botAdInput) botAdInput.value = window.appState.ads.bottom || '';
+            }
+        });
+
+        window.saveAdsConfig = async function() {
+            const payload = {
+                top: document.getElementById('adDisplayTop').value,
+                center: document.getElementById('adArticleCenter').value,
+                multiplex: document.getElementById('adMultiplexBottom').value,
+                bottom: document.getElementById('adDisplayBottom').value,
+            };
+            try {
+                await set(ref(db, 'settings/ads'), payload);
+                alert("AdSense Configuration Saved Successfully!");
+            } catch (err) {
+                alert("Failed to save ads: " + err.message);
+            }
+        };
+
         async function fetchGitHubImages() {
             const datalist = document.getElementById('githubImagesList');
             const statusSpan = document.getElementById('githubApiStatus');
@@ -1562,7 +1633,6 @@
         }
         window.fetchGitHubImages = fetchGitHubImages;
 
-        // Realtime sync Blogs from database path: 'blogs'
         const dbBlogsRef = ref(db, 'blogs');
         onValue(dbBlogsRef, (snapshot) => {
             window.appState.blogsList = [];
@@ -1576,7 +1646,6 @@
             renderAdminBlogsList();
         });
 
-        // Render Blogs on UI
         function renderBlogs() {
             const container = document.getElementById('blogsContainer');
             if (!container) return;
@@ -1603,7 +1672,7 @@
                         <div class="space-y-2">
                             <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">AI Guide</span>
                             <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">${blog.title}</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">${blog.excerpt || blog.content.substring(0, 100)}...</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">${blog.excerpt || blog.content.substring(0, 100).replace(/<[^>]+>/g, '')}...</p>
                         </div>
                         <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
                             <span><i class="fa-regular fa-calendar mr-1"></i>${dateStr}</span>
@@ -1615,7 +1684,16 @@
             });
         }
 
-        // Full Blog Reader Modal Controller [2]
+        // SEO Content Parser Helper
+        function parseSEOContent(text) {
+            if (!text.trim()) return '';
+            if (text.startsWith('### ')) return `<h4 class="text-md font-bold mt-4 mb-2 text-slate-800 dark:text-slate-200">${text.substring(4)}</h4>`;
+            if (text.startsWith('## ')) return `<h3 class="text-lg font-bold mt-5 mb-2 text-brand-500">${text.substring(3)}</h3>`;
+            if (text.startsWith('# ')) return `<h2 class="text-xl font-extrabold mt-6 mb-3 text-slate-900 dark:text-white">${text.substring(2)}</h2>`;
+            if (text.match(/<[^>]+>/)) return `<div class="mb-4 text-slate-700 dark:text-slate-300">${text}</div>`; // allow raw HTML 
+            return `<p class="mb-4 text-slate-700 dark:text-slate-300">${text}</p>`;
+        }
+
         window.openBlogDetail = function(id) {
             const blog = window.appState.blogsList.find(b => b.id === id);
             if (!blog) return;
@@ -1641,18 +1719,39 @@
                 blogDetailMeta.innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
             }
             
-            const blogDetailContent = document.getElementById('blogDetailContent');
-            if (blogDetailContent) {
-                blogDetailContent.innerHTML = blog.content.split('\n').map(p => {
-                    const trimmed = p.trim();
-                    return trimmed ? `<p class="mb-4">${trimmed}</p>` : '';
-                }).join('');
+            // Content Splitting for Center Ad & Center Image
+            const paragraphs = blog.content.split('\n').filter(p => p.trim());
+            const midIndex = Math.ceil(paragraphs.length / 2);
+            
+            const topHtml = paragraphs.slice(0, midIndex).map(p => parseSEOContent(p)).join('');
+            const bottomHtml = paragraphs.slice(midIndex).map(p => parseSEOContent(p)).join('');
+
+            const contentTop = document.getElementById('blogDetailContentTop');
+            const contentBottom = document.getElementById('blogDetailContentBottom');
+            
+            if (contentTop) contentTop.innerHTML = topHtml;
+            if (contentBottom) contentBottom.innerHTML = bottomHtml;
+
+            // Handle Center Image
+            const centerImgEl = document.getElementById('blogDetailCenterImg');
+            if (centerImgEl) {
+                if (blog.centerImageURL && blog.centerImageURL.trim() !== '') {
+                    centerImgEl.src = window.resolveImageSrc(blog.centerImageURL);
+                    centerImgEl.classList.remove('hidden');
+                } else {
+                    centerImgEl.classList.add('hidden');
+                }
             }
 
-            window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150));
+            // Inject Adsense Placements
+            window.injectHtmlWithScripts('adTopContainer', window.appState.ads.top);
+            window.injectHtmlWithScripts('adCenterContainer', window.appState.ads.center);
+            window.injectHtmlWithScripts('adMultiplexContainer', window.appState.ads.multiplex);
+            window.injectHtmlWithScripts('adBottomContainer', window.appState.ads.bottom);
+
+            window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update");
         };
 
-        // Render Admin Blog Control Console list
         function renderAdminBlogsList() {
             const table = document.getElementById('adminBlogsListTable');
             if (!table) return;
@@ -1666,7 +1765,6 @@
             window.appState.blogsList.forEach(blog => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
-                // Bound event listeners securely to window scope [2]
                 tr.innerHTML = `
                     <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100 text-xs">${blog.title}</td>
                     <td class="px-4 py-3 text-slate-500 text-xs">${new Date(blog.createdAt).toLocaleDateString()}</td>
@@ -1680,18 +1778,21 @@
         }
         window.renderAdminBlogsList = renderAdminBlogsList;
 
-        // Admin Blog Form Controller
         document.getElementById('blogForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('editBlogId').value;
             const title = document.getElementById('bTitle').value;
+            const keywords = document.getElementById('bKeywords').value.trim();
             const imageURL = document.getElementById('bImageURL').value.trim();
+            const centerImageURL = document.getElementById('bCenterImageURL').value.trim();
             const excerpt = document.getElementById('bExcerpt').value;
             const content = document.getElementById('bContent').value;
 
             const payload = {
                 title: title,
+                keywords: keywords,
                 imageURL: imageURL,
+                centerImageURL: centerImageURL,
                 excerpt: excerpt,
                 content: content,
                 author: "Nazim Mustafa",
@@ -1719,7 +1820,9 @@
             if (blog) {
                 document.getElementById('editBlogId').value = blog.id;
                 document.getElementById('bTitle').value = blog.title;
+                document.getElementById('bKeywords').value = blog.keywords || '';
                 document.getElementById('bImageURL').value = blog.imageURL || '';
+                document.getElementById('bCenterImageURL').value = blog.centerImageURL || '';
                 document.getElementById('bExcerpt').value = blog.excerpt || '';
                 document.getElementById('bContent').value = blog.content || '';
 
@@ -1738,7 +1841,6 @@
             }
         };
 
-        // Explicit Global scoping registration [2]
         function updateAuthUI(isLoggedIn, email = '', coins = 0) {
             const dCoin = document.getElementById('desktopCoinDisplay');
             const mCoin = document.getElementById('mobileMenuCoinDisplay');
@@ -1778,7 +1880,6 @@
         }
         window.updateAuthUI = updateAuthUI; 
 
-        // Firebase Auth listener
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 window.appState.currentUser = user;
@@ -1811,7 +1912,6 @@
             }
         });
 
-        // Categories Sync [1]
         const categoriesRef = ref(db, 'categories');
         onValue(categoriesRef, (snapshot) => {
             if (snapshot.exists()) {
@@ -1991,14 +2091,12 @@
             }
         }
 
-        // Auto approval background dynamic check loop every 60 seconds [2]
         setInterval(() => {
             if (window.appState.currentUser) {
                 triggerAutoApprovalCheck();
             }
         }, 60000);
 
-        // Fetch Prompts
         const promptsRef = ref(db, 'prompts');
         onValue(promptsRef, (snapshot) => {
             window.appState.promptsList = [];
@@ -2219,7 +2317,6 @@
             if (detailPromptText) {
                 detailPromptText.innerText = p.description;
                 if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
-                    // Added window. prefix explicitly to click handlers [2]
                     detailPromptText.innerHTML += `
                         <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
                             <button onclick="window.editPrompt('${p.id}'); window.closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
@@ -2294,7 +2391,6 @@
                         hasPending = true;
                         const tr = document.createElement('tr');
                         tr.className = "border-b border-slate-200 dark:border-slate-855 hover:bg-slate-50 dark:hover:bg-slate-900";
-                        // Bound window object context cleanly [2]
                         tr.innerHTML = `
                             <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
                             <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
