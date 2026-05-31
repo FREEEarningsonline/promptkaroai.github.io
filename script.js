@@ -19,12 +19,12 @@ function resolveImageSrc(imageVal) {
 }
 window.resolveImageSrc = resolveImageSrc;
 
-// NEW: Helper function to create SEO friendly Slugs from Titles
+// Helper to generate clean slugs
 function createSlug(text) {
     return text ? text.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
 }
 
-// UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
+// Updated SEO Metadata updating with dynamic canonical tag
 function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBlog = false, itemId = null, isPrompt = false) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
@@ -38,7 +38,6 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBl
         metaKey.setAttribute('content', keywordsSuffix || "AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro");
     }
 
-    // Dynamic Canonical URL Update for Google Indexing
     let cleanUrl = window.location.origin + window.location.pathname;
     if (isBlog && itemId) {
         cleanUrl += `?blog=${itemId}`;
@@ -66,6 +65,7 @@ window.appState = {
     currentUserData: null,
     promptsList: [],
     blogsList: [], 
+    adminBlogsList: [], // For admin panel dashboard tracking
     categories: [], 
     blogCategories: [],
     chatMessages: [],
@@ -935,18 +935,102 @@ window.sendAdminAnnouncement = async function() {
     }
 };
 
+// NEW: Automating Dynamic Blog Scanning from static /blog/ directory 
+async function loadStaticBlogs() {
+    try {
+        const res = await fetch('/sitemap.xml');
+        if (!res.ok) throw new Error("Sitemap not found");
+        const xmlText = await res.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const locs = Array.from(xmlDoc.getElementsByTagName('loc')).map(el => el.textContent);
+        
+        const blogUrls = locs.filter(url => url.includes('/blog/') && url.endsWith('.html'));
+        
+        if (blogUrls.length > 0) {
+            await parseBlogUrls(blogUrls);
+            return;
+        }
+        throw new Error("No blogs in sitemap");
+    } catch (err) {
+        console.warn("Sitemap failed, scanning repository contents as fallback: ", err);
+        try {
+            const res = await fetch('https://api.github.com/repos/freeearningsonline/freeearningsonline.github.io/contents/blog');
+            if (res.ok) {
+                const data = await res.json();
+                const blogUrls = data
+                    .filter(item => item.type === 'file' && item.name.endsWith('.html'))
+                    .map(item => window.location.origin + '/blog/' + item.name);
+                await parseBlogUrls(blogUrls);
+            }
+        } catch (apiErr) {
+            console.error("Both Sitemap and GitHub API failed to retrieve blogs.", apiErr);
+        }
+    }
+}
+
+async function parseBlogUrls(urls) {
+    window.appState.blogsList = [];
+    
+    const fetchPromises = urls.map(async (url) => {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) return;
+            const htmlText = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlText, "text/html");
+            
+            const title = doc.querySelector('title') ? doc.querySelector('title').innerText.replace(" - PromptKaro", "") : "Untitled Post";
+            const description = doc.querySelector('meta[name="description"]') ? doc.querySelector('meta[name="description"]').getAttribute('content') : "";
+            const keywords = doc.querySelector('meta[name="keywords"]') ? doc.querySelector('meta[name="keywords"]').getAttribute('content') : "";
+            
+            const imgEl = doc.querySelector('article img') || doc.querySelector('img');
+            const imageURL = imgEl ? imgEl.getAttribute('src') : ""; 
+            
+            const catEl = doc.querySelector('article .uppercase') || doc.querySelector('.uppercase');
+            const category = catEl ? catEl.innerText : "AI Guide";
+            
+            const dateEl = doc.querySelector('article .text-xs') || doc.querySelector('.text-xs');
+            const dateStr = dateEl ? dateEl.innerText : "Recent";
+            
+            const slug = url.substring(url.lastIndexOf('/') + 1).replace('.html', '');
+            
+            window.appState.blogsList.push({
+                id: slug, 
+                slug: slug,
+                title: title,
+                category: category,
+                excerpt: description,
+                content: "", 
+                imageURL: imageURL.replace('../images/', ''), 
+                keywords: keywords,
+                createdAt: new Date(dateStr).getTime() || Date.now() 
+            });
+        } catch (err) {
+            console.error("Error parsing blog: ", url, err);
+        }
+    });
+    
+    await Promise.all(fetchPromises);
+    
+    window.appState.blogsList.sort((a, b) => b.createdAt - a.createdAt);
+    renderBlogs();
+    renderHomeBlogSlider();
+}
+
+// Call loadStaticBlogs on script load to populate blogs
+loadStaticBlogs();
+
 const dbBlogsRef = ref(db, 'blogs');
 onValue(dbBlogsRef, (snapshot) => {
-    window.appState.blogsList = [];
+    window.appState.adminBlogsList = []; // separate list for admin panel table
     if (snapshot.exists()) {
         const data = snapshot.val();
         for (let key in data) {
-            window.appState.blogsList.push({ id: key, ...data[key] });
+            window.appState.adminBlogsList.push({ id: key, ...data[key] });
         }
     }
-    renderBlogs();
     renderAdminBlogsList();
-    if(typeof window.renderHomeBlogSlider === 'function') window.renderHomeBlogSlider();
 });
 
 window.homeBlogScrollInterval = null;
@@ -984,12 +1068,12 @@ window.renderHomeBlogSlider = function() {
         const itemSlug = blog.slug || blog.id;
 
         const card = document.createElement('a');
-        card.href = `?blog=${itemSlug}`;
-        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
+        card.href = `/blog/${itemSlug}.html`;
+        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
         card.onclick = (e) => { 
             e.preventDefault(); 
             window.history.pushState({}, '', `?blog=${itemSlug}`);
-            window.openBlogDetail(itemSlug); 
+            window.openBlogDetail(blog.id); 
         };
 
         card.innerHTML = `
@@ -1197,12 +1281,13 @@ function renderAdminBlogsList() {
     if (!table) return;
     table.innerHTML = '';
 
-    if (window.appState.blogsList.length === 0) {
-        table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No blog posts found.</td></tr>`;
+    const list = window.appState.adminBlogsList || [];
+    if (list.length === 0) {
+        table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No blog posts found in database.</td></tr>`;
         return;
     }
 
-    window.appState.blogsList.forEach(blog => {
+    list.forEach(blog => {
         const tr = document.createElement('tr');
         tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
         tr.innerHTML = `
@@ -1263,7 +1348,7 @@ if (blogFormEl) {
 }
 
 window.editBlog = function(id) {
-    const blog = window.appState.blogsList.find(b => b.id === id);
+    const blog = window.appState.adminBlogsList.find(b => b.id === id);
     if (blog) {
         document.getElementById('editBlogId').value = blog.id;
         document.getElementById('bTitle').value = blog.title;
@@ -1422,6 +1507,7 @@ function renderCategoryDropdown(categories) {
     });
 }
 
+// Admin Category Manager HTML Elements
 function renderAdminCategoryManager(categories) {
     const container = document.getElementById('adminCategoryList');
     if(!container) return;
@@ -1716,7 +1802,7 @@ function renderPrompts() {
         card.onclick = (e) => { 
             e.preventDefault(); 
             window.history.pushState({}, '', `?prompt=${itemSlug}`);
-            window.openPromptDetail(itemSlug); 
+            window.openPromptDetail(p.id); 
         };
 
         card.innerHTML = `
