@@ -117,7 +117,6 @@
                     <span>Wallet</span>
                 </button>
                 
-                <!-- Updated Contact Link pointing to the new page -->
                 <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact</a>
 
                 <!-- Day/Night Toggle Button -->
@@ -125,7 +124,7 @@
                     <i id="themeIcon" class="fa-solid fa-moon"></i>
                 </button>
 
-                <!-- Admin Panel Button (points to admin.html) -->
+                <!-- Admin Panel Button -->
                 <span id="adminBtnContainer" class="hidden">
                     <button onclick="window.location.href='/admin.html'" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
                 </span>
@@ -184,7 +183,6 @@
             </button>
             <button onclick="window.switchTab('wallet'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
             
-            <!-- Updated Links for Legal/Info Pages -->
             <a href="/about-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</a>
             <a href="/contact-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</a>
             <a href="/dmca.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</a>
@@ -212,6 +210,17 @@
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
         </section>
 
+        <!-- HIGH VALUE CONTENT FOR ADSENSE (NEWLY ADDED) -->
+        <section id="introPublisherContent" class="mb-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm leading-relaxed transition-colors duration-300">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to PromptKaro: Your Gateway to AI Mastery in 2026</h2>
+            <div class="text-slate-600 dark:text-slate-400 space-y-4 text-sm font-medium">
+                <p>In the rapidly evolving digital landscape, Artificial Intelligence has become the cornerstone of content creation, graphic design, and problem-solving. But AI engines like ChatGPT, Midjourney, and Bing Image Creator are only as good as the instructions they receive. This is exactly where <strong>Prompt Engineering</strong> comes into play.</p>
+                <p>PromptKaro is designed to be your ultimate directory for high-converting, meticulously tested AI prompts. We understand that finding the right words to generate the perfect image or write a compelling business plan can be a frustrating process of trial and error. Our platform eliminates this guesswork. We provide you with a comprehensive, categorized library of copy-paste solutions that yield professional results every single time.</p>
+                <p>Whether you are a student looking to streamline your academic research, a freelancer aiming to boost your income through AI-assisted services, or a digital artist searching for that perfect cinematic lighting formula, our platform is built for you. Browse our vast categories, read our deep-dive tutorials in the blog section, and join our global community of AI enthusiasts to stay ahead of the curve.</p>
+            </div>
+        </section>
+        <!-- END HIGH VALUE CONTENT -->
+
         <!-- Search Bar (Mobile View) -->
         <div class="md:hidden relative mb-6">
             <input type="text" id="mobileSearch" oninput="window.handleSearch()" placeholder="Search prompts or blogs..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:border-brand-500 text-sm shadow-sm transition shadow-sm">
@@ -232,7 +241,7 @@
         <!-- Section: Prompts Grid -->
         <section id="promptsSection">
             <div class="flex justify-between items-center mb-4">
-                <h2 id="sectionTitle" class="text-xl font-bold">Featured Prompts</h2>
+                <h2 id="sectionTitle" class="text-xl font-bold">Featured Prompts Database</h2>
                 <span class="text-xs text-slate-500" id="promptsCount">0 prompts found</span>
             </div>
             
@@ -399,25 +408,516 @@
             </div>
         </section>
 
-        <!-- SEO ARTICLE & FAQ SECTION -->
-        <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 transition-colors duration-300">
-            <h2 class="text-lg font-bold text-slate-955 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-3">Complete Guide: How to Use AI Prompts Successfully</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 dark:text-slate-455 leading-relaxed font-semibold">
-                <div class="space-y-3">
-                    <h3 class="font-bold text-brand-500 text-sm">What is an AI Prompt?</h3>
-                    <p>An AI prompt is a specific set of instructions or keywords fed into an artificial intelligence system (like Midjourney, ChatGPT, or Bing Image Creator) to generate highly targeted outputs. Writing the right prompt is key to unlocking photorealistic images, 3D artwork, and highly professional copy.</p>
-                    <h3 class="font-bold text-brand-500 text-sm">How PromptKaro Helps You</h3>
-                    <p>Our platform compiles trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access, you skip the trial-and-error phase, saving time and credit tokens on AI engines.</p>
+        <!-- EXPANDED SEO ARTICLE & FAQ SECTION FOR ADSENSE APPROVAL -->
+        <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
+            
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026</h2>
+                <p class="text-sm text-slate-500 mt-2">Mastering AI generation tools requires precise instructions. Read our comprehensive guide below to understand how PromptKaro can elevate your digital workflow.</p>
+            </div>
+
+            <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                
+                <div>
+
+<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
+        Best AI Prompts for Earning Money in 2026 (Complete Guide)
+    </h2>
+    <p class="text-sm text-slate-500 mt-2">
+        Discover the most powerful AI prompts that can help you earn money online. Learn how to use ChatGPT and other AI tools to build income streams with smart strategies and practical examples.
+    </p>
+</div>
+
+<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+
+    <p>
+        Artificial Intelligence has completely changed the way people earn money online. In 2026, tools like ChatGPT are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts. A well-written AI prompt can help you generate content, build business ideas, automate tasks, and even create digital products.
+    </p>
+
+    <p>
+        Many beginners struggle because they don’t know how to communicate effectively with AI tools. But once you understand how prompts work, you can turn simple ideas into profitable results. In this guide, we will explore the best AI prompts for earning money and how you can use them step by step.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        1. AI Prompts for Freelancing Income
+    </h3>
+    <p>
+        Freelancing is one of the easiest ways to start earning online. AI can help you complete tasks faster and deliver high-quality work to clients.
+    </p>
+    <p>
+        Example Prompt: “Write a 1000-word SEO optimized article on digital marketing with headings and keywords.”
+    </p>
+    <p>
+        Using this type of prompt, you can offer content writing services on platforms like Fiverr and Upwork. Similarly, you can create prompts for copywriting, resume writing, and product descriptions.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        2. AI Prompts for Online Business Ideas
+    </h3>
+    <p>
+        Starting an online business has never been easier. AI can generate profitable ideas based on trends and market demand.
+    </p>
+    <p>
+        Example Prompt: “Give me 10 low-investment online business ideas for 2026 with high profit potential.”
+    </p>
+    <p>
+        These ideas can help you launch dropshipping stores, digital products, or niche websites. AI can also create complete business plans, saving you time and effort.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        3. AI Prompts for Social Media Earning
+    </h3>
+    <p>
+        Social media platforms like Instagram, TikTok, and YouTube are powerful income sources. AI helps you stay consistent and creative.
+    </p>
+    <p>
+        Example Prompt: “Create 30 days of viral Instagram content ideas for a fitness page.”
+    </p>
+    <p>
+        With these prompts, you can grow your audience, increase engagement, and monetize your content through brand deals and ads.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        4. AI Prompts for Blogging and SEO
+    </h3>
+    <p>
+        Blogging is a long-term earning strategy. AI can help you write articles, find keywords, and optimize content for search engines.
+    </p>
+    <p>
+        Example Prompt: “Find low competition keywords for AI tools with high search volume.”
+    </p>
+    <p>
+        By using these prompts, you can build a blog that ranks on Google and generates passive income through ads and affiliate marketing.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        5. AI Prompts for Passive Income
+    </h3>
+    <p>
+        Passive income means earning money even when you are not actively working. AI makes this process much easier.
+    </p>
+    <p>
+        Example Prompt: “Write a complete ebook on making money online with AI tools.”
+    </p>
+    <p>
+        You can sell ebooks, courses, and digital products created with AI. This allows you to build multiple income streams over time.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Final Thoughts
+    </h3>
+    <p>
+        AI prompts are the foundation of modern online earning. The better your prompts, the better your results. Whether you are a freelancer, blogger, or entrepreneur, learning how to use AI effectively can transform your income potential.
+    </p>
+
+    <p>
+        Start experimenting with these prompts today and build your own digital income system. With consistency and the right strategy, you can achieve long-term success using AI tools.
+    </p>
+
+</div>
+
+
+
+
+
+<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
+        Top ChatGPT Prompts 2026: Powerful Prompts to Boost Productivity & Income
+    </h2>
+    <p class="text-sm text-slate-500 mt-2">
+        Explore the most effective ChatGPT prompts for 2026. Learn how to increase productivity, automate tasks, and generate income using advanced AI prompt strategies.
+    </p>
+</div>
+
+<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+
+    <p>
+        In 2026, ChatGPT and similar AI tools have become essential for digital work. From content creation to business automation, AI is helping people save time and earn more efficiently. However, the real power of AI lies in how you use it. The right prompts can dramatically improve the quality of output and help you achieve better results in less time.
+    </p>
+
+    <p>
+        Many users only scratch the surface by asking simple questions. But professionals use structured and detailed prompts to unlock advanced capabilities. In this guide, we will explore the top ChatGPT prompts for 2026 that can boost your productivity and help you generate income online.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        1. Productivity Boosting Prompts
+    </h3>
+    <p>
+        Productivity is the foundation of success. AI can help you organize tasks, manage time, and plan your day effectively.
+    </p>
+    <p>
+        Example Prompt: “Create a daily productivity schedule for a freelancer working 6 hours per day including breaks and focused work sessions.”
+    </p>
+    <p>
+        This type of prompt helps you stay disciplined and efficient. You can also generate to-do lists, reminders, and weekly plans using AI.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        2. Content Creation Prompts
+    </h3>
+    <p>
+        Content creation is one of the biggest earning opportunities online. AI can generate blog posts, scripts, captions, and much more.
+    </p>
+    <p>
+        Example Prompt: “Write a 1500-word SEO optimized blog post on digital marketing trends in 2026 with headings and examples.”
+    </p>
+    <p>
+        These prompts allow you to create high-quality content quickly, which you can monetize through blogs, YouTube, or freelance work.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        3. Business Automation Prompts
+    </h3>
+    <p>
+        Automation is key to scaling your income. AI can handle repetitive tasks and streamline your workflow.
+    </p>
+    <p>
+        Example Prompt: “Create an automated workflow for managing customer emails for an online store.”
+    </p>
+    <p>
+        With this, you can reduce manual work and focus on growing your business. AI can also help with customer support scripts and FAQs.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        4. Social Media Growth Prompts
+    </h3>
+    <p>
+        Social media platforms are powerful tools for building personal brands and generating income. AI helps you stay consistent and creative.
+    </p>
+    <p>
+        Example Prompt: “Generate 30 days of engaging Twitter posts for a tech-focused audience.”
+    </p>
+    <p>
+        These prompts help you maintain a consistent posting schedule and improve engagement, which leads to growth and monetization opportunities.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        5. Freelancing and Client Work Prompts
+    </h3>
+    <p>
+        Freelancers can use AI to deliver better work in less time. This increases client satisfaction and allows you to take on more projects.
+    </p>
+    <p>
+        Example Prompt: “Write a professional proposal for a web design project including pricing and timeline.”
+    </p>
+    <p>
+        This helps you win more clients and improve your communication skills.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        6. Learning and Skill Development Prompts
+    </h3>
+    <p>
+        Continuous learning is important in the digital world. AI can act as your personal tutor.
+    </p>
+    <p>
+        Example Prompt: “Create a 30-day learning roadmap for mastering digital marketing from beginner to advanced level.”
+    </p>
+    <p>
+        These prompts help you acquire new skills that can increase your earning potential.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        7. Passive Income Prompts
+    </h3>
+    <p>
+        Passive income allows you to earn without constant effort. AI can help you build systems that generate income automatically.
+    </p>
+    <p>
+        Example Prompt: “Suggest 5 passive income ideas using AI tools with step-by-step implementation plans.”
+    </p>
+    <p>
+        You can use these ideas to create digital products, blogs, or automated services.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Advanced Tips for Using ChatGPT Prompts
+    </h3>
+    <p>
+        To get the best results, always be specific in your prompts. Include details like target audience, tone, word count, and purpose. The more information you provide, the better the output will be.
+    </p>
+
+    <p>
+        You can also refine results by asking follow-up questions. AI works best when used interactively. Instead of expecting perfect results in one go, improve the response step by step.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Common Mistakes to Avoid
+    </h3>
+    <p>
+        Avoid using vague prompts like “write something about business.” This will produce generic results. Also, do not rely completely on AI without reviewing the content. Always edit and personalize the output.
+    </p>
+
+    <p>
+        Another common mistake is not experimenting. Try different variations of prompts to discover what works best for your needs.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Conclusion
+    </h3>
+    <p>
+        ChatGPT prompts are powerful tools that can transform your productivity and income in 2026. Whether you are creating content, managing a business, or learning new skills, the right prompts can save time and increase efficiency.
+    </p>
+
+    <p>
+        Start using these prompts today and explore new opportunities. With consistent effort and smart strategies, you can achieve long-term success in the digital world using AI.
+    </p>
+
+</div>
+              
+
+
+
+<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
+        AI Prompts for Students 2026: Study Smarter with ChatGPT & AI Tools
+    </h2>
+    <p class="text-sm text-slate-500 mt-2">
+        Discover the best AI prompts for students in 2026. Improve your studies, complete assignments faster, and boost productivity using smart AI strategies.
+    </p>
+</div>
+
+<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+
+    <p>
+        In 2026, students are no longer limited to traditional study methods. Artificial Intelligence tools like ChatGPT have transformed education by making learning faster, smarter, and more interactive. With the right prompts, students can complete assignments, understand complex topics, and improve their overall academic performance.
+    </p>
+
+    <p>
+        However, many students don’t know how to use AI effectively. Simply asking basic questions often leads to average results. The real advantage comes when you use structured and detailed prompts. In this guide, we will explore the best AI prompts for students that can help you succeed in school, college, and beyond.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        1. AI Prompts for Homework Help
+    </h3>
+    <p>
+        Homework can be time-consuming, especially when you don’t understand the topic. AI can act as a personal tutor and guide you step by step.
+    </p>
+    <p>
+        Example Prompt: “Explain the concept of photosynthesis in simple terms with examples suitable for a 10th-grade student.”
+    </p>
+    <p>
+        This helps you understand concepts clearly instead of just copying answers. You can also ask AI to solve math problems with step-by-step explanations.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        2. AI Prompts for Assignment Writing
+    </h3>
+    <p>
+        Writing assignments becomes easier with AI assistance. You can generate structured and well-written content quickly.
+    </p>
+    <p>
+        Example Prompt: “Write a 1200-word essay on climate change with introduction, causes, effects, and conclusion.”
+    </p>
+    <p>
+        After generating the content, make sure to review and edit it to match your personal style and avoid plagiarism issues.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        3. AI Prompts for Exam Preparation
+    </h3>
+    <p>
+        Preparing for exams requires revision and practice. AI can help you create study plans and practice questions.
+    </p>
+    <p>
+        Example Prompt: “Create a 7-day study plan for preparing for a biology exam including revision and practice tests.”
+    </p>
+    <p>
+        You can also ask AI to generate quizzes and test your knowledge before exams.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        4. AI Prompts for Note Making
+    </h3>
+    <p>
+        Good notes are essential for effective learning. AI can summarize long chapters into short and easy-to-understand notes.
+    </p>
+    <p>
+        Example Prompt: “Summarize this chapter into bullet points with key concepts and definitions.”
+    </p>
+    <p>
+        This saves time and helps you revise quickly before exams.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        5. AI Prompts for Skill Development
+    </h3>
+    <p>
+        Students need more than just academic knowledge. AI can help you learn new skills like coding, communication, and digital marketing.
+    </p>
+    <p>
+        Example Prompt: “Create a beginner-friendly roadmap to learn Python programming in 30 days.”
+    </p>
+    <p>
+        These skills can help you earn money online and build a strong career.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        6. AI Prompts for Presentation Creation
+    </h3>
+    <p>
+        Presentations are an important part of student life. AI can help you create engaging and professional slides.
+    </p>
+    <p>
+        Example Prompt: “Create a presentation outline on artificial intelligence with 10 slides and key points.”
+    </p>
+    <p>
+        You can then convert these points into PowerPoint slides easily.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        7. AI Prompts for Time Management
+    </h3>
+    <p>
+        Managing time is one of the biggest challenges for students. AI can help you stay organized.
+    </p>
+    <p>
+        Example Prompt: “Create a daily timetable for a student balancing studies, exercise, and free time.”
+    </p>
+    <p>
+        This ensures that you stay productive while maintaining a healthy lifestyle.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Tips for Using AI Effectively as a Student
+    </h3>
+    <p>
+        Always use AI as a learning tool, not a shortcut. Try to understand the concepts instead of copying answers. Be specific in your prompts to get better results.
+    </p>
+
+    <p>
+        Combine AI learning with your textbooks and teacher guidance. This will give you the best results and deeper understanding.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Common Mistakes Students Should Avoid
+    </h3>
+    <p>
+        Avoid depending completely on AI. This can reduce your critical thinking ability. Also, never submit AI-generated content without editing it.
+    </p>
+
+    <p>
+        Another mistake is using very short prompts. Detailed prompts give much better and accurate results.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Conclusion
+    </h3>
+    <p>
+        AI tools like ChatGPT are powerful assistants for students in 2026. They can help you study smarter, save time, and improve your performance. The key is to use the right prompts and apply them effectively.
+    </p>
+
+    <p>
+        Start using these AI prompts today and take your learning to the next level. With consistency and smart strategies, you can achieve academic success and prepare for future opportunities.
+    </p>
+
+</div>
+
+
+<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
+        Our Mission: Empowering Users with AI Prompts in 2026
+    </h2>
+    <p class="text-sm text-slate-500 mt-2">
+        Our goal is to make artificial intelligence simple, accessible, and powerful for everyone. We help users unlock the true potential of AI through high-quality prompts and practical guidance.
+    </p>
+</div>
+
+<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+
+    <p>
+        In today’s fast-growing digital world, artificial intelligence is becoming a key part of everyday life. However, many people still struggle to use AI tools effectively. Our mission is to bridge this gap by providing easy-to-use, powerful, and practical AI prompts that anyone can use to improve their productivity and income.
+    </p>
+
+    <p>
+        We believe that AI should not be limited to experts or developers. Whether you are a student, freelancer, or business owner, you should be able to benefit from AI tools like ChatGPT. That’s why we focus on creating simple and effective prompts that deliver real results.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        What We Offer
+    </h3>
+    <p>
+        Our platform provides a wide range of AI prompts designed for different purposes. From earning money online to improving study habits, we cover everything you need to succeed in the modern digital world.
+    </p>
+
+    <p>
+        We continuously update our content to ensure that you get the latest and most effective prompts. Our goal is to help you stay ahead in 2026 and beyond.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Why Choose Us
+    </h3>
+    <p>
+        Unlike many websites that provide basic or copied prompts, we focus on quality and usability. Every prompt on our platform is carefully designed to deliver practical results. We also provide explanations and examples so you can understand how to use each prompt effectively.
+    </p>
+
+    <p>
+        Our content is created with both beginners and advanced users in mind. Whether you are just starting or already experienced with AI, you will find valuable resources here.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Our Vision
+    </h3>
+    <p>
+        Our vision is to become a leading platform for AI prompts and digital growth. We aim to help millions of users worldwide discover new opportunities through artificial intelligence.
+    </p>
+
+    <p>
+        By providing high-quality content and innovative ideas, we want to make AI accessible to everyone and help people achieve financial and professional success.
+    </p>
+
+    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
+        Final Words
+    </h3>
+    <p>
+        AI is the future, and those who learn how to use it today will have a strong advantage tomorrow. Our mission is to guide you on this journey and help you unlock the full power of AI.
+    </p>
+
+</div>
+
+
+      <h3 class="font-bold text-brand-500 text-lg mb-2">1. What is an AI Prompt and Why Does it Matter?</h3>
+                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Think of a prompt as the steering wheel of the AI engine. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting. Without a well-structured prompt, the AI will provide generic, unpolished results. This is why "Prompt Engineering" has become one of the most valuable digital skills today.</p>
                 </div>
-                <div class="space-y-3">
-                    <h3 class="font-bold text-brand-500 text-sm">Frequently Asked Questions (FAQs)</h3>
-                    <div class="space-y-2">
-                        <p class="font-bold text-slate-955 dark:text-slate-200">Q: Are the prompts free to copy?</p>
-                        <p>A: Yes, PromptKaro offers a wide array of free prompts. Only premium, custom-designed formulas require coins to unlock.</p>
-                        <p class="font-bold text-slate-955 dark:text-slate-200">Q: How do I get more coins?</p>
-                        <p>A: You can recharge your account easily using mobile payment platforms (EasyPaisa/JazzCash) directly via the Wallet dashboard.</p>
+
+                <div>
+                    <h3 class="font-bold text-brand-500 text-lg mb-2">2. How PromptKaro Helps You Succeed</h3>
+                    <p>Our platform, PromptKaro, is built to eliminate the tedious trial-and-error phase of prompt creation. We compile, test, and categorize trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms. Whether you need a prompt for an Instagram viral 3D illusion, a professional LinkedIn post, or high-converting ad copy, we have it documented for you.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-500 text-lg mb-2">3. Best AI Prompts for Earning Money and Freelancing</h3>
+                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes. Similarly, our "SEO Blog Copywriting Prompts" for ChatGPT enable writers to structure, draft, and finalize optimized articles much faster than traditional methods. By mastering these prompts, you can scale your freelance business exponentially.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-brand-500 text-lg mb-2">4. Top ChatGPT Prompts for Students and Professionals</h3>
+                    <p>Students and professionals often struggle with structuring data. A good prompt transforms ChatGPT from a simple chatbot into a dedicated tutor or project manager. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting. Simply browse our "Education" or "Business" categories, copy the template, insert your specific topic, and watch the AI deliver a highly accurate and formatted response.</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
+                    <h3 class="font-bold text-slate-900 dark:text-white text-xl mb-4">Frequently Asked Questions (FAQs)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the prompts on PromptKaro free to copy?</p>
+                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. We believe in open access to basic AI knowledge. Only highly specialized, premium, and custom-designed formulas require digital coins to unlock.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: How does the AI Regenerate feature work?</p>
+                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles, lighting, and detail preferences. It costs 50,000 coins per generation, providing you with a truly unique, customized prompt variation.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: How do I get more coins in my wallet?</p>
+                            <p class="mt-1">A: You can recharge your account easily. Navigate to the Wallet section, review the instructions for local mobile payment platforms (like EasyPaisa or JazzCash), and submit your transaction ID (TID) along with the deposit amount. Our admins will verify and approve your coins shortly.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I request a custom prompt?</p>
+                            <p class="mt-1">A: Absolutely! If you cannot find what you are looking for in our database, use the "Request Prompt" button in the navigation menu. Describe your exact needs, and our community or admins will create a formula tailored for you.</p>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -698,7 +1198,7 @@
         </div>
     </div>
 
-    <!-- MODAL: General Info (Kept intact just in case, but links now go to actual pages) -->
+    <!-- MODAL: General Info -->
     <div id="infoModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
             <button onclick="window.closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
