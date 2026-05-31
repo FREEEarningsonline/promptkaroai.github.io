@@ -19,6 +19,11 @@ function resolveImageSrc(imageVal) {
 }
 window.resolveImageSrc = resolveImageSrc;
 
+// NEW: Helper function to create SEO friendly Slugs from Titles
+function createSlug(text) {
+    return text ? text.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
+}
+
 // UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
 function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBlog = false, itemId = null, isPrompt = false) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
@@ -198,7 +203,8 @@ function switchTab(tabId, isBack = false) {
     if (tabId === 'home' || tabId === 'discover') {
         document.getElementById('heroSection').classList.remove('hidden');
         document.getElementById('promptsSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.remove('hidden'); 
+        const seoGuide = document.getElementById('seoGuideSection');
+        if (seoGuide) seoGuide.classList.remove('hidden'); 
         document.getElementById('homeBlogSliderSection').classList.remove('hidden');
         
         window.appState.currentPage = 1;
@@ -208,7 +214,8 @@ function switchTab(tabId, isBack = false) {
         updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library", null, null, false, null, false);
     } else if (tabId === 'blog') {
         document.getElementById('blogSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden'); 
+        const seoGuide = document.getElementById('seoGuideSection');
+        if (seoGuide) seoGuide.classList.add('hidden'); 
         window.appState.currentBlogPage = 1;
         
         if (typeof window.renderBlogs === 'function') {
@@ -217,14 +224,16 @@ function switchTab(tabId, isBack = false) {
         updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.", null, false, null, false);
     } else if (tabId === 'admin') {
         document.getElementById('adminView').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden');
+        const seoGuide = document.getElementById('seoGuideSection');
+        if (seoGuide) seoGuide.classList.add('hidden');
         updatePageMetadata("Admin Panel", null, null, false, null, false);
         if (typeof window.fetchGitHubImages === 'function') {
             window.fetchGitHubImages();
         }
     } else if (tabId === 'wallet') {
         document.getElementById('walletSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden');
+        const seoGuide = document.getElementById('seoGuideSection');
+        if (seoGuide) seoGuide.classList.add('hidden');
         updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.", null, false, null, false);
     }
 }
@@ -243,7 +252,9 @@ window.handleSearch = handleSearch;
 
 function openModal(id) {
     window.appState.navigationStack.push({ type: 'modal', value: id });
-    window.history.pushState({ type: 'modal', value: id }, "");
+    if (id !== 'promptDetailModal' && id !== 'blogDetailModal') {
+        window.history.pushState({ type: 'modal', value: id }, "");
+    }
     document.getElementById(id).classList.remove('hidden');
 }
 window.openModal = openModal;
@@ -440,15 +451,13 @@ function fallbackCopy(text) {
 
 function sharePrompt() {
     if (!window.appState.currentDetailPrompt) return;
-    const pId = window.appState.currentDetailPrompt.id;
-    const pTitle = window.appState.currentDetailPrompt.title;
-    
-    const shareLink = `${window.location.origin}/?prompt=${pId}`;
+    const itemSlug = window.appState.currentDetailPrompt.slug || window.appState.currentDetailPrompt.id;
+    const shareLink = `${window.location.origin}/?prompt=${itemSlug}`;
 
     if (navigator.share) {
         navigator.share({
-            title: `PromptKaro - ${pTitle}`,
-            text: `Check out this amazing AI prompt: "${pTitle}" on PromptKaro!`,
+            title: `PromptKaro - ${window.appState.currentDetailPrompt.title}`,
+            text: `Check out this amazing AI prompt: "${window.appState.currentDetailPrompt.title}" on PromptKaro!`,
             url: shareLink
         }).catch(err => console.log(err));
     } else {
@@ -463,7 +472,8 @@ function shareBlog() {
     const currentBlog = window.appState.blogsList.find(b => b.title === openedTitle);
     if (!currentBlog) return;
     
-    const shareLink = `${window.location.origin}/?blog=${currentBlog.id}`;
+    const itemSlug = currentBlog.slug || currentBlog.id;
+    const shareLink = `${window.location.origin}/?blog=${itemSlug}`;
 
     if (navigator.share) {
         navigator.share({
@@ -641,8 +651,10 @@ if (promptFormEl) {
     promptFormEl.addEventListener('submit', async (e) => {
         e.preventDefault(); 
         const editId = document.getElementById('editPromptId').value;
+        const pTitle = document.getElementById('pTitle').value.trim();
         const payload = {
-            title: document.getElementById('pTitle').value.trim(),
+            title: pTitle,
+            slug: createSlug(pTitle), 
             tags: document.getElementById('pCategory').value,
             imageURL: document.getElementById('pImageURL').value.trim(),
             views: parseInt(document.getElementById('pInitialViews').value) || 0,
@@ -969,14 +981,20 @@ window.renderHomeBlogSlider = function() {
         const finalImg = window.resolveImageSrc(blog.imageURL);
         const dateStr = new Date(blog.createdAt).toLocaleDateString();
         const blogCat = blog.category || 'AI Guide';
+        const itemSlug = blog.slug || blog.id;
 
-        const card = document.createElement('article');
-        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer";
-        card.onclick = () => window.openBlogDetail(blog.id);
+        const card = document.createElement('a');
+        card.href = `?blog=${itemSlug}`;
+        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
+        card.onclick = (e) => { 
+            e.preventDefault(); 
+            window.history.pushState({}, '', `?blog=${itemSlug}`);
+            window.openBlogDetail(itemSlug); 
+        };
 
         card.innerHTML = `
-            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-36 object-cover">
-            <div class="p-4 flex-grow flex flex-col justify-between space-y-2">
+            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-36 object-cover pointer-events-none">
+            <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
                 <div class="space-y-1.5">
                     <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">${blogCat}</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">${blog.title}</h3>
@@ -1053,17 +1071,23 @@ function renderBlogs() {
     }
 
     paginatedItems.forEach(blog => {
-        const card = document.createElement('article');
-        card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer";
-        card.onclick = () => window.openBlogDetail(blog.id);
-
         const finalImg = window.resolveImageSrc(blog.imageURL);
         const dateStr = new Date(blog.createdAt).toLocaleDateString();
         const blogCat = blog.category || 'AI Guide';
+        const itemSlug = blog.slug || blog.id;
+
+        const card = document.createElement('a');
+        card.href = `?blog=${itemSlug}`;
+        card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block";
+        card.onclick = (e) => { 
+            e.preventDefault(); 
+            window.history.pushState({}, '', `?blog=${itemSlug}`);
+            window.openBlogDetail(itemSlug); 
+        };
 
         card.innerHTML = `
-            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-48 object-cover">
-            <div class="p-5 flex-grow flex flex-col justify-between space-y-3">
+            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-48 object-cover pointer-events-none">
+            <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
                 <div class="space-y-2">
                     <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">${blogCat}</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">${blog.title}</h3>
@@ -1110,8 +1134,8 @@ function parseSEOContent(text) {
     return `<p class="mb-4 text-slate-700 dark:text-slate-300">${text}</p>`;
 }
 
-window.openBlogDetail = function(id) {
-    const blog = window.appState.blogsList.find(b => b.id === id);
+window.openBlogDetail = function(idOrSlug) {
+    const blog = window.appState.blogsList.find(b => b.id === idOrSlug || b.slug === idOrSlug);
     if (!blog) return;
 
     window.openModal('blogDetailModal');
@@ -1165,8 +1189,7 @@ window.openBlogDetail = function(id) {
     window.injectHtmlWithScripts('adMultiplexContainer', window.appState.ads.multiplex);
     window.injectHtmlWithScripts('adBottomContainer', window.appState.ads.bottom);
 
-    // Call updatePageMetadata explicitly passing `true` for isBlog flag, along with the item ID
-    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update", true, blog.id, false);
+    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update", true, blog.slug || blog.id, false);
 };
 
 function renderAdminBlogsList() {
@@ -1201,7 +1224,7 @@ if (blogFormEl) {
     blogFormEl.addEventListener('submit', async (e) => {
         e.preventDefault();
         const editId = document.getElementById('editBlogId').value;
-        const title = document.getElementById('bTitle').value;
+        const bTitle = document.getElementById('bTitle').value.trim();
         const category = document.getElementById('bCategory').value;
         const keywords = document.getElementById('bKeywords').value.trim();
         const imageURL = document.getElementById('bImageURL').value.trim();
@@ -1210,7 +1233,8 @@ if (blogFormEl) {
         const content = document.getElementById('bContent').value;
 
         const payload = {
-            title: title,
+            title: bTitle,
+            slug: createSlug(bTitle),
             category: category,
             keywords: keywords,
             imageURL: imageURL,
@@ -1682,19 +1706,25 @@ function renderPrompts() {
 
     paginatedItems.forEach(p => {
         const isPaid = p.type === 'paid';
-        const card = document.createElement('article'); 
-        card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
-        card.onclick = () => window.openPromptDetail(p.id);
-
         const finalImgUrl = window.resolveImageSrc(p.imageURL);
         const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
+        const itemSlug = p.slug ? p.slug : p.id;
+
+        const card = document.createElement('a');
+        card.href = `?prompt=${itemSlug}`;
+        card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100 block";
+        card.onclick = (e) => { 
+            e.preventDefault(); 
+            window.history.pushState({}, '', `?prompt=${itemSlug}`);
+            window.openPromptDetail(itemSlug); 
+        };
 
         card.innerHTML = `
-            <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute top-3 left-3 flex flex-col gap-1">
+            <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300 pointer-events-none">
+            <div class="absolute top-3 left-3 flex flex-col gap-1 pointer-events-none">
                 ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
             </div>
-            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
+            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 pointer-events-none">
                 ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
             </span>
             <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
@@ -1731,8 +1761,8 @@ window.filterCategory = function(cat) {
     renderPrompts();
 }
 
-window.openPromptDetail = async function(id) {
-    const p = window.appState.promptsList.find(item => item.id === id);
+window.openPromptDetail = async function(idOrSlug) {
+    const p = window.appState.promptsList.find(item => item.id === idOrSlug || item.slug === idOrSlug);
     if (!p) return;
 
     if (p.type === 'paid') {
@@ -1784,12 +1814,12 @@ window.openPromptDetail = async function(id) {
     }
 
     window.appState.currentDetailPrompt = p;
-    const viewsRef = ref(db, `prompts/${id}/views`);
+    const viewsRef = ref(db, `prompts/${p.id}/views`);
     runTransaction(viewsRef, (curr) => {
         return (curr || p.views || 0) + 1;
     });
 
-    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`, null, false, p.id, true);
+    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`, null, false, p.slug || p.id, true);
     window.openModal('promptDetailModal');
 
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
