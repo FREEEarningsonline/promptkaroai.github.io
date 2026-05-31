@@ -3,12 +3,12 @@ name: Generate XML Sitemap
 on:
   push:
     branches:
-      - main  # Agar aapki branch ka naam 'master' hai to yahan master likhein
+      - main
 
 jobs:
   sitemap_job:
     runs-on: ubuntu-latest
-    name: Generate Sitemap
+
     steps:
     - name: Checkout the repo
       uses: actions/checkout@v3
@@ -18,10 +18,11 @@ jobs:
     - name: Generate Sitemap
       uses: cicirello/generate-sitemap@v1
       with:
-        base-url_path: https://freeearningsonline.github.io/
+        base-url-path: https://freeearningsonline.github.io
         path-to-root: .
+        include-root: true
         additional-extensions: html
-        drop-html-extension: false # Agar aap .html link me dikhana chahte hain
+        drop-html-extension: false
 
     - name: Commit and push if changed
       run: |
