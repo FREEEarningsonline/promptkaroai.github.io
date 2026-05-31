@@ -19,13 +19,8 @@ function resolveImageSrc(imageVal) {
 }
 window.resolveImageSrc = resolveImageSrc;
 
-// Helper function to create SEO friendly Slugs from Titles
-function createSlug(text) {
-    return text ? text.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
-}
-
-// SEO Metadata Function (Canonical URL added for Google Indexing)
-function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBlog = false, itemId = null, isPrompt = false) {
+// UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
+function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -39,20 +34,13 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBl
     }
 
     // Dynamic Canonical URL Update for Google Indexing
-    let cleanUrl = window.location.origin + window.location.pathname;
-    if (isBlog && itemId) {
-        cleanUrl += `?blog=${itemId}`;
-    } else if (isPrompt && itemId) {
-        cleanUrl += `?prompt=${itemId}`;
-    }
-
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
         canonical = document.createElement('link');
         canonical.setAttribute('rel', 'canonical');
         document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', cleanUrl);
+    canonical.setAttribute('href', window.location.href);
 }
 window.updatePageMetadata = updatePageMetadata;
 
@@ -66,7 +54,6 @@ window.appState = {
     currentUserData: null,
     promptsList: [],
     blogsList: [], 
-    adminBlogsList: [], // For admin panel dashboard tracking
     categories: [], 
     blogCategories: [],
     chatMessages: [],
@@ -204,38 +191,34 @@ function switchTab(tabId, isBack = false) {
     if (tabId === 'home' || tabId === 'discover') {
         document.getElementById('heroSection').classList.remove('hidden');
         document.getElementById('promptsSection').classList.remove('hidden');
-        const seoGuide = document.getElementById('seoGuideSection');
-        if (seoGuide) seoGuide.classList.remove('hidden'); 
+        document.getElementById('seoGuideSection').classList.remove('hidden'); 
         document.getElementById('homeBlogSliderSection').classList.remove('hidden');
         
         window.appState.currentPage = 1;
         if (typeof window.filterCategory === 'function') {
             window.filterCategory('All');
         }
-        updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library", null, null, false, null, false);
+        updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
     } else if (tabId === 'blog') {
         document.getElementById('blogSection').classList.remove('hidden');
-        const seoGuide = document.getElementById('seoGuideSection');
-        if (seoGuide) seoGuide.classList.add('hidden'); 
+        document.getElementById('seoGuideSection').classList.add('hidden'); 
         window.appState.currentBlogPage = 1;
         
         if (typeof window.renderBlogs === 'function') {
             window.renderBlogs();
         }
-        updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.", null, false, null, false);
+        updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.");
     } else if (tabId === 'admin') {
         document.getElementById('adminView').classList.remove('hidden');
-        const seoGuide = document.getElementById('seoGuideSection');
-        if (seoGuide) seoGuide.classList.add('hidden');
-        updatePageMetadata("Admin Panel", null, null, false, null, false);
+        document.getElementById('seoGuideSection').classList.add('hidden');
+        updatePageMetadata("Admin Panel");
         if (typeof window.fetchGitHubImages === 'function') {
             window.fetchGitHubImages();
         }
     } else if (tabId === 'wallet') {
         document.getElementById('walletSection').classList.remove('hidden');
-        const seoGuide = document.getElementById('seoGuideSection');
-        if (seoGuide) seoGuide.classList.add('hidden');
-        updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.", null, false, null, false);
+        document.getElementById('seoGuideSection').classList.add('hidden');
+        updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
     }
 }
 window.switchTab = switchTab;
@@ -253,9 +236,7 @@ window.handleSearch = handleSearch;
 
 function openModal(id) {
     window.appState.navigationStack.push({ type: 'modal', value: id });
-    if (id !== 'promptDetailModal' && id !== 'blogDetailModal') {
-        window.history.pushState({ type: 'modal', value: id }, "");
-    }
+    window.history.pushState({ type: 'modal', value: id }, "");
     document.getElementById(id).classList.remove('hidden');
 }
 window.openModal = openModal;
@@ -452,13 +433,15 @@ function fallbackCopy(text) {
 
 function sharePrompt() {
     if (!window.appState.currentDetailPrompt) return;
-    const itemSlug = window.appState.currentDetailPrompt.slug || window.appState.currentDetailPrompt.id;
-    const shareLink = `${window.location.origin}/?prompt=${itemSlug}`;
+    const pId = window.appState.currentDetailPrompt.id;
+    const pTitle = window.appState.currentDetailPrompt.title;
+    
+    const shareLink = `${window.location.origin}/?prompt=${pId}`;
 
     if (navigator.share) {
         navigator.share({
-            title: `PromptKaro - ${window.appState.currentDetailPrompt.title}`,
-            text: `Check out this amazing AI prompt: "${window.appState.currentDetailPrompt.title}" on PromptKaro!`,
+            title: `PromptKaro - ${pTitle}`,
+            text: `Check out this amazing AI prompt: "${pTitle}" on PromptKaro!`,
             url: shareLink
         }).catch(err => console.log(err));
     } else {
@@ -473,8 +456,7 @@ function shareBlog() {
     const currentBlog = window.appState.blogsList.find(b => b.title === openedTitle);
     if (!currentBlog) return;
     
-    const itemSlug = currentBlog.slug || currentBlog.id;
-    const shareLink = `${window.location.origin}/?blog=${itemSlug}`;
+    const shareLink = `${window.location.origin}/?blog=${currentBlog.id}`;
 
     if (navigator.share) {
         navigator.share({
@@ -490,7 +472,25 @@ function shareBlog() {
 window.shareBlog = shareBlog;
 
 function openInfoModal(type) {
-    // Navigating to explicit HTML pages instead of modals now for SEO
+    const title = document.getElementById('infoModalTitle');
+    const content = document.getElementById('infoModalContent');
+    if (type === 'about') {
+        title.innerText = "About PromptKaro";
+        content.innerHTML = `<p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>`;
+    } else if (type === 'contact') {
+        title.innerText = "Contact Us";
+        content.innerHTML = `<p>Have issues or business inquiries? kazimmustafa38@gmail.com</p>`;
+    } else if (type === 'dmca') {
+        title.innerText = "DMCA Policy";
+        content.innerHTML = `<p>At PromptKaro, we respect intellectual property rights.</p>`;
+    } else if (type === 'privacy') {
+        title.innerText = "Privacy Policy";
+        content.innerHTML = `<p>We respect the privacy of our visitors.</p>`;
+    } else if (type === 'terms') {
+        title.innerText = "Terms of Service";
+        content.innerHTML = `<p>These terms and conditions outline the rules and regulations.</p>`;
+    }
+    window.openModal('infoModal');
 }
 window.openInfoModal = openInfoModal;
 
@@ -517,7 +517,6 @@ function closeCommunityChat() {
     window.closeModal('communityChatModal');
 }
 window.closeCommunityChat = closeCommunityChat;
-
 
 // ==========================================
 // PART 2: MODULAR ASYNC BACKEND FIREBASE CODE
@@ -652,10 +651,8 @@ if (promptFormEl) {
     promptFormEl.addEventListener('submit', async (e) => {
         e.preventDefault(); 
         const editId = document.getElementById('editPromptId').value;
-        const pTitle = document.getElementById('pTitle').value.trim();
         const payload = {
-            title: pTitle,
-            slug: createSlug(pTitle), 
+            title: document.getElementById('pTitle').value.trim(),
             tags: document.getElementById('pCategory').value,
             imageURL: document.getElementById('pImageURL').value.trim(),
             views: parseInt(document.getElementById('pInitialViews').value) || 0,
@@ -796,7 +793,7 @@ async function fetchGitHubImages() {
         } else {
             if (statusSpan) {
                 statusSpan.innerText = "⚠️ Repo folder empty or offline. Enter filename manually.";
-                statusSpan.className = "block text-[10px] text-rose-500/80 font-semibold mt-1";
+                statusSpan.className = "block text-[10px] text-rose-500 font-semibold mt-1";
             }
         }
     } catch (err) {
@@ -936,107 +933,18 @@ window.sendAdminAnnouncement = async function() {
     }
 };
 
-// NEW: Automating Dynamic Blog Scanning from static /blog/ directory 
-async function loadStaticBlogs() {
-    try {
-        const res = await fetch('/sitemap.xml');
-        if (!res.ok) throw new Error("Sitemap not found");
-        const xmlText = await res.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-        const locs = Array.from(xmlDoc.getElementsByTagName('loc')).map(el => el.textContent);
-        
-        const blogUrls = locs.filter(url => url.includes('/blog/') && url.endsWith('.html'));
-        
-        if (blogUrls.length > 0) {
-            await parseBlogUrls(blogUrls);
-            return;
-        }
-        throw new Error("No blogs in sitemap");
-    } catch (err) {
-        console.warn("Sitemap failed, scanning repository contents as fallback: ", err);
-        try {
-            const res = await fetch('https://api.github.com/repos/freeearningsonline/freeearningsonline.github.io/contents/blog');
-            if (res.ok) {
-                const data = await res.json();
-                const blogUrls = data
-                    .filter(item => item.type === 'file' && item.name.endsWith('.html'))
-                    .map(item => window.location.origin + '/blog/' + item.name);
-                await parseBlogUrls(blogUrls);
-            }
-        } catch (apiErr) {
-            console.error("Both Sitemap and GitHub API failed to retrieve blogs.", apiErr);
-        }
-    }
-}
-
-async function parseBlogUrls(urls) {
-    window.appState.blogsList = [];
-    
-    const fetchPromises = urls.map(async (url) => {
-        try {
-            const res = await fetch(url);
-            if (!res.ok) return;
-            const htmlText = await res.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, "text/html");
-            
-            const title = doc.querySelector('title') ? doc.querySelector('title').innerText.replace(" - PromptKaro", "") : "Untitled Post";
-            const description = doc.querySelector('meta[name="description"]') ? doc.querySelector('meta[name="description"]').getAttribute('content') : "";
-            const keywords = doc.querySelector('meta[name="keywords"]') ? doc.querySelector('meta[name="keywords"]').getAttribute('content') : "";
-            
-            const imgEl = doc.querySelector('article img') || doc.querySelector('img');
-            const imageURL = imgEl ? imgEl.getAttribute('src') : ""; 
-            
-            const catEl = doc.querySelector('article .uppercase') || doc.querySelector('.uppercase');
-            const category = catEl ? catEl.innerText : "AI Guide";
-            
-            const dateEl = doc.querySelector('article .text-xs') || doc.querySelector('.text-xs');
-            const dateStr = dateEl ? dateEl.innerText : "Recent";
-            
-            // Extract the whole content html inside ".prose" or article tag
-            const proseEl = doc.querySelector('.prose') || doc.querySelector('article') || doc.body;
-            const contentHtml = proseEl ? proseEl.innerHTML : "";
-            
-            const slug = url.substring(url.lastIndexOf('/') + 1).replace('.html', '');
-            
-            window.appState.blogsList.push({
-                id: slug, 
-                slug: slug,
-                title: title,
-                category: category,
-                excerpt: description,
-                content: contentHtml, // Store parsed html content directly
-                isStatic: true, // Identify as static blog
-                imageURL: imageURL.replace('../images/', ''), 
-                keywords: keywords,
-                createdAt: new Date(dateStr).getTime() || Date.now() 
-            });
-        } catch (err) {
-            console.error("Error parsing blog: ", url, err);
-        }
-    });
-    
-    await Promise.all(fetchPromises);
-    
-    window.appState.blogsList.sort((a, b) => b.createdAt - a.createdAt);
-    renderBlogs();
-    renderHomeBlogSlider();
-}
-
-// Call loadStaticBlogs on script load to populate blogs
-loadStaticBlogs();
-
 const dbBlogsRef = ref(db, 'blogs');
 onValue(dbBlogsRef, (snapshot) => {
-    window.appState.adminBlogsList = []; // separate list for admin panel table
+    window.appState.blogsList = [];
     if (snapshot.exists()) {
         const data = snapshot.val();
         for (let key in data) {
-            window.appState.adminBlogsList.push({ id: key, ...data[key] });
+            window.appState.blogsList.push({ id: key, ...data[key] });
         }
     }
+    renderBlogs();
     renderAdminBlogsList();
+    if(typeof window.renderHomeBlogSlider === 'function') window.renderHomeBlogSlider();
 });
 
 window.homeBlogScrollInterval = null;
@@ -1071,20 +979,14 @@ window.renderHomeBlogSlider = function() {
         const finalImg = window.resolveImageSrc(blog.imageURL);
         const dateStr = new Date(blog.createdAt).toLocaleDateString();
         const blogCat = blog.category || 'AI Guide';
-        const itemSlug = blog.slug || blog.id;
 
-        const card = document.createElement('a');
-        card.href = `?blog=${itemSlug}`;
-        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
-        card.onclick = (e) => { 
-            e.preventDefault(); 
-            window.history.pushState({}, '', `?blog=${itemSlug}`);
-            window.openBlogDetail(blog.id); 
-        };
+        const card = document.createElement('article');
+        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer";
+        card.onclick = () => window.openBlogDetail(blog.id);
 
         card.innerHTML = `
-            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-36 object-cover pointer-events-none">
-            <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
+            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-36 object-cover">
+            <div class="p-4 flex-grow flex flex-col justify-between space-y-2">
                 <div class="space-y-1.5">
                     <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">${blogCat}</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">${blog.title}</h3>
@@ -1161,23 +1063,17 @@ function renderBlogs() {
     }
 
     paginatedItems.forEach(blog => {
+        const card = document.createElement('article');
+        card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer";
+        card.onclick = () => window.openBlogDetail(blog.id);
+
         const finalImg = window.resolveImageSrc(blog.imageURL);
         const dateStr = new Date(blog.createdAt).toLocaleDateString();
         const blogCat = blog.category || 'AI Guide';
-        const itemSlug = blog.slug || blog.id;
-
-        const card = document.createElement('a');
-        card.href = `?blog=${itemSlug}`;
-        card.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block";
-        card.onclick = (e) => { 
-            e.preventDefault(); 
-            window.history.pushState({}, '', `?blog=${itemSlug}`);
-            window.openBlogDetail(itemSlug); 
-        };
 
         card.innerHTML = `
-            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-48 object-cover pointer-events-none">
-            <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
+            <img src="${finalImg}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${blog.title}" class="w-full h-48 object-cover">
+            <div class="p-5 flex-grow flex flex-col justify-between space-y-3">
                 <div class="space-y-2">
                     <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">${blogCat}</span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">${blog.title}</h3>
@@ -1224,8 +1120,8 @@ function parseSEOContent(text) {
     return `<p class="mb-4 text-slate-700 dark:text-slate-300">${text}</p>`;
 }
 
-window.openBlogDetail = function(idOrSlug) {
-    const blog = window.appState.blogsList.find(b => b.id === idOrSlug || b.slug === idOrSlug);
+window.openBlogDetail = function(id) {
+    const blog = window.appState.blogsList.find(b => b.id === id);
     if (!blog) return;
 
     window.openModal('blogDetailModal');
@@ -1251,38 +1147,35 @@ window.openBlogDetail = function(idOrSlug) {
     if (blogDetailMeta) {
         blogDetailMeta.innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
     }
+    
+    const paragraphs = blog.content.split('\n').filter(p => p.trim());
+    const midIndex = Math.ceil(paragraphs.length / 2);
+    
+    const topHtml = paragraphs.slice(0, midIndex).map(p => parseSEOContent(p)).join('');
+    const bottomHtml = paragraphs.slice(midIndex).map(p => parseSEOContent(p)).join('');
 
     const contentTop = document.getElementById('blogDetailContentTop');
     const contentBottom = document.getElementById('blogDetailContentBottom');
+    
+    if (contentTop) contentTop.innerHTML = topHtml;
+    if (contentBottom) contentBottom.innerHTML = bottomHtml;
+
     const centerImgEl = document.getElementById('blogDetailCenterImg');
-
-    if (blog.isStatic) {
-        // Render raw HTML compiled inside our sitemap reader directly into the top container
-        if (contentTop) contentTop.innerHTML = blog.content;
-        if (contentBottom) contentBottom.innerHTML = "";
-        if (centerImgEl) centerImgEl.classList.add('hidden'); 
-    } else {
-        // Fallback for old database-driven raw text paragraphs rendering
-        const paragraphs = blog.content.split('\n').filter(p => p.trim());
-        const midIndex = Math.ceil(paragraphs.length / 2);
-        
-        const topHtml = paragraphs.slice(0, midIndex).map(p => parseSEOContent(p)).join('');
-        const bottomHtml = paragraphs.slice(midIndex).map(p => parseSEOContent(p)).join('');
-
-        if (contentTop) contentTop.innerHTML = topHtml;
-        if (contentBottom) contentBottom.innerHTML = bottomHtml;
-
-        if (centerImgEl) {
-            if (blog.centerImageURL && blog.centerImageURL.trim() !== '') {
-                centerImgEl.src = window.resolveImageSrc(blog.centerImageURL);
-                centerImgEl.classList.remove('hidden');
-            } else {
-                centerImgEl.classList.add('hidden');
-            }
+    if (centerImgEl) {
+        if (blog.centerImageURL && blog.centerImageURL.trim() !== '') {
+            centerImgEl.src = window.resolveImageSrc(blog.centerImageURL);
+            centerImgEl.classList.remove('hidden');
+        } else {
+            centerImgEl.classList.add('hidden');
         }
     }
 
-    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update", true, blog.slug || blog.id, false);
+    window.injectHtmlWithScripts('adTopContainer', window.appState.ads.top);
+    window.injectHtmlWithScripts('adCenterContainer', window.appState.ads.center);
+    window.injectHtmlWithScripts('adMultiplexContainer', window.appState.ads.multiplex);
+    window.injectHtmlWithScripts('adBottomContainer', window.appState.ads.bottom);
+
+    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update");
 };
 
 function renderAdminBlogsList() {
@@ -1290,13 +1183,12 @@ function renderAdminBlogsList() {
     if (!table) return;
     table.innerHTML = '';
 
-    const list = window.appState.adminBlogsList || [];
-    if (list.length === 0) {
-        table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No blog posts found in database.</td></tr>`;
+    if (window.appState.blogsList.length === 0) {
+        table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No blog posts found.</td></tr>`;
         return;
     }
 
-    list.forEach(blog => {
+    window.appState.blogsList.forEach(blog => {
         const tr = document.createElement('tr');
         tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
         tr.innerHTML = `
@@ -1318,7 +1210,7 @@ if (blogFormEl) {
     blogFormEl.addEventListener('submit', async (e) => {
         e.preventDefault();
         const editId = document.getElementById('editBlogId').value;
-        const bTitle = document.getElementById('bTitle').value.trim();
+        const title = document.getElementById('bTitle').value;
         const category = document.getElementById('bCategory').value;
         const keywords = document.getElementById('bKeywords').value.trim();
         const imageURL = document.getElementById('bImageURL').value.trim();
@@ -1327,8 +1219,7 @@ if (blogFormEl) {
         const content = document.getElementById('bContent').value;
 
         const payload = {
-            title: bTitle,
-            slug: createSlug(bTitle),
+            title: title,
             category: category,
             keywords: keywords,
             imageURL: imageURL,
@@ -1342,11 +1233,11 @@ if (blogFormEl) {
         try {
             if (editId) {
                 await update(ref(db, `blogs/${editId}`), payload);
-                alert("Blog post updated successfully in database.");
+                alert("Blog post updated successfully.");
             } else {
                 const newBlogRef = push(ref(db, 'blogs'));
                 await set(newBlogRef, payload);
-                alert("New Blog post published successfully in database!");
+                alert("New Blog post published successfully!");
             }
             window.resetBlogForm();
             window.switchTab('blog');
@@ -1357,7 +1248,7 @@ if (blogFormEl) {
 }
 
 window.editBlog = function(id) {
-    const blog = window.appState.adminBlogsList.find(b => b.id === id);
+    const blog = window.appState.blogsList.find(b => b.id === id);
     if (blog) {
         document.getElementById('editBlogId').value = blog.id;
         document.getElementById('bTitle').value = blog.title;
@@ -1800,25 +1691,19 @@ function renderPrompts() {
 
     paginatedItems.forEach(p => {
         const isPaid = p.type === 'paid';
+        const card = document.createElement('article'); 
+        card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
+        card.onclick = () => window.openPromptDetail(p.id);
+
         const finalImgUrl = window.resolveImageSrc(p.imageURL);
         const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
-        const itemSlug = p.slug ? p.slug : p.id;
-
-        const card = document.createElement('a');
-        card.href = `?prompt=${itemSlug}`;
-        card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100 block";
-        card.onclick = (e) => { 
-            e.preventDefault(); 
-            window.history.pushState({}, '', `?prompt=${itemSlug}`);
-            window.openPromptDetail(p.id); 
-        };
 
         card.innerHTML = `
-            <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300 pointer-events-none">
-            <div class="absolute top-3 left-3 flex flex-col gap-1 pointer-events-none">
+            <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="absolute top-3 left-3 flex flex-col gap-1">
                 ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
             </div>
-            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 pointer-events-none">
+            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
                 ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
             </span>
             <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
@@ -1855,8 +1740,8 @@ window.filterCategory = function(cat) {
     renderPrompts();
 }
 
-window.openPromptDetail = async function(idOrSlug) {
-    const p = window.appState.promptsList.find(item => item.id === idOrSlug || item.slug === idOrSlug);
+window.openPromptDetail = async function(id) {
+    const p = window.appState.promptsList.find(item => item.id === id);
     if (!p) return;
 
     if (p.type === 'paid') {
@@ -1908,12 +1793,12 @@ window.openPromptDetail = async function(idOrSlug) {
     }
 
     window.appState.currentDetailPrompt = p;
-    const viewsRef = ref(db, `prompts/${p.id}/views`);
+    const viewsRef = ref(db, `prompts/${id}/views`);
     runTransaction(viewsRef, (curr) => {
         return (curr || p.views || 0) + 1;
     });
 
-    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`, null, false, p.slug || p.id, true);
+    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`);
     window.openModal('promptDetailModal');
 
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
@@ -1946,7 +1831,7 @@ window.openPromptDetail = async function(idOrSlug) {
         detailPromptText.innerText = p.description;
         if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
             detailPromptText.innerHTML += `
-                <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-855 flex gap-2">
+                <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
                     <button onclick="window.editPrompt('${p.id}'); window.closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
                     <button onclick="window.deletePrompt('${p.id}'); window.closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
                 </div>
