@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -11,7 +10,7 @@
     <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
     <meta name="author" content="Nazim Mustafa">
     <meta name="robots" content="index, follow">
-    <!-- Canonical tag is now handled dynamically by script.js for SEO Indexing -->
+    <link rel="canonical" href="https://freeearningsonline.github.io/">
 
     <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
@@ -67,11 +66,23 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        .dark ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+        /* Custom scrollbar design */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300 font-medium">
@@ -99,22 +110,29 @@
                     <span class="admin-chat-badge hidden absolute -top-2 -right-3 bg-red-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-white dark:border-slate-900 shadow-sm">1</span>
                 </button>
                 <button onclick="window.switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-wallet text-amber-500"></i> <span>Wallet</span>
+                    <i class="fa-solid fa-wallet text-amber-500"></i> 
+                    <span>Wallet</span>
                 </button>
+                
                 <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact</a>
+
                 <button type="button" onclick="window.toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
                     <i id="themeIcon" class="fa-solid fa-moon"></i>
                 </button>
+
                 <span id="adminBtnContainer" class="hidden">
                     <button onclick="window.location.href='/admin.html'" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
                 </span>
+
                 <div class="flex items-center gap-2">
                     <button onclick="window.openAuthModal('login')" class="auth-logged-out hover:text-brand-500 transition">Login</button>
                     <button onclick="window.openAuthModal('signup')" class="auth-logged-out bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-1.5 rounded-full text-xs transition font-semibold">Join Free</button>
+
                     <span id="userEmailDisplay" class="auth-logged-in hidden text-xs text-slate-500 dark:text-slate-400 font-mono"></span>
                     <button onclick="window.logout()" class="auth-logged-in hidden bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold transition">Logout</button>
                 </div>
             </nav>
+
             <button onclick="window.toggleMobileMenu()" class="md:hidden text-2xl p-1 text-slate-500 dark:text-slate-400 hover:text-brand-500">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -135,6 +153,7 @@
                 <button onclick="window.openAuthModal('signup'); window.toggleMobileMenu();" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm text-center transition">Join Free</button>
                 <button onclick="window.openAuthModal('login'); window.toggleMobileMenu();" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-2.5 rounded-lg text-sm text-center transition">Login</button>
             </div>
+
             <div class="auth-logged-in hidden flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center justify-between">
                     <span id="mobileEmailDisplay" class="text-xs text-slate-500 dark:text-slate-400 font-mono truncate"></span>
@@ -144,6 +163,7 @@
                 </div>
                 <button onclick="window.logout(); window.toggleMobileMenu();" class="w-full bg-slate-200 dark:bg-slate-800 py-2 rounded-lg text-sm transition">Logout</button>
             </div>
+
             <button onclick="window.switchTab('home'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
             <button onclick="window.switchTab('blog'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
             <button onclick="window.openRequestModal(); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
@@ -153,9 +173,11 @@
                 <span class="admin-chat-badge hidden absolute -top-1 -right-4 bg-red-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center">1</span>
             </button>
             <button onclick="window.switchTab('wallet'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
+            
             <a href="/about-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</a>
             <a href="/contact-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</a>
             <a href="/dmca.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</a>
+            
             <span id="mobileAdminBtn" class="hidden border-t border-slate-200 dark:border-slate-800 pt-3">
                 <button onclick="window.location.href='/admin.html'" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
             </span>
@@ -172,8 +194,8 @@
                 <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs.</p>
                 <div class="flex flex-wrap gap-3">
-                    <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
-                    <button onclick="window.filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
+                    <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
+                    <button onclick="window.filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
                 </div>
             </div>
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
@@ -223,7 +245,7 @@
             </div>
         </section>
 
-        <!-- Section: Dynamic Blog Section [Tab] -->
+        <!-- Section: Dynamic Blog Section [Tab] (Now Uses Static HTML Links for Googlebot) -->
         <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto font-semibold">
             <div class="border-b border-slate-200 dark:border-slate-850 pb-4">
                 <h1 class="text-2xl font-bold">AI News & Prompting Guides</h1>
@@ -234,8 +256,54 @@
                 <button onclick="window.filterBlogCategory('All')" data-blog-category="All" class="blog-category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Posts</button>
             </div>
 
+            <!-- STATIC HTML BLOG CARDS FOR INSTANT GOOGLE INDEXING -->
             <div id="blogsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="col-span-full py-12 text-center text-slate-500">Loading blogs...</div>
+                
+                <a href="/blog/bing-3d-name-art.html" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="Bing 3D Name Art Guide" class="w-full h-48 object-cover pointer-events-none">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
+                        <div class="space-y-2">
+                            <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">AI Guide</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">Bing Image Creator Se Trending 3D Name Art Kaise Banayein</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">Aaj kal Instagram aur TikTok par aisi images zaroor dekhi hongi jahan stylish neon lights se naam likha hota hai...</p>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read More ➔</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/blog/data-driven-seo-strategy.html" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="SEO Strategy Guide" class="w-full h-48 object-cover pointer-events-none">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
+                        <div class="space-y-2">
+                            <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">Updates</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">Data-Driven SEO Engine: Transform Your Content Strategy</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">Transform your content strategy into a data-driven SEO engine that systematically captures organic traffic...</p>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read More ➔</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/blog/promptkaro-major-update.html" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="PromptKaro Update" class="w-full h-48 object-cover pointer-events-none">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
+                        <div class="space-y-2">
+                            <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">Updates</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">PromptKaro Major Update: Introducing Global Community Chat</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">Humein yeh batate hue khushi ho rahi hai ke PromptKaro ab sirf ek prompt sharing platform nahi raha...</p>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read More ➔</span>
+                        </div>
+                    </div>
+                </a>
+
             </div>
 
             <div id="blogPaginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
@@ -248,6 +316,7 @@
         <!-- Section: Dedicated Wallet Section -->
         <section id="walletSection" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="flex flex-col md:flex-row gap-6">
+                <!-- Balance card -->
                 <div class="flex-1 space-y-4">
                     <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
                         <span class="text-xs font-semibold opacity-80 uppercase tracking-wider">Current Balance</span>
@@ -259,6 +328,7 @@
                         <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     </div>
 
+                    <!-- Deposit Guide -->
                     <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
                         <h3 class="font-bold text-md text-brand-500">EasyPaisa / JazzCash</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Please pay to Nazim Mustafa directly using the number details given below and save the screenshot receipt.</p>
@@ -275,6 +345,7 @@
                     </div>
                 </div>
 
+                <!-- Proof of purchase submission -->
                 <div class="flex-1 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Buy Coins</h3>
                     <p class="text-xs text-slate-500 mb-4">Submit deposit details below for manual and auto coin additions.</p>
@@ -297,15 +368,17 @@
                 </div>
             </div>
 
+            <!-- Transaction History -->
             <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
                     <div class="flex gap-2">
-                        <button onclick="window.switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History</button>
-                        <button onclick="window.switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900">Unlock History</button>
+                        <button onclick="window.switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
+                        <button onclick="window.switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900">Unlock History (Debits)</button>
                     </div>
                 </div>
                 
+                <!-- Deposit Credits List Table -->
                 <div id="tableCredits" class="overflow-x-auto text-xs">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
@@ -317,11 +390,14 @@
                             </tr>
                         </thead>
                         <tbody id="userTransactionsList">
-                            <tr><td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
+                <!-- Debits Unlocks Log History Table -->
                 <div id="tableDebits" class="overflow-x-auto text-xs hidden">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
@@ -332,14 +408,16 @@
                             </tr>
                         </thead>
                         <tbody id="userPurchaseList">
-                            <tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>
+                            <tr>
+                                <td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- Section: Dynamic Admin View -->
+        <!-- Section: Dynamic Admin View (Maintained HTML structure here just in case, actual panel is admin.html) -->
         <section id="adminView" class="hidden space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
@@ -349,14 +427,56 @@
             </div>
         </section>
 
-        <!-- HOME PAGE RECENT BLOG SLIDER -->
+        <!-- HOME PAGE RECENT BLOG SLIDER (Now Uses Static HTML Links for Googlebot) -->
         <section id="homeBlogSliderSection" class="mt-12 space-y-4 transition-colors duration-300">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white">Latest AI Guides & News</h2>
                 <button onclick="window.switchTab('blog')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition">View All ➔</button>
             </div>
             <div id="homeBlogSliderContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
-                <div class="text-slate-500 text-sm py-4 w-full text-center">Loading latest blogs...</div>
+                
+                <a href="/blog/bing-3d-name-art.html" class="snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="Bing 3D Name Art" class="w-full h-36 object-cover pointer-events-none">
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
+                        <div class="space-y-1.5">
+                            <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">AI Guide</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">Bing Image Creator Se Trending 3D Name Art Kaise Banayein</h3>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-800 mt-2">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read ➔</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/blog/data-driven-seo-strategy.html" class="snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="SEO Strategy" class="w-full h-36 object-cover pointer-events-none">
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
+                        <div class="space-y-1.5">
+                            <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">Updates</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">Data-Driven SEO Engine: Transform Your Content Strategy</h3>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-800 mt-2">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read ➔</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/blog/promptkaro-major-update.html" class="snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="PromptKaro Update" class="w-full h-36 object-cover pointer-events-none">
+                    <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
+                        <div class="space-y-1.5">
+                            <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">Updates</span>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">PromptKaro Major Update: Introducing Global Community Chat</h3>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-800 mt-2">
+                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
+                            <span class="font-bold text-brand-500">Read ➔</span>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </section>
 
@@ -368,16 +488,6 @@
             </div>
 
             <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-
-<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
-        Best AI Prompts for Earning Money in 2026 (Complete Guide)
-    </h2>
-    <p class="text-sm text-slate-500 mt-2">
-        Discover the most powerful AI prompts that can help you earn money online. Learn how to use ChatGPT and other AI tools to build income streams with smart strategies and practical examples.
-    </p>
-</div>
-
 <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
 
     <p>
@@ -825,22 +935,24 @@
 
 </div>
 
-
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">1. What is an AI Prompt and Why Does it Matter?</h3>
-                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting.</p>
+                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Think of a prompt as the steering wheel of the AI engine. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting. Without a well-structured prompt, the AI will provide generic, unpolished results. This is why "Prompt Engineering" has become one of the most valuable digital skills today.</p>
                 </div>
+
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">2. How PromptKaro Helps You Succeed</h3>
-                    <p>Our platform compiles, tests, and categorizes trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms.</p>
+                    <p>Our platform, PromptKaro, is built to eliminate the tedious trial-and-error phase of prompt creation. We compile, test, and categorize trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms. Whether you need a prompt for an Instagram viral 3D illusion, a professional LinkedIn post, or high-converting ad copy, we have it documented for you.</p>
                 </div>
+
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">3. Best AI Prompts for Earning Money and Freelancing</h3>
-                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes.</p>
+                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes. Similarly, our "SEO Blog Copywriting Prompts" for ChatGPT enable writers to structure, draft, and finalize optimized articles much faster than traditional methods. By mastering these prompts, you can scale your freelance business exponentially.</p>
                 </div>
+
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">4. Top ChatGPT Prompts for Students and Professionals</h3>
-                    <p>Students and professionals often struggle with structuring data. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting.</p>
+                    <p>Students and professionals often struggle with structuring data. A good prompt transforms ChatGPT from a simple chatbot into a dedicated tutor or project manager. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting. Simply browse our "Education" or "Business" categories, copy the template, insert your specific topic, and watch the AI deliver a highly accurate and formatted response.</p>
                 </div>
 
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
@@ -848,14 +960,23 @@
                     <div class="space-y-4">
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the prompts on PromptKaro free to copy?</p>
-                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. Only highly specialized, premium formulas require digital coins to unlock.</p>
+                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. We believe in open access to basic AI knowledge. Only highly specialized, premium, and custom-designed formulas require digital coins to unlock.</p>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: How does the AI Regenerate feature work?</p>
-                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles. It costs 50,000 coins per generation.</p>
+                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles, lighting, and detail preferences. It costs 50,000 coins per generation, providing you with a truly unique, customized prompt variation.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: How do I get more coins in my wallet?</p>
+                            <p class="mt-1">A: You can recharge your account easily. Navigate to the Wallet section, review the instructions for local mobile payment platforms (like EasyPaisa or JazzCash), and submit your transaction ID (TID) along with the deposit amount. Our admins will verify and approve your coins shortly.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I request a custom prompt?</p>
+                            <p class="mt-1">A: Absolutely! If you cannot find what you are looking for in our database, use the "Request Prompt" button in the navigation menu. Describe your exact needs, and our community or admins will create a formula tailored for you.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -1125,7 +1246,6 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC LINK -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
