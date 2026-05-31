@@ -20,7 +20,7 @@ function resolveImageSrc(imageVal) {
 window.resolveImageSrc = resolveImageSrc;
 
 // UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
-function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
+function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBlog = false, itemId = null, isPrompt = false) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -34,13 +34,20 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
     }
 
     // Dynamic Canonical URL Update for Google Indexing
+    let cleanUrl = window.location.origin + window.location.pathname;
+    if (isBlog && itemId) {
+        cleanUrl += `?blog=${itemId}`;
+    } else if (isPrompt && itemId) {
+        cleanUrl += `?prompt=${itemId}`;
+    }
+
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
         canonical = document.createElement('link');
         canonical.setAttribute('rel', 'canonical');
         document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', window.location.href);
+    canonical.setAttribute('href', cleanUrl);
 }
 window.updatePageMetadata = updatePageMetadata;
 
@@ -198,7 +205,7 @@ function switchTab(tabId, isBack = false) {
         if (typeof window.filterCategory === 'function') {
             window.filterCategory('All');
         }
-        updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
+        updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library", null, null, false, null, false);
     } else if (tabId === 'blog') {
         document.getElementById('blogSection').classList.remove('hidden');
         document.getElementById('seoGuideSection').classList.add('hidden'); 
@@ -207,18 +214,18 @@ function switchTab(tabId, isBack = false) {
         if (typeof window.renderBlogs === 'function') {
             window.renderBlogs();
         }
-        updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.");
+        updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.", null, false, null, false);
     } else if (tabId === 'admin') {
         document.getElementById('adminView').classList.remove('hidden');
         document.getElementById('seoGuideSection').classList.add('hidden');
-        updatePageMetadata("Admin Panel");
+        updatePageMetadata("Admin Panel", null, null, false, null, false);
         if (typeof window.fetchGitHubImages === 'function') {
             window.fetchGitHubImages();
         }
     } else if (tabId === 'wallet') {
         document.getElementById('walletSection').classList.remove('hidden');
         document.getElementById('seoGuideSection').classList.add('hidden');
-        updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
+        updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.", null, false, null, false);
     }
 }
 window.switchTab = switchTab;
@@ -472,25 +479,7 @@ function shareBlog() {
 window.shareBlog = shareBlog;
 
 function openInfoModal(type) {
-    const title = document.getElementById('infoModalTitle');
-    const content = document.getElementById('infoModalContent');
-    if (type === 'about') {
-        title.innerText = "About PromptKaro";
-        content.innerHTML = `<p>Welcome to <strong>PromptKaro</strong>, your ultimate platform for exploring, sharing, and unlocking trending AI templates.</p>`;
-    } else if (type === 'contact') {
-        title.innerText = "Contact Us";
-        content.innerHTML = `<p>Have issues or business inquiries? kazimmustafa38@gmail.com</p>`;
-    } else if (type === 'dmca') {
-        title.innerText = "DMCA Policy";
-        content.innerHTML = `<p>At PromptKaro, we respect intellectual property rights.</p>`;
-    } else if (type === 'privacy') {
-        title.innerText = "Privacy Policy";
-        content.innerHTML = `<p>We respect the privacy of our visitors.</p>`;
-    } else if (type === 'terms') {
-        title.innerText = "Terms of Service";
-        content.innerHTML = `<p>These terms and conditions outline the rules and regulations.</p>`;
-    }
-    window.openModal('infoModal');
+    // Navigating to explicit HTML pages instead of modals now for SEO
 }
 window.openInfoModal = openInfoModal;
 
@@ -517,6 +506,7 @@ function closeCommunityChat() {
     window.closeModal('communityChatModal');
 }
 window.closeCommunityChat = closeCommunityChat;
+
 
 // ==========================================
 // PART 2: MODULAR ASYNC BACKEND FIREBASE CODE
@@ -1175,7 +1165,8 @@ window.openBlogDetail = function(id) {
     window.injectHtmlWithScripts('adMultiplexContainer', window.appState.ads.multiplex);
     window.injectHtmlWithScripts('adBottomContainer', window.appState.ads.bottom);
 
-    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update");
+    // Call updatePageMetadata explicitly passing `true` for isBlog flag, along with the item ID
+    window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update", true, blog.id, false);
 };
 
 function renderAdminBlogsList() {
@@ -1798,7 +1789,7 @@ window.openPromptDetail = async function(id) {
         return (curr || p.views || 0) + 1;
     });
 
-    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`);
+    window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`, null, false, p.id, true);
     window.openModal('promptDetailModal');
 
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
