@@ -1,3 +1,4 @@
+
 name: Auto Blog Bot
 
 on:
@@ -19,11 +20,13 @@ jobs:
       - run: npm install
 
       - run: node index.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Commit changes
         run: |
           git config --global user.name "bot"
           git config --global user.email "bot@email.com"
           git add .
-          git commit -m "Auto blog"
+          git commit -m "Auto blog" || echo "No changes"
           git push
