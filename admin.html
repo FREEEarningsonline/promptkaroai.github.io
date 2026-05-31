@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptKaro - Admin Dashboard</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Match system theme
+        if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+
+    <!-- Loading / Auth Check Overlay -->
+    <div id="authOverlay" class="fixed inset-0 bg-white dark:bg-slate-950 z-50 flex flex-col items-center justify-center">
+        <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-500 mb-4"></i>
+        <h2 class="text-xl font-bold">Verifying Admin Access...</h2>
+        <p class="text-sm text-slate-500 mt-2">Please wait.</p>
+    </div>
+
+    <!-- Admin Dashboard Main Container (Hidden by default) -->
+    <div id="adminDashboard" class="hidden flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-auto md:h-screen sticky top-0">
+            <div class="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-brand-500">
+                    <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                    <span>Admin<span class="text-slate-900 dark:text-white">Panel</span></span>
+                </a>
+            </div>
+            
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto flex md:flex-col gap-2 md:gap-0 overflow-x-auto md:overflow-hidden">
+                <button onclick="window.switchTab('prompts')" id="nav-prompts" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold bg-brand-500 text-white transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-layer-group"></i> Manage Prompts
+                </button>
+                <button onclick="window.switchTab('blogs')" id="nav-blogs" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-blog"></i> Manage Blogs
+                </button>
+                <button onclick="window.switchTab('categories')" id="nav-categories" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-tags"></i> Categories
+                </button>
+                <button onclick="window.switchTab('payments')" id="nav-payments" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-money-bill-transfer"></i> Verify Payments
+                </button>
+                <button onclick="window.switchTab('ads')" id="nav-ads" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-rectangle-ad"></i> AdSense Setup
+                </button>
+                <button onclick="window.switchTab('aiconfig')" id="nav-aiconfig" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-microchip"></i> AI Config
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                <button onclick="window.adminLogout()" class="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+                <p class="text-center text-[10px] text-slate-500 mt-3">Back to <a href="index.html" class="text-brand-500 underline">Main Site</a></p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto bg-slate-50 dark:bg-slate-950">
+            
+            <!-- PROMPTS TAB -->
+            <section id="tab-prompts" class="admin-section block space-y-6">
+                <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div>
+                        <h2 class="text-xl font-bold">Manage Prompts</h2>
+                        <p class="text-xs text-slate-500 mt-1">Add, update, or delete AI prompts from the database.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
+                    <h3 class="text-lg font-bold mb-4" id="promptFormTitle">Add New Prompt</h3>
+                    <form id="promptForm" class="space-y-4">
+                        <input type="hidden" id="editPromptId">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Title</label>
+                                <input type="text" id="pTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Category / Tag</label>
+                                <select id="pCategory" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans"></select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/)</label>
+                                <div class="space-y-1">
+                                    <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                                    <datalist id="githubImagesList"></datalist>
+                                    <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Initial Views Count</label>
+                                <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Prompt Text / Description</label>
+                            <textarea id="pDescription" rows="4" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Type</label>
+                                <select id="pType" onchange="window.togglePriceField()" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                                    <option value="free">Free</option>
+                                    <option value="paid">Paid</option>
+                                </select>
+                            </div>
+                            <div id="priceFieldContainer" class="hidden">
+                                <label class="block text-xs text-slate-400 mb-1">Coins Price</label>
+                                <input type="number" id="pPrice" value="0" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                            </div>
+                            <div class="flex items-center gap-4 mt-6">
+                                <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                    <input type="checkbox" id="pTrending" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
+                                    <span class="text-slate-600 dark:text-slate-300">Trending</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                    <input type="checkbox" id="pPinned" class="rounded border-slate-300 dark:border-slate-800 text-brand-500 focus:ring-0">
+                                    <span class="text-slate-600 dark:text-slate-300">Pinned</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Save Prompt</button>
+                            <button type="button" onclick="window.resetPromptForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
+                        </div>
+                    </form>
+
+                    <!-- Prompts List Table -->
+                    <div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
+                        <h4 class="text-sm font-bold mb-4">Active Prompts in Database</h4>
+                        <div class="overflow-x-auto text-xs">
+                            <table class="w-full text-left">
+                                <thead class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                                    <tr>
+                                        <th class="px-4 py-3">Title</th>
+                                        <th class="px-4 py-3">Type / Price</th>
+                                        <th class="px-4 py-3">Category</th>
+                                        <th class="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminPromptsListTable">
+                                    <tr><td colspan="4" class="text-center py-4 text-slate-500">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOGS TAB -->
+            <section id="tab-blogs" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
+                    <h3 class="text-lg font-bold mb-4" id="blogFormTitle">Publish New Blog</h3>
+                    <form id="blogForm" class="space-y-4">
+                        <input type="hidden" id="editBlogId">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Blog Title</label>
+                                <input type="text" id="bTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">SEO Keywords (comma separated)</label>
+                                <input type="text" id="bKeywords" placeholder="AI, Midjourney, Tips" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Top Image Filename</label>
+                                <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., top_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Center Image Filename (Optional)</label>
+                                <input type="text" id="bCenterImageURL" list="githubImagesList" placeholder="e.g., middle_img.jpg" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Meta Description / Excerpt (1-2 lines)</label>
+                            <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Blog Content (Use # for H2, ## for H3)</label>
+                            <textarea id="bContent" rows="10" placeholder="Type here... Markdown and HTML allowed." required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
+                            <button type="button" onclick="window.resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
+                        </div>
+                    </form>
+
+                    <!-- Blogs List Table -->
+                    <div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
+                        <h4 class="text-sm font-bold mb-4">Active Articles</h4>
+                        <div class="overflow-x-auto text-xs">
+                            <table class="w-full text-left">
+                                <thead class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
+                                    <tr>
+                                        <th class="px-4 py-3">Title</th>
+                                        <th class="px-4 py-3">Published Date</th>
+                                        <th class="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminBlogsListTable">
+                                    <tr><td colspan="3" class="text-center py-4 text-slate-500">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATEGORIES TAB -->
+            <section id="tab-categories" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-bold mb-2">Manage Categories</h3>
+                    <p class="text-xs text-slate-400 mb-4">These categories will appear in the main site's filters and Prompt Forms.</p>
+                    
+                    <div class="flex gap-2 max-w-md mb-6 font-medium">
+                        <input type="text" id="newCategoryInput" placeholder="e.g. Couples, Islamic" class="flex-1 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        <button onclick="window.addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition">Add Category</button>
+                    </div>
+
+                    <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
+                        <div id="adminCategoryList" class="flex flex-wrap gap-2 text-xs"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAYMENTS TAB -->
+            <section id="tab-payments" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-bold mb-4">Pending Wallet Submissions</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-950 text-xs text-slate-500 uppercase">
+                                <tr>
+                                    <th class="px-4 py-3">User Email</th>
+                                    <th class="px-4 py-3">TID</th>
+                                    <th class="px-4 py-3">Sender Details</th>
+                                    <th class="px-4 py-3">Amount (Coins)</th>
+                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPaymentsList">
+                                <tr><td colspan="6" class="text-center py-6 text-slate-500">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADSENSE SETUP TAB -->
+            <section id="tab-ads" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-bold mb-2">AdSense Configuration</h3>
+                    <p class="text-xs text-slate-400 mb-6">Paste your Google AdSense block codes here to display them automatically in Blog Posts.</p>
+                    
+                    <div class="space-y-4 font-medium max-w-3xl">
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Top Display Ad (Top of Blog Post)</label>
+                            <textarea id="adDisplayTop" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Center Article Ad (Middle of Blog Post)</label>
+                            <textarea id="adArticleCenter" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Multiplex Ad (End of Content)</label>
+                            <textarea id="adMultiplexBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Display Ad (Absolute Bottom)</label>
+                            <textarea id="adDisplayBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                        </div>
+                        <button onclick="window.saveAdsConfig()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition">Save Ads Setup</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI CONFIG TAB -->
+            <section id="tab-aiconfig" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-bold mb-2">Secure AI Configuration</h3>
+                    <p class="text-xs text-slate-400 mb-4">Set your own custom Gemini API Key for the Regenerate AI feature.</p>
+                    
+                    <div class="space-y-4 max-w-md font-medium">
+                        <div>
+                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Gemini API Key</label>
+                            <input type="password" id="adminApiKeyInput" placeholder="Enter secure API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                        </div>
+                        <button onclick="window.saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition">Save API Key</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- UI State Control Script -->
+    <script>
+        // Tab Switcher logic
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(el => el.classList.add('hidden'));
+            // Remove active classes from all nav buttons
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-500', 'text-white');
+                btn.classList.add('text-slate-600', 'dark:text-slate-400');
+            });
+
+            // Show selected section
+            const section = document.getElementById(`tab-${tabId}`);
+            if (section) section.classList.remove('hidden');
+
+            // Add active class to selected nav button
+            const navBtn = document.getElementById(`nav-${tabId}`);
+            if (navBtn) {
+                navBtn.classList.add('bg-brand-500', 'text-white');
+                navBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
+            }
+        }
+        window.switchTab = switchTab;
+
+        function togglePriceField() {
+            const type = document.getElementById('pType').value;
+            if (type === 'paid') {
+                document.getElementById('priceFieldContainer').classList.remove('hidden');
+            } else {
+                document.getElementById('priceFieldContainer').classList.add('hidden');
+            }
+        }
+        window.togglePriceField = togglePriceField;
+
+        function resetPromptForm() {
+            document.getElementById('promptForm').reset();
+            document.getElementById('editPromptId').value = '';
+            document.getElementById('promptFormTitle').innerText = 'Add New Prompt';
+            document.getElementById('priceFieldContainer').classList.add('hidden');
+        }
+        window.resetPromptForm = resetPromptForm;
+
+        function resetBlogForm() {
+            document.getElementById('blogForm').reset();
+            document.getElementById('editBlogId').value = '';
+            document.getElementById('blogFormTitle').innerText = 'Publish New Blog';
+        }
+        window.resetBlogForm = resetBlogForm;
+        
+        function formatCoins(num) {
+            const val = parseInt(num) || 0;
+            if (val >= 10000) {
+                const divided = val / 1000;
+                if (val % 1000 === 0) return Math.floor(divided) + 'K';
+                else return divided.toFixed(1) + 'K';
+            }
+            return val.toLocaleString();
+        }
+        window.formatCoins = formatCoins;
+    </script>
+
+    <!-- Firebase Admin Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, set, get, update, push, onValue, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl5kGKi_9sbeHdlEZyqSuThQTA53bH3Po",
+            authDomain: "aiprom-98a50.firebaseapp.com",
+            projectId: "aiprom-98a50",
+            storageBucket: "aiprom-98a50.firebasestorage.app",
+            messagingSenderId: "479575775288",
+            appId: "1:479575775288:web:aaeeed041501d1500aeecd",
+            measurementId: "G-TYE4LJ2NRY",
+            databaseURL: "https://aiprom-98a50-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // State lists
+        let promptsList = [];
+        let blogsList = [];
+        let categoriesList = [];
+
+        // Authentication Observer (Crucial for security)
+        onAuthStateChanged(auth, (user) => {
+            const overlay = document.getElementById('authOverlay');
+            const dashboard = document.getElementById('adminDashboard');
+            
+            if (user && user.email === 'kazimmustafa38@gmail.com') {
+                // Allow Access
+                overlay.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                initAdminData();
+            } else {
+                // Deny Access & Redirect
+                alert("Unauthorized Access! Only Kazimmustafa38@gmail.com can view this panel.");
+                window.location.href = 'index.html';
+            }
+        });
+
+        window.adminLogout = async function() {
+            await signOut(auth);
+            window.location.href = 'index.html';
+        };
+
+        // Initialize All Admin Data Syncs
+        function initAdminData() {
+            fetchGitHubImages();
+
+            // Categories
+            onValue(ref(db, 'categories'), (snapshot) => {
+                if (snapshot.exists()) {
+                    categoriesList = snapshot.val();
+                } else {
+                    categoriesList = ["Viral", "IG Trend", "Boys", "Girls"];
+                    set(ref(db, 'categories'), categoriesList);
+                }
+                renderCategoryDropdown();
+                renderCategoryManager();
+            });
+
+            // Prompts
+            onValue(ref(db, 'prompts'), (snapshot) => {
+                promptsList = [];
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    for (let key in data) promptsList.push({ id: key, ...data[key] });
+                }
+                renderAdminPromptsList();
+            });
+
+            // Blogs
+            onValue(ref(db, 'blogs'), (snapshot) => {
+                blogsList = [];
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    for (let key in data) blogsList.push({ id: key, ...data[key] });
+                }
+                renderAdminBlogsList();
+            });
+
+            // Pending Transactions
+            onValue(ref(db, 'transactions'), (snapshot) => {
+                const list = document.getElementById('adminPaymentsList');
+                if(!list) return;
+                list.innerHTML = '';
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    let hasPending = false;
+                    for (let key in data) {
+                        const tx = data[key];
+                        if (tx.paymentStatus === 'pending') {
+                            hasPending = true;
+                            const tr = document.createElement('tr');
+                            tr.className = "border-b border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                            tr.innerHTML = `
+                                <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
+                                <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
+                                <td class="px-4 py-3 text-slate-600 dark:text-slate-400 text-xs">${tx.senderInfo || 'N/A'}</td>
+                                <td class="px-4 py-3 text-xs font-bold text-amber-500">${window.formatCoins(tx.amountCoins)}</td>
+                                <td class="px-4 py-3"><span class="bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded text-[10px]">${tx.paymentStatus}</span></td>
+                                <td class="px-4 py-3">
+                                    <button onclick="window.approvePayment('${key}', '${tx.userId}', ${tx.amountCoins})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded">Approve</button>
+                                </td>
+                            `;
+                            list.appendChild(tr);
+                        }
+                    }
+                    if (!hasPending) list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
+                } else {
+                    list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
+                }
+            });
+
+            // Ads Config
+            onValue(ref(db, 'settings/ads'), (snapshot) => {
+                if (snapshot.exists()) {
+                    const ads = snapshot.val();
+                    document.getElementById('adDisplayTop').value = ads.top || '';
+                    document.getElementById('adArticleCenter').value = ads.center || '';
+                    document.getElementById('adMultiplexBottom').value = ads.multiplex || '';
+                    document.getElementById('adDisplayBottom').value = ads.bottom || '';
+                }
+            });
+
+            // AI API Config
+            onValue(ref(db, 'settings/geminiApiKey'), (snapshot) => {
+                if (snapshot.exists()) {
+                    document.getElementById('adminApiKeyInput').value = snapshot.val();
+                }
+            });
+        }
+
+        // Fetch Github Images for Autocomplete
+        async function fetchGitHubImages() {
+            const datalist = document.getElementById('githubImagesList');
+            const statusSpan = document.getElementById('githubApiStatus');
+            if (statusSpan) statusSpan.innerText = "🔄 Syncing /images/ list...";
+
+            try {
+                const res = await fetch("https://api.github.io/repos/freeearningsonline/Ai-Prompt-/contents/images");
+                if (res.ok) {
+                    const data = await res.json();
+                    datalist.innerHTML = '';
+                    let count = 0;
+                    data.forEach(item => {
+                        if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name)) {
+                            const opt = document.createElement('option');
+                            opt.value = item.name;
+                            datalist.appendChild(opt);
+                            count++;
+                        }
+                    });
+                    if (statusSpan) statusSpan.innerText = `✅ Found ${count} images in repo.`;
+                }
+            } catch (err) {
+                if (statusSpan) statusSpan.innerText = "⚠️ GitHub API rate limit reached.";
+            }
+        }
+        window.fetchGitHubImages = fetchGitHubImages;
+
+        // Categories Management
+        function renderCategoryDropdown() {
+            const select = document.getElementById('pCategory');
+            if(!select) return;
+            select.innerHTML = '';
+            categoriesList.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.innerText = cat;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderCategoryManager() {
+            const container = document.getElementById('adminCategoryList');
+            if(!container) return;
+            container.innerHTML = '';
+            categoriesList.forEach((cat, index) => {
+                const span = document.createElement('span');
+                span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
+                span.innerHTML = `
+                    <span>${cat}</span>
+                    <button onclick="window.deleteCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+                container.appendChild(span);
+            });
+        }
+
+        window.addNewCategory = async function() {
+            const input = document.getElementById('newCategoryInput');
+            const newCatVal = input.value.trim();
+            if(!newCatVal) return;
+            if (categoriesList.includes(newCatVal)) {
+                alert("Category already exists.");
+                return;
+            }
+            const updated = [...categoriesList, newCatVal];
+            await set(ref(db, 'categories'), updated);
+            input.value = '';
+        };
+
+        window.deleteCategory = async function(index) {
+            if (confirm("Are you sure you want to delete this category?")) {
+                const updated = categoriesList.filter((_, i) => i !== index);
+                await set(ref(db, 'categories'), updated);
+            }
+        };
+
+        // Prompts Management
+        function renderAdminPromptsList() {
+            const table = document.getElementById('adminPromptsListTable');
+            table.innerHTML = '';
+            if (promptsList.length === 0) {
+                table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No prompts found.</td></tr>`;
+                return;
+            }
+            
+            // Sort by latest
+            const sorted = [...promptsList].sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            sorted.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-semibold text-xs">${p.title}</td>
+                    <td class="px-4 py-3 text-xs">
+                        ${p.type === 'paid' ? `<span class="text-amber-500 font-bold">${window.formatCoins(p.priceCoins)} Coins</span>` : '<span class="text-emerald-500 font-bold">Free</span>'}
+                    </td>
+                    <td class="px-4 py-3 text-xs"><span class="bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded">${p.tags}</span></td>
+                    <td class="px-4 py-3 space-x-2 text-xs">
+                        <button onclick="window.editPrompt('${p.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">Edit</button>
+                        <button onclick="window.deletePrompt('${p.id}')" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">Delete</button>
+                    </td>
+                `;
+                table.appendChild(tr);
+            });
+        }
+
+        document.getElementById('promptForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const editId = document.getElementById('editPromptId').value;
+            const payload = {
+                title: document.getElementById('pTitle').value.trim(),
+                tags: document.getElementById('pCategory').value,
+                imageURL: document.getElementById('pImageURL').value.trim(),
+                views: parseInt(document.getElementById('pInitialViews').value) || 0,
+                description: document.getElementById('pDescription').value.trim(),
+                type: document.getElementById('pType').value,
+                priceCoins: document.getElementById('pType').value === 'paid' ? (parseInt(document.getElementById('pPrice').value) || 0) : 0,
+                isTrending: document.getElementById('pTrending').checked,
+                isPinned: document.getElementById('pPinned').checked,
+                timestamp: editId ? (promptsList.find(p=>p.id===editId)?.timestamp || Date.now()) : Date.now()
+            };
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = "Saving...";
+
+            try {
+                if (editId) {
+                    await update(ref(db, `prompts/${editId}`), payload);
+                    alert("Prompt updated successfully.");
+                } else {
+                    await push(ref(db, 'prompts'), payload);
+                    alert("New Prompt added successfully!");
+                }
+                window.resetPromptForm();
+            } catch (err) {
+                alert("Failed to save prompt: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Save Prompt";
+            }
+        });
+
+        window.editPrompt = function(id) {
+            const p = promptsList.find(item => item.id === id);
+            if (p) {
+                document.getElementById('promptFormTitle').innerText = 'Edit Prompt';
+                document.getElementById('editPromptId').value = p.id;
+                document.getElementById('pTitle').value = p.title;
+                document.getElementById('pCategory').value = p.tags || 'Viral';
+                document.getElementById('pDescription').value = p.description;
+                document.getElementById('pImageURL').value = p.imageURL || '';
+                document.getElementById('pType').value = p.type || 'free';
+                document.getElementById('pPrice').value = p.priceCoins || 0;
+                document.getElementById('pTrending').checked = !!p.isTrending;
+                document.getElementById('pPinned').checked = !!p.isPinned;
+                document.getElementById('pInitialViews').value = p.views || 0;
+                window.togglePriceField();
+                
+                // Scroll to top
+                document.querySelector('main').scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.deletePrompt = async function(id) {
+            if (confirm("Delete this prompt completely?")) {
+                await remove(ref(db, `prompts/${id}`));
+                alert("Prompt deleted.");
+            }
+        };
+
+        // Blogs Management
+        function renderAdminBlogsList() {
+            const table = document.getElementById('adminBlogsListTable');
+            table.innerHTML = '';
+            if (blogsList.length === 0) {
+                table.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-500">No blogs found.</td></tr>`;
+                return;
+            }
+            
+            const sorted = [...blogsList].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+            sorted.forEach(blog => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-semibold text-xs">${blog.title}</td>
+                    <td class="px-4 py-3 text-xs text-slate-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
+                    <td class="px-4 py-3 space-x-2 text-xs">
+                        <button onclick="window.editBlog('${blog.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">Edit</button>
+                        <button onclick="window.deleteBlog('${blog.id}')" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">Delete</button>
+                    </td>
+                `;
+                table.appendChild(tr);
+            });
+        }
+
+        document.getElementById('blogForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('editBlogId').value;
+            const payload = {
+                title: document.getElementById('bTitle').value.trim(),
+                keywords: document.getElementById('bKeywords').value.trim(),
+                imageURL: document.getElementById('bImageURL').value.trim(),
+                centerImageURL: document.getElementById('bCenterImageURL').value.trim(),
+                excerpt: document.getElementById('bExcerpt').value.trim(),
+                content: document.getElementById('bContent').value.trim(),
+                author: "Nazim Mustafa",
+                createdAt: editId ? (blogsList.find(b => b.id === editId)?.createdAt || Date.now()) : Date.now()
+            };
+
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = "Publishing...";
+
+            try {
+                if (editId) {
+                    await update(ref(db, `blogs/${editId}`), payload);
+                    alert("Blog post updated.");
+                } else {
+                    await push(ref(db, 'blogs'), payload);
+                    alert("Blog post published!");
+                }
+                window.resetBlogForm();
+            } catch (err) {
+                alert("Failed to save blog: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Publish Post";
+            }
+        });
+
+        window.editBlog = function(id) {
+            const blog = blogsList.find(b => b.id === id);
+            if (blog) {
+                document.getElementById('blogFormTitle').innerText = 'Edit Blog Post';
+                document.getElementById('editBlogId').value = blog.id;
+                document.getElementById('bTitle').value = blog.title;
+                document.getElementById('bKeywords').value = blog.keywords || '';
+                document.getElementById('bImageURL').value = blog.imageURL || '';
+                document.getElementById('bCenterImageURL').value = blog.centerImageURL || '';
+                document.getElementById('bExcerpt').value = blog.excerpt || '';
+                document.getElementById('bContent').value = blog.content || '';
+                
+                document.querySelector('main').scrollTo({top: 0, behavior: 'smooth'});
+            }
+        };
+
+        window.deleteBlog = async function(id) {
+            if (confirm("Are you sure you want to delete this blog post?")) {
+                await remove(ref(db, `blogs/${id}`));
+            }
+        };
+
+        // Configuration (API & Ads)
+        window.saveApiKey = async function() {
+            const keyVal = document.getElementById('adminApiKeyInput').value.trim();
+            if(!keyVal) { alert("Please enter API Key."); return; }
+            await set(ref(db, 'settings/geminiApiKey'), keyVal);
+            alert("API Key updated securely.");
+        };
+
+        window.saveAdsConfig = async function() {
+            const payload = {
+                top: document.getElementById('adDisplayTop').value,
+                center: document.getElementById('adArticleCenter').value,
+                multiplex: document.getElementById('adMultiplexBottom').value,
+                bottom: document.getElementById('adDisplayBottom').value,
+            };
+            try {
+                await set(ref(db, 'settings/ads'), payload);
+                alert("AdSense Configuration Saved Successfully!");
+            } catch (err) {
+                alert("Failed to save ads: " + err.message);
+            }
+        };
+
+        // Payments
+        window.approvePayment = async function(txId, userId, amount) {
+            try {
+                await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
+                const userCoinsRef = ref(db, `users/${userId}/coins`);
+                await runTransaction(userCoinsRef, (currentCoins) => {
+                    return (currentCoins || 0) + amount;
+                });
+                alert("Payment Approved! Coins added to user wallet.");
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        };
+
+    </script>
+</body>
+</html>
