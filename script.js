@@ -19,12 +19,12 @@ function resolveImageSrc(imageVal) {
 }
 window.resolveImageSrc = resolveImageSrc;
 
-// Helper to generate clean slugs
+// Helper function to create SEO friendly Slugs from Titles
 function createSlug(text) {
     return text ? text.toString().toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
 }
 
-// Updated SEO Metadata updating with dynamic canonical tag
+// SEO Metadata Function (Canonical URL added for Google Indexing)
 function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBlog = false, itemId = null, isPrompt = false) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
@@ -38,6 +38,7 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix, isBl
         metaKey.setAttribute('content', keywordsSuffix || "AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro");
     }
 
+    // Dynamic Canonical URL Update for Google Indexing
     let cleanUrl = window.location.origin + window.location.pathname;
     if (isBlog && itemId) {
         cleanUrl += `?blog=${itemId}`;
@@ -795,7 +796,7 @@ async function fetchGitHubImages() {
         } else {
             if (statusSpan) {
                 statusSpan.innerText = "⚠️ Repo folder empty or offline. Enter filename manually.";
-                statusSpan.className = "block text-[10px] text-rose-500 font-semibold mt-1";
+                statusSpan.className = "block text-[10px] text-rose-500/80 font-semibold mt-1";
             }
         }
     } catch (err) {
@@ -993,6 +994,10 @@ async function parseBlogUrls(urls) {
             const dateEl = doc.querySelector('article .text-xs') || doc.querySelector('.text-xs');
             const dateStr = dateEl ? dateEl.innerText : "Recent";
             
+            // Extract the whole content html inside ".prose" or article tag
+            const proseEl = doc.querySelector('.prose') || doc.querySelector('article') || doc.body;
+            const contentHtml = proseEl ? proseEl.innerHTML : "";
+            
             const slug = url.substring(url.lastIndexOf('/') + 1).replace('.html', '');
             
             window.appState.blogsList.push({
@@ -1001,7 +1006,8 @@ async function parseBlogUrls(urls) {
                 title: title,
                 category: category,
                 excerpt: description,
-                content: "", 
+                content: contentHtml, // Store parsed html content directly
+                isStatic: true, // Identify as static blog
                 imageURL: imageURL.replace('../images/', ''), 
                 keywords: keywords,
                 createdAt: new Date(dateStr).getTime() || Date.now() 
@@ -1068,8 +1074,8 @@ window.renderHomeBlogSlider = function() {
         const itemSlug = blog.slug || blog.id;
 
         const card = document.createElement('a');
-        card.href = `/blog/${itemSlug}.html`;
-        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
+        card.href = `?blog=${itemSlug}`;
+        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block";
         card.onclick = (e) => { 
             e.preventDefault(); 
             window.history.pushState({}, '', `?blog=${itemSlug}`);
@@ -1245,33 +1251,36 @@ window.openBlogDetail = function(idOrSlug) {
     if (blogDetailMeta) {
         blogDetailMeta.innerText = `Published: ${dateStr} | Author: ${blog.author || 'Nazim Mustafa'}`;
     }
-    
-    const paragraphs = blog.content.split('\n').filter(p => p.trim());
-    const midIndex = Math.ceil(paragraphs.length / 2);
-    
-    const topHtml = paragraphs.slice(0, midIndex).map(p => parseSEOContent(p)).join('');
-    const bottomHtml = paragraphs.slice(midIndex).map(p => parseSEOContent(p)).join('');
 
     const contentTop = document.getElementById('blogDetailContentTop');
     const contentBottom = document.getElementById('blogDetailContentBottom');
-    
-    if (contentTop) contentTop.innerHTML = topHtml;
-    if (contentBottom) contentBottom.innerHTML = bottomHtml;
-
     const centerImgEl = document.getElementById('blogDetailCenterImg');
-    if (centerImgEl) {
-        if (blog.centerImageURL && blog.centerImageURL.trim() !== '') {
-            centerImgEl.src = window.resolveImageSrc(blog.centerImageURL);
-            centerImgEl.classList.remove('hidden');
-        } else {
-            centerImgEl.classList.add('hidden');
+
+    if (blog.isStatic) {
+        // Render raw HTML compiled inside our sitemap reader directly into the top container
+        if (contentTop) contentTop.innerHTML = blog.content;
+        if (contentBottom) contentBottom.innerHTML = "";
+        if (centerImgEl) centerImgEl.classList.add('hidden'); 
+    } else {
+        // Fallback for old database-driven raw text paragraphs rendering
+        const paragraphs = blog.content.split('\n').filter(p => p.trim());
+        const midIndex = Math.ceil(paragraphs.length / 2);
+        
+        const topHtml = paragraphs.slice(0, midIndex).map(p => parseSEOContent(p)).join('');
+        const bottomHtml = paragraphs.slice(midIndex).map(p => parseSEOContent(p)).join('');
+
+        if (contentTop) contentTop.innerHTML = topHtml;
+        if (contentBottom) contentBottom.innerHTML = bottomHtml;
+
+        if (centerImgEl) {
+            if (blog.centerImageURL && blog.centerImageURL.trim() !== '') {
+                centerImgEl.src = window.resolveImageSrc(blog.centerImageURL);
+                centerImgEl.classList.remove('hidden');
+            } else {
+                centerImgEl.classList.add('hidden');
+            }
         }
     }
-
-    window.injectHtmlWithScripts('adTopContainer', window.appState.ads.top);
-    window.injectHtmlWithScripts('adCenterContainer', window.appState.ads.center);
-    window.injectHtmlWithScripts('adMultiplexContainer', window.appState.ads.multiplex);
-    window.injectHtmlWithScripts('adBottomContainer', window.appState.ads.bottom);
 
     window.updatePageMetadata(blog.title, blog.excerpt || blog.content.substring(0, 150).replace(/<[^>]+>/g, ''), blog.keywords || "AI Prompts, Guide, Update", true, blog.slug || blog.id, false);
 };
@@ -1333,11 +1342,11 @@ if (blogFormEl) {
         try {
             if (editId) {
                 await update(ref(db, `blogs/${editId}`), payload);
-                alert("Blog post updated successfully.");
+                alert("Blog post updated successfully in database.");
             } else {
                 const newBlogRef = push(ref(db, 'blogs'));
                 await set(newBlogRef, payload);
-                alert("New Blog post published successfully!");
+                alert("New Blog post published successfully in database!");
             }
             window.resetBlogForm();
             window.switchTab('blog');
@@ -1507,7 +1516,6 @@ function renderCategoryDropdown(categories) {
     });
 }
 
-// Admin Category Manager HTML Elements
 function renderAdminCategoryManager(categories) {
     const container = document.getElementById('adminCategoryList');
     if(!container) return;
@@ -1938,7 +1946,7 @@ window.openPromptDetail = async function(idOrSlug) {
         detailPromptText.innerText = p.description;
         if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
             detailPromptText.innerHTML += `
-                <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-850 flex gap-2">
+                <div class="mt-4 pt-4 border-t border-slate-250 dark:border-slate-855 flex gap-2">
                     <button onclick="window.editPrompt('${p.id}'); window.closePromptDetailModal();" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded transition">Edit</button>
                     <button onclick="window.deletePrompt('${p.id}'); window.closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
                 </div>
