@@ -1,0 +1,30 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Block unnecessary system files
+Disallow: /404.html
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Allow important SEO pages
+Allow: /index.html
+Allow: /about-us.html
+Allow: /contact-us.html
+Allow: /privacy-policy.html
+
+# Crawl delay (optional - mostly for bots like Bing)
+Crawl-delay: 5
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /private/
+
+# Specific rules for Bingbot
+User-agent: Bingbot
+Crawl-delay: 5
+
+# Sitemap location
+Sitemap: https://freeearningsonline.github.io/sitemap.xml
