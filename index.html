@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -10,7 +11,7 @@
     <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
     <meta name="author" content="Nazim Mustafa">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://freeearningsonline.github.io/">
+    <!-- Canonical tag is now handled dynamically by script.js for SEO Indexing -->
 
     <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
@@ -66,23 +67,11 @@
         }
     </script>
     <style>
-        /* Custom scrollbar design */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .dark ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300 font-medium">
@@ -90,19 +79,16 @@
     <!-- DESKTOP TOP NAVBAR -->
     <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 w-full px-4 py-3 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-            <!-- Logo -->
             <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-wider text-brand-500">
                 <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
                 <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
             </a>
 
-            <!-- Search Bar (Desktop) -->
             <div class="hidden md:flex flex-1 max-w-md relative">
                 <input type="text" id="desktopSearch" oninput="window.handleSearch()" placeholder="Search prompts or blogs..." class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 dark:text-slate-500"></i>
             </div>
 
-            <!-- Menu Links (Desktop) -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <button onclick="window.switchTab('home')" class="hover:text-brand-500 transition">Home</button>
                 <button onclick="window.switchTab('blog')" class="hover:text-brand-500 transition">Blog</button>
@@ -113,33 +99,22 @@
                     <span class="admin-chat-badge hidden absolute -top-2 -right-3 bg-red-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-white dark:border-slate-900 shadow-sm">1</span>
                 </button>
                 <button onclick="window.switchTab('wallet')" class="hover:text-brand-500 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-wallet text-amber-500"></i> 
-                    <span>Wallet</span>
+                    <i class="fa-solid fa-wallet text-amber-500"></i> <span>Wallet</span>
                 </button>
-                
                 <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact</a>
-
-                <!-- Day/Night Toggle Button -->
                 <button type="button" onclick="window.toggleTheme()" class="text-lg p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition text-amber-500 dark:text-amber-400">
                     <i id="themeIcon" class="fa-solid fa-moon"></i>
                 </button>
-
-                <!-- Admin Panel Button -->
                 <span id="adminBtnContainer" class="hidden">
                     <button onclick="window.location.href='/admin.html'" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Admin Panel</button>
                 </span>
-
-                <!-- Auth Options -->
                 <div class="flex items-center gap-2">
                     <button onclick="window.openAuthModal('login')" class="auth-logged-out hover:text-brand-500 transition">Login</button>
                     <button onclick="window.openAuthModal('signup')" class="auth-logged-out bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-1.5 rounded-full text-xs transition font-semibold">Join Free</button>
-
                     <span id="userEmailDisplay" class="auth-logged-in hidden text-xs text-slate-500 dark:text-slate-400 font-mono"></span>
                     <button onclick="window.logout()" class="auth-logged-in hidden bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs px-3 py-1.5 rounded-lg font-bold transition">Logout</button>
                 </div>
             </nav>
-
-            <!-- Hamburger Button (Mobile Only) -->
             <button onclick="window.toggleMobileMenu()" class="md:hidden text-2xl p-1 text-slate-500 dark:text-slate-400 hover:text-brand-500">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -156,13 +131,10 @@
             </div>
         </div>
         <div class="flex flex-col gap-5 text-base font-semibold">
-            <!-- Join Free / Login Options -->
             <div class="auth-logged-out flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <button onclick="window.openAuthModal('signup'); window.toggleMobileMenu();" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm text-center transition">Join Free</button>
                 <button onclick="window.openAuthModal('login'); window.toggleMobileMenu();" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-2.5 rounded-lg text-sm text-center transition">Login</button>
             </div>
-
-            <!-- Profile Info (Logged In) -->
             <div class="auth-logged-in hidden flex flex-col gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center justify-between">
                     <span id="mobileEmailDisplay" class="text-xs text-slate-500 dark:text-slate-400 font-mono truncate"></span>
@@ -172,7 +144,6 @@
                 </div>
                 <button onclick="window.logout(); window.toggleMobileMenu();" class="w-full bg-slate-200 dark:bg-slate-800 py-2 rounded-lg text-sm transition">Logout</button>
             </div>
-
             <button onclick="window.switchTab('home'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
             <button onclick="window.switchTab('blog'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
             <button onclick="window.openRequestModal(); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-paper-plane text-slate-400"></i> Request Prompt</button>
@@ -182,11 +153,9 @@
                 <span class="admin-chat-badge hidden absolute -top-1 -right-4 bg-red-500 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center">1</span>
             </button>
             <button onclick="window.switchTab('wallet'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-wallet text-slate-400"></i> Wallet</button>
-            
             <a href="/about-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-400"></i> About Us</a>
             <a href="/contact-us.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-envelope text-slate-400"></i> Contact</a>
             <a href="/dmca.html" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> DMCA</a>
-            
             <span id="mobileAdminBtn" class="hidden border-t border-slate-200 dark:border-slate-800 pt-3">
                 <button onclick="window.location.href='/admin.html'" class="text-left text-red-500 font-bold flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</button>
             </span>
@@ -210,7 +179,7 @@
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
         </section>
 
-        <!-- HIGH VALUE CONTENT FOR ADSENSE (NEWLY ADDED) -->
+        <!-- HIGH VALUE CONTENT FOR ADSENSE -->
         <section id="introPublisherContent" class="mb-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm leading-relaxed transition-colors duration-300">
             <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to PromptKaro: Your Gateway to AI Mastery in 2026</h2>
             <div class="text-slate-600 dark:text-slate-400 space-y-4 text-sm font-medium">
@@ -219,7 +188,6 @@
                 <p>Whether you are a student looking to streamline your academic research, a freelancer aiming to boost your income through AI-assisted services, or a digital artist searching for that perfect cinematic lighting formula, our platform is built for you. Browse our vast categories, read our deep-dive tutorials in the blog section, and join our global community of AI enthusiasts to stay ahead of the curve.</p>
             </div>
         </section>
-        <!-- END HIGH VALUE CONTENT -->
 
         <!-- Search Bar (Mobile View) -->
         <div class="md:hidden relative mb-6">
@@ -230,7 +198,6 @@
         <!-- Filters Section -->
         <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
             <button onclick="window.filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
-            <!-- Injected Category Buttons -->
         </div>
 
         <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
@@ -249,7 +216,6 @@
                 <div class="col-span-full py-12 text-center text-slate-500">Loading prompts...</div>
             </div>
 
-            <!-- Pagination Layout Elements -->
             <div id="paginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
                 <button onclick="window.changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
                 <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
@@ -264,17 +230,14 @@
                 <p class="text-xs text-slate-500">Read daily updates, tutorials, and advanced prompting techniques.</p>
             </div>
             
-            <!-- Blog Category Filters -->
             <div id="blogCategoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-2" style="scrollbar-width: none;">
                 <button onclick="window.filterBlogCategory('All')" data-blog-category="All" class="blog-category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Posts</button>
-                <!-- Injected Blog Category Buttons -->
             </div>
 
             <div id="blogsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Blogs dynamically loaded here -->
+                <div class="col-span-full py-12 text-center text-slate-500">Loading blogs...</div>
             </div>
 
-            <!-- Blog Pagination Controls -->
             <div id="blogPaginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
                 <button onclick="window.changeBlogPage(-1)" id="btnPrevBlog" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
                 <span id="blogPageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
@@ -285,7 +248,6 @@
         <!-- Section: Dedicated Wallet Section -->
         <section id="walletSection" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="flex flex-col md:flex-row gap-6">
-                <!-- Balance card -->
                 <div class="flex-1 space-y-4">
                     <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
                         <span class="text-xs font-semibold opacity-80 uppercase tracking-wider">Current Balance</span>
@@ -297,7 +259,6 @@
                         <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     </div>
 
-                    <!-- Deposit Guide -->
                     <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
                         <h3 class="font-bold text-md text-brand-500">EasyPaisa / JazzCash</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Please pay to Nazim Mustafa directly using the number details given below and save the screenshot receipt.</p>
@@ -314,7 +275,6 @@
                     </div>
                 </div>
 
-                <!-- Proof of purchase submission -->
                 <div class="flex-1 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Buy Coins</h3>
                     <p class="text-xs text-slate-500 mb-4">Submit deposit details below for manual and auto coin additions.</p>
@@ -337,17 +297,15 @@
                 </div>
             </div>
 
-            <!-- Transaction History -->
             <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
                     <div class="flex gap-2">
-                        <button onclick="window.switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History (Credits)</button>
-                        <button onclick="window.switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900">Unlock History (Debits)</button>
+                        <button onclick="window.switchHistoryTab('credits')" id="tabCredits" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-bold transition">Deposit History</button>
+                        <button onclick="window.switchHistoryTab('debits')" id="tabDebits" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-955 text-slate-500 dark:text-slate-400 text-xs font-bold transition hover:bg-slate-200 dark:hover:bg-slate-900">Unlock History</button>
                     </div>
                 </div>
                 
-                <!-- Deposit Credits List Table -->
                 <div id="tableCredits" class="overflow-x-auto text-xs">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
@@ -359,14 +317,11 @@
                             </tr>
                         </thead>
                         <tbody id="userTransactionsList">
-                            <tr>
-                                <td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td>
-                            </tr>
+                            <tr><td colspan="4" class="text-center py-4 text-slate-400">Please login to view history.</td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Debits Unlocks Log History Table -->
                 <div id="tableDebits" class="overflow-x-auto text-xs hidden">
                     <table class="w-full text-left text-slate-600 dark:text-slate-300">
                         <thead>
@@ -377,16 +332,14 @@
                             </tr>
                         </thead>
                         <tbody id="userPurchaseList">
-                            <tr>
-                                <td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td>
-                            </tr>
+                            <tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- Section: Dynamic Admin View (Maintained HTML structure here just in case, actual panel is admin.html) -->
+        <!-- Section: Dynamic Admin View -->
         <section id="adminView" class="hidden space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
@@ -403,22 +356,18 @@
                 <button onclick="window.switchTab('blog')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition">View All ➔</button>
             </div>
             <div id="homeBlogSliderContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
-                <!-- Dynamic 4 Latest Blogs -->
                 <div class="text-slate-500 text-sm py-4 w-full text-center">Loading latest blogs...</div>
             </div>
         </section>
 
         <!-- EXPANDED SEO ARTICLE & FAQ SECTION FOR ADSENSE APPROVAL -->
         <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
-            
             <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026</h2>
                 <p class="text-sm text-slate-500 mt-2">Mastering AI generation tools requires precise instructions. Read our comprehensive guide below to understand how PromptKaro can elevate your digital workflow.</p>
             </div>
 
             <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                
-                <div>
 
 <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
     <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
@@ -877,23 +826,21 @@
 </div>
 
 
-      <h3 class="font-bold text-brand-500 text-lg mb-2">1. What is an AI Prompt and Why Does it Matter?</h3>
-                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Think of a prompt as the steering wheel of the AI engine. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting. Without a well-structured prompt, the AI will provide generic, unpolished results. This is why "Prompt Engineering" has become one of the most valuable digital skills today.</p>
+                <div>
+                    <h3 class="font-bold text-brand-500 text-lg mb-2">1. What is an AI Prompt and Why Does it Matter?</h3>
+                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting.</p>
                 </div>
-
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">2. How PromptKaro Helps You Succeed</h3>
-                    <p>Our platform, PromptKaro, is built to eliminate the tedious trial-and-error phase of prompt creation. We compile, test, and categorize trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms. Whether you need a prompt for an Instagram viral 3D illusion, a professional LinkedIn post, or high-converting ad copy, we have it documented for you.</p>
+                    <p>Our platform compiles, tests, and categorizes trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms.</p>
                 </div>
-
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">3. Best AI Prompts for Earning Money and Freelancing</h3>
-                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes. Similarly, our "SEO Blog Copywriting Prompts" for ChatGPT enable writers to structure, draft, and finalize optimized articles much faster than traditional methods. By mastering these prompts, you can scale your freelance business exponentially.</p>
+                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes.</p>
                 </div>
-
                 <div>
                     <h3 class="font-bold text-brand-500 text-lg mb-2">4. Top ChatGPT Prompts for Students and Professionals</h3>
-                    <p>Students and professionals often struggle with structuring data. A good prompt transforms ChatGPT from a simple chatbot into a dedicated tutor or project manager. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting. Simply browse our "Education" or "Business" categories, copy the template, insert your specific topic, and watch the AI deliver a highly accurate and formatted response.</p>
+                    <p>Students and professionals often struggle with structuring data. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting.</p>
                 </div>
 
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
@@ -901,23 +848,14 @@
                     <div class="space-y-4">
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the prompts on PromptKaro free to copy?</p>
-                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. We believe in open access to basic AI knowledge. Only highly specialized, premium, and custom-designed formulas require digital coins to unlock.</p>
+                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. Only highly specialized, premium formulas require digital coins to unlock.</p>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: How does the AI Regenerate feature work?</p>
-                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles, lighting, and detail preferences. It costs 50,000 coins per generation, providing you with a truly unique, customized prompt variation.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: How do I get more coins in my wallet?</p>
-                            <p class="mt-1">A: You can recharge your account easily. Navigate to the Wallet section, review the instructions for local mobile payment platforms (like EasyPaisa or JazzCash), and submit your transaction ID (TID) along with the deposit amount. Our admins will verify and approve your coins shortly.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I request a custom prompt?</p>
-                            <p class="mt-1">A: Absolutely! If you cannot find what you are looking for in our database, use the "Request Prompt" button in the navigation menu. Describe your exact needs, and our community or admins will create a formula tailored for you.</p>
+                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles. It costs 50,000 coins per generation.</p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -930,7 +868,7 @@
                 <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
                 <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
             </div>
-            <!-- UPDATED LINKS FOR SEPARATE PAGES -->
+            <!-- DIRECT INTERNAL LINKS FOR SEO CRAWLING -->
             <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
                 <a href="/about-us.html" class="hover:text-brand-500 transition">About Us</a>
                 <a href="/contact-us.html" class="hover:text-brand-500 transition">Contact Us</a>
@@ -970,8 +908,6 @@
     <!-- MODAL: WhatsApp Style Global Community Chat -->
     <div id="communityChatModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-0 md:p-4 hidden">
         <div class="bg-[#efeae2] dark:bg-slate-900 border-0 md:border border-slate-200 dark:border-slate-800 rounded-none md:rounded-2xl w-full h-full md:h-[80vh] md:max-w-2xl overflow-hidden relative shadow-md flex flex-col">
-            
-            <!-- Header -->
             <div class="bg-[#00a884] dark:bg-slate-800 text-white p-4 flex justify-between items-center z-10 shadow-sm border-b border-[#00a884] dark:border-slate-700">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 h-10 w-10 rounded-full flex items-center justify-center text-xl">
@@ -986,17 +922,10 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            
-            <!-- Chat Area Background Pattern -->
             <div class="absolute inset-0 z-0 opacity-10 dark:opacity-5 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
-
-            <!-- Messages Container -->
             <div id="chatMessagesArea" class="flex-1 overflow-y-auto p-4 space-y-3 z-10 relative scroll-smooth flex flex-col">
                 <div class="text-center my-4"><span class="bg-amber-100 text-amber-800 text-[10px] px-3 py-1 rounded-lg shadow-sm font-bold">Welcome to PromptKaro Global Chat! Note: Be respectful.</span></div>
-                <!-- Dynamic Chat Bubbles Here -->
             </div>
-
-            <!-- Input Area -->
             <div class="bg-white dark:bg-slate-800 p-3 flex gap-2 items-end z-10 border-t border-slate-200 dark:border-slate-700">
                 <textarea id="chatInput" rows="1" placeholder="Type a message..." class="flex-1 bg-slate-100 dark:bg-slate-950 border-0 rounded-2xl px-4 py-3 text-sm focus:outline-none resize-none max-h-32 text-slate-900 dark:text-white" oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 128) + 'px'"></textarea>
                 <button onclick="window.sendChatMessage()" class="bg-[#00a884] hover:bg-[#018c6e] text-white h-11 w-11 rounded-full flex items-center justify-center transition flex-shrink-0 shadow-sm">
@@ -1135,7 +1064,6 @@
                     <i class="fa-solid fa-play"></i> Generate with PromptKaro AI 🚀
                 </button>
             </div>
-
             <!-- AI Output Glowing Textbox -->
             <div id="aiOutputContainer" class="hidden mt-6 p-5 bg-purple-500/10 dark:bg-purple-950/10 border border-purple-500/20 rounded-2xl space-y-3 shadow-sm font-semibold">
                 <div class="flex justify-between items-center border-b border-purple-500/20 pb-2">
@@ -1157,7 +1085,6 @@
             <button onclick="window.closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-
             <h3 id="authTitle" class="text-lg font-bold mb-4 text-slate-955 dark:text-white">Login</h3>
             <form id="authForm" class="space-y-4">
                 <div>
@@ -1195,19 +1122,6 @@
                 </div>
                 <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-sm transition shadow-sm font-sans">Send Request</button>
             </form>
-        </div>
-    </div>
-
-    <!-- MODAL: General Info -->
-    <div id="infoModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md relative p-6 shadow-md">
-            <button onclick="window.closeInfoModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 id="infoModalTitle" class="text-lg font-bold mb-3 text-brand-500">Info Title</h3>
-            <div id="infoModalContent" class="text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed font-semibold">
-                <!-- Injected text -->
-            </div>
         </div>
     </div>
 
