@@ -18,7 +18,7 @@ jobs:
     - name: Generate Sitemap
       uses: cicirello/generate-sitemap@v1
       with:
-        base-url-path: https://promptkaro.github.io
+        base-url-path: https://freeearningsonline.github.io
         path-to-root: .
         include-root: true
         additional-extensions: html
