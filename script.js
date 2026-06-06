@@ -8,18 +8,37 @@ import { getDatabase, ref, set, get, update, push, child, onValue, remove, runTr
 
 const GITHUB_BASE_URL = "https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/";
 
-function resolveImageSrc(imageVal) {
-    if (!imageVal) {
+// UPDATED: Smart Media Detection & Local Video Folder Integration
+function resolveMediaSrc(mediaVal) {
+    if (!mediaVal) {
         return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; 
     }
-    if (imageVal.startsWith("http://") || imageVal.startsWith("https://") || imageVal.startsWith("data:")) {
-        return imageVal;
+    // Check if it's a video file
+    if (mediaVal.match(/\.(mp4|webm|ogg)$/i)) {
+        if (mediaVal.startsWith("http://") || mediaVal.startsWith("https://") || mediaVal.startsWith("data:")) {
+            return mediaVal;
+        }
+        // Load locally from /videos/ folder
+        if (mediaVal.startsWith("/videos/")) return mediaVal;
+        return "/videos/" + mediaVal;
     }
-    return GITHUB_BASE_URL + imageVal;
+    // Handle standard images
+    if (mediaVal.startsWith("http://") || mediaVal.startsWith("https://") || mediaVal.startsWith("data:")) {
+        return mediaVal;
+    }
+    return GITHUB_BASE_URL + mediaVal;
 }
-window.resolveImageSrc = resolveImageSrc;
+window.resolveImageSrc = resolveMediaSrc;
 
-// UPDATED: SEO Metadata Function (Canonical URL added for Google Indexing)
+// UPDATED: Text Highlighter for Advanced Search
+function highlightText(text, search) {
+    if (!search || !text) return text;
+    const safeSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${safeSearch})`, 'gi');
+    return text.replace(regex, `<mark class="bg-brand-500/20 text-brand-500 rounded px-0.5">$1</mark>`);
+}
+window.highlightText = highlightText;
+
 function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
     document.title = titleSuffix ? `PromptKaro - ${titleSuffix}` : "PromptKaro - AI Prompt Sharing Platform";
     
@@ -33,7 +52,6 @@ function updatePageMetadata(titleSuffix, descriptionSuffix, keywordsSuffix) {
         metaKey.setAttribute('content', keywordsSuffix || "AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro");
     }
 
-    // Dynamic Canonical URL Update for Google Indexing
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
         canonical = document.createElement('link');
@@ -96,9 +114,16 @@ function updateThemeIcons() {
     }
 }
 window.toggleTheme = toggleTheme;
-window.addEventListener('DOMContentLoaded', updateThemeIcons);
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
+    updateThemeIcons();
+
+    // ADVANCED SEARCH: Real-time search listeners
+    const dSearch = document.getElementById('desktopSearch');
+    const mSearch = document.getElementById('mobileSearch');
+    if (dSearch) dSearch.addEventListener('input', window.handleSearch);
+    if (mSearch) mSearch.addEventListener('input', window.handleSearch);
+
     window.history.pushState({ type: 'tab', value: 'home' }, "");
     
     if (!localStorage.getItem('cookieAccepted')) {
@@ -179,20 +204,19 @@ function switchTab(tabId, isBack = false) {
         window.history.pushState({ type: 'tab', value: tabId }, "");
     }
 
-    document.getElementById('heroSection').classList.add('hidden');
-    document.getElementById('promptsSection').classList.add('hidden');
-    document.getElementById('adminView').classList.add('hidden');
-    document.getElementById('walletSection').classList.add('hidden');
-    document.getElementById('blogSection').classList.add('hidden'); 
-    document.getElementById('homeBlogSliderSection').classList.add('hidden');
+    const sections = ['heroSection', 'promptsSection', 'adminView', 'walletSection', 'blogSection', 'homeBlogSliderSection', 'seoGuideSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection'];
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+    });
 
     window.appState.viewMode = tabId; 
 
     if (tabId === 'home' || tabId === 'discover') {
-        document.getElementById('heroSection').classList.remove('hidden');
-        document.getElementById('promptsSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.remove('hidden'); 
-        document.getElementById('homeBlogSliderSection').classList.remove('hidden');
+        ['heroSection', 'promptsSection', 'seoGuideSection', 'homeBlogSliderSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.classList.remove('hidden');
+        });
         
         window.appState.currentPage = 1;
         if (typeof window.filterCategory === 'function') {
@@ -200,8 +224,8 @@ function switchTab(tabId, isBack = false) {
         }
         updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
     } else if (tabId === 'blog') {
-        document.getElementById('blogSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden'); 
+        const el = document.getElementById('blogSection');
+        if(el) el.classList.remove('hidden');
         window.appState.currentBlogPage = 1;
         
         if (typeof window.renderBlogs === 'function') {
@@ -209,30 +233,55 @@ function switchTab(tabId, isBack = false) {
         }
         updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.");
     } else if (tabId === 'admin') {
-        document.getElementById('adminView').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden');
+        const el = document.getElementById('adminView');
+        if(el) el.classList.remove('hidden');
         updatePageMetadata("Admin Panel");
         if (typeof window.fetchGitHubImages === 'function') {
             window.fetchGitHubImages();
         }
     } else if (tabId === 'wallet') {
-        document.getElementById('walletSection').classList.remove('hidden');
-        document.getElementById('seoGuideSection').classList.add('hidden');
+        const el = document.getElementById('walletSection');
+        if(el) el.classList.remove('hidden');
         updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
     }
 }
 window.switchTab = switchTab;
 
-function handleSearch() {
+// ADVANCED SEARCH LOGIC
+window.handleSearch = function() {
+    const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
+    
+    // Hide/Show non-related sections dynamically when typing
+    const sectionsToToggle = [
+        'heroSection', 
+        'homeBlogSliderSection', 
+        'seoGuideSection', 
+        'founderSection', 
+        'bentoGridSection', 
+        'videoPromptsSection'
+    ];
+
     if (window.appState.viewMode === 'blog') {
         window.appState.currentBlogPage = 1;
         if(typeof window.renderBlogs === 'function') window.renderBlogs();
     } else {
         window.appState.currentPage = 1;
+        
+        if (searchVal) {
+            sectionsToToggle.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+        } else {
+            sectionsToToggle.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('hidden');
+            });
+        }
+        
         if(typeof window.renderPrompts === 'function') window.renderPrompts();
     }
 }
-window.handleSearch = handleSearch;
 
 function openModal(id) {
     window.appState.navigationStack.push({ type: 'modal', value: id });
@@ -359,10 +408,25 @@ function toggleAuthMode() {
 }
 window.toggleAuthMode = toggleAuthMode;
 
+// UPDATED BUG FIX: Safely handling modal close to prevent AbortError
 function closePromptDetailModal() {
     window.closeModal('promptDetailModal');
     document.getElementById('aiOutputContainer').classList.add('hidden');
     document.getElementById('aiPanel').classList.add('hidden');
+    
+    // Cleanup custom overlay and video instance securely
+    const videoEl = document.getElementById('detailVideoEl');
+    const thumbOverlay = document.getElementById('detailThumbOverlay');
+    
+    if (videoEl) {
+        videoEl.pause();
+        videoEl.removeAttribute('src'); // Fully clear source instead of setting to ''
+        videoEl.load(); // Flush the media element safely
+    }
+    if (thumbOverlay) {
+        thumbOverlay.classList.remove('hidden');
+    }
+
     updatePageMetadata(); 
     clearUrlParameters(); 
 }
@@ -651,10 +715,17 @@ if (promptFormEl) {
     promptFormEl.addEventListener('submit', async (e) => {
         e.preventDefault(); 
         const editId = document.getElementById('editPromptId').value;
+        
+        const rawImageUrl = document.getElementById('pImageURL').value.trim();
+        const fallbackMediaType = rawImageUrl.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image';
+        const definedMediaType = document.getElementById('pMediaType') ? document.getElementById('pMediaType').value : fallbackMediaType;
+
         const payload = {
             title: document.getElementById('pTitle').value.trim(),
             tags: document.getElementById('pCategory').value,
-            imageURL: document.getElementById('pImageURL').value.trim(),
+            imageURL: rawImageUrl,
+            mediaType: definedMediaType,
+            thumbnailURL: document.getElementById('pThumbnailURL') ? document.getElementById('pThumbnailURL').value.trim() : "",
             views: parseInt(document.getElementById('pInitialViews').value) || 0,
             description: document.getElementById('pDescription').value.trim(),
             type: document.getElementById('pType').value,
@@ -778,7 +849,7 @@ async function fetchGitHubImages() {
             let count = 0;
 
             data.forEach(item => {
-                if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name)) {
+                if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif|mp4|webm)$/i.test(item.name)) {
                     const option = document.createElement('option');
                     option.value = item.name;
                     datalist.appendChild(option);
@@ -787,7 +858,7 @@ async function fetchGitHubImages() {
             });
 
             if (statusSpan) {
-                statusSpan.innerText = `✅ Found ${count} images in GitHub /images/ folder.`;
+                statusSpan.innerText = `✅ Found ${count} media files in GitHub folder.`;
                 statusSpan.className = "block text-[10px] text-emerald-500 font-semibold mt-1";
             }
         } else {
@@ -1350,7 +1421,7 @@ onValue(categoriesRef, (snapshot) => {
     if (snapshot.exists()) {
         window.appState.categories = snapshot.val();
     } else {
-        const defaultCats = ["Viral", "IG Trend", "Boys", "Girls"];
+        const defaultCats = ["Viral", "ChatGPT", "Midjourney", "Flux", "Runway", "Kling", "Veo", "IG Trend", "Boys", "Girls"];
         set(categoriesRef, defaultCats);
         window.appState.categories = defaultCats;
     }
@@ -1373,25 +1444,32 @@ onValue(blogCategoriesRef, (snapshot) => {
     renderAdminBlogCategoryManager(window.appState.blogCategories);
 });
 
+// UPDATED: Category Pills with New Static Filters integration
 function renderCategoryPills(categories) {
     const container = document.getElementById('categoryFiltersContainer');
     if(!container) return;
     container.innerHTML = '';
 
-    const allBtn = document.createElement('button');
-    allBtn.onclick = () => window.filterCategory('All');
-    allBtn.className = "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition";
-    allBtn.innerText = "All Prompts";
-    allBtn.setAttribute('data-category', 'All');
-    container.appendChild(allBtn);
+    const createBtn = (catName, filterVal) => {
+        const btn = document.createElement('button');
+        btn.onclick = () => window.filterCategory(filterVal);
+        
+        const isActive = window.appState.currentFilter === filterVal;
+        btn.className = isActive 
+            ? "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition shadow-sm"
+            : "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
+        
+        btn.innerText = catName;
+        btn.setAttribute('data-category', filterVal);
+        return btn;
+    };
+
+    container.appendChild(createBtn('All Prompts', 'All'));
+    container.appendChild(createBtn('Video Prompts', 'Video Prompts'));
+    container.appendChild(createBtn('Image Prompts', 'Image Prompts'));
 
     categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.onclick = () => window.filterCategory(cat);
-        btn.className = "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
-        btn.innerText = cat;
-        btn.setAttribute('data-category', cat);
-        container.appendChild(btn);
+        container.appendChild(createBtn(cat, cat));
     });
 }
 
@@ -1619,8 +1697,10 @@ onValue(promptsRef, (snapshot) => {
         }
     }
     renderPrompts();
+    if(typeof window.renderVideoPrompts === 'function') window.renderVideoPrompts();
 });
 
+// UPDATED: Filter logic, Smart Detection, Text Highlighting, Fast Rendering, No Results Message
 function renderPrompts() {
     const grid = document.getElementById('promptsGrid');
     const countText = document.getElementById('promptsCount');
@@ -1630,15 +1710,26 @@ function renderPrompts() {
 
     let filtered = window.appState.promptsList;
 
+    // Smart Categories Implementation
     if (window.appState.viewMode === 'discover') {
         filtered = window.appState.promptsList.filter(p => p.isTrending === true);
+    } else if (window.appState.currentFilter === 'Video Prompts') {
+        filtered = window.appState.promptsList.filter(p => p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i)));
+    } else if (window.appState.currentFilter === 'Image Prompts') {
+        filtered = window.appState.promptsList.filter(p => p.mediaType !== 'video' && (!p.imageURL || !p.imageURL.match(/\.(mp4|webm|ogg)$/i)));
     } else if (window.appState.currentFilter !== 'All') {
         filtered = window.appState.promptsList.filter(p => p.tags === window.appState.currentFilter);
     }
 
-    const searchVal = (document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '').toLowerCase();
+    const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
+    
+    // Real-Time Search Multi-Layer Filtering
     if (searchVal) {
-        filtered = filtered.filter(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
+        filtered = filtered.filter(p => 
+            p.title.toLowerCase().includes(searchVal) || 
+            p.description.toLowerCase().includes(searchVal) || 
+            (p.tags && p.tags.toLowerCase().includes(searchVal))
+        );
     }
 
     filtered.sort((a, b) => {
@@ -1647,10 +1738,24 @@ function renderPrompts() {
         return b.views - a.views;
     });
 
-    if(countText) countText.innerText = `${filtered.length} prompts found`;
+    // Update Counter Dynamically
+    if(countText) {
+        if (searchVal) {
+            countText.innerHTML = `<span class="bg-brand-500/10 text-brand-500 px-2 py-1 rounded-md font-bold shadow-sm">${filtered.length} Prompts Found</span>`;
+        } else {
+            countText.innerText = `${filtered.length} prompts available`;
+        }
+    }
 
+    // Modern No Results Message Animation
     if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No prompts found matching filter criteria.</div>`;
+        grid.innerHTML = `
+            <div class="col-span-full py-16 flex flex-col items-center justify-center text-center animate-fade-in w-full">
+                <i class="fa-solid fa-face-frown-open text-4xl text-slate-300 dark:text-slate-600 mb-4 animate-bounce"></i>
+                <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No Results Found</h3>
+                <p class="text-sm text-slate-500 mt-2">Try searching with different keywords or switch filters.</p>
+            </div>
+        `;
         if(pagControls) pagControls.classList.add('hidden');
         return;
     }
@@ -1695,22 +1800,42 @@ function renderPrompts() {
         card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
         card.onclick = () => window.openPromptDetail(p.id);
 
-        const finalImgUrl = window.resolveImageSrc(p.imageURL);
+        const finalUrl = window.resolveImageSrc(p.imageURL);
         const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
+        const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+
+        const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
+        let mediaHTML = '';
+        
+        // Render Image or Background Optimized Video smoothly with catch to prevent AbortError
+        if (isVideo) {
+            mediaHTML = `<video src="${finalUrl}" poster="${finalThumbImg}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300" muted playsinline preload="none" loop onmouseover="let pl=this.play(); if(pl)pl.catch(()=>{});" onmouseout="this.pause()"></video>`;
+        } else {
+            mediaHTML = `<img src="${finalUrl}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">`;
+        }
+
+        // Highlight active searched text
+        let displayTitle = p.title;
+        let displayTags = p.tags || 'General';
+        
+        if (searchVal) {
+            displayTitle = window.highlightText(p.title, searchVal);
+            displayTags = window.highlightText(displayTags, searchVal);
+        }
 
         card.innerHTML = `
-            <img src="${finalImgUrl}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div class="absolute top-3 left-3 flex flex-col gap-1">
+            ${mediaHTML}
+            <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
                 ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
             </div>
-            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200">
+            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 z-10">
                 ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
             </span>
-            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none">
-                <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${p.title}</h4>
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none z-10">
+                <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${displayTitle}</h4>
                 <div class="flex justify-between items-center mt-1.5 text-[9px] text-slate-300 font-semibold">
                     <span><i class="fa-regular fa-eye mr-1"></i>${formatCoins(p.views || 0)} views</span>
-                    <span>#${p.tags || 'General'}</span>
+                    <span>${isVideo ? '<i class="fa-solid fa-video text-brand-400 mr-1"></i>' : ''}#${displayTags}</span>
                 </div>
             </div>
         `;
@@ -1718,6 +1843,47 @@ function renderPrompts() {
     });
 }
 window.renderPrompts = renderPrompts;
+
+// NEW: Advanced AI Video Prompts Dedicated Section Renderer
+window.renderVideoPrompts = function() {
+    const container = document.getElementById('videoPromptsContainer');
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    const videoPrompts = window.appState.promptsList.filter(p => p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i)));
+    videoPrompts.sort((a, b) => b.timestamp - a.timestamp);
+    
+    if (videoPrompts.length === 0) {
+        container.innerHTML = '<div class="text-slate-500 text-sm py-4 w-full text-center">No video prompts uploaded yet.</div>';
+        return;
+    }
+
+    videoPrompts.forEach(p => {
+        const isPaid = p.type === 'paid';
+        const finalUrl = window.resolveImageSrc(p.imageURL); 
+        const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+        
+        const card = document.createElement('article');
+        card.className = "snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer group relative aspect-[16/9]";
+        card.onclick = () => window.openPromptDetail(p.id);
+        
+        card.innerHTML = `
+            <video src="${finalUrl}" poster="${finalThumbImg}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300" muted playsinline preload="none" loop onmouseover="let pl=this.play(); if(pl)pl.catch(()=>{});" onmouseout="this.pause()"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
+            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 z-20">
+                ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
+            </span>
+            <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-col pointer-events-none">
+                <span class="text-[9px] bg-brand-500/20 text-brand-400 font-bold px-2 py-0.5 rounded-full uppercase w-fit mb-1 border border-brand-500/30"><i class="fa-solid fa-video mr-1"></i>${p.tags || 'Video'}</span>
+                <h3 class="text-sm font-bold text-white line-clamp-1">${p.title}</h3>
+            </div>
+            <button class="absolute inset-0 m-auto w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition z-20 shadow">
+                <i class="fa-solid fa-play text-white"></i>
+            </button>
+        `;
+        container.appendChild(card);
+    });
+};
 
 window.changePage = function(direction) {
     window.appState.currentPage += direction;
@@ -1730,16 +1896,15 @@ window.filterCategory = function(cat) {
     window.appState.currentPage = 1; 
     document.querySelectorAll('.category-btn').forEach(btn => {
         if (btn.getAttribute('data-category') === cat) {
-            btn.classList.add('bg-brand-500', 'text-white');
-            btn.classList.remove('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+            btn.className = "category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition shadow-sm";
         } else {
-            btn.classList.remove('bg-brand-500', 'text-white');
-            btn.classList.add('bg-white', 'dark:bg-slate-900', 'border-slate-200', 'dark:border-slate-800');
+            btn.className = "category-btn bg-white border border-slate-200 hover:border-brand-500 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-brand-500 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-slate-955 dark:text-slate-100";
         }
     });
     renderPrompts();
 }
 
+// UPDATED: Dynamic Modal Injection for Secure Video and Image Rendering (Fixing AbortError)
 window.openPromptDetail = async function(id) {
     const p = window.appState.promptsList.find(item => item.id === id);
     if (!p) return;
@@ -1803,16 +1968,77 @@ window.openPromptDetail = async function(id) {
 
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
     const detailImgEl = document.getElementById('detailImg');
+    const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
+
+    // Smart Modal Element Injection logic
     if (detailImgEl) {
-        detailImgEl.src = finalDetailsImg;
-        detailImgEl.onerror = function() {
-            this.onerror = null;
-            this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
-        };
+        const parent = detailImgEl.parentNode;
+        parent.classList.add('relative'); 
+        
+        let oldVideo = document.getElementById('detailVideoEl');
+        let oldOverlay = document.getElementById('detailThumbOverlay');
+        
+        // Clean up memory safely before removing old elements
+        if (oldVideo) {
+            oldVideo.pause();
+            oldVideo.removeAttribute('src');
+            oldVideo.load();
+            oldVideo.remove();
+        }
+        if (oldOverlay) oldOverlay.remove();
+        
+        if (isVideo) {
+            detailImgEl.classList.add('hidden');
+            const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            
+            const thumbOverlay = document.createElement('div');
+            thumbOverlay.id = 'detailThumbOverlay';
+            thumbOverlay.className = "absolute inset-0 w-full h-full z-20 flex items-center justify-center cursor-pointer group bg-slate-900 rounded-xl overflow-hidden shadow-sm";
+            thumbOverlay.innerHTML = `
+                <img src="${finalThumbImg}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe'">
+                <div class="relative w-16 h-16 bg-brand-500/90 text-white rounded-full flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(14,165,233,0.5)] transform group-hover:scale-110 transition duration-300">
+                    <i class="fa-solid fa-play ml-1"></i>
+                </div>
+            `;
+            
+            const videoEl = document.createElement('video');
+            videoEl.id = 'detailVideoEl';
+            videoEl.className = "w-full h-full object-cover rounded-xl shadow-inner max-h-[60vh] md:max-h-full bg-slate-950 absolute inset-0 z-10 hidden";
+            videoEl.controls = true;
+            videoEl.autoplay = false; 
+            videoEl.muted = false; 
+            videoEl.playsInline = true;
+            videoEl.src = finalDetailsImg;
+
+            parent.style.minHeight = '250px';
+            parent.insertBefore(videoEl, detailImgEl.nextSibling);
+            parent.insertBefore(thumbOverlay, videoEl);
+
+            thumbOverlay.onclick = () => {
+                thumbOverlay.classList.add('hidden');
+                videoEl.classList.remove('hidden');
+                videoEl.play().catch(e => console.warn("Playback error:", e));
+            };
+
+        } else {
+            detailImgEl.classList.remove('hidden');
+            detailImgEl.src = finalDetailsImg;
+            detailImgEl.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            };
+        }
     }
 
     const downloadBtn = document.getElementById('downloadBtn');
-    if (downloadBtn) downloadBtn.href = finalDetailsImg || '#';
+    if (downloadBtn) {
+        downloadBtn.href = finalDetailsImg || '#';
+        if (isVideo) {
+            downloadBtn.setAttribute('download', 'video.mp4');
+        } else {
+            downloadBtn.removeAttribute('download');
+        }
+    }
 
     const detailTitle = document.getElementById('detailTitle');
     if (detailTitle) detailTitle.innerText = p.title;
@@ -1858,11 +2084,21 @@ window.editPrompt = async function(id) {
         document.getElementById('pCategory').value = p.tags || 'Viral';
         document.getElementById('pDescription').value = p.description;
         document.getElementById('pImageURL').value = p.imageURL || '';
+        
+        if (document.getElementById('pThumbnailURL')) {
+            document.getElementById('pThumbnailURL').value = p.thumbnailURL || '';
+        }
+        
         document.getElementById('pType').value = p.type;
         document.getElementById('pPrice').value = p.priceCoins || 0;
         document.getElementById('pTrending').checked = !!p.isTrending;
         document.getElementById('pPinned').checked = !!p.isPinned;
         document.getElementById('pInitialViews').value = p.views || 0;
+        
+        if (document.getElementById('pMediaType')) {
+            document.getElementById('pMediaType').value = p.mediaType || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
+        }
+
         window.togglePriceField();
         window.switchTab('admin');
         window.toggleAdminTab('addPrompt');
