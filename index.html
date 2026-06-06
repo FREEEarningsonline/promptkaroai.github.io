@@ -7,27 +7,27 @@
     <title>PromptKaro - AI Prompt Sharing Platform</title>
     
     <!-- TECHNICAL SEO METADATA -->
-    <meta name="description" content="Explore, copy, and share free trending AI prompts for Midjourney, Stable Diffusion, ChatGPT, and Bing 3D Name Art. High conversion templates.">
-    <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
+    <meta name="description" content="Explore, copy, and share free trending AI prompts for Midjourney, Stable Diffusion, ChatGPT, AI Video Generators (Runway, Kling), and Bing 3D Name Art. High conversion templates.">
+    <meta name="keywords" content="AI Prompts, AI Video Prompts, Midjourney Prompts, ChatGPT Prompts, Bing 3D Name Art, Stable Diffusion, Free AI Prompts, Copy Paste Prompts, PromptKaro">
     <meta name="author" content="Nazim Mustafa">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://promptkaro.github.io/">
+    <link rel="canonical" href="https://freeearningsonline.github.io/">
 
     <!-- OPEN GRAPH / SOCIAL PREVIEWS -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://promptkaro.github.io/">
+    <meta property="og:url" content="https://freeearningsonline.github.io/">
     <meta property="og:title" content="PromptKaro - Free AI Prompt Sharing Platform">
-    <meta property="og:description" content="Vast library of optimized copy-paste prompts for high converting AI art and assistant chat designs.">
+    <meta property="og:description" content="Vast library of optimized copy-paste prompts for high converting AI art, videos, and assistant chat designs.">
     <meta property="og:image" content="https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/logo.png">
 
-    <!-- JSON-LD SCHEMA MARKUP -->
+    <!-- JSON-LD SCHEMA MARKUP FOR GOOGLE SEARCH CONSOLE -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "PromptKaro",
-      "url": "https://promptkaro.github.io/",
-      "description": "Vast database of copy-paste AI prompts optimized for Midjourney, ChatGPT, Stable Diffusion, and Bing 3D Creator.",
+      "url": "https://freeearningsonline.github.io/",
+      "description": "Vast database of copy-paste AI prompts optimized for Midjourney, ChatGPT, Stable Diffusion, AI Video Generators, and Bing 3D Creator.",
       "applicationCategory": "DesignApplication, UtilitiesApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -84,6 +84,15 @@
         .dark ::-webkit-scrollbar-thumb {
             background: #1e293b;
         }
+        
+        /* Smooth Fade In Animation */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-16 md:pb-0 font-sans transition-colors duration-300 font-medium">
@@ -96,8 +105,9 @@
                 <span>Prompt<span class="text-slate-955 dark:text-white">Karo</span></span>
             </a>
 
+            <!-- ADVANCED SEARCH SYSTEM (Desktop) -->
             <div class="hidden md:flex flex-1 max-w-md relative">
-                <input type="text" id="desktopSearch" oninput="window.handleSearch()" placeholder="Search prompts or blogs..." class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
+                <input type="text" id="desktopSearch" oninput="window.handleSearch()" placeholder="Search image or video prompts..." class="w-full bg-slate-100 dark:bg-slate-955 border border-slate-300 dark:border-slate-800 rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-brand-500 text-sm transition">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 dark:text-slate-500"></i>
             </div>
 
@@ -139,6 +149,55 @@
             </button>
         </div>
     </header>
+
+    <!-- ADVANCED SEARCH BAR (Mobile View) -->
+        <div class="md:hidden relative mb-6">
+            <input type="text" id="mobileSearch" oninput="window.handleSearch()" placeholder="Search video or image prompts..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:border-brand-500 text-sm shadow-sm transition">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 dark:text-slate-500"></i>
+        </div>
+
+      <!-- DYNAMIC CATEGORY FILTERS (Includes Smart Media Detection Filters) -->
+        <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
+            <button onclick="window.filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
+        </div>
+
+
+        <!-- Section: Prompts Grid (Dynamic Image & General Prompts) -->
+        <section id="promptsSection">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="sectionTitle" class="text-xl font-bold">Ai Prompts Pictures</h2>
+                <span class="text-xs text-slate-500" id="promptsCount">0 prompts found</span>
+            </div>
+            
+            <div id="promptsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="col-span-full py-12 text-center text-slate-500">Loading prompts...</div>
+            </div>
+
+            <div id="paginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
+                <button onclick="window.changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
+                <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
+                <button onclick="window.changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
+            </div>
+        </section>
+
+        <!-- NEW AI VIDEO PROMPTS SECTION -->
+        <section id="videoPromptsSection" class="mb-10 space-y-4 transition-colors duration-300">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-film text-brand-500"></i> AI Video Prompts
+                    </h2>
+                    <p class="text-[10px] sm:text-xs text-slate-500 mt-1 font-medium">Trending text-to-video formulas for Runway Gen-2, Pika, Kling, and Veo.</p>
+                </div>
+                <button onclick="window.filterCategory('Video Prompts')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition whitespace-nowrap">View All ➔</button>
+            </div>
+            
+            <!-- Horizontal Slider Container for Videos (Populated by JS) -->
+            <div id="videoPromptsContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
+                <div class="text-center py-8 w-full text-slate-500 text-sm">Loading video templates...</div>
+            </div>
+        </section>
+
 
     <!-- MOBILE NAVIGATION DRAWER -->
     <div id="mobileMenu" class="fixed inset-0 bg-white dark:bg-slate-950 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 overflow-y-auto border-l border-slate-200 dark:border-slate-800">
@@ -185,81 +244,44 @@
         </div>
     </div>
 
-        <!-- Search Bar (Mobile View) -->
-        <div class="md:hidden relative mb-6">
-            <input type="text" id="mobileSearch" oninput="window.handleSearch()" placeholder="Search prompts or blogs..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pl-11 focus:outline-none focus:border-brand-500 text-sm shadow-sm transition shadow-sm">
-            <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 dark:text-slate-500"></i>
-        </div>
-
-        <!-- Filters Section -->
-        <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
-            <button onclick="window.filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
-        </div>
-    
-        <!-- Section: Prompts Grid -->
-        <section id="promptsSection">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="sectionTitle" class="text-xl font-bold">Featured Prompts Database</h2>
-                <span class="text-xs text-slate-500" id="promptsCount">0 prompts found</span>
-            </div>
-            
-            <div id="promptsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="col-span-full py-12 text-center text-slate-500">Loading prompts...</div>
-            </div>
-
-            <div id="paginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
-                <button onclick="window.changePage(-1)" id="btnPrev" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">➔ Prev</button>
-                <span id="pageNumber" class="bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-xl text-xs font-bold font-mono">1 / 2</span>
-                <button onclick="window.changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
-            </div>
-        </section>
-    
     <!-- MAIN PORT VIEWPORT -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+    
 
         <!-- Banner / Hero Section -->
         <section id="heroSection" class="relative overflow-hidden rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:to-brand-900/30 p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
             <div class="max-w-xl">
                 <span class="bg-brand-500/10 text-brand-500 border border-brand-500/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">Vast AI Library</span>
-                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art & Chat</h1>
-                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs.</p>
+                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art, Videos & Chat</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs and stunning AI videos.</p>
                 <div class="flex flex-wrap gap-3">
                     <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
-                    <button onclick="window.filterCategory('IG Trend')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">📸 IG Trend</button>
+                    <button onclick="window.filterCategory('Video Prompts')" class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition shadow-sm"><i class="fa-solid fa-video mr-1"></i> Video Prompts</button>
                 </div>
             </div>
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
         </section>
 
-
-
-        <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER START (Vast AI Library ke niche) -->
-        <!-- ========================================== -->
+        <!-- CLICKABLE BANNER 1 -->
         <div class="w-full mb-8">
             <a href="https://moviebox.ph/?utm_source=Hola" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <!-- Niche 'src' ke andar apni tasveer ka link dalein -->
-                <!-- Ye size har screen (Mobile, Tablet, aur PC) ke liye friendly banaya gaya hai -->
                 <img src="https://i.ibb.co/Zp308Zjt/download.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
             </a>
         </div>
-        <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER END -->
-        <!-- ========================================== -->
-        
 
+    
         <!-- HIGH VALUE CONTENT FOR ADSENSE -->
         <section id="introPublisherContent" class="mb-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm leading-relaxed transition-colors duration-300">
             <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to PromptKaro: Your Gateway to AI Mastery in 2026</h2>
             <div class="text-slate-600 dark:text-slate-400 space-y-4 text-sm font-medium">
                 <p>In the rapidly evolving digital landscape, Artificial Intelligence has become the cornerstone of content creation, graphic design, and problem-solving. But AI engines like ChatGPT, Midjourney, and Bing Image Creator are only as good as the instructions they receive. This is exactly where <strong>Prompt Engineering</strong> comes into play.</p>
-                <p>PromptKaro is designed to be your ultimate directory for high-converting, meticulously tested AI prompts. We understand that finding the right words to generate the perfect image or write a compelling business plan can be a frustrating process of trial and error. Our platform eliminates this guesswork. We provide you with a comprehensive, categorized library of copy-paste solutions that yield professional results every single time.</p>
+                <p>PromptKaro is designed to be your ultimate directory for high-converting, meticulously tested AI prompts. We understand that finding the right words to generate the perfect image, a cinematic video, or write a compelling business plan can be a frustrating process of trial and error. Our platform eliminates this guesswork. We provide you with a comprehensive, categorized library of copy-paste solutions that yield professional results every single time.</p>
                 <p>Whether you are a student looking to streamline your academic research, a freelancer aiming to boost your income through AI-assisted services, or a digital artist searching for that perfect cinematic lighting formula, our platform is built for you. Browse our vast categories, read our deep-dive tutorials in the blog section, and join our global community of AI enthusiasts to stay ahead of the curve.</p>
             </div>
         </section>
 
-
-
+  
 
         <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
         <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
@@ -268,7 +290,7 @@
 
 
 
-        <!-- Section: Dynamic Blog Section [Tab] (Now Uses Static HTML Links for Googlebot) -->
+        <!-- Section: Dynamic Blog Section [Tab] (Static HTML Links for Googlebot) -->
         <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto font-semibold">
             <div class="border-b border-slate-200 dark:border-slate-850 pb-4">
                 <h1 class="text-2xl font-bold">AI News & Prompting Guides</h1>
@@ -281,7 +303,7 @@
 
             <!-- STATIC HTML BLOG CARDS FOR INSTANT GOOGLE INDEXING -->
             <div id="blogsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
+                <!-- Fallback Links. JS handles the actual populating dynamically. -->
                 <a href="/blog/bing-3d-name-art.html" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block">
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="Bing 3D Name Art Guide" class="w-full h-48 object-cover pointer-events-none">
                     <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
@@ -326,7 +348,6 @@
                         </div>
                     </div>
                 </a>
-
             </div>
 
             <div id="blogPaginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
@@ -440,7 +461,7 @@
             </div>
         </section>
 
-        <!-- Section: Dynamic Admin View (Maintained HTML structure here just in case, actual panel is admin.html) -->
+        <!-- Section: Dynamic Admin View Placeholder -->
         <section id="adminView" class="hidden space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
@@ -450,32 +471,21 @@
             </div>
         </section>
 
-
-
-        <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER START (Vast AI Library ke niche) -->
-        <!-- ========================================== -->
+        <!-- CLICKABLE BANNER 2 -->
         <div class="w-full mb-8">
             <a href="https://youtu.be/iXZk5YqyAUQ?si=k9V-4plX7wlPxhXl" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <!-- Niche 'src' ke andar apni tasveer ka link dalein -->
-                <!-- Ye size har screen (Mobile, Tablet, aur PC) ke liye friendly banaya gaya hai -->
                 <img src="https://i.ibb.co/ZR7ZFhvq/ooc-Uho-Aq-IEEDSXADh-GPde-DFEf-Qlcgz-Af-AF8-FHb-tplv-4d650qgzx3-image.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
             </a>
         </div>
-        <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER END -->
-        <!-- ========================================== -->
-
-
         
-        <!-- HOME PAGE RECENT BLOG SLIDER (Now Uses Static HTML Links for Googlebot) -->
+        <!-- HOME PAGE RECENT BLOG SLIDER (Static HTML Links for Googlebot) -->
         <section id="homeBlogSliderSection" class="mt-12 space-y-4 transition-colors duration-300">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white">Latest AI Guides & News</h2>
                 <button onclick="window.switchTab('blog')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition">View All ➔</button>
             </div>
             <div id="homeBlogSliderContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
-                
+                <!-- Fallback Links. JS handles the actual populating dynamically. -->
                 <a href="/blog/bing-3d-name-art.html" class="snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block">
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="Bing 3D Name Art" class="w-full h-36 object-cover pointer-events-none">
                     <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
@@ -503,38 +513,46 @@
                         </div>
                     </div>
                 </a>
+            </div>
+        </section>
 
-                <a href="/blog/promptkaro-major-update.html" class="snap-start shrink-0 w-[85%] md:w-[45%] lg:w-[30%] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col transition hover:shadow-md cursor-pointer block">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="PromptKaro Update" class="w-full h-36 object-cover pointer-events-none">
-                    <div class="p-4 flex-grow flex flex-col justify-between space-y-2 pointer-events-none">
-                        <div class="space-y-1.5">
-                            <span class="text-[9px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">Updates</span>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">PromptKaro Major Update: Introducing Global Community Chat</h3>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-800 mt-2">
-                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
-                            <span class="font-bold text-brand-500">Read ➔</span>
-                        </div>
-                    </div>
-                </a>
-
+        <!-- CLICKABLE BANNER 3 -->
+        <div class="w-full mb-8">
+            <a href="https://toolswebsite205.blogspot.com" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <img src="https://i.ibb.co/tg3jK1n/70ffef2c-786a-4b97-959f-c7c57bec9436.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
+            </a>
+        </div>
+    <!-- NEW BENTO GRID FEATURES SECTION (HIGH-VALUE CONTENT FOR ADSENSE & SEO) -->
+        <section id="bentoGridSection" class="mb-10 space-y-4 transition-colors duration-300">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">Why Choose PromptKaro?</h2>
+                <p class="text-sm text-slate-500 mt-2 font-medium">The ultimate toolkit for AI creators, marketers, and modern developers.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px]">
+                <div class="bg-gradient-to-br from-brand-500 to-blue-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end relative overflow-hidden md:col-span-2 hover:shadow-md transition">
+                    <i class="fa-solid fa-wand-magic-sparkles text-6xl absolute top-6 right-6 opacity-20"></i>
+                    <h3 class="text-xl font-bold mb-1">Advanced Text-to-Image</h3>
+                    <p class="text-sm opacity-90 font-medium">Access highly detailed, copy-paste prompts optimized for Midjourney v6, Flux, Stable Diffusion, and Dall-E 3.</p>
+                </div>
+                <div onclick="window.filterCategory('Video Prompts')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
+                    <i class="fa-solid fa-video text-brand-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">AI Video Prompts</h3>
+                    <p class="text-xs text-slate-500 font-medium">Master Runway Gen-2, Kling, Veo, and Sora mechanics.</p>
+                </div>
+                <div onclick="window.filterCategory('ChatGPT')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
+                    <i class="fa-solid fa-robot text-purple-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">ChatGPT Formulas</h3>
+                    <p class="text-xs text-slate-500 font-medium">Automate your business workflows and marketing.</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-600 to-brand-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end md:col-span-2 relative overflow-hidden hover:shadow-md transition">
+                    <i class="fa-solid fa-bolt text-6xl absolute top-6 right-6 opacity-20"></i>
+                    <h3 class="text-xl font-bold mb-1">PromptKaro AI Engine</h3>
+                    <p class="text-sm opacity-90 font-medium">Remix, expand, and regenerate any prompt instantly using our built-in customized AI integration tool.</p>
+                </div>
             </div>
         </section>
 
 
-           <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER START (Vast AI Library ke niche) -->
-        <!-- ========================================== -->
-        <div class="w-full mb-8">
-            <a href="https://toolswebsite205.blogspot.com" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <!-- Niche 'src' ke andar apni tasveer ka link dalein -->
-                <!-- Ye size har screen (Mobile, Tablet, aur PC) ke liye friendly banaya gaya hai -->
-                <img src="https://i.ibb.co/tg3jK1n/70ffef2c-786a-4b97-959f-c7c57bec9436.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
-            </a>
-        </div>
-        <!-- ========================================== -->
-        <!-- NEW CLICKABLE BANNER END -->
-        <!-- ========================================== -->
 
         <!-- EXPANDED SEO ARTICLE & FAQ SECTION FOR ADSENSE APPROVAL -->
         <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
@@ -544,487 +562,105 @@
             </div>
 
             <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-
-    <p>
-        Artificial Intelligence has completely changed the way people earn money online. In 2026, tools like ChatGPT are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts. A well-written AI prompt can help you generate content, build business ideas, automate tasks, and even create digital products.
-    </p>
-
-    <p>
-        Many beginners struggle because they don’t know how to communicate effectively with AI tools. But once you understand how prompts work, you can turn simple ideas into profitable results. In this guide, we will explore the best AI prompts for earning money and how you can use them step by step.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        1. AI Prompts for Freelancing Income
-    </h3>
-    <p>
-        Freelancing is one of the easiest ways to start earning online. AI can help you complete tasks faster and deliver high-quality work to clients.
-    </p>
-    <p>
-        Example Prompt: “Write a 1000-word SEO optimized article on digital marketing with headings and keywords.”
-    </p>
-    <p>
-        Using this type of prompt, you can offer content writing services on platforms like Fiverr and Upwork. Similarly, you can create prompts for copywriting, resume writing, and product descriptions.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        2. AI Prompts for Online Business Ideas
-    </h3>
-    <p>
-        Starting an online business has never been easier. AI can generate profitable ideas based on trends and market demand.
-    </p>
-    <p>
-        Example Prompt: “Give me 10 low-investment online business ideas for 2026 with high profit potential.”
-    </p>
-    <p>
-        These ideas can help you launch dropshipping stores, digital products, or niche websites. AI can also create complete business plans, saving you time and effort.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        3. AI Prompts for Social Media Earning
-    </h3>
-    <p>
-        Social media platforms like Instagram, TikTok, and YouTube are powerful income sources. AI helps you stay consistent and creative.
-    </p>
-    <p>
-        Example Prompt: “Create 30 days of viral Instagram content ideas for a fitness page.”
-    </p>
-    <p>
-        With these prompts, you can grow your audience, increase engagement, and monetize your content through brand deals and ads.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        4. AI Prompts for Blogging and SEO
-    </h3>
-    <p>
-        Blogging is a long-term earning strategy. AI can help you write articles, find keywords, and optimize content for search engines.
-    </p>
-    <p>
-        Example Prompt: “Find low competition keywords for AI tools with high search volume.”
-    </p>
-    <p>
-        By using these prompts, you can build a blog that ranks on Google and generates passive income through ads and affiliate marketing.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        5. AI Prompts for Passive Income
-    </h3>
-    <p>
-        Passive income means earning money even when you are not actively working. AI makes this process much easier.
-    </p>
-    <p>
-        Example Prompt: “Write a complete ebook on making money online with AI tools.”
-    </p>
-    <p>
-        You can sell ebooks, courses, and digital products created with AI. This allows you to build multiple income streams over time.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Final Thoughts
-    </h3>
-    <p>
-        AI prompts are the foundation of modern online earning. The better your prompts, the better your results. Whether you are a freelancer, blogger, or entrepreneur, learning how to use AI effectively can transform your income potential.
-    </p>
-
-    <p>
-        Start experimenting with these prompts today and build your own digital income system. With consistency and the right strategy, you can achieve long-term success using AI tools.
-    </p>
-
-</div>
-
-
-
-
-
-<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
-        Top ChatGPT Prompts 2026: Powerful Prompts to Boost Productivity & Income
-    </h2>
-    <p class="text-sm text-slate-500 mt-2">
-        Explore the most effective ChatGPT prompts for 2026. Learn how to increase productivity, automate tasks, and generate income using advanced AI prompt strategies.
-    </p>
-</div>
-
-<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-
-    <p>
-        In 2026, ChatGPT and similar AI tools have become essential for digital work. From content creation to business automation, AI is helping people save time and earn more efficiently. However, the real power of AI lies in how you use it. The right prompts can dramatically improve the quality of output and help you achieve better results in less time.
-    </p>
-
-    <p>
-        Many users only scratch the surface by asking simple questions. But professionals use structured and detailed prompts to unlock advanced capabilities. In this guide, we will explore the top ChatGPT prompts for 2026 that can boost your productivity and help you generate income online.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        1. Productivity Boosting Prompts
-    </h3>
-    <p>
-        Productivity is the foundation of success. AI can help you organize tasks, manage time, and plan your day effectively.
-    </p>
-    <p>
-        Example Prompt: “Create a daily productivity schedule for a freelancer working 6 hours per day including breaks and focused work sessions.”
-    </p>
-    <p>
-        This type of prompt helps you stay disciplined and efficient. You can also generate to-do lists, reminders, and weekly plans using AI.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        2. Content Creation Prompts
-    </h3>
-    <p>
-        Content creation is one of the biggest earning opportunities online. AI can generate blog posts, scripts, captions, and much more.
-    </p>
-    <p>
-        Example Prompt: “Write a 1500-word SEO optimized blog post on digital marketing trends in 2026 with headings and examples.”
-    </p>
-    <p>
-        These prompts allow you to create high-quality content quickly, which you can monetize through blogs, YouTube, or freelance work.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        3. Business Automation Prompts
-    </h3>
-    <p>
-        Automation is key to scaling your income. AI can handle repetitive tasks and streamline your workflow.
-    </p>
-    <p>
-        Example Prompt: “Create an automated workflow for managing customer emails for an online store.”
-    </p>
-    <p>
-        With this, you can reduce manual work and focus on growing your business. AI can also help with customer support scripts and FAQs.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        4. Social Media Growth Prompts
-    </h3>
-    <p>
-        Social media platforms are powerful tools for building personal brands and generating income. AI helps you stay consistent and creative.
-    </p>
-    <p>
-        Example Prompt: “Generate 30 days of engaging Twitter posts for a tech-focused audience.”
-    </p>
-    <p>
-        These prompts help you maintain a consistent posting schedule and improve engagement, which leads to growth and monetization opportunities.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        5. Freelancing and Client Work Prompts
-    </h3>
-    <p>
-        Freelancers can use AI to deliver better work in less time. This increases client satisfaction and allows you to take on more projects.
-    </p>
-    <p>
-        Example Prompt: “Write a professional proposal for a web design project including pricing and timeline.”
-    </p>
-    <p>
-        This helps you win more clients and improve your communication skills.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        6. Learning and Skill Development Prompts
-    </h3>
-    <p>
-        Continuous learning is important in the digital world. AI can act as your personal tutor.
-    </p>
-    <p>
-        Example Prompt: “Create a 30-day learning roadmap for mastering digital marketing from beginner to advanced level.”
-    </p>
-    <p>
-        These prompts help you acquire new skills that can increase your earning potential.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        7. Passive Income Prompts
-    </h3>
-    <p>
-        Passive income allows you to earn without constant effort. AI can help you build systems that generate income automatically.
-    </p>
-    <p>
-        Example Prompt: “Suggest 5 passive income ideas using AI tools with step-by-step implementation plans.”
-    </p>
-    <p>
-        You can use these ideas to create digital products, blogs, or automated services.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Advanced Tips for Using ChatGPT Prompts
-    </h3>
-    <p>
-        To get the best results, always be specific in your prompts. Include details like target audience, tone, word count, and purpose. The more information you provide, the better the output will be.
-    </p>
-
-    <p>
-        You can also refine results by asking follow-up questions. AI works best when used interactively. Instead of expecting perfect results in one go, improve the response step by step.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Common Mistakes to Avoid
-    </h3>
-    <p>
-        Avoid using vague prompts like “write something about business.” This will produce generic results. Also, do not rely completely on AI without reviewing the content. Always edit and personalize the output.
-    </p>
-
-    <p>
-        Another common mistake is not experimenting. Try different variations of prompts to discover what works best for your needs.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Conclusion
-    </h3>
-    <p>
-        ChatGPT prompts are powerful tools that can transform your productivity and income in 2026. Whether you are creating content, managing a business, or learning new skills, the right prompts can save time and increase efficiency.
-    </p>
-
-    <p>
-        Start using these prompts today and explore new opportunities. With consistent effort and smart strategies, you can achieve long-term success in the digital world using AI.
-    </p>
-
-</div>
-              
-
-
-
-<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
-        AI Prompts for Students 2026: Study Smarter with ChatGPT & AI Tools
-    </h2>
-    <p class="text-sm text-slate-500 mt-2">
-        Discover the best AI prompts for students in 2026. Improve your studies, complete assignments faster, and boost productivity using smart AI strategies.
-    </p>
-</div>
-
-<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-
-    <p>
-        In 2026, students are no longer limited to traditional study methods. Artificial Intelligence tools like ChatGPT have transformed education by making learning faster, smarter, and more interactive. With the right prompts, students can complete assignments, understand complex topics, and improve their overall academic performance.
-    </p>
-
-    <p>
-        However, many students don’t know how to use AI effectively. Simply asking basic questions often leads to average results. The real advantage comes when you use structured and detailed prompts. In this guide, we will explore the best AI prompts for students that can help you succeed in school, college, and beyond.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        1. AI Prompts for Homework Help
-    </h3>
-    <p>
-        Homework can be time-consuming, especially when you don’t understand the topic. AI can act as a personal tutor and guide you step by step.
-    </p>
-    <p>
-        Example Prompt: “Explain the concept of photosynthesis in simple terms with examples suitable for a 10th-grade student.”
-    </p>
-    <p>
-        This helps you understand concepts clearly instead of just copying answers. You can also ask AI to solve math problems with step-by-step explanations.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        2. AI Prompts for Assignment Writing
-    </h3>
-    <p>
-        Writing assignments becomes easier with AI assistance. You can generate structured and well-written content quickly.
-    </p>
-    <p>
-        Example Prompt: “Write a 1200-word essay on climate change with introduction, causes, effects, and conclusion.”
-    </p>
-    <p>
-        After generating the content, make sure to review and edit it to match your personal style and avoid plagiarism issues.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        3. AI Prompts for Exam Preparation
-    </h3>
-    <p>
-        Preparing for exams requires revision and practice. AI can help you create study plans and practice questions.
-    </p>
-    <p>
-        Example Prompt: “Create a 7-day study plan for preparing for a biology exam including revision and practice tests.”
-    </p>
-    <p>
-        You can also ask AI to generate quizzes and test your knowledge before exams.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        4. AI Prompts for Note Making
-    </h3>
-    <p>
-        Good notes are essential for effective learning. AI can summarize long chapters into short and easy-to-understand notes.
-    </p>
-    <p>
-        Example Prompt: “Summarize this chapter into bullet points with key concepts and definitions.”
-    </p>
-    <p>
-        This saves time and helps you revise quickly before exams.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        5. AI Prompts for Skill Development
-    </h3>
-    <p>
-        Students need more than just academic knowledge. AI can help you learn new skills like coding, communication, and digital marketing.
-    </p>
-    <p>
-        Example Prompt: “Create a beginner-friendly roadmap to learn Python programming in 30 days.”
-    </p>
-    <p>
-        These skills can help you earn money online and build a strong career.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        6. AI Prompts for Presentation Creation
-    </h3>
-    <p>
-        Presentations are an important part of student life. AI can help you create engaging and professional slides.
-    </p>
-    <p>
-        Example Prompt: “Create a presentation outline on artificial intelligence with 10 slides and key points.”
-    </p>
-    <p>
-        You can then convert these points into PowerPoint slides easily.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        7. AI Prompts for Time Management
-    </h3>
-    <p>
-        Managing time is one of the biggest challenges for students. AI can help you stay organized.
-    </p>
-    <p>
-        Example Prompt: “Create a daily timetable for a student balancing studies, exercise, and free time.”
-    </p>
-    <p>
-        This ensures that you stay productive while maintaining a healthy lifestyle.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Tips for Using AI Effectively as a Student
-    </h3>
-    <p>
-        Always use AI as a learning tool, not a shortcut. Try to understand the concepts instead of copying answers. Be specific in your prompts to get better results.
-    </p>
-
-    <p>
-        Combine AI learning with your textbooks and teacher guidance. This will give you the best results and deeper understanding.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Common Mistakes Students Should Avoid
-    </h3>
-    <p>
-        Avoid depending completely on AI. This can reduce your critical thinking ability. Also, never submit AI-generated content without editing it.
-    </p>
-
-    <p>
-        Another mistake is using very short prompts. Detailed prompts give much better and accurate results.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Conclusion
-    </h3>
-    <p>
-        AI tools like ChatGPT are powerful assistants for students in 2026. They can help you study smarter, save time, and improve your performance. The key is to use the right prompts and apply them effectively.
-    </p>
-
-    <p>
-        Start using these AI prompts today and take your learning to the next level. With consistency and smart strategies, you can achieve academic success and prepare for future opportunities.
-    </p>
-
-</div>
-
-
-<div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">
-        Our Mission: Empowering Users with AI Prompts in 2026
-    </h2>
-    <p class="text-sm text-slate-500 mt-2">
-        Our goal is to make artificial intelligence simple, accessible, and powerful for everyone. We help users unlock the true potential of AI through high-quality prompts and practical guidance.
-    </p>
-</div>
-
-<div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-
-    <p>
-        In today’s fast-growing digital world, artificial intelligence is becoming a key part of everyday life. However, many people still struggle to use AI tools effectively. Our mission is to bridge this gap by providing easy-to-use, powerful, and practical AI prompts that anyone can use to improve their productivity and income.
-    </p>
-
-    <p>
-        We believe that AI should not be limited to experts or developers. Whether you are a student, freelancer, or business owner, you should be able to benefit from AI tools like ChatGPT. That’s why we focus on creating simple and effective prompts that deliver real results.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        What We Offer
-    </h3>
-    <p>
-        Our platform provides a wide range of AI prompts designed for different purposes. From earning money online to improving study habits, we cover everything you need to succeed in the modern digital world.
-    </p>
-
-    <p>
-        We continuously update our content to ensure that you get the latest and most effective prompts. Our goal is to help you stay ahead in 2026 and beyond.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Why Choose Us
-    </h3>
-    <p>
-        Unlike many websites that provide basic or copied prompts, we focus on quality and usability. Every prompt on our platform is carefully designed to deliver practical results. We also provide explanations and examples so you can understand how to use each prompt effectively.
-    </p>
-
-    <p>
-        Our content is created with both beginners and advanced users in mind. Whether you are just starting or already experienced with AI, you will find valuable resources here.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Our Vision
-    </h3>
-    <p>
-        Our vision is to become a leading platform for AI prompts and digital growth. We aim to help millions of users worldwide discover new opportunities through artificial intelligence.
-    </p>
-
-    <p>
-        By providing high-quality content and innovative ideas, we want to make AI accessible to everyone and help people achieve financial and professional success.
-    </p>
-
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-        Final Words
-    </h3>
-    <p>
-        AI is the future, and those who learn how to use it today will have a strong advantage tomorrow. Our mission is to guide you on this journey and help you unlock the full power of AI.
-    </p>
-
-</div>
-
-                <div>
-                    <h3 class="font-bold text-brand-500 text-lg mb-2">1. What is an AI Prompt and Why Does it Matter?</h3>
-                    <p>An AI prompt is essentially a specific set of instructions, keywords, or parameters fed into an artificial intelligence model (such as Midjourney, ChatGPT, Stable Diffusion, or Bing Image Creator) to generate a highly targeted output. Think of a prompt as the steering wheel of the AI engine. Writing the right prompt is the absolute key to unlocking photorealistic images, complex 3D artwork, and highly professional copywriting. Without a well-structured prompt, the AI will provide generic, unpolished results. This is why "Prompt Engineering" has become one of the most valuable digital skills today.</p>
+                <p>
+                    Artificial Intelligence has completely changed the way people earn money online. In 2026, tools like ChatGPT and Video Generation APIs are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts. A well-written AI prompt can help you generate content, build business ideas, automate tasks, and even create digital products.
+                </p>
+
+                <p>
+                    Many beginners struggle because they don’t know how to communicate effectively with AI tools. But once you understand how prompts work, you can turn simple ideas into profitable results. In this guide, we will explore the best AI prompts for earning money and how you can use them step by step.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">1. AI Prompts for Freelancing Income</h3>
+                <p>
+                    Freelancing is one of the easiest ways to start earning online. AI can help you complete tasks faster and deliver high-quality work to clients.
+                </p>
+                <p>
+                    Example Prompt: “Write a 1000-word SEO optimized article on digital marketing with headings and keywords.”
+                </p>
+                <p>
+                    Using this type of prompt, you can offer content writing services on platforms like Fiverr and Upwork. Similarly, you can create prompts for copywriting, resume writing, and product descriptions.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">2. AI Prompts for Online Business Ideas</h3>
+                <p>
+                    Starting an online business has never been easier. AI can generate profitable ideas based on trends and market demand.
+                </p>
+                <p>
+                    Example Prompt: “Give me 10 low-investment online business ideas for 2026 with high profit potential.”
+                </p>
+                <p>
+                    These ideas can help you launch dropshipping stores, digital products, or niche websites. AI can also create complete business plans, saving you time and effort.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">3. AI Prompts for Social Media Earning & AI Videos</h3>
+                <p>
+                    Social media platforms like Instagram, TikTok, and YouTube are powerful income sources. Using AI Video Prompts, you can generate cinematic clips for faceless YouTube channels or viral TikToks.
+                </p>
+                <p>
+                    Example Video Prompt: “Cinematic drone shot of a futuristic cyberpunk city glowing in neon lights, highly detailed, 4k resolution, Unreal Engine 5 render style.”
+                </p>
+                <p>
+                    With these prompts, you can grow your audience, increase engagement, and monetize your content through brand deals and ads rapidly.
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">4. AI Prompts for Blogging and SEO</h3>
+                <p>
+                    Blogging is a long-term earning strategy. AI can help you write articles, find keywords, and optimize content for search engines.
+                </p>
+                <p>
+                    Example Prompt: “Find low competition keywords for AI tools with high search volume.”
+                </p>
+                <p>
+                    By using these prompts, you can build a blog that ranks on Google and generates passive income through ads and affiliate marketing.
+                </p>
+
+                <div class="border-t border-slate-200 dark:border-slate-800 pt-6 mt-6">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Top ChatGPT Prompts 2026: Powerful Prompts to Boost Productivity</h2>
+                    <p>
+                        In 2026, ChatGPT and similar AI tools have become essential for digital work. The right prompts can dramatically improve the quality of output and help you achieve better results in less time.
+                    </p>
                 </div>
 
-                <div>
-                    <h3 class="font-bold text-brand-500 text-lg mb-2">2. How PromptKaro Helps You Succeed</h3>
-                    <p>Our platform, PromptKaro, is built to eliminate the tedious trial-and-error phase of prompt creation. We compile, test, and categorize trending social media styles, Bing 3D Name Creator formulas, and cinematic art prompts. By allowing easy copy-paste access to our vast database, you save countless hours and expensive credit tokens on AI platforms. Whether you need a prompt for an Instagram viral 3D illusion, a professional LinkedIn post, or high-converting ad copy, we have it documented for you.</p>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Productivity Boosting Prompts</h3>
+                <p>
+                    Productivity is the foundation of success. AI can help you organize tasks, manage time, and plan your day effectively.
+                </p>
+                <p>
+                    Example Prompt: “Create a daily productivity schedule for a freelancer working 6 hours per day including breaks and focused work sessions.”
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Advanced Tips for Using ChatGPT Prompts</h3>
+                <p>
+                    To get the best results, always be specific in your prompts. Include details like target audience, tone, word count, and purpose. The more information you provide, the better the output will be. You can also refine results by asking follow-up questions.
+                </p>
+
+                <div class="border-t border-slate-200 dark:border-slate-800 pt-6 mt-6">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Our Mission: Empowering Users with AI Prompts in 2026</h2>
+                    <p>
+                        Our goal is to make artificial intelligence simple, accessible, and powerful for everyone. We help users unlock the true potential of AI through high-quality image, text, and video prompts along with practical guidance.
+                    </p>
                 </div>
 
-                <div>
-                    <h3 class="font-bold text-brand-500 text-lg mb-2">3. Best AI Prompts for Earning Money and Freelancing</h3>
-                    <p>Many digital creators are now utilizing AI to generate income. By using the premium prompts available on PromptKaro, freelancers can rapidly produce high-quality deliverables. For instance, using our "Logo Design Prompts" allows you to generate conceptual branding for clients in minutes. Similarly, our "SEO Blog Copywriting Prompts" for ChatGPT enable writers to structure, draft, and finalize optimized articles much faster than traditional methods. By mastering these prompts, you can scale your freelance business exponentially.</p>
-                </div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Why Choose Us</h3>
+                <p>
+                    Unlike many websites that provide basic or copied prompts, we focus on quality and usability. Every prompt on our platform is carefully designed to deliver practical results. We also provide explanations and examples so you can understand how to use each prompt effectively.
+                </p>
 
-                <div>
-                    <h3 class="font-bold text-brand-500 text-lg mb-2">4. Top ChatGPT Prompts for Students and Professionals</h3>
-                    <p>Students and professionals often struggle with structuring data. A good prompt transforms ChatGPT from a simple chatbot into a dedicated tutor or project manager. On PromptKaro, we offer specific prompt formulas designed for academic research summarization, complex coding debugging, and professional email drafting. Simply browse our "Education" or "Business" categories, copy the template, insert your specific topic, and watch the AI deliver a highly accurate and formatted response.</p>
-                </div>
-
+                <!-- FAQs -->
                 <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
                     <h3 class="font-bold text-slate-900 dark:text-white text-xl mb-4">Frequently Asked Questions (FAQs)</h3>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the prompts on PromptKaro free to copy?</p>
-                            <p class="mt-1">A: Yes, PromptKaro offers a massive array of completely free prompts. We believe in open access to basic AI knowledge. Only highly specialized, premium, and custom-designed formulas require digital coins to unlock.</p>
+                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the AI Video Prompts free to use?</p>
+                            <p class="mt-1">A: Yes, our platform provides a large variety of free text-to-video and text-to-image prompts. Premium locked content is reserved for highly complex formulas that guarantee cinematic results.</p>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: How does the AI Regenerate feature work?</p>
-                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles, lighting, and detail preferences. It costs 50,000 coins per generation, providing you with a truly unique, customized prompt variation.</p>
+                            <p class="mt-1">A: Our unique AI Regenerate tool takes an existing prompt and uses our backend Gemini AI engine to rewrite it based on your selected styles, lighting, and detail preferences. It costs 50,000 coins per generation.</p>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: How do I get more coins in my wallet?</p>
-                            <p class="mt-1">A: You can recharge your account easily. Navigate to the Wallet section, review the instructions for local mobile payment platforms (like EasyPaisa or JazzCash), and submit your transaction ID (TID) along with the deposit amount. Our admins will verify and approve your coins shortly.</p>
+                            <p class="mt-1">A: You can recharge your account easily. Navigate to the Wallet section, review the instructions for local mobile payment platforms (like EasyPaisa or JazzCash), and submit your transaction ID (TID) along with the deposit amount.</p>
                         </div>
                         <div>
                             <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I request a custom prompt?</p>
@@ -1038,62 +674,62 @@
 
     </main>
     
-<!-- MESSAGE FROM THE FOUNDER SECTION START -->
-<section class="max-w-4xl mx-auto my-20 px-4 font-sans">
-    <!-- Main Title & Subtitle -->
-    <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Message From The Founder</h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 font-medium">Reliable AI Growth With Transparent Processes And 24/7 Support</p>
-    </div>
+    <!-- MESSAGE FROM THE FOUNDER SECTION START -->
+    <section id="founderSection" class="max-w-4xl mx-auto my-20 px-4 font-sans transition-colors duration-300">
+        <!-- Main Title & Subtitle -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Message From The Founder</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 font-medium">Reliable AI Growth With Transparent Processes And 24/7 Support</p>
+        </div>
 
-    <!-- 3D Founder Card -->
-    <div class="relative group">
-        <!-- Background Glow Effect -->
-        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-        
-        <div class="relative bg-white dark:bg-slate-900 border-2 border-purple-200 dark:border-purple-900/50 rounded-[3rem] p-8 md:p-12 shadow-2xl flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2">
+        <!-- 3D Founder Card -->
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
             
-            <!-- Founder Image with 3D Ring -->
-            <div class="relative w-32 h-32 md:w-44 md:h-44 mb-6">
-                <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full animate-pulse opacity-20"></div>
-                <div class="relative w-full h-full rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden z-10">
-                    <img src="https://i.ibb.co/5C7vFQQ/d71bcdc5-0c4a-4b45-9197-204cf8f6444a.jpg" alt="Nazim Mustafa - Founder" class="w-full h-full object-cover">
+            <div class="relative bg-white dark:bg-slate-900 border-2 border-purple-200 dark:border-purple-900/50 rounded-[3rem] p-8 md:p-12 shadow-2xl flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2">
+                
+                <!-- Founder Image with 3D Ring -->
+                <div class="relative w-32 h-32 md:w-44 md:h-44 mb-6">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full animate-pulse opacity-20"></div>
+                    <div class="relative w-full h-full rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden z-10">
+                        <img src="https://i.ibb.co/5C7vFQQ/d71bcdc5-0c4a-4b45-9197-204cf8f6444a.jpg" alt="Nazim Mustafa - Founder" class="w-full h-full object-cover">
+                    </div>
+                    <!-- 3D Decorative Floating Element -->
+                    <div class="absolute -bottom-2 -right-2 bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-900 z-20">
+                        <i class="fa-solid fa-check text-sm"></i>
+                    </div>
                 </div>
-                <!-- 3D Decorative Floating Element -->
-                <div class="absolute -bottom-2 -right-2 bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-900 z-20">
-                    <i class="fa-solid fa-check text-sm"></i>
+
+                <!-- Founder Info -->
+                <div class="space-y-1 mb-6">
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Nazim Mustafa</h3>
+                    <p class="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-widest">Founder & CEO</p>
                 </div>
-            </div>
 
-            <!-- Founder Info -->
-            <div class="space-y-1 mb-6">
-                <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Nazim Mustafa</h3>
-                <p class="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-widest">Founder & CEO</p>
-            </div>
+                <!-- Message Content -->
+                <div class="max-w-2xl">
+                    <p class="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed font-medium italic">
+                        "At PromptKaro, our mission is to deliver fast, reliable, and affordable AI services to users worldwide. We are committed to maintaining high quality, transparency, and long-term trust with our community. Thank you for choosing PromptKaro and growing with us."
+                    </p>
+                </div>
 
-            <!-- Message Content -->
-            <div class="max-w-2xl">
-                <p class="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed font-medium italic">
-                    "At PromptKaro, our mission is to deliver fast, reliable, and affordable AI services to users worldwide. We are committed to maintaining high quality, transparency, and long-term trust with our community. Thank you for choosing PromptKaro and growing with us."
-                </p>
-            </div>
-
-            <!-- Social Connect (Optional) -->
-            <div class="flex gap-4 mt-8">
-                <a href="https://www.facebook.com/awamrajj" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-purple-500 hover:text-white transition-all">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://toolswebsite205.blogspot.com" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-blue-400 hover:text-white transition-all">
-                    <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="https://www.instagram.com/awannazim1?igsh=ejV6MjUzcTVyMGxz" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-pink-500 hover:text-white transition-all">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <!-- Social Connect -->
+                <div class="flex gap-4 mt-8">
+                    <a href="https://www.facebook.com/awamrajj" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-purple-500 hover:text-white transition-all">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://toolswebsite205.blogspot.com" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-blue-400 hover:text-white transition-all">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/awannazim1?igsh=ejV6MjUzcTVyMGxz" target="_blank" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-pink-500 hover:text-white transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- MESSAGE FROM THE FOUNDER SECTION END -->
+    </section>
+    <!-- MESSAGE FROM THE FOUNDER SECTION END -->
+
     <!-- FOOTER FOR ADSENSE & BOT NAVIGATION COMPLIANCE -->
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-4 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
@@ -1206,18 +842,20 @@
         </div>
     </div>
 
-    <!-- MODAL: Prompt Detail Page -->
+    <!-- MODAL: Prompt Detail / Video Player Modal -->
     <div id="promptDetailModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative p-6 shadow-md">
-            <button onclick="window.closePromptDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+            <!-- Modal Close Button -->
+            <button onclick="window.closePromptDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl z-30 bg-slate-900/50 rounded-full w-8 h-8 flex items-center justify-center backdrop-blur">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 font-semibold">
-                <div>
+                <!-- Media Area (Image or dynamically injected Video via JS) -->
+                <div class="relative">
                     <img id="detailImg" src="" alt="Prompt preview" class="w-full h-auto max-h-96 object-cover rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';">
                     <a id="downloadBtn" href="#" target="_blank" download class="w-full block text-center mt-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:hover-slate-700 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white shadow-sm font-sans">
-                        <i class="fa-solid fa-download mr-1"></i> Save Image
+                        <i class="fa-solid fa-download mr-1"></i> Save Media
                     </a>
                 </div>
 
@@ -1231,16 +869,16 @@
 
                         <div id="promptContentArea" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4 rounded-xl min-h-[140px] flex flex-col justify-between relative overflow-hidden font-semibold">
                             <!-- Premium blur screen overlay -->
-                            <div id="lockedOverlay" class="absolute inset-0 bg-slate-50/98 dark:bg-slate-950/98 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden">
+                            <div id="lockedOverlay" class="absolute inset-0 bg-slate-50/98 dark:bg-slate-950/98 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center hidden z-20">
                                 <i class="fa-solid fa-lock text-amber-500 text-3xl mb-2"></i>
                                 <span class="text-xs font-bold uppercase text-slate-400">Premium Locked Content</span>
                                 <p class="text-[10px] text-slate-500 my-1">This premium prompt costs <span id="lockedPrice" class="text-amber-500 font-bold">0</span> Coins</p>
                                 <button onclick="buyPrompt()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-4 py-1.5 rounded-lg mt-2 transition shadow-sm">Unlock Now</button>
                             </div>
                             
-                            <p id="detailPromptText" class="text-sm text-slate-800 dark:text-slate-300 font-mono select-all leading-relaxed font-semibold">Loading prompt...</p>
+                            <p id="detailPromptText" class="text-sm text-slate-800 dark:text-slate-300 font-mono select-all leading-relaxed font-semibold relative z-10">Loading prompt...</p>
                             
-                            <div class="flex flex-wrap gap-2 mt-4 self-end">
+                            <div class="flex flex-wrap gap-2 mt-4 self-end relative z-10">
                                 <button onclick="window.copyToClipboard()" class="bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-brand-500 transition font-sans shadow-sm flex items-center gap-1 font-semibold">
                                     <i class="fa-regular fa-copy"></i> Copy Prompt
                                 </button>
