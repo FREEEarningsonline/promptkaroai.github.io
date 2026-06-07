@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PromptKaro - Admin Dashboard</title>
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -24,8 +22,6 @@
                 }
             }
         }
-        
-        // Match system theme
         if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
             document.documentElement.classList.add('dark');
         }
@@ -40,17 +36,14 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
 
-    <!-- Loading / Auth Check Overlay -->
     <div id="authOverlay" class="fixed inset-0 bg-white dark:bg-slate-950 z-50 flex flex-col items-center justify-center">
         <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-500 mb-4"></i>
         <h2 class="text-xl font-bold">Verifying Admin Access...</h2>
         <p class="text-sm text-slate-500 mt-2">Please wait.</p>
     </div>
 
-    <!-- Admin Dashboard Main Container (Hidden by default) -->
     <div id="adminDashboard" class="hidden flex flex-col md:flex-row min-h-screen">
         
-        <!-- Sidebar Navigation -->
         <aside class="w-full md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-auto md:h-screen sticky top-0">
             <div class="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                 <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-brand-500">
@@ -68,6 +61,9 @@
                 </button>
                 <button onclick="window.switchTab('categories')" id="nav-categories" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
                     <i class="fa-solid fa-tags"></i> Categories
+                </button>
+                <button onclick="window.switchTab('community')" id="nav-community" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
+                    <i class="fa-solid fa-bullhorn text-amber-500"></i> Announcements
                 </button>
                 <button onclick="window.switchTab('payments')" id="nav-payments" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-left whitespace-nowrap">
                     <i class="fa-solid fa-money-bill-transfer"></i> Verify Payments
@@ -88,7 +84,6 @@
             </div>
         </aside>
 
-        <!-- Main Content Area -->
         <main class="flex-1 p-4 md:p-8 overflow-y-auto bg-slate-50 dark:bg-slate-950">
             
             <!-- PROMPTS TAB -->
@@ -115,13 +110,19 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- UPDATED: 3 Columns for Media, Thumbnail, and Views -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1">Image File Name (from GitHub /images/)</label>
+                                <label class="block text-xs text-slate-400 mb-1">Main Media (Image / Video .mp4)</label>
                                 <div class="space-y-1">
-                                    <input type="text" id="pImageURL" list="githubImagesList" placeholder="e.g., logo.png" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
+                                    <input type="text" id="pImageURL" list="githubImagesList" placeholder="logo.png or video.mp4" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
                                     <datalist id="githubImagesList"></datalist>
-                                    <span id="githubApiStatus" class="block text-[10px] text-brand-500 font-semibold mt-1"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-brand-500 mb-1">Custom Thumbnail (For Videos)</label>
+                                <div class="space-y-1">
+                                    <input type="text" id="pThumbnailURL" list="githubImagesList" placeholder="e.g., thumb.jpg (Optional)" class="w-full bg-slate-100 dark:bg-slate-950 border border-brand-300 dark:border-brand-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans shadow-sm">
                                 </div>
                             </div>
                             <div>
@@ -129,6 +130,7 @@
                                 <input type="number" id="pInitialViews" value="0" min="0" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-sans">
                             </div>
                         </div>
+                        <span id="githubApiStatus" class="block text-[10px] text-amber-500 font-semibold mt-0"></span>
 
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Prompt Text / Description</label>
@@ -165,7 +167,6 @@
                         </div>
                     </form>
 
-                    <!-- Prompts List Table -->
                     <div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
                         <h4 class="text-sm font-bold mb-4">Active Prompts in Database</h4>
                         <div class="overflow-x-auto text-xs">
@@ -189,6 +190,7 @@
 
             <!-- BLOGS TAB -->
             <section id="tab-blogs" class="admin-section hidden space-y-6">
+                <!-- Blog content same as before -->
                 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                     <h3 class="text-lg font-bold mb-4" id="blogFormTitle">Publish New Blog</h3>
                     <form id="blogForm" class="space-y-4">
@@ -199,47 +201,35 @@
                                 <input type="text" id="bTitle" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                             </div>
                             <div>
-                                <label class="block text-xs text-slate-400 mb-1">SEO Keywords (comma separated)</label>
+                                <label class="block text-xs text-slate-400 mb-1">SEO Keywords</label>
                                 <input type="text" id="bKeywords" placeholder="AI, Midjourney, Tips" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                             </div>
                             <div>
                                 <label class="block text-xs text-slate-400 mb-1">Top Image Filename</label>
-                                <input type="text" id="bImageURL" list="githubImagesList" placeholder="e.g., top_img.jpg" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <input type="text" id="bImageURL" list="githubImagesList" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                             </div>
                             <div>
                                 <label class="block text-xs text-slate-400 mb-1">Center Image Filename (Optional)</label>
-                                <input type="text" id="bCenterImageURL" list="githubImagesList" placeholder="e.g., middle_img.jpg" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
+                                <input type="text" id="bCenterImageURL" list="githubImagesList" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-400 mb-1">Meta Description / Excerpt (1-2 lines)</label>
+                            <label class="block text-xs text-slate-400 mb-1">Meta Description / Excerpt</label>
                             <input type="text" id="bExcerpt" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                         </div>
                         <div>
                             <label class="block text-xs text-slate-400 mb-1">Blog Content (Use # for H2, ## for H3)</label>
-                            <textarea id="bContent" rows="10" placeholder="Type here... Markdown and HTML allowed." required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
+                            <textarea id="bContent" rows="10" required class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition"></textarea>
                         </div>
                         <div class="flex gap-2">
                             <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition">Publish Post</button>
                             <button type="button" onclick="window.resetBlogForm()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm transition">Reset</button>
                         </div>
                     </form>
-
-                    <!-- Blogs List Table -->
                     <div class="mt-8 border-t border-slate-200 dark:border-slate-800 pt-6">
-                        <h4 class="text-sm font-bold mb-4">Active Articles</h4>
                         <div class="overflow-x-auto text-xs">
                             <table class="w-full text-left">
-                                <thead class="bg-slate-100 dark:bg-slate-950 text-slate-500 uppercase text-[10px]">
-                                    <tr>
-                                        <th class="px-4 py-3">Title</th>
-                                        <th class="px-4 py-3">Published Date</th>
-                                        <th class="px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminBlogsListTable">
-                                    <tr><td colspan="3" class="text-center py-4 text-slate-500">Loading...</td></tr>
-                                </tbody>
+                                <tbody id="adminBlogsListTable"></tbody>
                             </table>
                         </div>
                     </div>
@@ -248,17 +238,32 @@
 
             <!-- CATEGORIES TAB -->
             <section id="tab-categories" class="admin-section hidden space-y-6">
+                <!-- Categories content same as before -->
                 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="text-lg font-bold mb-2">Manage Categories</h3>
-                    <p class="text-xs text-slate-400 mb-4">These categories will appear in the main site's filters and Prompt Forms.</p>
-                    
                     <div class="flex gap-2 max-w-md mb-6 font-medium">
                         <input type="text" id="newCategoryInput" placeholder="e.g. Couples, Islamic" class="flex-1 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                         <button onclick="window.addNewCategory()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition">Add Category</button>
                     </div>
-
                     <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
                         <div id="adminCategoryList" class="flex flex-wrap gap-2 text-xs"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COMMUNITY TAB -->
+            <section id="tab-community" class="admin-section hidden space-y-6">
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i class="fa-solid fa-bullhorn text-2xl text-amber-500"></i>
+                        <h3 class="text-lg font-bold">Global Community Announcements</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-6">Send direct announcements to all users in the Global Community Chat.</p>
+                    <div class="space-y-4 font-medium max-w-3xl">
+                        <textarea id="adminAnnouncementInput" rows="4" placeholder="Type your official announcement here..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-3 text-sm focus:outline-none focus:border-amber-500 text-slate-955 dark:text-white transition font-sans"></textarea>
+                        <button onclick="window.sendAdminAnnouncement()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Announcement
+                        </button>
                     </div>
                 </div>
             </section>
@@ -269,16 +274,6 @@
                     <h3 class="text-lg font-bold mb-4">Pending Wallet Submissions</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm">
-                            <thead class="bg-slate-100 dark:bg-slate-950 text-xs text-slate-500 uppercase">
-                                <tr>
-                                    <th class="px-4 py-3">User Email</th>
-                                    <th class="px-4 py-3">TID</th>
-                                    <th class="px-4 py-3">Sender Details</th>
-                                    <th class="px-4 py-3">Amount (Coins)</th>
-                                    <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3">Actions</th>
-                                </tr>
-                            </thead>
                             <tbody id="adminPaymentsList">
                                 <tr><td colspan="6" class="text-center py-6 text-slate-500">Loading...</td></tr>
                             </tbody>
@@ -287,43 +282,33 @@
                 </div>
             </section>
 
-            <!-- ADSENSE SETUP TAB -->
+            <!-- ADSENSE & AI CONFIG TABS... -->
             <section id="tab-ads" class="admin-section hidden space-y-6">
                 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="text-lg font-bold mb-2">AdSense Configuration</h3>
-                    <p class="text-xs text-slate-400 mb-6">Paste your Google AdSense block codes here to display them automatically in Blog Posts.</p>
-                    
                     <div class="space-y-4 font-medium max-w-3xl">
                         <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Top Display Ad (Top of Blog Post)</label>
-                            <textarea id="adDisplayTop" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                            <textarea id="adDisplayTop" rows="3" placeholder="Top Ad Code..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Center Article Ad (Middle of Blog Post)</label>
-                            <textarea id="adArticleCenter" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                            <textarea id="adArticleCenter" rows="3" placeholder="Center Ad Code..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Multiplex Ad (End of Content)</label>
-                            <textarea id="adMultiplexBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                            <textarea id="adMultiplexBottom" rows="3" placeholder="Multiplex Ad Code..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Bottom Display Ad (Absolute Bottom)</label>
-                            <textarea id="adDisplayBottom" rows="3" placeholder="<ins class='adsbygoogle' ...></ins><script>...</script>" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
+                            <textarea id="adDisplayBottom" rows="3" placeholder="Bottom Ad Code..." class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition font-mono"></textarea>
                         </div>
                         <button onclick="window.saveAdsConfig()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition">Save Ads Setup</button>
                     </div>
                 </div>
             </section>
-
-            <!-- AI CONFIG TAB -->
+            
             <section id="tab-aiconfig" class="admin-section hidden space-y-6">
                 <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="text-lg font-bold mb-2">Secure AI Configuration</h3>
-                    <p class="text-xs text-slate-400 mb-4">Set your own custom Gemini API Key for the Regenerate AI feature.</p>
-                    
                     <div class="space-y-4 max-w-md font-medium">
                         <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Gemini API Key</label>
                             <input type="password" id="adminApiKeyInput" placeholder="Enter secure API key (AIzaSy...)" class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-955 dark:text-white transition">
                         </div>
                         <button onclick="window.saveApiKey()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition">Save API Key</button>
@@ -336,21 +321,14 @@
 
     <!-- UI State Control Script -->
     <script>
-        // Tab Switcher logic
         function switchTab(tabId) {
-            // Hide all sections
             document.querySelectorAll('.admin-section').forEach(el => el.classList.add('hidden'));
-            // Remove active classes from all nav buttons
             document.querySelectorAll('.admin-nav-btn').forEach(btn => {
                 btn.classList.remove('bg-brand-500', 'text-white');
                 btn.classList.add('text-slate-600', 'dark:text-slate-400');
             });
-
-            // Show selected section
             const section = document.getElementById(`tab-${tabId}`);
             if (section) section.classList.remove('hidden');
-
-            // Add active class to selected nav button
             const navBtn = document.getElementById(`nav-${tabId}`);
             if (navBtn) {
                 navBtn.classList.add('bg-brand-500', 'text-white');
@@ -372,6 +350,7 @@
         function resetPromptForm() {
             document.getElementById('promptForm').reset();
             document.getElementById('editPromptId').value = '';
+            if(document.getElementById('pThumbnailURL')) document.getElementById('pThumbnailURL').value = '';
             document.getElementById('promptFormTitle').innerText = 'Add New Prompt';
             document.getElementById('priceFieldContainer').classList.add('hidden');
         }
@@ -417,23 +396,18 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // State lists
         let promptsList = [];
         let blogsList = [];
         let categoriesList = [];
 
-        // Authentication Observer (Crucial for security)
         onAuthStateChanged(auth, (user) => {
             const overlay = document.getElementById('authOverlay');
             const dashboard = document.getElementById('adminDashboard');
-            
             if (user && user.email === 'kazimmustafa38@gmail.com') {
-                // Allow Access
                 overlay.classList.add('hidden');
                 dashboard.classList.remove('hidden');
                 initAdminData();
             } else {
-                // Deny Access & Redirect
                 alert("Unauthorized Access! Only Kazimmustafa38@gmail.com can view this panel.");
                 window.location.href = 'index.html';
             }
@@ -444,11 +418,9 @@
             window.location.href = 'index.html';
         };
 
-        // Initialize All Admin Data Syncs
         function initAdminData() {
             fetchGitHubImages();
 
-            // Categories
             onValue(ref(db, 'categories'), (snapshot) => {
                 if (snapshot.exists()) {
                     categoriesList = snapshot.val();
@@ -460,7 +432,6 @@
                 renderCategoryManager();
             });
 
-            // Prompts
             onValue(ref(db, 'prompts'), (snapshot) => {
                 promptsList = [];
                 if (snapshot.exists()) {
@@ -470,7 +441,6 @@
                 renderAdminPromptsList();
             });
 
-            // Blogs
             onValue(ref(db, 'blogs'), (snapshot) => {
                 blogsList = [];
                 if (snapshot.exists()) {
@@ -480,7 +450,6 @@
                 renderAdminBlogsList();
             });
 
-            // Pending Transactions
             onValue(ref(db, 'transactions'), (snapshot) => {
                 const list = document.getElementById('adminPaymentsList');
                 if(!list) return;
@@ -513,7 +482,6 @@
                 }
             });
 
-            // Ads Config
             onValue(ref(db, 'settings/ads'), (snapshot) => {
                 if (snapshot.exists()) {
                     const ads = snapshot.val();
@@ -524,7 +492,6 @@
                 }
             });
 
-            // AI API Config
             onValue(ref(db, 'settings/geminiApiKey'), (snapshot) => {
                 if (snapshot.exists()) {
                     document.getElementById('adminApiKeyInput').value = snapshot.val();
@@ -532,12 +499,10 @@
             });
         }
 
-        // Fetch Github Images for Autocomplete
         async function fetchGitHubImages() {
             const datalist = document.getElementById('githubImagesList');
             const statusSpan = document.getElementById('githubApiStatus');
-            if (statusSpan) statusSpan.innerText = "🔄 Syncing /images/ list...";
-
+            if (statusSpan) statusSpan.innerText = "🔄 Syncing media list...";
             try {
                 const res = await fetch("https://api.github.io/repos/freeearningsonline/Ai-Prompt-/contents/images");
                 if (res.ok) {
@@ -545,14 +510,14 @@
                     datalist.innerHTML = '';
                     let count = 0;
                     data.forEach(item => {
-                        if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name)) {
+                        if (item.type === 'file' && /\.(jpg|jpeg|png|webp|gif|mp4|webm)$/i.test(item.name)) {
                             const opt = document.createElement('option');
                             opt.value = item.name;
                             datalist.appendChild(opt);
                             count++;
                         }
                     });
-                    if (statusSpan) statusSpan.innerText = `✅ Found ${count} images in repo.`;
+                    if (statusSpan) statusSpan.innerText = `✅ Found ${count} media files.`;
                 }
             } catch (err) {
                 if (statusSpan) statusSpan.innerText = "⚠️ GitHub API rate limit reached.";
@@ -560,7 +525,6 @@
         }
         window.fetchGitHubImages = fetchGitHubImages;
 
-        // Categories Management
         function renderCategoryDropdown() {
             const select = document.getElementById('pCategory');
             if(!select) return;
@@ -608,7 +572,6 @@
             }
         };
 
-        // Prompts Management
         function renderAdminPromptsList() {
             const table = document.getElementById('adminPromptsListTable');
             table.innerHTML = '';
@@ -616,20 +579,21 @@
                 table.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">No prompts found.</td></tr>`;
                 return;
             }
-            
-            // Sort by latest
             const sorted = [...promptsList].sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
 
             sorted.forEach(p => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900";
+                const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
+                const mediaIcon = isVideo ? '<i class="fa-solid fa-video text-brand-500"></i> ' : '';
+
                 tr.innerHTML = `
-                    <td class="px-4 py-3 font-semibold text-xs">${p.title}</td>
+                    <td class="px-4 py-3 font-semibold text-xs">${mediaIcon}${p.title}</td>
                     <td class="px-4 py-3 text-xs">
                         ${p.type === 'paid' ? `<span class="text-amber-500 font-bold">${window.formatCoins(p.priceCoins)} Coins</span>` : '<span class="text-emerald-500 font-bold">Free</span>'}
                     </td>
                     <td class="px-4 py-3 text-xs"><span class="bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded">${p.tags}</span></td>
-                    <td class="px-4 py-3 space-x-2 text-xs">
+                    <td class="px-4 py-3 space-x-2 text-xs flex flex-nowrap">
                         <button onclick="window.editPrompt('${p.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">Edit</button>
                         <button onclick="window.deletePrompt('${p.id}')" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">Delete</button>
                     </td>
@@ -641,10 +605,16 @@
         document.getElementById('promptForm').addEventListener('submit', async (e) => {
             e.preventDefault(); 
             const editId = document.getElementById('editPromptId').value;
+            const rawImageUrl = document.getElementById('pImageURL').value.trim();
+            const mediaTypeFallback = rawImageUrl.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image';
+
             const payload = {
                 title: document.getElementById('pTitle').value.trim(),
                 tags: document.getElementById('pCategory').value,
-                imageURL: document.getElementById('pImageURL').value.trim(),
+                imageURL: rawImageUrl,
+                mediaType: mediaTypeFallback,
+                // UPDATED: Save custom thumbnail URL
+                thumbnailURL: document.getElementById('pThumbnailURL') ? document.getElementById('pThumbnailURL').value.trim() : "",
                 views: parseInt(document.getElementById('pInitialViews').value) || 0,
                 description: document.getElementById('pDescription').value.trim(),
                 type: document.getElementById('pType').value,
@@ -684,6 +654,9 @@
                 document.getElementById('pCategory').value = p.tags || 'Viral';
                 document.getElementById('pDescription').value = p.description;
                 document.getElementById('pImageURL').value = p.imageURL || '';
+                // UPDATED: Load custom thumbnail into input
+                if(document.getElementById('pThumbnailURL')) document.getElementById('pThumbnailURL').value = p.thumbnailURL || '';
+                
                 document.getElementById('pType').value = p.type || 'free';
                 document.getElementById('pPrice').value = p.priceCoins || 0;
                 document.getElementById('pTrending').checked = !!p.isTrending;
@@ -691,7 +664,6 @@
                 document.getElementById('pInitialViews').value = p.views || 0;
                 window.togglePriceField();
                 
-                // Scroll to top
                 document.querySelector('main').scrollTo({top: 0, behavior: 'smooth'});
             }
         };
@@ -703,7 +675,6 @@
             }
         };
 
-        // Blogs Management
         function renderAdminBlogsList() {
             const table = document.getElementById('adminBlogsListTable');
             table.innerHTML = '';
@@ -711,7 +682,6 @@
                 table.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-slate-500">No blogs found.</td></tr>`;
                 return;
             }
-            
             const sorted = [...blogsList].sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
 
             sorted.forEach(blog => {
@@ -720,7 +690,7 @@
                 tr.innerHTML = `
                     <td class="px-4 py-3 font-semibold text-xs">${blog.title}</td>
                     <td class="px-4 py-3 text-xs text-slate-500">${new Date(blog.createdAt).toLocaleDateString()}</td>
-                    <td class="px-4 py-3 space-x-2 text-xs">
+                    <td class="px-4 py-3 space-x-2 text-xs flex flex-nowrap">
                         <button onclick="window.editBlog('${blog.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">Edit</button>
                         <button onclick="window.deleteBlog('${blog.id}')" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">Delete</button>
                     </td>
@@ -786,7 +756,36 @@
             }
         };
 
-        // Configuration (API & Ads)
+        window.sendAdminAnnouncement = async function() {
+            const input = document.getElementById('adminAnnouncementInput');
+            const text = input.value.trim();
+            if(!text) {
+                alert("Please enter a valid announcement message.");
+                return;
+            }
+            
+            const currentUser = auth.currentUser;
+            if(!currentUser) {
+                alert("Error: Authentication verified failed.");
+                return;
+            }
+
+            try {
+                await push(ref(db, 'communityChat'), {
+                    userId: currentUser.uid,
+                    userName: 'Admin',
+                    text: text,
+                    isAdmin: true,
+                    type: 'announcement', 
+                    timestamp: Date.now()
+                });
+                input.value = '';
+                alert("Announcement successfully sent to the Global Community Chat!");
+            } catch(err) {
+                alert("Failed to send announcement: " + err.message);
+            }
+        };
+
         window.saveApiKey = async function() {
             const keyVal = document.getElementById('adminApiKeyInput').value.trim();
             if(!keyVal) { alert("Please enter API Key."); return; }
@@ -809,7 +808,6 @@
             }
         };
 
-        // Payments
         window.approvePayment = async function(txId, userId, amount) {
             try {
                 await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
