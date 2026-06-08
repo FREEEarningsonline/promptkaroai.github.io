@@ -1,3 +1,4 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getDatabase, ref, set, get, update, push, child, onValue, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -7,8 +8,9 @@ import { getDatabase, ref, set, get, update, push, child, onValue, remove, runTr
 // ==========================================
 
 const GITHUB_BASE_URL = "https://raw.githubusercontent.com/freeearningsonline/Ai-Prompt-/main/images/";
+const IMGBB_API_KEY = "54345d70fbd11c8a3ccd7e180c3281e2";
 
-// UPDATED: Smart Media Detection & Local Video Folder Integration
+// Smart Media Detection & Local Video Folder Integration
 function resolveMediaSrc(mediaVal) {
     if (!mediaVal) {
         return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; 
@@ -19,7 +21,9 @@ function resolveMediaSrc(mediaVal) {
             return mediaVal;
         }
         // Load locally from /videos/ folder
-        if (mediaVal.startsWith("/videos/")) return mediaVal;
+        if (mediaVal.startsWith("/videos/")) {
+            return mediaVal;
+        }
         return "/videos/" + mediaVal;
     }
     // Handle standard images
@@ -30,7 +34,7 @@ function resolveMediaSrc(mediaVal) {
 }
 window.resolveImageSrc = resolveMediaSrc;
 
-// UPDATED: Text Highlighter for Advanced Search
+// Text Highlighter for Advanced Search
 function highlightText(text, search) {
     if (!search || !text) return text;
     const safeSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -71,6 +75,7 @@ window.appState = {
     currentUser: null,
     currentUserData: null,
     promptsList: [],
+    userPromptsList: [], // For Community Prompts
     blogsList: [], 
     categories: [], 
     blogCategories: [],
@@ -81,6 +86,7 @@ window.appState = {
     isLoginMode: true,
     currentDetailPrompt: null,
     currentPage: 1,
+    currentUserPage: 1, // For Community Prompts Pagination
     currentBlogPage: 1,
     viewMode: 'home', 
     navigationStack: [] 
@@ -98,6 +104,7 @@ function toggleTheme() {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     updateThemeIcons();
 }
+window.toggleTheme = toggleTheme;
 
 function updateThemeIcons() {
     const isDark = document.documentElement.classList.contains('dark');
@@ -113,7 +120,6 @@ function updateThemeIcons() {
         }
     }
 }
-window.toggleTheme = toggleTheme;
 
 window.addEventListener('DOMContentLoaded', () => {
     updateThemeIcons();
@@ -123,6 +129,21 @@ window.addEventListener('DOMContentLoaded', () => {
     const mSearch = document.getElementById('mobileSearch');
     if (dSearch) dSearch.addEventListener('input', window.handleSearch);
     if (mSearch) mSearch.addEventListener('input', window.handleSearch);
+
+    // Dynamic file name display for user upload
+    const uImageFile = document.getElementById('uImageFile');
+    const uImageFileName = document.getElementById('uImageFileName');
+    if (uImageFile && uImageFileName) {
+        uImageFile.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                uImageFileName.innerText = e.target.files[0].name;
+                uImageFileName.classList.add('text-purple-500');
+            } else {
+                uImageFileName.innerText = "Click to select an image...";
+                uImageFileName.classList.remove('text-purple-500');
+            }
+        });
+    }
 
     window.history.pushState({ type: 'tab', value: 'home' }, "");
     
@@ -135,13 +156,29 @@ window.addEventListener('DOMContentLoaded', () => {
     const sharedPromptId = urlParams.get('prompt');
     const sharedBlogId = urlParams.get('blog');
 
+    // Deep Linking logic for Both Admin and User Prompts
     if (sharedPromptId) {
+        let attempts = 0;
         const checkInterval = setInterval(() => {
-            if (window.appState.promptsList && window.appState.promptsList.length > 0) {
+            attempts++;
+            const adminPrompt = window.appState.promptsList.find(p => p.id === sharedPromptId);
+            const userPrompt = window.appState.userPromptsList.find(p => p.id === sharedPromptId);
+
+            if (adminPrompt) {
                 clearInterval(checkInterval);
                 if (typeof window.openPromptDetail === 'function') {
                     window.openPromptDetail(sharedPromptId);
                 }
+            } else if (userPrompt) {
+                clearInterval(checkInterval);
+                if (typeof window.openUserPromptDetail === 'function') {
+                    window.openUserPromptDetail(sharedPromptId);
+                }
+            }
+            
+            // Stop checking after 10 seconds to prevent infinite loop
+            if (attempts > 20) {
+                clearInterval(checkInterval);
             }
         }, 500);
     }
@@ -204,7 +241,14 @@ function switchTab(tabId, isBack = false) {
         window.history.pushState({ type: 'tab', value: tabId }, "");
     }
 
-    const sections = ['heroSection', 'promptsSection', 'adminView', 'walletSection', 'blogSection', 'homeBlogSliderSection', 'seoGuideSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection'];
+    // Hide all main sections
+    const sections = [
+        'heroSection', 'promptsSection', 'adminView', 'walletSection', 
+        'blogSection', 'homeBlogSliderSection', 'seoGuideSection', 
+        'founderSection', 'bentoGridSection', 'videoPromptsSection', 
+        'userPromptsDisplaySection', 'userUploadSection'
+    ];
+    
     sections.forEach(id => {
         const el = document.getElementById(id);
         if(el) el.classList.add('hidden');
@@ -212,13 +256,15 @@ function switchTab(tabId, isBack = false) {
 
     window.appState.viewMode = tabId; 
 
+    // Show specific sections based on tabId
     if (tabId === 'home' || tabId === 'discover') {
-        ['heroSection', 'promptsSection', 'seoGuideSection', 'homeBlogSliderSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection'].forEach(id => {
+        ['heroSection', 'promptsSection', 'seoGuideSection', 'homeBlogSliderSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection', 'userPromptsDisplaySection'].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.classList.remove('hidden');
         });
         
         window.appState.currentPage = 1;
+        window.appState.currentUserPage = 1;
         if (typeof window.filterCategory === 'function') {
             window.filterCategory('All');
         }
@@ -243,15 +289,18 @@ function switchTab(tabId, isBack = false) {
         const el = document.getElementById('walletSection');
         if(el) el.classList.remove('hidden');
         updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
+    } else if (tabId === 'userUpload') {
+        const el = document.getElementById('userUploadSection');
+        if(el) el.classList.remove('hidden');
+        updatePageMetadata("Upload Prompt", "Upload your prompt and monetize with Adsterra.");
     }
 }
 window.switchTab = switchTab;
 
-// ADVANCED SEARCH LOGIC
 window.handleSearch = function() {
     const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
     
-    // Hide/Show non-related sections dynamically when typing
+    // Hide non-related sections dynamically when typing
     const sectionsToToggle = [
         'heroSection', 
         'homeBlogSliderSection', 
@@ -263,9 +312,12 @@ window.handleSearch = function() {
 
     if (window.appState.viewMode === 'blog') {
         window.appState.currentBlogPage = 1;
-        if(typeof window.renderBlogs === 'function') window.renderBlogs();
+        if(typeof window.renderBlogs === 'function') {
+            window.renderBlogs();
+        }
     } else {
         window.appState.currentPage = 1;
+        window.appState.currentUserPage = 1;
         
         if (searchVal) {
             sectionsToToggle.forEach(id => {
@@ -280,6 +332,7 @@ window.handleSearch = function() {
         }
         
         if(typeof window.renderPrompts === 'function') window.renderPrompts();
+        if(typeof window.renderUserPrompts === 'function') window.renderUserPrompts();
     }
 }
 
@@ -425,6 +478,18 @@ function closePromptDetailModal() {
     }
     if (thumbOverlay) {
         thumbOverlay.classList.remove('hidden');
+    }
+    
+    // Clear user ads inside modal when closed to prevent issues
+    const modalUserAdTop = document.getElementById('modalUserAdTop');
+    const modalUserAdBottom = document.getElementById('modalUserAdBottom');
+    if (modalUserAdTop) {
+        modalUserAdTop.innerHTML = '';
+        modalUserAdTop.classList.add('hidden');
+    }
+    if (modalUserAdBottom) {
+        modalUserAdBottom.innerHTML = '';
+        modalUserAdBottom.classList.add('hidden');
     }
 
     updatePageMetadata(); 
@@ -710,6 +775,7 @@ if (requestFormEl) {
     });
 }
 
+// ADMIN PROMPT ADD/EDIT FORM
 const promptFormEl = document.getElementById('promptForm');
 if (promptFormEl) {
     promptFormEl.addEventListener('submit', async (e) => {
@@ -755,6 +821,104 @@ if (promptFormEl) {
         } finally {
             btn.disabled = false;
             btn.innerText = originalText;
+        }
+    });
+}
+
+// NEW: USER UPLOAD FORM LOGIC (ImgBB API + 50k Coins Deduction)
+const userUploadForm = document.getElementById('userUploadForm');
+if (userUploadForm) {
+    userUploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // 1. Check Login
+        if (!window.appState.currentUser) {
+            alert("Please log in first!");
+            window.openAuthModal('login');
+            return;
+        }
+
+        // 2. Check Coins
+        const userCoins = window.appState.currentUserData?.coins || 0;
+        if (userCoins < 50000) {
+            alert("Insufficient Balance! You need 50,000 coins to upload a prompt.");
+            window.switchTab('wallet');
+            return;
+        }
+
+        // 3. Check Image
+        const fileInput = document.getElementById('uImageFile');
+        if (!fileInput.files.length) {
+            alert("Please select an image to upload.");
+            return;
+        }
+
+        const btn = document.getElementById('userUploadSubmitBtn');
+        const originalHTML = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading... Please wait';
+
+        try {
+            // 4. Upload to ImgBB
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: 'POST',
+                body: formData
+            });
+            const imgData = await imgbbRes.json();
+
+            if (!imgData.success) {
+                throw new Error("Image upload failed: " + imgData.error.message);
+            }
+
+            const imageUrl = imgData.data.url;
+
+            // 5. Save to NEW userPrompts Firebase Node
+            const payload = {
+                title: document.getElementById('uTitle').value.trim(),
+                tags: document.getElementById('uCategory').value,
+                imageURL: imageUrl,
+                mediaType: 'image', // Users currently only upload images via this form
+                description: document.getElementById('uDescription').value.trim(),
+                adsterraBanner: document.getElementById('uAdsterraBanner').value.trim(),
+                adsterraNative: document.getElementById('uAdsterraNative').value.trim(),
+                socialLink: document.getElementById('uSocialLink').value.trim(),
+                uploaderUid: window.appState.currentUser.uid,
+                uploaderEmail: window.appState.currentUser.email,
+                views: 0,
+                timestamp: Date.now()
+            };
+
+            await push(ref(db, 'userPrompts'), payload);
+
+            // 6. Deduct 50,000 Coins Safely
+            const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
+            await runTransaction(userCoinsRef, (current) => {
+                return (current || 0) - 50000;
+            });
+
+            // Log the upload transaction
+            await push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`), {
+                promptId: "user-upload",
+                promptTitle: "Uploaded Custom Prompt",
+                amountCoins: 50000,
+                timestamp: Date.now()
+            });
+
+            alert("Prompt Successfully Uploaded! 50,000 coins deducted.");
+            userUploadForm.reset();
+            document.getElementById('uImageFileName').innerText = "Click to select an image...";
+            document.getElementById('uImageFileName').classList.remove('text-purple-500');
+            window.switchTab('home');
+
+        } catch (err) {
+            alert("Upload Error: " + err.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
         }
     });
 }
@@ -1014,13 +1178,19 @@ onValue(dbBlogsRef, (snapshot) => {
         }
     }
     renderBlogs();
-    renderAdminBlogsList();
-    if(typeof window.renderHomeBlogSlider === 'function') window.renderHomeBlogSlider();
+    if (typeof window.renderAdminBlogsList === 'function') {
+        window.renderAdminBlogsList();
+    }
+    if (typeof window.renderHomeBlogSlider === 'function') {
+        window.renderHomeBlogSlider();
+    }
 });
 
 window.homeBlogScrollInterval = null;
 window.startHomeBlogAutoScroll = function() {
-    if(window.homeBlogScrollInterval) clearInterval(window.homeBlogScrollInterval);
+    if(window.homeBlogScrollInterval) {
+        clearInterval(window.homeBlogScrollInterval);
+    }
     window.homeBlogScrollInterval = setInterval(() => {
         const container = document.getElementById('homeBlogSliderContainer');
         if(!container) return;
@@ -1086,7 +1256,7 @@ function renderBlogs() {
         filtered = filtered.filter(b => b.category === window.appState.currentBlogFilter);
     }
 
-    const searchVal = (document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '').toLowerCase();
+    const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
     if (searchVal) {
         filtered = filtered.filter(b => b.title.toLowerCase().includes(searchVal) || (b.excerpt || '').toLowerCase().includes(searchVal));
     }
@@ -1353,8 +1523,12 @@ function updateAuthUI(isLoggedIn, email = '', coins = 0) {
 
     const formattedValue = formatCoins(coins);
 
-    if(dCoin) dCoin.innerText = formattedValue;
-    if(mCoin) mCoin.innerText = formattedValue;
+    if(dCoin) {
+        dCoin.innerText = formattedValue;
+    }
+    if(mCoin) {
+        mCoin.innerText = formattedValue;
+    }
     
     document.querySelectorAll('.walletCoinTotal').forEach(el => {
         if(el) el.innerText = formattedValue;
@@ -1426,8 +1600,9 @@ onValue(categoriesRef, (snapshot) => {
         window.appState.categories = defaultCats;
     }
     renderCategoryPills(window.appState.categories);
-    renderCategoryDropdown(window.appState.categories);
-    renderAdminCategoryManager(window.appState.categories);
+    if(typeof window.renderCategoryDropdown === 'function') {
+        window.renderCategoryDropdown(window.appState.categories);
+    }
 });
 
 const blogCategoriesRef = ref(db, 'blogCategories');
@@ -1441,10 +1616,11 @@ onValue(blogCategoriesRef, (snapshot) => {
     }
     renderBlogCategoryPills(window.appState.blogCategories);
     renderBlogCategoryDropdown(window.appState.blogCategories);
-    renderAdminBlogCategoryManager(window.appState.blogCategories);
+    if(typeof window.renderAdminBlogCategoryManager === 'function') {
+        window.renderAdminBlogCategoryManager(window.appState.blogCategories);
+    }
 });
 
-// UPDATED: Category Pills with New Static Filters integration
 function renderCategoryPills(categories) {
     const container = document.getElementById('categoryFiltersContainer');
     if(!container) return;
@@ -1473,51 +1649,24 @@ function renderCategoryPills(categories) {
     });
 }
 
-function renderCategoryDropdown(categories) {
+window.renderCategoryDropdown = function(categories) {
     const select = document.getElementById('pCategory');
-    if(!select) return;
-    select.innerHTML = '';
+    const uSelect = document.getElementById('uCategory');
+    
+    if(select) select.innerHTML = '';
+    if(uSelect) uSelect.innerHTML = '';
+    
     categories.forEach(cat => {
         const opt = document.createElement('option');
         opt.value = cat;
         opt.innerText = cat;
-        select.appendChild(opt);
+        if(select) select.appendChild(opt);
+
+        const uOpt = document.createElement('option');
+        uOpt.value = cat;
+        uOpt.innerText = cat;
+        if(uSelect) uSelect.appendChild(uOpt);
     });
-}
-
-function renderAdminCategoryManager(categories) {
-    const container = document.getElementById('adminCategoryList');
-    if(!container) return;
-    container.innerHTML = '';
-    categories.forEach((cat, index) => {
-        const span = document.createElement('span');
-        span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
-        span.innerHTML = `
-            <span>${cat}</span>
-            <button onclick="window.deleteCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
-        `;
-        container.appendChild(span);
-    });
-}
-
-window.addNewCategory = async function() {
-    const input = document.getElementById('newCategoryInput');
-    const newCatVal = input.value.trim();
-    if(!newCatVal) return;
-    if (window.appState.categories.includes(newCatVal)) {
-        alert("Category already exists.");
-        return;
-    }
-    const updatedCats = [...window.appState.categories, newCatVal];
-    await set(ref(db, 'categories'), updatedCats);
-    input.value = '';
-};
-
-window.deleteCategory = async function(index) {
-    if (confirm("Are you sure you want to delete this prompt category?")) {
-        const updatedCats = window.appState.categories.filter((_, i) => i !== index);
-        await set(ref(db, 'categories'), updatedCats);
-    }
 };
 
 function renderBlogCategoryPills(categories) {
@@ -1553,41 +1702,6 @@ function renderBlogCategoryDropdown(categories) {
         select.appendChild(opt);
     });
 }
-
-function renderAdminBlogCategoryManager(categories) {
-    const container = document.getElementById('adminBlogCategoryList');
-    if(!container) return;
-    container.innerHTML = '';
-    categories.forEach((cat, index) => {
-        const span = document.createElement('span');
-        span.className = "flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold";
-        span.innerHTML = `
-            <span>${cat}</span>
-            <button onclick="window.deleteBlogCategory(${index})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
-        `;
-        container.appendChild(span);
-    });
-}
-
-window.addBlogCategory = async function() {
-    const input = document.getElementById('newBlogCategoryInput');
-    const newCatVal = input.value.trim();
-    if(!newCatVal) return;
-    if (window.appState.blogCategories.includes(newCatVal)) {
-        alert("Blog Category already exists.");
-        return;
-    }
-    const updatedCats = [...window.appState.blogCategories, newCatVal];
-    await set(ref(db, 'blogCategories'), updatedCats);
-    input.value = '';
-};
-
-window.deleteBlogCategory = async function(index) {
-    if (confirm("Are you sure you want to delete this blog category?")) {
-        const updatedCats = window.appState.blogCategories.filter((_, i) => i !== index);
-        await set(ref(db, 'blogCategories'), updatedCats);
-    }
-};
 
 function syncUserTransactionsHistory() {
     if (!window.appState.currentUser) return;
@@ -1647,10 +1761,10 @@ function syncUserPurchaseHistory() {
                 list.appendChild(tr);
             }
             if (!itemsFound) {
-                list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+                list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium records yet.</td></tr>';
             }
         } else {
-            list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium unlock records yet.</td></tr>';
+            list.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No premium records yet.</td></tr>';
         }
     });
 }
@@ -1687,6 +1801,10 @@ setInterval(() => {
     }
 }, 60000);
 
+// =====================================
+// DATA FETCHERS & RENDERERS
+// =====================================
+
 const promptsRef = ref(db, 'prompts');
 onValue(promptsRef, (snapshot) => {
     window.appState.promptsList = [];
@@ -1697,20 +1815,35 @@ onValue(promptsRef, (snapshot) => {
         }
     }
     renderPrompts();
-    if(typeof window.renderVideoPrompts === 'function') window.renderVideoPrompts();
+    if(typeof window.renderVideoPrompts === 'function') {
+        window.renderVideoPrompts();
+    }
 });
 
-// UPDATED: Filter logic, Smart Detection, Text Highlighting, Fast Rendering, No Results Message
+const userPromptsRef = ref(db, 'userPrompts');
+onValue(userPromptsRef, (snapshot) => {
+    window.appState.userPromptsList = [];
+    if (snapshot.exists()) {
+        const data = snapshot.val();
+        for (let key in data) {
+            window.appState.userPromptsList.push({ id: key, ...data[key] });
+        }
+    }
+    if (typeof window.renderUserPrompts === 'function') {
+        window.renderUserPrompts();
+    }
+});
+
 function renderPrompts() {
     const grid = document.getElementById('promptsGrid');
     const countText = document.getElementById('promptsCount');
     const pagControls = document.getElementById('paginationControls');
+    
     if(!grid) return;
     grid.innerHTML = '';
 
     let filtered = window.appState.promptsList;
 
-    // Smart Categories Implementation
     if (window.appState.viewMode === 'discover') {
         filtered = window.appState.promptsList.filter(p => p.isTrending === true);
     } else if (window.appState.currentFilter === 'Video Prompts') {
@@ -1723,7 +1856,6 @@ function renderPrompts() {
 
     const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
     
-    // Real-Time Search Multi-Layer Filtering
     if (searchVal) {
         filtered = filtered.filter(p => 
             p.title.toLowerCase().includes(searchVal) || 
@@ -1738,29 +1870,27 @@ function renderPrompts() {
         return b.views - a.views;
     });
 
-    // Update Counter Dynamically
     if(countText) {
         if (searchVal) {
-            countText.innerHTML = `<span class="bg-brand-500/10 text-brand-500 px-2 py-1 rounded-md font-bold shadow-sm">${filtered.length} Prompts Found</span>`;
+            countText.innerHTML = `<span class="bg-brand-500/10 text-brand-500 px-2 py-1 rounded-md font-bold shadow-sm">${filtered.length} Found</span>`;
         } else {
-            countText.innerText = `${filtered.length} prompts available`;
+            countText.innerText = `${filtered.length} prompts`;
         }
     }
 
-    // Modern No Results Message Animation
     if (filtered.length === 0) {
         grid.innerHTML = `
             <div class="col-span-full py-16 flex flex-col items-center justify-center text-center animate-fade-in w-full">
                 <i class="fa-solid fa-face-frown-open text-4xl text-slate-300 dark:text-slate-600 mb-4 animate-bounce"></i>
                 <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No Results Found</h3>
-                <p class="text-sm text-slate-500 mt-2">Try searching with different keywords or switch filters.</p>
+                <p class="text-sm text-slate-500 mt-2">Try searching with different keywords.</p>
             </div>
         `;
         if(pagControls) pagControls.classList.add('hidden');
         return;
     }
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 8;
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
     
     if(window.appState.currentPage > totalPages) {
@@ -1801,27 +1931,20 @@ function renderPrompts() {
         card.onclick = () => window.openPromptDetail(p.id);
 
         const finalUrl = window.resolveImageSrc(p.imageURL);
-        const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt Template`;
+        const optimizedAltText = `${p.title} - ${p.tags || 'Viral'} AI Prompt`;
         const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
 
         const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
         let mediaHTML = '';
         
-        // Render Image or Background Optimized Video smoothly with catch to prevent AbortError
         if (isVideo) {
             mediaHTML = `<video src="${finalUrl}" poster="${finalThumbImg}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300" muted playsinline preload="none" loop onmouseover="let pl=this.play(); if(pl)pl.catch(()=>{});" onmouseout="this.pause()"></video>`;
         } else {
             mediaHTML = `<img src="${finalUrl}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" alt="${optimizedAltText}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">`;
         }
 
-        // Highlight active searched text
-        let displayTitle = p.title;
-        let displayTags = p.tags || 'General';
-        
-        if (searchVal) {
-            displayTitle = window.highlightText(p.title, searchVal);
-            displayTags = window.highlightText(displayTags, searchVal);
-        }
+        let displayTitle = searchVal ? window.highlightText(p.title, searchVal) : p.title;
+        let displayTags = searchVal && p.tags ? window.highlightText(p.tags, searchVal) : (p.tags || 'General');
 
         card.innerHTML = `
             ${mediaHTML}
@@ -1844,7 +1967,97 @@ function renderPrompts() {
 }
 window.renderPrompts = renderPrompts;
 
-// NEW: Advanced AI Video Prompts Dedicated Section Renderer
+window.renderUserPrompts = function() {
+    const grid = document.getElementById('userPromptsGrid');
+    const countText = document.getElementById('userPromptsCount');
+    const pagControls = document.getElementById('userPaginationControls');
+    
+    if(!grid) return;
+    grid.innerHTML = '';
+
+    let filtered = window.appState.userPromptsList;
+    
+    const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
+    
+    if (searchVal) {
+        filtered = filtered.filter(p => 
+            p.title.toLowerCase().includes(searchVal) || 
+            p.description.toLowerCase().includes(searchVal) || 
+            (p.tags && p.tags.toLowerCase().includes(searchVal))
+        );
+    }
+
+    filtered.sort((a, b) => b.timestamp - a.timestamp);
+
+    if(countText) {
+        countText.innerText = `${filtered.length} community prompts`;
+    }
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500">No community creations yet. Be the first to upload!</div>`;
+        if(pagControls) pagControls.classList.add('hidden');
+        return;
+    }
+
+    const itemsPerPage = 8;
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    
+    if(window.appState.currentUserPage > totalPages) {
+        window.appState.currentUserPage = totalPages || 1;
+    }
+
+    const startIndex = (window.appState.currentUserPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = filtered.slice(startIndex, endIndex);
+
+    if (filtered.length > itemsPerPage) {
+        if(pagControls) pagControls.classList.remove('hidden');
+        const btnPrev = document.getElementById('userBtnPrev');
+        const btnNext = document.getElementById('userBtnNext');
+        const pageNumber = document.getElementById('userPageNumber');
+
+        if (window.appState.currentUserPage === 1) {
+            if(btnPrev) btnPrev.classList.add('hidden');
+        } else {
+            if(btnPrev) btnPrev.classList.remove('hidden');
+        }
+
+        if (window.appState.currentUserPage === totalPages) {
+            if(btnNext) btnNext.classList.add('hidden');
+        } else {
+            if(btnNext) btnNext.classList.remove('hidden');
+        }
+
+        if(pageNumber) pageNumber.innerText = `${window.appState.currentUserPage} / ${totalPages}`;
+    } else {
+        if(pagControls) pagControls.classList.add('hidden');
+    }
+
+    paginatedItems.forEach(p => {
+        const card = document.createElement('article'); 
+        card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
+        card.onclick = () => window.openUserPromptDetail(p.id);
+
+        const finalUrl = p.imageURL;
+        let displayTitle = searchVal ? window.highlightText(p.title, searchVal) : p.title;
+
+        card.innerHTML = `
+            <img src="${finalUrl}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <span class="absolute top-3 right-3 bg-purple-600/90 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-white z-10 shadow-sm">
+                <i class="fa-solid fa-user"></i> Community
+            </span>
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none z-10">
+                <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${displayTitle}</h4>
+                <div class="flex justify-between items-center mt-1.5 text-[9px] text-slate-300 font-semibold">
+                    <span><i class="fa-regular fa-eye mr-1"></i>${formatCoins(p.views || 0)} views</span>
+                    <span>#${p.tags || 'General'}</span>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+};
+
 window.renderVideoPrompts = function() {
     const container = document.getElementById('videoPromptsContainer');
     if (!container) return; 
@@ -1889,7 +2102,12 @@ window.changePage = function(direction) {
     window.appState.currentPage += direction;
     renderPrompts();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+};
+
+window.changeUserPage = function(direction) {
+    window.appState.currentUserPage += direction;
+    window.renderUserPrompts();
+};
 
 window.filterCategory = function(cat) {
     window.appState.currentFilter = cat;
@@ -1902,9 +2120,9 @@ window.filterCategory = function(cat) {
         }
     });
     renderPrompts();
-}
+};
 
-// UPDATED: Dynamic Modal Injection for Secure Video and Image Rendering (Fixing AbortError)
+// Modal for Admin Verified Prompts
 window.openPromptDetail = async function(id) {
     const p = window.appState.promptsList.find(item => item.id === id);
     if (!p) return;
@@ -1958,19 +2176,14 @@ window.openPromptDetail = async function(id) {
     }
 
     window.appState.currentDetailPrompt = p;
-    const viewsRef = ref(db, `prompts/${id}/views`);
-    runTransaction(viewsRef, (curr) => {
-        return (curr || p.views || 0) + 1;
-    });
-
+    runTransaction(ref(db, `prompts/${id}/views`), (curr) => { return (curr || p.views || 0) + 1; });
     window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`);
     window.openModal('promptDetailModal');
 
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
-    const detailImgEl = document.getElementById('detailImg');
     const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
+    const detailImgEl = document.getElementById('detailImg');
 
-    // Smart Modal Element Injection logic
     if (detailImgEl) {
         const parent = detailImgEl.parentNode;
         parent.classList.add('relative'); 
@@ -1978,15 +2191,16 @@ window.openPromptDetail = async function(id) {
         let oldVideo = document.getElementById('detailVideoEl');
         let oldOverlay = document.getElementById('detailThumbOverlay');
         
-        // Clean up memory safely before removing old elements
-        if (oldVideo) {
-            oldVideo.pause();
-            oldVideo.removeAttribute('src');
-            oldVideo.load();
-            oldVideo.remove();
+        if (oldVideo) { 
+            oldVideo.pause(); 
+            oldVideo.removeAttribute('src'); 
+            oldVideo.load(); 
+            oldVideo.remove(); 
         }
-        if (oldOverlay) oldOverlay.remove();
-        
+        if (oldOverlay) {
+            oldOverlay.remove();
+        }
+
         if (isVideo) {
             detailImgEl.classList.add('hidden');
             const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
@@ -2074,41 +2288,136 @@ window.openPromptDetail = async function(id) {
         shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share Prompt`;
         btnArea.appendChild(shareBtn);
     }
-};
 
-window.editPrompt = async function(id) {
-    const p = window.appState.promptsList.find(item => item.id === id);
-    if (p) {
-        document.getElementById('editPromptId').value = p.id;
-        document.getElementById('pTitle').value = p.title;
-        document.getElementById('pCategory').value = p.tags || 'Viral';
-        document.getElementById('pDescription').value = p.description;
-        document.getElementById('pImageURL').value = p.imageURL || '';
-        
-        if (document.getElementById('pThumbnailURL')) {
-            document.getElementById('pThumbnailURL').value = p.thumbnailURL || '';
-        }
-        
-        document.getElementById('pType').value = p.type;
-        document.getElementById('pPrice').value = p.priceCoins || 0;
-        document.getElementById('pTrending').checked = !!p.isTrending;
-        document.getElementById('pPinned').checked = !!p.isPinned;
-        document.getElementById('pInitialViews').value = p.views || 0;
-        
-        if (document.getElementById('pMediaType')) {
-            document.getElementById('pMediaType').value = p.mediaType || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
-        }
+    // Hide user elements when admin prompt opens
+    const adTopContainer = document.getElementById('modalUserAdTop');
+    const adBottomContainer = document.getElementById('modalUserAdBottom');
+    const socialBtn = document.getElementById('modalUserSocialBtn');
+    const aiRegenBtn = document.getElementById('btnAiRegenerateDisplay');
 
-        window.togglePriceField();
-        window.switchTab('admin');
-        window.toggleAdminTab('addPrompt');
+    if (adTopContainer) {
+        adTopContainer.innerHTML = '';
+        adTopContainer.classList.add('hidden');
+    }
+    if (adBottomContainer) {
+        adBottomContainer.innerHTML = '';
+        adBottomContainer.classList.add('hidden');
+    }
+    if (socialBtn) {
+        socialBtn.href = '#';
+        socialBtn.classList.add('hidden');
+    }
+    if (aiRegenBtn) {
+        aiRegenBtn.classList.remove('hidden');
     }
 };
 
-window.deletePrompt = async function(id) {
-    if (confirm("Delete this prompt?")) {
-        await remove(ref(db, `prompts/${id}`));
-        alert("Prompt deleted.");
+// Modal For User Uploaded Prompts
+window.openUserPromptDetail = async function(id) {
+    const p = window.appState.userPromptsList.find(item => item.id === id);
+    if (!p) return;
+
+    window.appState.currentDetailPrompt = p;
+    runTransaction(ref(db, `userPrompts/${id}/views`), (curr) => { return (curr || p.views || 0) + 1; });
+    
+    window.updatePageMetadata(p.title, `Community prompt: ${p.title}.`);
+    window.openModal('promptDetailModal');
+
+    const finalDetailsImg = p.imageURL;
+    const detailImgEl = document.getElementById('detailImg');
+
+    if (detailImgEl) {
+        const parent = detailImgEl.parentNode;
+        parent.classList.add('relative'); 
+        
+        let oldVideo = document.getElementById('detailVideoEl');
+        let oldOverlay = document.getElementById('detailThumbOverlay');
+        
+        if (oldVideo) { 
+            oldVideo.pause(); 
+            oldVideo.removeAttribute('src'); 
+            oldVideo.load(); 
+            oldVideo.remove(); 
+        }
+        if (oldOverlay) {
+            oldOverlay.remove();
+        }
+        
+        detailImgEl.classList.remove('hidden');
+        detailImgEl.src = finalDetailsImg;
+    }
+
+    const downloadBtn = document.getElementById('downloadBtn');
+    if (downloadBtn) {
+        downloadBtn.href = finalDetailsImg || '#';
+        downloadBtn.removeAttribute('download');
+    }
+
+    const detailTitle = document.getElementById('detailTitle');
+    if (detailTitle) detailTitle.innerText = p.title;
+
+    const detailViews = document.getElementById('detailViews');
+    if (detailViews) detailViews.innerText = formatCoins((p.views || 0) + 1);
+
+    const detailTag = document.getElementById('detailTag');
+    if (detailTag) detailTag.innerText = p.tags || 'Community';
+    
+    const lockedOverlay = document.getElementById('lockedOverlay');
+    if (lockedOverlay) lockedOverlay.classList.add('hidden'); 
+
+    const detailPromptText = document.getElementById('detailPromptText');
+    if (detailPromptText) {
+        detailPromptText.innerText = p.description;
+    }
+
+    const btnArea = document.querySelector('#promptContentArea .flex-wrap');
+    if (btnArea && !document.getElementById('promptShareBtn')) {
+        const shareBtn = document.createElement('button');
+        shareBtn.id = "promptShareBtn";
+        shareBtn.onclick = () => window.sharePrompt();
+        shareBtn.className = "bg-slate-200 dark:bg-slate-850 hover:bg-slate-300 dark:hover:bg-slate-800 text-xs px-3 py-1.5 rounded-md text-emerald-500 transition font-sans shadow-sm flex items-center gap-1";
+        shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share Prompt`;
+        btnArea.appendChild(shareBtn);
+    }
+
+    // INJECT ADSTERRA AND SOCIAL LINKS
+    const adTopContainer = document.getElementById('modalUserAdTop');
+    const adBottomContainer = document.getElementById('modalUserAdBottom');
+    const socialBtn = document.getElementById('modalUserSocialBtn');
+    const aiRegenBtn = document.getElementById('btnAiRegenerateDisplay');
+
+    if (adTopContainer) {
+        if (p.adsterraBanner) {
+            window.injectHtmlWithScripts('modalUserAdTop', p.adsterraBanner);
+            adTopContainer.classList.remove('hidden');
+        } else {
+            adTopContainer.innerHTML = '';
+            adTopContainer.classList.add('hidden');
+        }
+    }
+
+    if (adBottomContainer) {
+        if (p.adsterraNative) {
+            window.injectHtmlWithScripts('modalUserAdBottom', p.adsterraNative);
+            adBottomContainer.classList.remove('hidden');
+        } else {
+            adBottomContainer.innerHTML = '';
+            adBottomContainer.classList.add('hidden');
+        }
+    }
+
+    if (socialBtn) {
+        if (p.socialLink) {
+            socialBtn.href = p.socialLink;
+            socialBtn.classList.remove('hidden');
+        } else {
+            socialBtn.href = '#';
+            socialBtn.classList.add('hidden');
+        }
+    }
+
+    if(aiRegenBtn) {
+        aiRegenBtn.classList.add('hidden');
     }
 };
 
@@ -2124,54 +2433,6 @@ window.copyToClipboard = function() {
         }
     }
     window.safeCopy(text);
-};
-
-const transRef = ref(db, 'transactions');
-onValue(transRef, (snapshot) => {
-    const list = document.getElementById('adminPaymentsList');
-    if(!list) return;
-    list.innerHTML = '';
-    if (snapshot.exists() && window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
-        const data = snapshot.val();
-        let hasPending = false;
-        for (let key in data) {
-            const tx = data[key];
-            if (tx.paymentStatus === 'pending') {
-                hasPending = true;
-                const tr = document.createElement('tr');
-                tr.className = "border-b border-slate-200 dark:border-slate-855 hover:bg-slate-50 dark:hover:bg-slate-900";
-                tr.innerHTML = `
-                    <td class="px-4 py-3 text-xs font-semibold">${tx.userEmail}</td>
-                    <td class="px-4 py-3 font-mono text-xs text-brand-500 font-bold">${tx.tid || 'No TID'}</td>
-                    <td class="px-4 py-3 text-slate-600 dark:text-slate-350 text-xs">${tx.senderInfo || 'N/A'}</td>
-                    <td class="px-4 py-3 text-xs font-bold text-amber-500">${formatCoins(tx.amountCoins)}</td>
-                    <td class="px-4 py-3"><span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 rounded text-[10px]">${tx.paymentStatus}</span></td>
-                    <td class="px-4 py-3">
-                        <button onclick="window.approvePayment('${key}', '${tx.userId}', ${tx.amountCoins})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded transition shadow-sm">Approve</button>
-                    </td>
-                `;
-                list.appendChild(tr);
-            }
-        }
-        if (!hasPending) {
-            list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
-        }
-    } else {
-        list.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">No pending payments.</td></tr>`;
-    }
-});
-
-window.approvePayment = async function(txId, userId, amount) {
-    try {
-        await update(ref(db, `transactions/${txId}`), { paymentStatus: 'approved' });
-        const userCoinsRef = ref(db, `users/${userId}/coins`);
-        await runTransaction(userCoinsRef, (currentCoins) => {
-            return (currentCoins || 0) + amount;
-        });
-        alert("Payment status approved successfully.");
-    } catch (err) {
-        alert("Error: " + err.message);
-    }
 };
 
 window.regeneratePromptWithAI = async function() {
