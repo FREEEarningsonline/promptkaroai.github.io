@@ -235,18 +235,23 @@ function toggleMobileMenu() {
 }
 window.toggleMobileMenu = toggleMobileMenu;
 
+// UPDATED: Main Tab Switcher (Hides Home Data on Other Pages)
 function switchTab(tabId, isBack = false) {
     if (!isBack && window.appState.viewMode !== tabId) {
         window.appState.navigationStack.push({ type: 'tab', value: window.appState.viewMode });
         window.history.pushState({ type: 'tab', value: tabId }, "");
     }
 
-    // Hide all main sections
+    // Hide all major sections first
     const sections = [
-        'heroSection', 'promptsSection', 'adminView', 'walletSection', 
-        'blogSection', 'homeBlogSliderSection', 'seoGuideSection', 
-        'founderSection', 'bentoGridSection', 'videoPromptsSection', 
-        'userPromptsDisplaySection', 'userUploadSection'
+        'homeExclusiveContent', // The new wrapper container
+        'categoryFiltersContainer',
+        'promptsSection', 
+        'userPromptsDisplaySection', 
+        'adminView', 
+        'walletSection', 
+        'blogSection', 
+        'userUploadSection'
     ];
     
     sections.forEach(id => {
@@ -256,40 +261,47 @@ function switchTab(tabId, isBack = false) {
 
     window.appState.viewMode = tabId; 
 
-    // Show specific sections based on tabId
-    if (tabId === 'home' || tabId === 'discover') {
-        ['heroSection', 'promptsSection', 'seoGuideSection', 'homeBlogSliderSection', 'founderSection', 'bentoGridSection', 'videoPromptsSection', 'userPromptsDisplaySection'].forEach(id => {
+    // Show specific sections based on requested tab
+    if (tabId === 'home') {
+        ['homeExclusiveContent', 'categoryFiltersContainer', 'promptsSection', 'userPromptsDisplaySection'].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.classList.remove('hidden');
         });
-        
         window.appState.currentPage = 1;
         window.appState.currentUserPage = 1;
-        if (typeof window.filterCategory === 'function') {
-            window.filterCategory('All');
-        }
-        updatePageMetadata(tabId === 'discover' ? "Discover Hot Trends" : "Free AI Prompt Library");
-    } else if (tabId === 'blog') {
+        if (typeof window.filterCategory === 'function') window.filterCategory('All');
+        updatePageMetadata("Free AI Prompt Library", "Explore, copy, and share free trending AI prompts.");
+    } 
+    else if (tabId === 'discover') {
+        // Discover strictly shows ONLY prompts and filters (hides banners/stats)
+        ['categoryFiltersContainer', 'promptsSection', 'userPromptsDisplaySection'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.classList.remove('hidden');
+        });
+        window.appState.currentPage = 1;
+        window.appState.currentUserPage = 1;
+        if (typeof window.filterCategory === 'function') window.filterCategory('All');
+        updatePageMetadata("Discover Hot Trends", "Discover best AI Prompts.");
+    } 
+    else if (tabId === 'blog') {
         const el = document.getElementById('blogSection');
         if(el) el.classList.remove('hidden');
         window.appState.currentBlogPage = 1;
-        
-        if (typeof window.renderBlogs === 'function') {
-            window.renderBlogs();
-        }
+        if (typeof window.renderBlogs === 'function') window.renderBlogs();
         updatePageMetadata("AI Blogs & Guides", "Read high-quality articles, tutorials, and guidelines about AI image generation on PromptKaro.");
-    } else if (tabId === 'admin') {
+    } 
+    else if (tabId === 'admin') {
         const el = document.getElementById('adminView');
         if(el) el.classList.remove('hidden');
         updatePageMetadata("Admin Panel");
-        if (typeof window.fetchGitHubImages === 'function') {
-            window.fetchGitHubImages();
-        }
-    } else if (tabId === 'wallet') {
+        if (typeof window.fetchGitHubImages === 'function') window.fetchGitHubImages();
+    } 
+    else if (tabId === 'wallet') {
         const el = document.getElementById('walletSection');
         if(el) el.classList.remove('hidden');
         updatePageMetadata("Coin Wallet", "Buy coins and unlock premium AI prompts on PromptKaro platform.");
-    } else if (tabId === 'userUpload') {
+    } 
+    else if (tabId === 'userUpload') {
         const el = document.getElementById('userUploadSection');
         if(el) el.classList.remove('hidden');
         updatePageMetadata("Upload Prompt", "Upload your prompt and monetize with Adsterra.");
@@ -297,38 +309,27 @@ function switchTab(tabId, isBack = false) {
 }
 window.switchTab = switchTab;
 
+// UPDATED: Search hides Home banners automatically
 window.handleSearch = function() {
     const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
     
-    // Hide non-related sections dynamically when typing
-    const sectionsToToggle = [
-        'heroSection', 
-        'homeBlogSliderSection', 
-        'seoGuideSection', 
-        'founderSection', 
-        'bentoGridSection', 
-        'videoPromptsSection'
-    ];
-
     if (window.appState.viewMode === 'blog') {
         window.appState.currentBlogPage = 1;
-        if(typeof window.renderBlogs === 'function') {
-            window.renderBlogs();
-        }
+        if(typeof window.renderBlogs === 'function') window.renderBlogs();
     } else {
         window.appState.currentPage = 1;
         window.appState.currentUserPage = 1;
         
+        const homeExclusive = document.getElementById('homeExclusiveContent');
+        
         if (searchVal) {
-            sectionsToToggle.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.classList.add('hidden');
-            });
+            // Hide banners if searching
+            if (homeExclusive) homeExclusive.classList.add('hidden');
         } else {
-            sectionsToToggle.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.classList.remove('hidden');
-            });
+            // Restore banners if clearing search (only if on Home Tab)
+            if (window.appState.viewMode === 'home' && homeExclusive) {
+                homeExclusive.classList.remove('hidden');
+            }
         }
         
         if(typeof window.renderPrompts === 'function') window.renderPrompts();
@@ -461,36 +462,30 @@ function toggleAuthMode() {
 }
 window.toggleAuthMode = toggleAuthMode;
 
-// UPDATED BUG FIX: Safely handling modal close to prevent AbortError
+// Close and clean up Prompt Modal
 function closePromptDetailModal() {
     window.closeModal('promptDetailModal');
     document.getElementById('aiOutputContainer').classList.add('hidden');
     document.getElementById('aiPanel').classList.add('hidden');
     
-    // Cleanup custom overlay and video instance securely
+    // Stop modal video playback
     const videoEl = document.getElementById('detailVideoEl');
     const thumbOverlay = document.getElementById('detailThumbOverlay');
     
     if (videoEl) {
         videoEl.pause();
-        videoEl.removeAttribute('src'); // Fully clear source instead of setting to ''
-        videoEl.load(); // Flush the media element safely
+        videoEl.removeAttribute('src'); 
+        videoEl.load();
     }
     if (thumbOverlay) {
         thumbOverlay.classList.remove('hidden');
     }
     
-    // Clear user ads inside modal when closed to prevent issues
+    // Clear user ads inside modal when closed
     const modalUserAdTop = document.getElementById('modalUserAdTop');
     const modalUserAdBottom = document.getElementById('modalUserAdBottom');
-    if (modalUserAdTop) {
-        modalUserAdTop.innerHTML = '';
-        modalUserAdTop.classList.add('hidden');
-    }
-    if (modalUserAdBottom) {
-        modalUserAdBottom.innerHTML = '';
-        modalUserAdBottom.classList.add('hidden');
-    }
+    if(modalUserAdTop) { modalUserAdTop.innerHTML = ''; modalUserAdTop.classList.add('hidden'); }
+    if(modalUserAdBottom) { modalUserAdBottom.innerHTML = ''; modalUserAdBottom.classList.add('hidden'); }
 
     updatePageMetadata(); 
     clearUrlParameters(); 
@@ -825,20 +820,18 @@ if (promptFormEl) {
     });
 }
 
-// NEW: USER UPLOAD FORM LOGIC (ImgBB API + 50k Coins Deduction)
+// USER UPLOAD FORM LOGIC (ImgBB API + 50k Coins Deduction)
 const userUploadForm = document.getElementById('userUploadForm');
 if (userUploadForm) {
     userUploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // 1. Check Login
         if (!window.appState.currentUser) {
             alert("Please log in first!");
             window.openAuthModal('login');
             return;
         }
 
-        // 2. Check Coins
         const userCoins = window.appState.currentUserData?.coins || 0;
         if (userCoins < 50000) {
             alert("Insufficient Balance! You need 50,000 coins to upload a prompt.");
@@ -846,7 +839,6 @@ if (userUploadForm) {
             return;
         }
 
-        // 3. Check Image
         const fileInput = document.getElementById('uImageFile');
         if (!fileInput.files.length) {
             alert("Please select an image to upload.");
@@ -859,7 +851,6 @@ if (userUploadForm) {
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading... Please wait';
 
         try {
-            // 4. Upload to ImgBB
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append('image', file);
@@ -876,7 +867,6 @@ if (userUploadForm) {
 
             const imageUrl = imgData.data.url;
 
-            // 5. Save to NEW userPrompts Firebase Node
             const payload = {
                 title: document.getElementById('uTitle').value.trim(),
                 tags: document.getElementById('uCategory').value,
@@ -894,13 +884,11 @@ if (userUploadForm) {
 
             await push(ref(db, 'userPrompts'), payload);
 
-            // 6. Deduct 50,000 Coins Safely
             const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
             await runTransaction(userCoinsRef, (current) => {
                 return (current || 0) - 50000;
             });
 
-            // Log the upload transaction
             await push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`), {
                 promptId: "user-upload",
                 promptTitle: "Uploaded Custom Prompt",
@@ -1523,12 +1511,8 @@ function updateAuthUI(isLoggedIn, email = '', coins = 0) {
 
     const formattedValue = formatCoins(coins);
 
-    if(dCoin) {
-        dCoin.innerText = formattedValue;
-    }
-    if(mCoin) {
-        mCoin.innerText = formattedValue;
-    }
+    if(dCoin) dCoin.innerText = formattedValue;
+    if(mCoin) mCoin.innerText = formattedValue;
     
     document.querySelectorAll('.walletCoinTotal').forEach(el => {
         if(el) el.innerText = formattedValue;
@@ -1602,6 +1586,9 @@ onValue(categoriesRef, (snapshot) => {
     renderCategoryPills(window.appState.categories);
     if(typeof window.renderCategoryDropdown === 'function') {
         window.renderCategoryDropdown(window.appState.categories);
+    }
+    if(typeof window.renderAdminCategoryManager === 'function') {
+        window.renderAdminCategoryManager(window.appState.categories);
     }
 });
 
@@ -1817,6 +1804,9 @@ onValue(promptsRef, (snapshot) => {
     renderPrompts();
     if(typeof window.renderVideoPrompts === 'function') {
         window.renderVideoPrompts();
+    }
+    if(typeof window.renderAdminPromptsList === 'function') {
+        window.renderAdminPromptsList();
     }
 });
 
