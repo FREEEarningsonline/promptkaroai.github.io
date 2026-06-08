@@ -3,7 +3,6 @@
 <head>
   <script src="https://pl29666342.effectivecpmnetwork.com/51/7b/cb/517bcb24c9ae46965c395e20dfed8203.js"></script>
 
-    
     <meta name="google-site-verification" content="O0_qK5vmSfMjGR0bkoqbGpH7l7cIfuQ5qo4_On2EOPk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,29 +49,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            900: '#0c4a6e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -105,6 +82,38 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 3D Animations */
+        @keyframes floatFunnel {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-10px) rotateX(5deg); }
+        }
+        @keyframes shineEffect {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .funnel-3d-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+        .funnel-3d-card:hover {
+            transform: translateY(-15px) rotateY(10deg) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.3);
+        }
+        .funnel-3d-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shineEffect 3s infinite;
+        }
+        .stat-3d-text {
+            text-shadow: 2px 4px 8px rgba(14, 165, 233, 0.4);
         }
     </style>
 </head>
@@ -194,7 +203,7 @@
 
             <button onclick="window.switchTab('home'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-house text-slate-400"></i> Home</button>
             
-            <!-- NEW: Mobile User Upload Prompt Button -->
+            <!-- Mobile User Upload Prompt Button -->
             <button onclick="window.switchTab('userUpload'); window.toggleMobileMenu();" class="text-left py-1 hover:text-purple-500 text-purple-500 flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up text-purple-400"></i> Upload Prompt</button>
 
             <button onclick="window.switchTab('blog'); window.toggleMobileMenu();" class="text-left py-1 hover:text-brand-500 flex items-center gap-2"><i class="fa-solid fa-blog text-slate-400"></i> Blog</button>
@@ -218,13 +227,13 @@
     <!-- MAIN PORT VIEWPORT -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
 
+            <!-- CLICKABLE BANNER 1 -->
+            <div class="w-full mb-8">
+                <a href="https://moviebox.ph/?utm_source=Hola" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://i.ibb.co/Zp308Zjt/download.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
+                </a>
+            </div>
 
-        <!-- CLICKABLE BANNER 1 -->
-        <div class="w-full mb-8">
-            <a href="https://moviebox.ph/?utm_source=Hola" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <img src="https://i.ibb.co/Zp308Zjt/download.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
-            </a>
-        </div>
 
         <!-- ADVANCED SEARCH BAR (Mobile View) -->
         <div class="md:hidden relative mb-6">
@@ -232,13 +241,11 @@
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 dark:text-slate-500"></i>
         </div>
 
-     <!-- DYNAMIC CATEGORY FILTERS (Includes Smart Media Detection Filters) -->
+
+        <!-- DYNAMIC CATEGORY FILTERS (Visible everywhere except specific sections) -->
         <div id="categoryFiltersContainer" class="flex items-center gap-2 overflow-x-auto pb-4 mb-6" style="scrollbar-width: none;">
             <button onclick="window.filterCategory('All')" data-category="All" class="category-btn bg-brand-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">All Prompts</button>
         </div>
-
-      
-
 
         <!-- Section: Prompts Grid (Admin/Main Featured Prompts) -->
         <section id="promptsSection">
@@ -262,31 +269,271 @@
                 <button onclick="window.changePage(1)" id="btnNext" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl text-xs font-bold transition">Next ➔</button>
             </div>
         </section>
+<script>
+  atOptions = {
+    'key' : 'c5983695eea1b5e4512df1bf826cdbcb',
+    'format' : 'iframe',
+    'height' : 100,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c5983695eea1b5e4512df1bf826cdbcb/invoke.js"></script>
 
-  <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
-        <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
-            <span>Advertisement Spot</span>
-        </div>
+        <!-- ========================================================================= -->
+        <!-- HOME PAGE EXCLUSIVE CONTENT (Hides when Wallet/Upload/Discover is clicked) -->
+        <!-- ========================================================================= -->
+        <div id="homeExclusiveContent">
 
-
-        <!-- NEW AI VIDEO PROMPTS SECTION -->
-        <section id="videoPromptsSection" class="mb-10 space-y-4 transition-colors duration-300">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <i class="fa-solid fa-film text-brand-500"></i> AI Video Prompts
-                    </h2>
-                    <p class="text-[10px] sm:text-xs text-slate-500 mt-1 font-medium">Trending text-to-video formulas for Runway Gen-2, Pika, Kling, and Veo.</p>
+            <!-- Banner / Hero Section -->
+            <section id="heroSection" class="relative overflow-hidden rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:to-brand-900/30 p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+                <div class="max-w-xl">
+                    <span class="bg-brand-500/10 text-brand-500 border border-brand-500/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">Vast AI Library</span>
+                    <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art, Videos & Chat</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs and stunning AI videos.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
+                        <button onclick="window.filterCategory('Video Prompts')" class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition shadow-sm"><i class="fa-solid fa-video mr-1"></i> Video Prompts</button>
+                    </div>
                 </div>
-                <button onclick="window.filterCategory('Video Prompts')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition whitespace-nowrap">View All ➔</button>
-            </div>
-            
-            <div id="videoPromptsContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
-                <div class="text-center py-8 w-full text-slate-500 text-sm">Loading video templates...</div>
-            </div>
-        </section>
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
+            </section>
 
-        <!-- NEW: USER PROMPTS SECTION (COMMUNITY CREATIONS) -->
+            <!-- 3D SOCIAL PROOF / STATS BAR -->
+            <section class="mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] backdrop-blur-md">
+                    <div class="text-center group">
+                        <h3 class="text-3xl md:text-4xl font-black text-brand-500 stat-3d-text animate-pulse">25K+</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Total Prompts</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-3xl md:text-4xl font-black text-purple-500 stat-3d-text animate-pulse" style="animation-delay: 0.5s;">10K+</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Happy Users</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-3xl md:text-4xl font-black text-pink-500 stat-3d-text animate-pulse" style="animation-delay: 1s;">50K+</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">AI Creations</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-3xl md:text-4xl font-black text-emerald-500 stat-3d-text animate-pulse" style="animation-delay: 1.5s;">100+</h3>
+                        <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Categories</p>
+                    </div>
+                </div>
+            </section>
+
+<script async="async" data-cfasync="false" src="https://pl29666343.effectivecpmnetwork.com/8e80d22cb11b6a0bfabae28c7d6780f4/invoke.js"></script>
+<div id="container-8e80d22cb11b6a0bfabae28c7d6780f4"></div>
+
+
+
+            <!-- BENTO GRID FEATURES SECTION -->
+            <section id="bentoGridSection" class="mb-10 space-y-4 transition-colors duration-300">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">Why Choose PromptKaro?</h2>
+                    <p class="text-sm text-slate-500 mt-2 font-medium">The ultimate toolkit for AI creators, marketers, and modern developers.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px]">
+                    <div class="bg-gradient-to-br from-brand-500 to-blue-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end relative overflow-hidden md:col-span-2 hover:shadow-md transition">
+                        <i class="fa-solid fa-wand-magic-sparkles text-6xl absolute top-6 right-6 opacity-20"></i>
+                        <h3 class="text-xl font-bold mb-1">Advanced Text-to-Image</h3>
+                        <p class="text-sm opacity-90 font-medium">Access highly detailed, copy-paste prompts optimized for Midjourney v6, Flux, Stable Diffusion, and Dall-E 3.</p>
+                    </div>
+                    <div onclick="window.filterCategory('Video Prompts')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
+                        <i class="fa-solid fa-video text-brand-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">AI Video Prompts</h3>
+                        <p class="text-xs text-slate-500 font-medium">Master Runway Gen-2, Kling, Veo, and Sora mechanics.</p>
+                    </div>
+                    <div onclick="window.filterCategory('ChatGPT')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
+                        <i class="fa-solid fa-robot text-purple-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">ChatGPT Formulas</h3>
+                        <p class="text-xs text-slate-500 font-medium">Automate your business workflows and marketing.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-600 to-brand-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end md:col-span-2 relative overflow-hidden hover:shadow-md transition">
+                        <i class="fa-solid fa-bolt text-6xl absolute top-6 right-6 opacity-20"></i>
+                        <h3 class="text-xl font-bold mb-1">PromptKaro AI Engine</h3>
+                        <p class="text-sm opacity-90 font-medium">Remix, expand, and regenerate any prompt instantly using our built-in customized AI integration tool.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3D HOW IT WORKS SECTION -->
+            <section class="mb-10">
+                <div class="text-center mb-8">
+                    <span class="text-brand-500 font-bold text-xs uppercase tracking-tighter">Process</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-2">How PromptKaro Works</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="funnel-3d-card bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl">
+                        <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">1. Discover</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Explore our vast library of trending and viral AI art templates.</p>
+                    </div>
+                    <div class="funnel-3d-card bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl" style="animation-delay: 0.2s;">
+                        <div class="w-16 h-16 bg-purple-500/10 text-purple-500 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">2. Regenerate</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Modify prompts or use our 3D AI engine to improve existing ideas.</p>
+                    </div>
+                    <div class="funnel-3d-card bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl" style="animation-delay: 0.4s;">
+                        <div class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fa-solid fa-upload"></i></div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">3. Contribute</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Add your own creative formulas and share with the community.</p>
+                    </div>
+                    <div class="funnel-3d-card bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl" style="animation-delay: 0.6s;">
+                        <div class="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fa-solid fa-gem"></i></div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">4. Unlock Pro</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">Earn coins and unlock premium high-conversion AI prompts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3D TRUST BAR (METALLIC FINISH) -->
+            <section class="mb-10">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-purple-600 rounded-[3rem] blur opacity-25 group-hover:opacity-60 transition duration-1000"></div>
+                    <div class="relative bg-slate-950 text-white p-6 md:p-10 rounded-[3rem] flex flex-wrap justify-around gap-8 items-center border border-white/10 shadow-2xl">
+                        <div class="flex items-center gap-4 transform hover:scale-110 transition">
+                            <div class="text-brand-400 text-3xl"><i class="fa-solid fa-shield-check"></i></div>
+                            <div>
+                                <p class="text-sm font-black tracking-tight">100% SECURE</p>
+                                <p class="text-[9px] text-slate-400 uppercase">Trusted by 10k users</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 transform hover:scale-110 transition">
+                            <div class="text-brand-400 text-3xl"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <p class="text-sm font-black tracking-tight">AI POWERED</p>
+                                <p class="text-[9px] text-slate-400 uppercase">Instant Generation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 transform hover:scale-110 transition">
+                            <div class="text-brand-400 text-3xl"><i class="fa-solid fa-coins"></i></div>
+                            <div>
+                                <p class="text-sm font-black tracking-tight">FREE COINS</p>
+                                <p class="text-[9px] text-slate-400 uppercase">Daily rewards</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 transform hover:scale-110 transition">
+                            <div class="text-brand-400 text-3xl"><i class="fa-solid fa-globe"></i></div>
+                            <div>
+                                <p class="text-sm font-black tracking-tight">GLOBAL CHAT</p>
+                                <p class="text-[9px] text-slate-400 uppercase">Connect with users</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI VIDEO PROMPTS SECTION -->
+            <section id="videoPromptsSection" class="mb-10 space-y-4 transition-colors duration-300">
+                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-film text-brand-500"></i> AI Video Prompts
+                        </h2>
+                        <p class="text-[10px] sm:text-xs text-slate-500 mt-1 font-medium">Trending text-to-video formulas for Runway Gen-2, Pika, Kling, and Veo.</p>
+                    </div>
+                    <button onclick="window.filterCategory('Video Prompts')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition whitespace-nowrap">View All ➔</button>
+                </div>
+                
+                <div id="videoPromptsContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
+                    <div class="text-center py-8 w-full text-slate-500 text-sm">Loading video templates...</div>
+                </div>
+            </section>
+
+            <!-- CLICKABLE BANNER 2 -->
+            <div class="w-full mb-8">
+                <a href="https://youtu.be/iXZk5YqyAUQ?si=k9V-4plX7wlPxhXl" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://i.ibb.co/ZR7ZFhvq/ooc-Uho-Aq-IEEDSXADh-GPde-DFEf-Qlcgz-Af-AF8-FHb-tplv-4d650qgzx3-image.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
+                </a>
+            </div>
+
+            <!-- HOME PAGE RECENT BLOG SLIDER -->
+            <section id="homeBlogSliderSection" class="mb-10 space-y-4 transition-colors duration-300">
+                <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Latest AI Guides & News</h2>
+                    <button onclick="window.switchTab('blog')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition">View All ➔</button>
+                </div>
+                <div id="homeBlogSliderContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
+                    <!-- Filled dynamically by JS -->
+                </div>
+            </section>
+
+            <!-- CLICKABLE BANNER 3 -->
+            <div class="w-full mb-8">
+                <a href="https://toolswebsite205.blogspot.com" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://i.ibb.co/tg3jK1n/70ffef2c-786a-4b97-959f-c7c57bec9436.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
+                </a>
+            </div>
+
+            <!-- SEO ARTICLE & FAQ SECTION -->
+            <section id="seoGuideSection" class="mb-10 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026 & 2027</h2>
+                    <p class="text-sm text-slate-500 mt-2">Mastering AI generation tools requires precise instructions. Read our comprehensive guide below to understand how PromptKaro can elevate your digital workflow.</p>
+                </div>
+
+                <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                    <p>Artificial Intelligence has completely changed the way people earn money online. In 2026 & 2027, tools like ChatGPT and Video Generation APIs are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts.</p>
+                    
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">1. AI Prompts for Freelancing Income</h3>
+                    <p>Freelancing is one of the easiest ways to start earning online. AI can help you complete tasks faster and deliver high-quality work to clients.</p>
+                    
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">2. AI Prompts for Social Media Earning & AI Videos</h3>
+                    <p>Social media platforms like Instagram, TikTok, and YouTube are powerful income sources. Using AI Video Prompts, you can generate cinematic clips for faceless YouTube channels or viral TikToks.</p>
+
+                    <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-xl mb-4">Frequently Asked Questions (FAQs)</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I upload my own prompts?</p>
+                                <p class="mt-1">A: Yes! You can navigate to the "Upload Prompt" section. It costs 50,000 coins to publish your prompt to our global community, and you can even attach your Adsterra ads and social profiles to it.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the AI Video Prompts free to use?</p>
+                                <p class="mt-1">A: Yes, our platform provides a large variety of free text-to-video and text-to-image prompts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MESSAGE FROM THE FOUNDER SECTION -->
+            <section id="founderSection" class="max-w-4xl mx-auto mb-10 px-4 font-sans transition-colors duration-300">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Message From The Founder</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 font-medium">Reliable AI Growth With Transparent Processes And 24/7 Support</p>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-white dark:bg-slate-900 border-2 border-purple-200 dark:border-purple-900/50 rounded-[3rem] p-8 md:p-12 shadow-2xl flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2">
+                        <div class="relative w-32 h-32 md:w-44 md:h-44 mb-6">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full animate-pulse opacity-20"></div>
+                            <div class="relative w-full h-full rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden z-10">
+                                <img src="https://i.ibb.co/5C7vFQQ/d71bcdc5-0c4a-4b45-9197-204cf8f6444a.jpg" alt="Nazim Mustafa - Founder" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-2 -right-2 bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-900 z-20">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="space-y-1 mb-6">
+                            <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Nazim Mustafa</h3>
+                            <p class="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-widest">Founder & CEO</p>
+                        </div>
+                        <div class="max-w-2xl">
+                            <p class="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed font-medium italic">
+                                "At PromptKaro, our mission is to deliver fast, reliable, and affordable AI services to users worldwide. We are committed to maintaining high quality, transparency, and long-term trust with our community. Thank you for choosing PromptKaro and growing with us."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- ========================================================================= -->
+        <!-- END OF HOME PAGE EXCLUSIVE CONTENT -->
+        <!-- ========================================================================= -->
+
+
+        <!-- USER PROMPTS SECTION (COMMUNITY CREATIONS) -->
         <section id="userPromptsDisplaySection" class="mt-12 transition-colors duration-300">
             <div class="flex justify-between items-center mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
                 <div>
@@ -307,70 +554,7 @@
             </div>
         </section>
 
-  <!-- GOOGLE ADSENSE SPONSORED BANNER SLOT -->
-        <div class="my-6 py-4 bg-slate-100 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-800 text-center rounded-xl text-[10px] text-slate-400">
-            <span>Advertisement Spot</span>
-        </div>
-
-
-        <!-- Banner / Hero Section -->
-        <section id="heroSection" class="relative overflow-hidden rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:to-brand-900/30 p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
-            <div class="max-w-xl">
-                <span class="bg-brand-500/10 text-brand-500 border border-brand-500/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">Vast AI Library</span>
-                <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 leading-tight text-slate-955 dark:text-white">Get the Perfect Prompts for AI Art, Videos & Chat</h1>
-                <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base mb-6">Explore, unlock, and share trending AI prompts. Fully optimized templates for high-conversion designs and stunning AI videos.</p>
-                <div class="flex flex-wrap gap-3">
-                    <button onclick="window.filterCategory('Viral')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-4 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white">🔥 Viral</button>
-                    <button onclick="window.filterCategory('Video Prompts')" class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition shadow-sm"><i class="fa-solid fa-video mr-1"></i> Video Prompts</button>
-                </div>
-            </div>
-            <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
-        </section>
-
-
-        <!-- NEW BENTO GRID FEATURES SECTION (HIGH-VALUE CONTENT FOR ADSENSE & SEO) -->
-        <section id="bentoGridSection" class="mb-10 space-y-4 transition-colors duration-300">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">Why Choose PromptKaro?</h2>
-                <p class="text-sm text-slate-500 mt-2 font-medium">The ultimate toolkit for AI creators, marketers, and modern developers.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px]">
-                <div class="bg-gradient-to-br from-brand-500 to-blue-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end relative overflow-hidden md:col-span-2 hover:shadow-md transition">
-                    <i class="fa-solid fa-wand-magic-sparkles text-6xl absolute top-6 right-6 opacity-20"></i>
-                    <h3 class="text-xl font-bold mb-1">Advanced Text-to-Image</h3>
-                    <p class="text-sm opacity-90 font-medium">Access highly detailed, copy-paste prompts optimized for Midjourney v6, Flux, Stable Diffusion, and Dall-E 3.</p>
-                </div>
-                <div onclick="window.filterCategory('Video Prompts')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
-                    <i class="fa-solid fa-video text-brand-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">AI Video Prompts</h3>
-                    <p class="text-xs text-slate-500 font-medium">Master Runway Gen-2, Kling, Veo, and Sora mechanics.</p>
-                </div>
-                <div onclick="window.filterCategory('ChatGPT')" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-end hover:shadow-md transition cursor-pointer group">
-                    <i class="fa-solid fa-robot text-purple-500 text-4xl mb-auto group-hover:scale-110 transition-transform"></i>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">ChatGPT Formulas</h3>
-                    <p class="text-xs text-slate-500 font-medium">Automate your business workflows and marketing.</p>
-                </div>
-                <div class="bg-gradient-to-br from-purple-600 to-brand-600 rounded-3xl p-6 text-white shadow-sm flex flex-col justify-end md:col-span-2 relative overflow-hidden hover:shadow-md transition">
-                    <i class="fa-solid fa-bolt text-6xl absolute top-6 right-6 opacity-20"></i>
-                    <h3 class="text-xl font-bold mb-1">PromptKaro AI Engine</h3>
-                    <p class="text-sm opacity-90 font-medium">Remix, expand, and regenerate any prompt instantly using our built-in customized AI integration tool.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- HIGH VALUE CONTENT FOR ADSENSE -->
-        <section id="introPublisherContent" class="mb-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm leading-relaxed transition-colors duration-300">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to PromptKaro: Your Gateway to AI Mastery in 2026</h2>
-            <div class="text-slate-600 dark:text-slate-400 space-y-4 text-sm font-medium">
-                <p>In the rapidly evolving digital landscape, Artificial Intelligence has become the cornerstone of content creation, graphic design, and problem-solving. But AI engines like ChatGPT, Midjourney, and Bing Image Creator are only as good as the instructions they receive. This is exactly where <strong>Prompt Engineering</strong> comes into play.</p>
-                <p>PromptKaro is designed to be your ultimate directory for high-converting, meticulously tested AI prompts. We understand that finding the right words to generate the perfect image, a cinematic video, or write a compelling business plan can be a frustrating process of trial and error. Our platform eliminates this guesswork. We provide you with a comprehensive, categorized library of copy-paste solutions that yield professional results every single time.</p>
-                <p>Whether you are a student looking to streamline your academic research, a freelancer aiming to boost your income through AI-assisted services, or a digital artist searching for that perfect cinematic lighting formula, our platform is built for you. Browse our vast categories, read our deep-dive tutorials in the blog section, and join our global community of AI enthusiasts to stay ahead of the curve.</p>
-            </div>
-        </section>
-
-   
-
-        <!-- NEW: USER UPLOAD PANEL (Form for users to upload their prompts) -->
+        <!-- USER UPLOAD PANEL (Hidden by Default) -->
         <section id="userUploadSection" class="hidden max-w-4xl mx-auto space-y-6 transition-colors duration-300">
             <div class="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
@@ -434,8 +618,7 @@
             </div>
         </section>
 
-
-        <!-- Section: Dynamic Blog Section [Tab] (Static HTML Links for Googlebot) -->
+        <!-- BLOG SECTION (Hidden by Default) -->
         <section id="blogSection" class="hidden space-y-8 max-w-6xl mx-auto font-semibold">
             <div class="border-b border-slate-200 dark:border-slate-850 pb-4">
                 <h1 class="text-2xl font-bold">AI News & Prompting Guides</h1>
@@ -447,21 +630,7 @@
             </div>
 
             <div id="blogsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Fallback Links. JS handles the actual populating dynamically. -->
-                <a href="/blog/bing-3d-name-art.html" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between transition hover:shadow-md cursor-pointer block">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" alt="Bing 3D Name Art Guide" class="w-full h-48 object-cover pointer-events-none">
-                    <div class="p-5 flex-grow flex flex-col justify-between space-y-3 pointer-events-none">
-                        <div class="space-y-2">
-                            <span class="text-[10px] bg-brand-500/10 text-brand-500 font-bold px-2 py-0.5 rounded-full uppercase">AI Guide</span>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-2">Bing Image Creator Se Trending 3D Name Art Kaise Banayein</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">Aaj kal Instagram aur TikTok par aisi images zaroor dekhi hongi jahan stylish neon lights se naam likha hota hai...</p>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-800">
-                            <span><i class="fa-regular fa-calendar mr-1"></i>30/05/2026</span>
-                            <span class="font-bold text-brand-500">Read More ➔</span>
-                        </div>
-                    </div>
-                </a>
+                <!-- Blog cards injected via JS -->
             </div>
 
             <div id="blogPaginationControls" class="flex justify-center items-center gap-3 mt-8 hidden">
@@ -471,10 +640,9 @@
             </div>
         </section>
 
-        <!-- Section: Dedicated Wallet Section -->
+        <!-- WALLET SECTION (Hidden by Default) -->
         <section id="walletSection" class="hidden max-w-4xl mx-auto space-y-6">
             <div class="flex flex-col md:flex-row gap-6">
-                <!-- Balance card -->
                 <div class="flex-1 space-y-4">
                     <div class="bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
                         <span class="text-xs font-semibold opacity-80 uppercase tracking-wider">Current Balance</span>
@@ -486,7 +654,6 @@
                         <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     </div>
 
-                    <!-- Deposit Guide -->
                     <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 shadow-sm">
                         <h3 class="font-bold text-md text-brand-500">EasyPaisa / JazzCash</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Please pay to Nazim Mustafa directly using the number details given below and save the screenshot receipt.</p>
@@ -503,7 +670,6 @@
                     </div>
                 </div>
 
-                <!-- Proof of purchase submission -->
                 <div class="flex-1 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Buy Coins</h3>
                     <p class="text-xs text-slate-500 mb-4">Submit deposit details below for manual and auto coin additions.</p>
@@ -526,7 +692,6 @@
                 </div>
             </div>
 
-            <!-- Transaction History -->
             <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm font-semibold">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <h3 class="font-bold text-md flex items-center gap-2"><i class="fa-solid fa-receipt text-brand-500"></i> Wallet Statements</h3>
@@ -556,7 +721,7 @@
             </div>
         </section>
 
-        <!-- Section: Dynamic Admin View Placeholder -->
+        <!-- ADMIN VIEW (Hidden by Default) -->
         <section id="adminView" class="hidden space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
@@ -566,72 +731,16 @@
             </div>
         </section>
 
-        <!-- CLICKABLE BANNER 2 -->
-        <div class="w-full mb-8">
-            <a href="https://youtu.be/iXZk5YqyAUQ?si=k9V-4plX7wlPxhXl" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <img src="https://i.ibb.co/ZR7ZFhvq/ooc-Uho-Aq-IEEDSXADh-GPde-DFEf-Qlcgz-Af-AF8-FHb-tplv-4d650qgzx3-image.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
-            </a>
-        </div>
-        
-        <!-- HOME PAGE RECENT BLOG SLIDER (Static HTML Links for Googlebot) -->
-        <section id="homeBlogSliderSection" class="mt-12 space-y-4 transition-colors duration-300">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
-                <h2 class="text-xl font-bold text-slate-900 dark:text-white">Latest AI Guides & News</h2>
-                <button onclick="window.switchTab('blog')" class="text-xs font-bold text-brand-500 hover:text-brand-600 transition">View All ➔</button>
-            </div>
-            <div id="homeBlogSliderContainer" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none; scroll-behavior: smooth;">
-                <!-- Filled dynamically by JS -->
-            </div>
-        </section>
-
-        <!-- CLICKABLE BANNER 3 -->
-        <div class="w-full mb-8 mt-8">
-            <a href="https://toolswebsite205.blogspot.com" target="_blank" rel="noopener noreferrer" class="block w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <img src="https://i.ibb.co/tg3jK1n/70ffef2c-786a-4b97-959f-c7c57bec9436.jpg" alt="Visit Tools Website Banner" class="w-full h-32 sm:h-48 md:h-64 lg:h-72 object-cover object-center">
-            </a>
-        </div>
-
         <!-- EXPANDED SEO ARTICLE & FAQ SECTION FOR ADSENSE APPROVAL -->
         <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
             <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026 & 2027</h2>
                 <p class="text-sm text-slate-500 mt-2">Mastering AI generation tools requires precise instructions. Read our comprehensive guide below to understand how PromptKaro can elevate your digital workflow.</p>
             </div>
 
             <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                 <p>
-                    Artificial Intelligence has completely changed the way people earn money online. In 2026, tools like ChatGPT and Video Generation APIs are not just for chatting—they are powerful income-generating machines.
-                </p>
-
-                <!-- FAQs -->
-                <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 mt-8">
-                    <h3 class="font-bold text-slate-900 dark:text-white text-xl mb-4">Frequently Asked Questions (FAQs)</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Can I upload my own prompts?</p>
-                            <p class="mt-1">A: Yes! You can navigate to the "Upload Prompt" section. It costs 50,000 coins to publish your prompt to our global community, and you can even attach your Adsterra ads and social profiles to it.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-slate-900 dark:text-slate-200">Q: Are the AI Video Prompts free to use?</p>
-                            <p class="mt-1">A: Yes, our platform provides a large variety of free text-to-video and text-to-image prompts.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- EXPANDED SEO ARTICLE & FAQ SECTION FOR ADSENSE APPROVAL -->
-        <section id="seoGuideSection" class="mt-8 bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-8 transition-colors duration-300">
-            <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white">The Ultimate Guide: How to Use AI Prompts Successfully in 2026</h2>
-                <p class="text-sm text-slate-500 mt-2">Mastering AI generation tools requires precise instructions. Read our comprehensive guide below to understand how PromptKaro can elevate your digital workflow.</p>
-            </div>
-
-            <div class="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                <p>
-                    Artificial Intelligence has completely changed the way people earn money online. In 2026, tools like ChatGPT and Video Generation APIs are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts. A well-written AI prompt can help you generate content, build business ideas, automate tasks, and even create digital products.
+                    Artificial Intelligence has completely changed the way people earn money online. In 2026 & 2027, tools like ChatGPT and Video Generation APIs are not just for chatting—they are powerful income-generating machines. The key to unlocking their full potential lies in using the right prompts. A well-written AI prompt can help you generate content, build business ideas, automate tasks, and even create digital products.
                 </p>
 
                 <p>
@@ -654,7 +763,7 @@
                     Starting an online business has never been easier. AI can generate profitable ideas based on trends and market demand.
                 </p>
                 <p>
-                    Example Prompt: “Give me 10 low-investment online business ideas for 2026 with high profit potential.”
+                    Example Prompt: “Give me 10 low-investment online business ideas for 2026 & 2027 with high profit potential.”
                 </p>
                 <p>
                     These ideas can help you launch dropshipping stores, digital products, or niche websites. AI can also create complete business plans, saving you time and effort.
@@ -683,9 +792,9 @@
                 </p>
 
                 <div class="border-t border-slate-200 dark:border-slate-800 pt-6 mt-6">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Top ChatGPT Prompts 2026: Powerful Prompts to Boost Productivity</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Top ChatGPT Prompts 2026 & 2027: Powerful Prompts to Boost Productivity</h2>
                     <p>
-                        In 2026, ChatGPT and similar AI tools have become essential for digital work. The right prompts can dramatically improve the quality of output and help you achieve better results in less time.
+                        In 2026 & 2027, ChatGPT and similar AI tools have become essential for digital work. The right prompts can dramatically improve the quality of output and help you achieve better results in less time.
                     </p>
                 </div>
 
@@ -703,7 +812,7 @@
                 </p>
 
                 <div class="border-t border-slate-200 dark:border-slate-800 pt-6 mt-6">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Our Mission: Empowering Users with AI Prompts in 2026</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-955 dark:text-white mb-2">Our Mission: Empowering Users with AI Prompts in 2026 & 2027</h2>
                     <p>
                         Our goal is to make artificial intelligence simple, accessible, and powerful for everyone. We help users unlock the true potential of AI through high-quality image, text, and video prompts along with practical guidance.
                     </p>
@@ -739,52 +848,16 @@
 
             </div>
         </section>
+
+
     </main>
     
-    <!-- MESSAGE FROM THE FOUNDER SECTION START -->
-    <section id="founderSection" class="max-w-4xl mx-auto my-20 px-4 font-sans transition-colors duration-300">
-        <!-- Main Title & Subtitle -->
-        <div class="text-center mb-10">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Message From The Founder</h2>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 font-medium">Reliable AI Growth With Transparent Processes And 24/7 Support</p>
-        </div>
-
-        <!-- 3D Founder Card -->
-        <div class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            
-            <div class="relative bg-white dark:bg-slate-900 border-2 border-purple-200 dark:border-purple-900/50 rounded-[3rem] p-8 md:p-12 shadow-2xl flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2">
-                
-                <div class="relative w-32 h-32 md:w-44 md:h-44 mb-6">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full animate-pulse opacity-20"></div>
-                    <div class="relative w-full h-full rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden z-10">
-                        <img src="https://i.ibb.co/5C7vFQQ/d71bcdc5-0c4a-4b45-9197-204cf8f6444a.jpg" alt="Nazim Mustafa - Founder" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute -bottom-2 -right-2 bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-900 z-20">
-                        <i class="fa-solid fa-check text-sm"></i>
-                    </div>
-                </div>
-
-                <div class="space-y-1 mb-6">
-                    <h3 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Nazim Mustafa</h3>
-                    <p class="text-purple-600 dark:text-purple-400 font-bold text-sm uppercase tracking-widest">Founder & CEO</p>
-                </div>
-
-                <div class="max-w-2xl">
-                    <p class="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed font-medium italic">
-                        "At PromptKaro, our mission is to deliver fast, reliable, and affordable AI services to users worldwide. We are committed to maintaining high quality, transparency, and long-term trust with our community. Thank you for choosing PromptKaro and growing with us."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- FOOTER -->
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 mt-4 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left">
                 <span class="text-md font-bold tracking-wider text-brand-500">Prompt<span class="text-slate-950 dark:text-white">Karo</span></span>
-                <p class="text-xs text-slate-500 mt-1">© 2026 PromptKaro. All rights reserved.</p>
+                <p class="text-xs text-slate-500 mt-1">© 2026 & 2027 PromptKaro. All rights reserved.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-500 dark:text-slate-455 font-semibold">
                 <a href="/about-us.html" class="hover:text-brand-500 transition">About Us</a>
@@ -811,7 +884,7 @@
             <span class="text-[10px]">Community</span>
             <span class="admin-chat-badge hidden absolute top-0 right-3 bg-red-500 text-white text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center border border-white dark:border-slate-900">1</span>
         </button>
-        <!-- NEW: User Upload Button in Bottom Nav -->
+        <!-- User Upload Button in Bottom Nav -->
         <button onclick="window.switchTab('userUpload')" class="flex flex-col items-center gap-1 hover:text-purple-500 text-purple-400 relative">
             <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
             <span class="text-[10px]">Upload</span>
@@ -903,11 +976,11 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <!-- NEW: User Adsterra Banner Container (Top) -->
+            <!-- User Adsterra Banner Container (Top) -->
             <div id="modalUserAdTop" class="w-full empty:hidden mb-4 mt-8 md:mt-0 text-center overflow-hidden"></div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 font-semibold">
-                <!-- Media Area (Image or dynamically injected Video via JS) -->
+                <!-- Media Area -->
                 <div class="relative">
                     <img id="detailImg" src="" alt="Prompt preview" class="w-full h-auto max-h-96 object-cover rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';">
                     <a id="downloadBtn" href="#" target="_blank" download class="w-full block text-center mt-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 py-2 rounded-lg text-xs font-semibold transition text-slate-955 dark:text-white shadow-sm font-sans">
@@ -939,7 +1012,7 @@
                                     <i class="fa-regular fa-copy"></i> Copy Prompt
                                 </button>
                                 
-                                <!-- NEW: Follow Creator Button for Community Prompts -->
+                                <!-- Follow Creator Button for Community Prompts -->
                                 <a id="modalUserSocialBtn" href="#" target="_blank" class="hidden bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-md transition flex items-center gap-1 font-semibold shadow-sm">
                                     <i class="fa-solid fa-user-plus"></i> Follow Creator
                                 </a>
@@ -953,7 +1026,7 @@
                 </div>
             </div>
 
-            <!-- NEW: User Adsterra Native Container (Bottom) -->
+            <!-- User Adsterra Native Container (Bottom) -->
             <div id="modalUserAdBottom" class="w-full empty:hidden mt-6 text-center overflow-hidden"></div>
 
             <!-- Collapsible AI Input Panel -->
