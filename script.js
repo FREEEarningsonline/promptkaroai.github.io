@@ -15,18 +15,15 @@ function resolveMediaSrc(mediaVal) {
     if (!mediaVal) {
         return "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"; 
     }
-    // Check if it's a video file
     if (mediaVal.match(/\.(mp4|webm|ogg)$/i)) {
         if (mediaVal.startsWith("http://") || mediaVal.startsWith("https://") || mediaVal.startsWith("data:")) {
             return mediaVal;
         }
-        // Load locally from /videos/ folder
         if (mediaVal.startsWith("/videos/")) {
             return mediaVal;
         }
         return "/videos/" + mediaVal;
     }
-    // Handle standard images
     if (mediaVal.startsWith("http://") || mediaVal.startsWith("https://") || mediaVal.startsWith("data:")) {
         return mediaVal;
     }
@@ -235,7 +232,6 @@ function toggleMobileMenu() {
 }
 window.toggleMobileMenu = toggleMobileMenu;
 
-// UPDATED: Main Tab Switcher (Hides Home Data on Other Pages)
 function switchTab(tabId, isBack = false) {
     if (!isBack && window.appState.viewMode !== tabId) {
         window.appState.navigationStack.push({ type: 'tab', value: window.appState.viewMode });
@@ -244,7 +240,7 @@ function switchTab(tabId, isBack = false) {
 
     // Hide all major sections first
     const sections = [
-        'homeExclusiveContent', // The new wrapper container
+        'homeExclusiveContent', 
         'categoryFiltersContainer',
         'promptsSection', 
         'userPromptsDisplaySection', 
@@ -273,7 +269,6 @@ function switchTab(tabId, isBack = false) {
         updatePageMetadata("Free AI Prompt Library", "Explore, copy, and share free trending AI prompts.");
     } 
     else if (tabId === 'discover') {
-        // Discover strictly shows ONLY prompts and filters (hides banners/stats)
         ['categoryFiltersContainer', 'promptsSection', 'userPromptsDisplaySection'].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.classList.remove('hidden');
@@ -309,7 +304,6 @@ function switchTab(tabId, isBack = false) {
 }
 window.switchTab = switchTab;
 
-// UPDATED: Search hides Home banners automatically
 window.handleSearch = function() {
     const searchVal = (document.getElementById('desktopSearch')?.value || document.getElementById('mobileSearch')?.value || '').toLowerCase();
     
@@ -323,10 +317,8 @@ window.handleSearch = function() {
         const homeExclusive = document.getElementById('homeExclusiveContent');
         
         if (searchVal) {
-            // Hide banners if searching
             if (homeExclusive) homeExclusive.classList.add('hidden');
         } else {
-            // Restore banners if clearing search (only if on Home Tab)
             if (window.appState.viewMode === 'home' && homeExclusive) {
                 homeExclusive.classList.remove('hidden');
             }
@@ -462,13 +454,12 @@ function toggleAuthMode() {
 }
 window.toggleAuthMode = toggleAuthMode;
 
-// Close and clean up Prompt Modal
 function closePromptDetailModal() {
     window.closeModal('promptDetailModal');
     document.getElementById('aiOutputContainer').classList.add('hidden');
     document.getElementById('aiPanel').classList.add('hidden');
     
-    // Stop modal video playback
+    // Stop modal video playback safely
     const videoEl = document.getElementById('detailVideoEl');
     const thumbOverlay = document.getElementById('detailThumbOverlay');
     
@@ -487,6 +478,10 @@ function closePromptDetailModal() {
     if(modalUserAdTop) { modalUserAdTop.innerHTML = ''; modalUserAdTop.classList.add('hidden'); }
     if(modalUserAdBottom) { modalUserAdBottom.innerHTML = ''; modalUserAdBottom.classList.add('hidden'); }
 
+    // Reset lock overlays
+    const adLockedOverlay = document.getElementById('adLockedOverlay');
+    if (adLockedOverlay) adLockedOverlay.classList.add('hidden');
+
     updatePageMetadata(); 
     clearUrlParameters(); 
 }
@@ -500,7 +495,8 @@ window.calculateExchange = calculateExchange;
 
 function togglePriceField() {
     const type = document.getElementById('pType').value;
-    if (type === 'paid') {
+    // Modified to show price field for both paid and ad_or_coins
+    if (type === 'paid' || type === 'ad_or_coins') {
         document.getElementById('priceFieldContainer').classList.remove('hidden');
     } else {
         document.getElementById('priceFieldContainer').classList.add('hidden');
@@ -790,7 +786,12 @@ if (promptFormEl) {
             views: parseInt(document.getElementById('pInitialViews').value) || 0,
             description: document.getElementById('pDescription').value.trim(),
             type: document.getElementById('pType').value,
-            priceCoins: document.getElementById('pType').value === 'paid' ? (parseInt(document.getElementById('pPrice').value) || 0) : 0,
+            priceCoins: (document.getElementById('pType').value === 'paid' || document.getElementById('pType').value === 'ad_or_coins') ? (parseInt(document.getElementById('pPrice').value) || 0) : 0,
+            
+            // NEW ADMIN FIELDS (Will map gracefully if inputs exist in DOM)
+            adLink: document.getElementById('pAdLink') ? document.getElementById('pAdLink').value.trim() : "https://toolswebsite205.blogspot.com",
+            adPriceCoins: document.getElementById('pAdPrice') ? parseInt(document.getElementById('pAdPrice').value) : 50000,
+
             isTrending: document.getElementById('pTrending').checked,
             isPinned: document.getElementById('pPinned').checked,
             timestamp: editId ? (window.appState.promptsList.find(p => p.id === editId)?.timestamp || Date.now()) : Date.now()
@@ -871,7 +872,7 @@ if (userUploadForm) {
                 title: document.getElementById('uTitle').value.trim(),
                 tags: document.getElementById('uCategory').value,
                 imageURL: imageUrl,
-                mediaType: 'image', // Users currently only upload images via this form
+                mediaType: 'image', 
                 description: document.getElementById('uDescription').value.trim(),
                 adsterraBanner: document.getElementById('uAdsterraBanner').value.trim(),
                 adsterraNative: document.getElementById('uAdsterraNative').value.trim(),
@@ -1511,8 +1512,12 @@ function updateAuthUI(isLoggedIn, email = '', coins = 0) {
 
     const formattedValue = formatCoins(coins);
 
-    if(dCoin) dCoin.innerText = formattedValue;
-    if(mCoin) mCoin.innerText = formattedValue;
+    if(dCoin) {
+        dCoin.innerText = formattedValue;
+    }
+    if(mCoin) {
+        mCoin.innerText = formattedValue;
+    }
     
     document.querySelectorAll('.walletCoinTotal').forEach(el => {
         if(el) el.innerText = formattedValue;
@@ -1586,9 +1591,6 @@ onValue(categoriesRef, (snapshot) => {
     renderCategoryPills(window.appState.categories);
     if(typeof window.renderCategoryDropdown === 'function') {
         window.renderCategoryDropdown(window.appState.categories);
-    }
-    if(typeof window.renderAdminCategoryManager === 'function') {
-        window.renderAdminCategoryManager(window.appState.categories);
     }
 });
 
@@ -1756,6 +1758,7 @@ function syncUserPurchaseHistory() {
     });
 }
 
+// UPDATED: AUTO APPROVAL CHANGED TO 24 HOURS (86400000 ms)
 async function triggerAutoApprovalCheck() {
     try {
         const txRef = ref(db, 'transactions');
@@ -1763,11 +1766,11 @@ async function triggerAutoApprovalCheck() {
         if (snapshot.exists()) {
             const transactions = snapshot.val();
             const now = Date.now();
-            const tenMinutes = 10 * 60 * 1000;
+            const twentyFourHours = 24 * 60 * 60 * 1000;
 
             for (let key in transactions) {
                 const tx = transactions[key];
-                if (tx.paymentStatus === 'pending' && (now - tx.timestamp) > tenMinutes) {
+                if (tx.paymentStatus === 'pending' && (now - tx.timestamp) > twentyFourHours) {
                     await update(ref(db, `transactions/${key}`), { paymentStatus: 'auto-approved' });
                     
                     const userRef = ref(db, `users/${tx.userId}/coins`);
@@ -1788,10 +1791,10 @@ setInterval(() => {
     }
 }, 60000);
 
-// =====================================
-// DATA FETCHERS & RENDERERS
-// =====================================
 
+// =====================================
+// DATA FETCHERS & RENDERERS (Admin/Main)
+// =====================================
 const promptsRef = ref(db, 'prompts');
 onValue(promptsRef, (snapshot) => {
     window.appState.promptsList = [];
@@ -1804,9 +1807,6 @@ onValue(promptsRef, (snapshot) => {
     renderPrompts();
     if(typeof window.renderVideoPrompts === 'function') {
         window.renderVideoPrompts();
-    }
-    if(typeof window.renderAdminPromptsList === 'function') {
-        window.renderAdminPromptsList();
     }
 });
 
@@ -1915,7 +1915,11 @@ function renderPrompts() {
     }
 
     paginatedItems.forEach(p => {
-        const isPaid = p.type === 'paid';
+        // Evaluate type for label
+        let costLabel = 'Free';
+        if (p.type === 'paid') costLabel = `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>`;
+        if (p.type === 'ad_or_coins') costLabel = `<span class="text-purple-400"><i class="fa-solid fa-link mr-1"></i>Ad / Paid</span>`;
+
         const card = document.createElement('article'); 
         card.className = "relative overflow-hidden aspect-[2/3] rounded-[1.5rem] bg-slate-100 dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 transition cursor-pointer group flex flex-col justify-end text-slate-100";
         card.onclick = () => window.openPromptDetail(p.id);
@@ -1942,7 +1946,7 @@ function renderPrompts() {
                 ${p.isPinned ? '<span class="bg-amber-500 text-[8px] font-extrabold text-slate-950 px-2 py-0.5 rounded-full shadow uppercase">Pinned</span>' : ''}
             </div>
             <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 z-10">
-                ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
+                ${costLabel}
             </span>
             <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end min-h-[50%] rounded-b-[1.5rem] pointer-events-none z-10">
                 <h4 class="text-sm font-bold text-white leading-snug line-clamp-2">${displayTitle}</h4>
@@ -2062,7 +2066,10 @@ window.renderVideoPrompts = function() {
     }
 
     videoPrompts.forEach(p => {
-        const isPaid = p.type === 'paid';
+        let costLabel = 'Free';
+        if (p.type === 'paid') costLabel = `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>`;
+        if (p.type === 'ad_or_coins') costLabel = `<span class="text-purple-400"><i class="fa-solid fa-link mr-1"></i>Ad / Paid</span>`;
+
         const finalUrl = window.resolveImageSrc(p.imageURL); 
         const finalThumbImg = p.thumbnailURL ? window.resolveImageSrc(p.thumbnailURL) : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
         
@@ -2074,7 +2081,7 @@ window.renderVideoPrompts = function() {
             <video src="${finalUrl}" poster="${finalThumbImg}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300" muted playsinline preload="none" loop onmouseover="let pl=this.play(); if(pl)pl.catch(()=>{});" onmouseout="this.pause()"></video>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
             <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-[8px] px-2.5 py-0.5 rounded-full font-bold text-slate-200 z-20">
-                ${isPaid ? `<span class="text-amber-400"><i class="fa-solid fa-coins mr-1"></i>${formatCoins(p.priceCoins)}</span>` : 'Free'}
+                ${costLabel}
             </span>
             <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-col pointer-events-none">
                 <span class="text-[9px] bg-brand-500/20 text-brand-400 font-bold px-2 py-0.5 rounded-full uppercase w-fit mb-1 border border-brand-500/30"><i class="fa-solid fa-video mr-1"></i>${p.tags || 'Video'}</span>
@@ -2112,22 +2119,22 @@ window.filterCategory = function(cat) {
     renderPrompts();
 };
 
-// Modal for Admin Verified Prompts
+// UPDATED: Modal for Admin Verified Prompts (Includes Ad / Paid Logic safely)
 window.openPromptDetail = async function(id) {
     const p = window.appState.promptsList.find(item => item.id === id);
     if (!p) return;
 
-    if (p.type === 'paid') {
-        const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[p.id];
-        const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
+    const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[p.id];
+    const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
 
+    // 1. Classic Strictly Paid Logic
+    if (p.type === 'paid') {
         if (!hasUnlocked && !isAdmin) {
             if (!window.appState.currentUser) {
                 alert("Please log in to purchase premium prompts.");
                 window.openAuthModal('login');
                 return;
             }
-
             const price = p.priceCoins;
             const userCoins = window.appState.currentUserData.coins || 0;
 
@@ -2143,17 +2150,13 @@ window.openPromptDetail = async function(id) {
                     await runTransaction(userCoinsRef, (current) => {
                         return (current || 0) - price;
                     });
-
                     await set(ref(db, `users/${window.appState.currentUser.uid}/unlockedPrompts/${p.id}`), true);
-
-                    const purchaseLogRef = push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`));
-                    await set(purchaseLogRef, {
+                    await push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`), {
                         promptId: p.id,
                         promptTitle: p.title,
                         amountCoins: price,
                         timestamp: Date.now()
                     });
-
                     alert("Unlocked successfully!");
                 } catch (err) {
                     alert("Deduction failed: " + err.message);
@@ -2165,11 +2168,22 @@ window.openPromptDetail = async function(id) {
         }
     }
 
+    // 2. Ad or Coins User Login Requirement Check (Optional, but safe so they keep the unlock status)
+    if (p.type === 'ad_or_coins' && !hasUnlocked && !isAdmin) {
+        if (!window.appState.currentUser) {
+            alert("Please log in to unlock this premium content (Free via Ad or Paid).");
+            window.openAuthModal('login');
+            return;
+        }
+    }
+
+    // Set Global State & Modal Opening
     window.appState.currentDetailPrompt = p;
     runTransaction(ref(db, `prompts/${id}/views`), (curr) => { return (curr || p.views || 0) + 1; });
     window.updatePageMetadata(p.title, `Unlock and copy: ${p.title}.`);
     window.openModal('promptDetailModal');
 
+    // Display Media
     const finalDetailsImg = window.resolveImageSrc(p.imageURL);
     const isVideo = p.mediaType === 'video' || (p.imageURL && p.imageURL.match(/\.(mp4|webm|ogg)$/i));
     const detailImgEl = document.getElementById('detailImg');
@@ -2181,15 +2195,8 @@ window.openPromptDetail = async function(id) {
         let oldVideo = document.getElementById('detailVideoEl');
         let oldOverlay = document.getElementById('detailThumbOverlay');
         
-        if (oldVideo) { 
-            oldVideo.pause(); 
-            oldVideo.removeAttribute('src'); 
-            oldVideo.load(); 
-            oldVideo.remove(); 
-        }
-        if (oldOverlay) {
-            oldOverlay.remove();
-        }
+        if (oldVideo) { oldVideo.pause(); oldVideo.removeAttribute('src'); oldVideo.load(); oldVideo.remove(); }
+        if (oldOverlay) { oldOverlay.remove(); }
 
         if (isVideo) {
             detailImgEl.classList.add('hidden');
@@ -2253,10 +2260,18 @@ window.openPromptDetail = async function(id) {
     const detailTag = document.getElementById('detailTag');
     if (detailTag) detailTag.innerText = p.tags || 'Trending';
 
+    // Handle Lock UI Logic
     const lockedOverlay = document.getElementById('lockedOverlay');
-    if (lockedOverlay) lockedOverlay.classList.add('hidden'); 
-
+    const adLockedOverlay = document.getElementById('adLockedOverlay');
     const detailPromptText = document.getElementById('detailPromptText');
+    const actionButtons = document.querySelector('#promptContentArea .flex-wrap');
+
+    // Reset First
+    if (lockedOverlay) lockedOverlay.classList.add('hidden');
+    if (adLockedOverlay) adLockedOverlay.classList.add('hidden');
+    if (detailPromptText) detailPromptText.classList.remove('blur-sm', 'select-none');
+    if (actionButtons) actionButtons.classList.remove('hidden');
+
     if (detailPromptText) {
         detailPromptText.innerText = p.description;
         if (window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com') {
@@ -2266,6 +2281,105 @@ window.openPromptDetail = async function(id) {
                     <button onclick="window.deletePrompt('${p.id}'); window.closePromptDetailModal();" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2 py-1 rounded transition">Delete</button>
                 </div>
             `;
+        }
+    }
+
+    // 3. NEW: If it's an Ad or Coins prompt and hasn't been unlocked
+    if (p.type === 'ad_or_coins' && !hasUnlocked && !isAdmin) {
+        if (detailPromptText) {
+            detailPromptText.innerText = "This content is securely locked. Unlock to view full prompt.";
+            detailPromptText.classList.add('blur-sm', 'select-none');
+        }
+        if (actionButtons) actionButtons.classList.add('hidden');
+        
+        if (adLockedOverlay) {
+            adLockedOverlay.classList.remove('hidden');
+            const adLockedPrice = document.getElementById('adLockedPrice');
+            const btnAd = document.getElementById('btnUnlockViaAd');
+            const btnCoins = document.getElementById('btnUnlockViaCoins');
+            const statusMsg = document.getElementById('adUnlockStatusMsg');
+            
+            const cost = p.adPriceCoins || 50000;
+            const adLink = p.adLink || "https://toolswebsite205.blogspot.com";
+
+            if (adLockedPrice) adLockedPrice.innerText = cost;
+            if (statusMsg) statusMsg.classList.add('hidden');
+
+            // Logic for "Watch Ad" Button
+            if (btnAd) {
+                btnAd.onclick = function() {
+                    if (statusMsg) statusMsg.classList.remove('hidden');
+                    window.open(adLink, '_blank');
+                    
+                    const onWindowFocus = async () => {
+                        window.removeEventListener('focus', onWindowFocus);
+                        if (statusMsg) {
+                            statusMsg.innerHTML = '<i class="fa-solid fa-check text-emerald-500"></i> Unlocked successfully!';
+                        }
+                        
+                        try {
+                            await set(ref(db, `users/${window.appState.currentUser.uid}/unlockedPrompts/${p.id}`), true);
+                        } catch (e) { console.log(e); }
+
+                        setTimeout(() => {
+                            if (adLockedOverlay) adLockedOverlay.classList.add('hidden');
+                            if (detailPromptText) {
+                                detailPromptText.classList.remove('blur-sm', 'select-none');
+                                detailPromptText.innerText = p.description;
+                            }
+                            if (actionButtons) actionButtons.classList.remove('hidden');
+                        }, 1000);
+                    };
+                    
+                    setTimeout(() => {
+                        window.addEventListener('focus', onWindowFocus);
+                    }, 2000);
+                };
+            }
+
+            // Logic for "Pay Coins" Button
+            if (btnCoins) {
+                btnCoins.onclick = async function() {
+                    const userCoins = window.appState.currentUserData.coins || 0;
+                    if (userCoins < cost) {
+                        alert(`Insufficient Coins! You need ${formatCoins(cost)} coins.`);
+                        window.closePromptDetailModal();
+                        window.switchTab('wallet');
+                        return;
+                    }
+
+                    if (confirm(`Pay ${formatCoins(cost)} coins to unlock?`)) {
+                        btnCoins.disabled = true;
+                        btnCoins.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+                        try {
+                            const userCoinsRef = ref(db, `users/${window.appState.currentUser.uid}/coins`);
+                            await runTransaction(userCoinsRef, (current) => {
+                                return (current || 0) - cost;
+                            });
+                            await set(ref(db, `users/${window.appState.currentUser.uid}/unlockedPrompts/${p.id}`), true);
+                            await push(ref(db, `purchaseLogs/${window.appState.currentUser.uid}`), {
+                                promptId: p.id,
+                                promptTitle: p.title,
+                                amountCoins: cost,
+                                timestamp: Date.now()
+                            });
+                            
+                            if (adLockedOverlay) adLockedOverlay.classList.add('hidden');
+                            if (detailPromptText) {
+                                detailPromptText.classList.remove('blur-sm', 'select-none');
+                                detailPromptText.innerText = p.description;
+                            }
+                            if (actionButtons) actionButtons.classList.remove('hidden');
+                            alert("Unlocked successfully!");
+                        } catch (err) {
+                            alert("Deduction failed: " + err.message);
+                        } finally {
+                            btnCoins.disabled = false;
+                            btnCoins.innerHTML = `<i class="fa-solid fa-coins"></i> Pay <span id="adLockedPrice">${cost}</span> Coins`;
+                        }
+                    }
+                };
+            }
         }
     }
 
@@ -2353,12 +2467,18 @@ window.openUserPromptDetail = async function(id) {
     if (detailTag) detailTag.innerText = p.tags || 'Community';
     
     const lockedOverlay = document.getElementById('lockedOverlay');
+    const adLockedOverlay = document.getElementById('adLockedOverlay');
     if (lockedOverlay) lockedOverlay.classList.add('hidden'); 
+    if (adLockedOverlay) adLockedOverlay.classList.add('hidden');
 
     const detailPromptText = document.getElementById('detailPromptText');
     if (detailPromptText) {
+        detailPromptText.classList.remove('blur-sm', 'select-none');
         detailPromptText.innerText = p.description;
     }
+
+    const actionButtons = document.querySelector('#promptContentArea .flex-wrap');
+    if (actionButtons) actionButtons.classList.remove('hidden');
 
     const btnArea = document.querySelector('#promptContentArea .flex-wrap');
     if (btnArea && !document.getElementById('promptShareBtn')) {
@@ -2414,8 +2534,10 @@ window.openUserPromptDetail = async function(id) {
 window.copyToClipboard = function() {
     if (!window.appState.currentDetailPrompt) return;
     const text = document.getElementById('detailPromptText').innerText;
-    if (window.appState.currentDetailPrompt.type === 'paid') {
-        const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[window.appState.currentDetailPrompt.id];
+    const p = window.appState.currentDetailPrompt;
+
+    if (p.type === 'paid' || p.type === 'ad_or_coins') {
+        const hasUnlocked = window.appState.currentUserData && window.appState.currentUserData.unlockedPrompts && window.appState.currentUserData.unlockedPrompts[p.id];
         const isAdmin = window.appState.currentUser && window.appState.currentUser.email === 'kazimmustafa38@gmail.com';
         if (!hasUnlocked && !isAdmin) {
             alert("Please unlock first.");
